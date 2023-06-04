@@ -13,5 +13,7 @@
             30
         </session-timeout>
     </session-config>
-    <welcome-file-list>Home.jsp</welcome-file-list>
+    <welcome-file-list>
+        <welcome-file>Home.jsp</welcome-file>
+    </welcome-file-list>
 </web-app>

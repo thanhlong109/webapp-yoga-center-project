@@ -56,11 +56,13 @@
 
     Example of overriding the target for project execution could look like 
 
-        <target name="run" depends="<PROJNAME>-impl.jar">
+        
+<target name="run" depends="<PROJNAME>-impl.jar">
             <exec dir="bin" executable="launcher.exe">
                 <arg file="${dist.jar}"/>
             </exec>
         </target>
+
 
     Notice that overridden target depends on jar target and not only on 
     compile target as regular run target does. Again, for list of available 
