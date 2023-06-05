@@ -16,7 +16,6 @@
         <link href="https://fonts.googleapis.com/css2?family=Jost:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="./Asset/css/common.css">
         <link rel="stylesheet" href="./Asset/css/clientHome.css">
-        <link rel="stylesheet" href="Asset/css/clientHeader.css"/>
         <link rel="stylesheet" href="./Asset/css/clientHeader.css"/>
         <link rel="stylesheet" href="./Asset/css/clientFooter.css"/>
 
@@ -44,7 +43,7 @@
             <div class="section1">
                 <div>
                     <div>
-                        <img src="../img/icon/icon1-1.png" alt="">
+                        <img src="./Asset/img/icon/icon1-1.png" alt="">
                     </div>
                     <div>
                         <h2>Many Style</h2>
@@ -55,7 +54,7 @@
                 </div>
                 <div>
                     <div>
-                        <img src="../img/icon/icon2-1.png" alt="">
+                        <img src="./Asset/img/icon/icon2-1.png" alt="">
                     </div>
                     <div>
                         <h2>Pro Instructors</h2>
@@ -66,7 +65,7 @@
                 </div>
                 <div>
                     <div>
-                        <img src="../img/icon/icon3.png" alt="">
+                        <img src="./Asset/img/icon/icon3.png" alt="">
                     </div>
                     <div>
                         <h2>Quality Conten</h2>
@@ -91,7 +90,7 @@
                 <ul class="caroursel">
                     <li class="card card-zoom">
                         <div class="card-img">
-                            <img src="../img/classes/shutterstock_1371365420-950x1075.jpg" alt="">
+                            <img src="./Asset/img/classes/shutterstock_1371365420-950x1075.jpg" alt="">
                             <div class="card-hide">
                                 <p><i class="fa-solid fa-book"></i> 7 Lessons</p>
                                 <p><i class="fa-solid fa-user-group"></i> 188 Student Enrolled</p>
@@ -109,7 +108,7 @@
                     </li>
                     <li class="card card-zoom">
                         <div class="card-img">
-                            <img src="../img/classes/shutterstock_1371365420-950x1075.jpg" alt="">
+                            <img src="./Asset/img/classes/shutterstock_1371365420-950x1075.jpg" alt="">
                             <div class="card-hide">
                                 <p><i class="fa-solid fa-book"></i> 7 Lessons</p>
                                 <p><i class="fa-solid fa-user-group"></i> 188 Student Enrolled</p>
@@ -127,7 +126,7 @@
                     </li>
                     <li class="card card-zoom">
                         <div class="card-img">
-                            <img src="../img/classes/shutterstock_1371365420-950x1075.jpg" alt="">
+                            <img src="./Asset/img/classes/shutterstock_1371365420-950x1075.jpg" alt="">
                             <div class="card-hide">
                                 <p><i class="fa-solid fa-book"></i> 7 Lessons</p>
                                 <p><i class="fa-solid fa-user-group"></i> 188 Student Enrolled</p>
@@ -145,7 +144,7 @@
                     </li>
                     <li class="card card-zoom">
                         <div class="card-img">
-                            <img src="../img/classes/shutterstock_1371365420-950x1075.jpg" alt="">
+                            <img src="./Asset/img/classes/shutterstock_1371365420-950x1075.jpg" alt="">
                             <div class="card-hide">
                                 <p><i class="fa-solid fa-book"></i> 7 Lessons</p>
                                 <p><i class="fa-solid fa-user-group"></i> 188 Student Enrolled</p>
@@ -163,7 +162,7 @@
                     </li>
                     <li class="card card-zoom">
                         <div class="card-img">
-                            <img src="../img/classes/shutterstock_1371365420-950x1075.jpg" alt="">
+                            <img src="./Asset/img/classes/shutterstock_1371365420-950x1075.jpg" alt="">
                             <div class="card-hide">
                                 <p><i class="fa-solid fa-book"></i> 7 Lessons</p>
                                 <p><i class="fa-solid fa-user-group"></i> 188 Student Enrolled</p>
@@ -181,7 +180,7 @@
                     </li>
                     <li class="card card-zoom">
                         <div class="card-img">
-                            <img src="../img/classes/shutterstock_1371365420-950x1075.jpg" alt="">
+                            <img src="./Asset/img/classes/shutterstock_1371365420-950x1075.jpg" alt="">
                             <div class="card-hide">
                                 <p><i class="fa-solid fa-book"></i> 7 Lessons</p>
                                 <p><i class="fa-solid fa-user-group"></i> 188 Student Enrolled</p>
@@ -205,7 +204,7 @@
             <!-- Start section 3 -->
             <div class="section3">
                 <div>
-                    <img src="../img/about/hp1-about-image.png" alt="">
+                    <img src="./Asset/img/about/hp1-about-image.png" alt="">
                 </div>
                 <div>
                     <h4>Our foundation is</h4>
@@ -233,7 +232,7 @@
                 <ul class="caroursel">
                     <li class="card">
                         <div class="card-img">
-                            <img src="../img/Trainer/personnel-1-600x600.jpg" alt="">
+                            <img src="./Asset/img/Trainer/personnel-1-600x600.jpg" alt="">
                         </div>
                         <div class="card2-body">
                             <h2>Mildred Reed</h2>
@@ -242,7 +241,7 @@
                     </li>
                     <li class="card">
                         <div class="card-img">
-                            <img src="../img/Trainer/personnel-1-600x600.jpg" alt="">
+                            <img src="./Asset/img/Trainer/personnel-1-600x600.jpg" alt="">
                         </div>
                         <div class="card2-body">
                             <h2>Mildred Reed</h2>
@@ -251,7 +250,7 @@
                     </li>
                     <li class="card">
                         <div class="card-img">
-                            <img src="../img/Trainer/personnel-1-600x600.jpg" alt="">
+                            <img src="./Asset/img/Trainer/personnel-1-600x600.jpg" alt="">
                         </div>
                         <div class="card2-body">
                             <h2>Mildred Reed</h2>
@@ -260,7 +259,7 @@
                     </li>
                     <li class="card">
                         <div class="card-img">
-                            <img src="../img/Trainer/personnel-1-600x600.jpg" alt="">
+                            <img src="./Asset/img/Trainer/personnel-1-600x600.jpg" alt="">
                         </div>
                         <div class="card2-body">
                             <h2>Mildred Reed</h2>
@@ -269,7 +268,7 @@
                     </li>
                     <li class="card">
                         <div class="card-img">
-                            <img src="../img/Trainer/personnel-1-600x600.jpg" alt="">
+                            <img src="./Asset/img/Trainer/personnel-1-600x600.jpg" alt="">
                         </div>
                         <div class="card2-body">
                             <h2>Mildred Reed</h2>
@@ -282,7 +281,7 @@
             <!-- Start section 5 -->
             <div class="section section5">
                 <div>
-                    <img src="/../img/icon/yoka-icon.png" alt="">
+                    <img src="./Asset/img/icon/yoka-icon.png" alt="">
                     <h2 class="section-title">Inspired Articles</h2>
                     <p class="section-des">Modern postural yoga consists largely but not exclusively of the practice of asanas. There were very few standing asanas before 1900. By 2012, there were at least 19 widespread styles.</p>
                     <div>
@@ -311,7 +310,7 @@
             <!-- Start section 6-->
             <div class="section section6">
                 <div>
-                    <img src="../img/icon/mail.png" alt="">
+                    <img src="./Asset/img/icon/mail.png" alt="">
                     <h2 class="section-title">Subscribe to our newsletter</h2>
                     <p class="section-des">Get updates for new classes and new products</p>
                     <form action="#">
@@ -323,6 +322,6 @@
             </div>
         <jsp:include page="footer.jsp"></jsp:include>
         <!-- End section 6-->
-        <script defer src="../js/caroursel.js"></script>
+        <script defer src="./Asset/js/caroursel.js"></script>
     </body>
 </html>
