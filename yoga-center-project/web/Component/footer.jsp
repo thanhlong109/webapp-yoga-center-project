@@ -8,7 +8,7 @@
     <div class="wrapper-footer">
         <div class="footer">
             <div>
-                <img src="./Asset/img/logo/footer-logo-1.png" alt="">
+                <img src="Asset/img/logo/footer-logo-1.png" alt="">
                 <p>
                     Far far away, behind the word mountains, far from countries Vokalia and Consonantia, there live the blind texts. Separated they.
                 </p>

@@ -10,7 +10,7 @@
         <div class="header-wrapper">
             <div class="header">
                 <a href="#" class="logo">
-                    <img src="./Asset/img/logo/logo.png" alt="">
+                    <img src="Asset/img/logo/logo.png" alt="">
                 </a>
                 <div class="nav-wrapper">
                     <ul class="nav">
@@ -18,7 +18,7 @@
                         <li class="active"><a href="#">Home</a></li>
                         <li><a href="#">About Us</a></li>
                         <li>
-                            <a href="html/classes.html">Classes</a>
+                            <a href="Client/viewclasses.jsp">Classes</a>
                             <i class="fa-solid fa-chevron-right subnavbtn pc-hide"></i>
                             <ul class="subnav">
                                 <i class="fa-solid fa-x closebtn"></i>
@@ -41,14 +41,11 @@
                                 <li><a href="#">About5</a></li>  
                             </ul>
                         </li>
-                        <li><a href="./html/schedule.html">Schedule</a></li>
+                        <li><a href="Client/schedule_trainee.jsp">Schedule</a></li>
                     </ul>
-                    <a href="#" class="btn btn-dark-green pc-hide">
-                        View Classes
-                    </a>
-
+                    
                     <div class="user">
-                        <a href="html/Login.html">
+                        <a href="Client/login_register.jsp">
                             <i class="fa-solid fa-user"></i> Login/Register  <!-- display name user here, if user null display login/Register-->
                         </a>
                     </div>
