@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <script src="../js/cdnjs.cloudflare.com_ajax_libs_Chart.js_2.4.0_Chart.min.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+        <div class="left-side-bar-wrapper">
+            <i class="fa-solid fa-bars"></i>
+            <div class="left-side-bar">
+                <div class="logo">
+                    <a href="#">YOWU.</a>
+                </div>
+                <div class="left-nav">
+                    
+                    <div class="main-nav">
+                        <div class="nav-item">
+                            <a href="#">Home</a>
+                        </div>
+                        <div class="nav-item active">
+                            <a href="#">Dashboard</a>
+                        </div>
+                        <div class="separate"></div>
+                        <div class="nav-item  m">
+                            Manage
+                        </div>
+                    </div>
+                    <ul class="nav-2">
+                        
+                        <li class="nav-2-main-container">
+                            <div class="nav-2-main">
+                                <i class="fa-solid fa-book"></i> Course <i class="fa-solid fa-chevron-right js-arrow"></i>
+                            </div> 
+                            <ul class="sub-nav-2">
+                                <li class="active"><a href="#">Add Category Course</a></li>
+                                <li><a href="#">Edit Category Course</a></li>
+                                <li><a href="#">Add New Course</a></li>
+                                <li><a href="#">Edit Course</a></li>
+                                <li><a href="#">Add course time</a></li>
+                                <li><a href="#">Edit Course time</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-2-main-container">
+                            <div class="nav-2-main">
+                                <i class="fa-solid fa-money-bill-wave"></i> Bill <i class="fa-solid fa-chevron-right js-arrow"></i>
+                            </div>
+                            <ul class="sub-nav-2">
+                                <li><a href="#">Bill Analysis</a></li>
+                                <li><a href="#">view bill details</a></li>
+                            </ul> 
+                        </li>
+                        <li class="nav-2-main-container">
+                            <div class="nav-2-main">
+                                <i class="fa-sharp fa-solid fa-rss"></i> Blog <i class="fa-solid fa-chevron-right js-arrow"></i>
+                            </div> 
+                            <ul class="sub-nav-2">
+                                <li><a href="#">Blog Analysis</a></li>
+                            </ul> 
+                        </li>
+                        <li class="nav-2-main-container">
+                            <div class="nav-2-main">
+                                <i class="fa-solid fa-user-group"></i> Account <i class="fa-solid fa-chevron-right js-arrow"></i>
+                            </div>
+                            <ul class="sub-nav-2">
+                                <li><a href="#">Account Analysis</a></li>
+                                <li><a href="#">Add New Account</a></li>
+                                <li><a href="#">Edit Account</a></li>
+                            </ul> 
+    
+                        </li>
+                        <li class="nav-2-main-container">
+                            <div class="nav-2-main">
+                                <i class="fa-solid fa-calendar-days"></i> Schedule <i class="fa-solid fa-chevron-right js-arrow"></i>
+                            </div>
+                            <ul class="sub-nav-2">
+                                <li><a href="#">View Schedule</a></li>
+                                <li><a href="#">Edit Schedule</a></li>
+                            </ul> 
+                         </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="sub-container" >
+            <div class="header-wrapper">
+                <div class="header">
+                    <i class="fa-solid fa-user"></i>
+                    <div>
+                        <h3>admin</h3>
+                        <p>Administrator</p>
+                    </div>
+                </div>
+            </div>
+            <div class="body-sub-container">
+                <div class="section1">
+                    <div class="chart-container">
+                        <canvas id="jsChart1"></canvas>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="jsChart2"></canvas>
+                        <h3 class="center-chart" >763</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script defer >
+        /*chart 1 sales*/
+        const ctx = document.getElementById('jsChart1');
+        const data = {
+            labels: ['January', 'February', 'March', 'Aprill', 'May', 'June','July','August','September','October','November','December'],
+            datasets: [{
+            label: 'Course',
+            backgroundColor:'rgba(54, 162, 235, 0.8)',
+            data: [12, 19, 3, 5, 2, 3, 6, 8],
+            borderWidth: 1
+            }, {
+                label: 'Membership',
+                backgroundColor:'rgba(255, 99, 132, 0.8)',
+                data: [12, 19, 3, 5, 2, 3, 3 ,4],
+                borderWidth: 1
+            }],
+            
+        };
+        const config = {
+                type: 'bar',
+                data: data,
+                options: {
+                  scales: {
+                    y: {
+                      beginAtZero: true
+                    }
+                  },
+                  tooltips: {
+                        callbacks: {
+                        label: (item) => `Sales: ${item.yLabel} $`,
+                        },
+                    },
+                    responsive:true,
+                    title: {
+                        display: true,
+                        text: 'Sales chart',
+                        position: 'bottom',
+                       
+                    }
+                   
+                },
+              };
+        new Chart(ctx,config);
+        /*chart2 course trending*/
+        const ctx2 = document.getElementById("jsChart2");
+        const data2 = {
+                    labels: [
+                        'Red',
+                        'Blue',
+                        'Yellow'
+                    ],
+                    datasets: [{
+                        label: 'My First Dataset',
+                        data: [300, 50, 100],
+                        backgroundColor: [
+                            'rgb(255, 99, 132)',
+                            'rgb(54, 162, 235)',
+                            'rgb(255, 205, 86)',
+                            'rgb(201, 203, 207)',
+                            'rgb(75, 192, 192)',
+                            '#ff00ff',
+                            '#ff7f00',
+                            '#ffff00','#00ff00'
+                        ],
+                        hoverOffset: 4
+                    }]
+                    };
+        const config2 = {
+            type: 'doughnut',
+            data: data2,
+            options:{
+                title: {
+                    display: true,
+                    text: 'Sales chart',
+                    position: 'bottom',
+                    
+                },responsive:true,
+                    
+            }
+        };
+        let sum = 10;
+        document.querySelector(".center-chart").innerHTML = sum;
+        new Chart(ctx2,config2);
+    </script>
+
+
+    <script defer>
+
+        /*open up down each part in left side bar*/
+        const nav2btns = document.querySelectorAll(".nav-2-main-container");
+        nav2btns.forEach(btn=>{
+            let subNav2 = btn.querySelector(".sub-nav-2");
+            let arrow = btn.querySelector(".js-arrow");
+            if(subNav2!=null){
+                btn.addEventListener("click",()=>{
+                    if(subNav2.classList.contains("show")){
+                        subNav2.classList.remove("show");
+                        arrow.classList.remove("fa-chevron-down");
+                        arrow.classList.add("fa-chevron-right");
+                    }else{
+                        subNav2.classList.add("show");
+                        arrow.classList.add("fa-chevron-down");
+                        arrow.classList.remove("fa-chevron-right");
+                    }
+                })
+            }
+            subNav2.addEventListener("click",(event)=>{
+                event.stopPropagation();
+            })
+        })
+        /*show active sub-nav in nav-bar when load new page*/
+        const activeShow = document.querySelector(".sub-nav-2 .active");
+        let acP = activeShow.parentElement;
+        acP.classList.add("show");
+        let arr = acP.parentElement.querySelector(".js-arrow"); 
+        arr.classList.remove("fa-chevron-right");
+        arr.classList.add("fa-chevron-down");
+       /* open close left side bar*/
+        const menuBtn = document.querySelector(".fa-bars");
+        const leftBar = document.querySelector(".left-side-bar");
+        menuBtn.addEventListener("click",()=>{
+            leftBar.classList.toggle("open");
+        })
+       
+    </script>
+</body>
+</html>
