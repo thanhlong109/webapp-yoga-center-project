@@ -22,7 +22,7 @@ public class DBHelpler implements Serializable {
         String url = "jdbc:sqlserver://localhost:1433;"
                 + "user=sa;password=12345;databaseName=YogaCenterDB;encrypt=false";
         //3. Open Connection 
-        Connection con = DriverManager.getConnection(url, "sa", "123456");
+        Connection con = DriverManager.getConnection(url, "sa", "12345");
 
         return con;
     }
