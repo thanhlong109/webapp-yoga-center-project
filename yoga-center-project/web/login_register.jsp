@@ -15,6 +15,7 @@
         <link href="https://fonts.googleapis.com/css2?family=Jost:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="./Asset/css/font/css/all.css"/>
         <link rel="stylesheet" href="./Asset/css/login.css">
+        
     </head>
 
     <div class="banner">
