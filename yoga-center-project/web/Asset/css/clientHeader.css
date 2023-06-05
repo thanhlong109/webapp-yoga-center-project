@@ -7,6 +7,7 @@
     right: 0;
     top: 0;
     box-shadow: 0 -3px 15px rgba(1, 1, 1, 0.25);
+    
 }
 .header{
     display: grid;
@@ -15,14 +16,15 @@
     align-items: center;
     max-width: 1320px;
     margin: 0 auto;
+    height: 138px;
 }
 .header a{
     text-decoration: none;
 }
 
 .header .logo img{
-    height: 200px;
-    width: 200px;
+    height: 123px;
+    width: 138px;
 }
 
 /*navigation bar*/
