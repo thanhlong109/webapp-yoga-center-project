@@ -2,10 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.yowo.repository;
+package com.yowu.repository;
 
 
-import com.yowu.model.Category;
 import com.yowu.model.Course;
 import com.yowu.util.DBHelpler;
 import java.sql.PreparedStatement;
