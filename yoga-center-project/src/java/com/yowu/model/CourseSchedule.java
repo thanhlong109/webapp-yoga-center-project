@@ -11,12 +11,13 @@ import java.sql.Time;
  * @author ACER
  */
 public class CourseSchedule {
+
     private int id;
     private String dateOfWeek;
     private boolean isActive;
-    private Time startTime,endTime;
-    private Course course; 
-    
+    private Time startTime, endTime;
+    private Course course;
+
     public CourseSchedule() {
     }
 
@@ -76,7 +77,5 @@ public class CourseSchedule {
     public void setCourse(Course course) {
         this.course = course;
     }
-    
-    
-    
+
 }

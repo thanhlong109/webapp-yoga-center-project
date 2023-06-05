@@ -9,6 +9,7 @@ package com.yowu.model;
  * @author DungVNT
  */
 public class Permission {
+
     private int id;
     private String name;
     private String description;
@@ -45,5 +46,5 @@ public class Permission {
     public void setDescription(String description) {
         this.description = description;
     }
-    
+
 }

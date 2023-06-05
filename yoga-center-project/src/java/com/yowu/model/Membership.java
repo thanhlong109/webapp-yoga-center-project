@@ -9,6 +9,7 @@ package com.yowu.model;
  * @author DungVNT
  */
 public class Membership {
+
     private int id;
     private String name;
     private int duration;
@@ -85,6 +86,5 @@ public class Membership {
     public void setIsActive(boolean isActive) {
         this.isActive = isActive;
     }
-    
-    
+
 }

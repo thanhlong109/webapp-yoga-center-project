@@ -6,21 +6,19 @@ package com.yowu.model;
 
 /**
  *
- * @author ACER
+ * @author DungVNT
  */
-public class Category {
+public class Role {
 
     private int id;
     private String name;
-    private boolean isActive;
 
-    public Category() {
+    public Role() {
     }
 
-    public Category(int id, String name, boolean isActive) {
+    public Role(int id, String name) {
         this.id = id;
         this.name = name;
-        this.isActive = isActive;
     }
 
     public int getId() {
@@ -37,14 +35,6 @@ public class Category {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public boolean isIsActive() {
-        return isActive;
-    }
-
-    public void setIsActive(boolean isActive) {
-        this.isActive = isActive;
     }
 
 }

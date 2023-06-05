@@ -9,8 +9,9 @@ package com.yowu.model;
  * @author ACER
  */
 public class Course {
+
     private int id, duration;
-    private String title,img, detail;
+    private String title, img, detail;
     private Category category;
     private boolean isActive;
     private float price;
@@ -92,6 +93,5 @@ public class Course {
     public void setPrice(float price) {
         this.price = price;
     }
-    
-    
+
 }
