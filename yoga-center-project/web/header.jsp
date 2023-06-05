@@ -48,7 +48,7 @@
                     </a>
 
                     <div class="user">
-                        <a href="html/Login.html">
+                        <a href="login_register.jsp">
                             <i class="fa-solid fa-user"></i> Login/Register  <!-- display name user here, if user null display login/Register-->
                         </a>
                     </div>
