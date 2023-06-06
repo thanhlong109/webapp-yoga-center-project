@@ -4,6 +4,8 @@
  */
 package com.yowu.model;
 
+import java.sql.Date;
+
 /**
  *
  * @author DungVNT
@@ -15,17 +17,29 @@ public class Blog {
     private String detail;
     private boolean isActive;
     private Account account;
+    private Date date;
 
     public Blog() {
     }
 
-    public Blog(int id, String title, String detail, boolean isActive, Account account) {
+    
+
+    public Blog(int id, String title, String detail, boolean isActive, Account account, Date date) {
         this.id = id;
         this.title = title;
         this.detail = detail;
         this.isActive = isActive;
         this.account = account;
+        this.date = date;
     }
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+   
 
     public int getId() {
         return id;
