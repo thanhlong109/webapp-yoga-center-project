@@ -18,20 +18,30 @@ public class Blog {
     private boolean isActive;
     private Account account;
     private Date date;
+    private String img;
 
     public Blog() {
     }
 
-    
-
-    public Blog(int id, String title, String detail, boolean isActive, Account account, Date date) {
+    public Blog(int id, String title, String detail, boolean isActive, Account account, Date date, String img) {
         this.id = id;
         this.title = title;
         this.detail = detail;
         this.isActive = isActive;
         this.account = account;
         this.date = date;
+        this.img = img;
     }
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
+    }
+
+    
     public Date getDate() {
         return date;
     }
