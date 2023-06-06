@@ -17,7 +17,7 @@ import java.util.List;
  * @author ThangNC
  */
 public class CourseWishlistRepository {
-    public List<CourseWishlist> getAll(){
+    public List<CourseWishlist> getAll(){ 
         String sql = "select * from tblCourseWishlist";
         List<CourseWishlist> list = new ArrayList<>();
         

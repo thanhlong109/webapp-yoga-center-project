@@ -17,7 +17,7 @@ import java.util.List;
  */
 public class AccountRepository {
     public List<Account> getAll(){
-        String sql = "select * from tblAccount";
+        String sql = "select * from tblAccount"; 
         List<Account> list = new ArrayList<>();
         
         try(PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)){
