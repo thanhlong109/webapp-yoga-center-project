@@ -18,7 +18,7 @@ import java.util.List;
 public class RoleRepository {
     public List<Role> getAll(){
         String sql = "select * from tblRole";
-        List<Role> list = new ArrayList<>(); 
+        List<Role> list = new ArrayList<>();
         
         try(PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)){
             try(ResultSet rs = stmt.executeQuery()){
