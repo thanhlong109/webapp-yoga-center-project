@@ -14,16 +14,16 @@ import java.util.List;
 
 /**
  *
- * @author ThangNC
+ * @author Chien Thang
  */
 public class CourseWishlistRepository {
-    public List<CourseWishlist> getAll(){
+    public List<CourseWishlist> getAll() {
         String sql = "select * from tblCourseWishlist";
         List<CourseWishlist> list = new ArrayList<>();
-        
-        try(PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)){
-            try(ResultSet rs = stmt.executeQuery()){
-                while(rs.next()){
+
+        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
+            try ( ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
                     AccountRepository acc = new AccountRepository();
                     CourseRepository cr = new CourseRepository();
                     CourseWishlist c = new CourseWishlist();
@@ -32,18 +32,18 @@ public class CourseWishlistRepository {
                     list.add(c);
                 }
             }
-        }catch(Exception e){
+        } catch (Exception e) {
             System.out.println(e);
         }
         return list;
     }
-    
-    public CourseWishlist detail(int id){
+
+    public CourseWishlist detail(int id) {
         String sql = "select * from tblCourseWishlist where course_id=? ";
-        try(PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)){
+        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
             stmt.setInt(1, id);
-            try(ResultSet rs = stmt.executeQuery()){
-                while(rs.next()){
+            try ( ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
                     CourseWishlist c = new CourseWishlist();
                     AccountRepository acc = new AccountRepository();
                     CourseRepository cr = new CourseRepository();
@@ -52,22 +52,22 @@ public class CourseWishlistRepository {
                     return c;
                 }
             }
-        }catch(Exception e){
+        } catch (Exception e) {
             System.out.println(e);
         }
         return null;
     }
 
     public void add(CourseWishlist c) {
-    String sql = "INSERT INTO tblCourseWishlist (account_id, course_id) VALUES (?, ?)";
+        String sql = "INSERT INTO tblCourseWishlist (account_id, course_id) VALUES (?, ?)";
 
-    try (PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
-        stmt.setInt(1, c.getAccount().getId());
-        stmt.setInt(2, c.getCourse().getId());
-        stmt.executeUpdate();
-    } catch (Exception e) {
-        System.out.println(e);
+        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
+            stmt.setInt(1, c.getAccount().getId());
+            stmt.setInt(2, c.getCourse().getId());
+            stmt.executeUpdate();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }
-}
 
 }

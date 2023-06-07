@@ -13,7 +13,7 @@ import java.util.List;
 
 /**
  *
- * @author ThangNC
+ * @author Chien Thang
  */
 public class AccountRepository {
     public List<Account> getAll(){
