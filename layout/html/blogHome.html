@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/common.css">
+    <style>
+        .banner{
+            padding: 12% 20px 10% 20px;
+            width: 100%;
+            text-align: center;
+            background: url(../img/bg/page-title-1.png) top center / cover no-repeat;
+        }
+        .banner h2{
+            color: #227179;
+            font-size: 3.3vw;
+        }
+        .container{
+            display: grid;
+            max-width: 1220px;
+            margin: 0 auto;
+            padding: 64px 0;
+            grid-template-columns: 2fr 1fr;
+            gap: 64px;
+        }
+
+        .left-container{
+            display: flex;
+            flex-direction: column;
+            gap: 64px;
+        }
+
+        .blog-item{
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.15);
+        }
+        .blog-item a{
+            text-decoration: none;
+        }
+        .blog-item-img{
+            overflow: hidden;
+        }
+        .blog-item-img img{
+            width: 100%;
+            transition: all ease-in-out .4s;
+            display: block;
+        }
+        .blog-item-img img:hover{
+            transform: scale(1.2);
+            filter: brightness(60%);
+        }
+        .blog-item-body{
+            padding: 55px;
+            position: relative;
+        }
+        .blog-item-date{
+            position: absolute;
+            padding: 10px 29px;
+            background-color: #efefef;
+            color: #3dbca8;
+            font-size: 15px;
+            border-radius: 24px;
+            top: 0;
+            left: 0;
+            transform: translate(50%,-50%);
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
+        }
+        .blog-item-author{
+            color: #a7a7a7;
+            font-size: 16px;
+        }
+        .blog-item-title{
+            color: #547670;
+            font-size: 35px;
+            font-weight: 500;
+            margin-top: 8px;
+            margin-bottom: 24px;
+            display: block;
+        }
+        .text{
+            font-size: 16px;
+            color: #5e5e5e;
+            line-height: 1.7;
+        }
+        .read-more-btn{
+            color: #3dbca8;
+            padding: 4px 0;
+            transition: all ease-in-out .3s;
+            border-bottom: 1px solid #fff;
+            font-weight: 600;
+        }
+        .read-more-btn:hover{
+            color: #547670;
+            border-bottom: 1px solid #547670;
+        }
+        .read-more-btn:hover i{
+            opacity: 1;
+        }
+        .read-more-btn i{
+            opacity: 0;
+            transition: opacity ease-in-out .3s;
+            margin-left: 8px;
+            margin-top: 32px;
+            
+        }
+
+        .box-section{
+            padding: 16px 0 32px 0;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .box-title{
+            font-size: 20px;
+            color: #383838;
+            margin-bottom: 32px;
+        }
+        .small-blog-item{
+            display: flex;
+            gap: 16px;
+        }
+        .small-blog-item a{
+            font-size: 16px;
+            color: #444444;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .small-blog-item-img{
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            max-width: 75px;
+            max-height: 75px;
+            min-width: 75px;
+            min-height: 75px;
+        }
+        .small-blog-item-img img{
+           height: 100%;
+           display: block;
+        }
+        .small-blog-item-info{
+            display: flex;
+            color: #a0a0a0;
+            font-size: 14px;
+            margin-top: 8px;
+            gap: 16px;
+        }
+        
+
+    </style>
+</head>
+<body>
+    <div class="banner">
+        <h2>Blog Home</h2>
+    </div>
+    <div class="container">
+        <div class="left-container">
+            <div class="blog-item">
+                <div class="blog-item-img">
+                    <img src="../img/blog/shutterstock_1371365435-1100x490.jpg" alt="">
+                </div>
+                <div class="blog-item-body">
+                    <span class="blog-item-date">July 31, 2020</span>
+                    <div>
+                        <a class="blog-item-author" href="#">James Smith</a>
+                    </div>
+                    <a class="blog-item-title">
+                        Is Information Overload Making it Harder to be Happy?
+                    </a>
+                    <div class="text">
+                            I neglect my talents Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean. A small river named Duden flows by  
+                    </div>
+                    <a href="#" class="read-more-btn">Read More <i class="fa-solid fa-chevron-right"></i></a>
+                </div>
+            </div>
+
+            <div class="blog-item">
+                <div class="blog-item-img">
+                    <img src="../img/blog/shutterstock_1371365435-1100x490.jpg" alt="">
+                </div>
+                <div class="blog-item-body">
+                    <span class="blog-item-date">July 31, 2020</span>
+                    <div>
+                        <a class="blog-item-author" href="#">James Smith</a>
+                    </div>
+                    <a class="blog-item-title">
+                        Is Information Overload Making it Harder to be Happy?
+                    </a>
+                    <div class="text">
+                            I neglect my talents Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean. A small river named Duden flows by  
+                    </div>
+                    <a href="#" class="read-more-btn">Read More <i class="fa-solid fa-chevron-right"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="right-container">
+            <div class="box-section">
+                <h2 class="box-title">Text Widget</h2>
+                <p class="text" >A wonderful serenity has taken possession of my entire soul, like these sweet mornings of spring which I enjoy with my whole heart. I am alone, and feel the charm of existence in this spot.</p>
+            </div>
+            <div class="box-section">
+                <h2 class="box-title">Recent Articles</h2>
+                <div class="small-blog-item">
+                    <div class="small-blog-item-img">
+                        <img src="../img/blog/shutterstock_1371365435-1100x490.jpg" alt="">
+                    </div>
+                    <div>
+                        <a>Is Information Overload Making it Harder to be Happy?</a>
+                        <div class="small-blog-item-info">
+                            <div><i class="fa-regular fa-clock"></i> July 31, 2020</div>
+                            <div><i class="fa-solid fa-pen"></i> James Smith</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="small-blog-item">
+                    <div class="small-blog-item-img">
+                        <img src="../img/blog/shutterstock_1371365435-1100x490.jpg" alt="">
+                    </div>
+                    <div>
+                        <a>Is Information Overload Making it Harder to be Happy?</a>
+                        <div class="small-blog-item-info">
+                            <div><i class="fa-regular fa-clock"></i> July 31, 2020</div>
+                            <div><i class="fa-solid fa-pen"></i> James Smith</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="small-blog-item">
+                    <div class="small-blog-item-img">
+                        <img src="../img/blog/shutterstock_1371365435-1100x490.jpg" alt="">
+                    </div>
+                    <div>
+                        <a>Is Information Overload Making it Harder to be Happy?</a>
+                        <div class="small-blog-item-info">
+                            <div><i class="fa-regular fa-clock"></i> July 31, 2020</div>
+                            <div><i class="fa-solid fa-pen"></i> James Smith</div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</body>
+</html>
