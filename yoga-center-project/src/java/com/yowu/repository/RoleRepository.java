@@ -67,6 +67,6 @@ public class RoleRepository {
     
     public static void main(String[] args) {
         RoleRepository cr = new RoleRepository();
-        System.out.println(cr.getAll().get(0).getName());
+        System.out.println(cr.getAll());
     }
 }

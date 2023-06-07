@@ -58,4 +58,16 @@ public class CourseWishlistRepository {
         return null;
     }
 
+    public void add(CourseWishlist c) {
+    String sql = "INSERT INTO tblCourseWishlist (account_id, course_id) VALUES (?, ?)";
+
+    try (PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
+        stmt.setInt(1, c.getAccount().getId());
+        stmt.setInt(2, c.getCourse().getId());
+        stmt.executeUpdate();
+    } catch (Exception e) {
+        System.out.println(e);
+    }
+}
+
 }

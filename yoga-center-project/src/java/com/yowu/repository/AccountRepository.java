@@ -137,10 +137,31 @@ public class AccountRepository {
         return status==1;
     }
     
+    public boolean add(Account c) {
+    String sql = "INSERT INTO tblAccount (account_id, account_img, account_name, "
+            + "account_password, account_email, account_phone, account_is_active, role_id) "
+            + "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+    int status = 0;
+    try (PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
+        stmt.setInt(1, c.getId());
+        stmt.setString(2, c.getImg());
+        stmt.setString(3, c.getName());
+        stmt.setString(4, c.getPassword());
+        stmt.setString(5, c.getEmail());
+        stmt.setString(6, c.getPhone());
+        stmt.setBoolean(7, c.isIsActive());
+        stmt.setInt(8, c.getRole().getId());
+        status = stmt.executeUpdate();
+    } catch (Exception e) {
+        System.out.println(e);
+    }
+    return status == 1;
+}
+
+    
     public static void main(String[] args) {
         CourseRepository cr = new CourseRepository();
         System.out.println(cr.delete(1));
     }
-    
     
 }

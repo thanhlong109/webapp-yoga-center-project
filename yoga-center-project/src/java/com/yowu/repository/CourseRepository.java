@@ -4,7 +4,6 @@
  */
 package com.yowu.repository;
 
-
 import com.yowu.model.Course;
 import com.yowu.util.DBHelpler;
 import java.sql.PreparedStatement;
@@ -17,13 +16,14 @@ import java.util.List;
  * @author ACER
  */
 public class CourseRepository {
-     public List<Course> getAll(){
+
+    public List<Course> getAll() {
         String sql = "select * from tblCourse";
         List<Course> list = new ArrayList<>();
-        
-        try(PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)){
-            try(ResultSet rs = stmt.executeQuery()){
-                while(rs.next()){
+
+        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
+            try ( ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
                     CategoryRepository cr = new CategoryRepository();
                     Course c = new Course();
                     c.setId(rs.getInt("course_id"));
@@ -37,18 +37,18 @@ public class CourseRepository {
                     list.add(c);
                 }
             }
-        }catch(Exception e){
+        } catch (Exception e) {
             System.out.println(e);
         }
         return list;
     }
-    
-    public Course detail(int id){
+
+    public Course detail(int id) {
         String sql = "select * from tblCourse where course_id=? ";
-        try(PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)){
+        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
             stmt.setInt(1, id);
-            try(ResultSet rs = stmt.executeQuery()){
-                while(rs.next()){
+            try ( ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
                     CategoryRepository cr = new CategoryRepository();
                     Course c = new Course();
                     c.setId(rs.getInt("course_id"));
@@ -62,42 +62,66 @@ public class CourseRepository {
                     return c;
                 }
             }
-        }catch(Exception e){
+        } catch (Exception e) {
             System.out.println(e);
         }
         return null;
     }
-    public boolean update(Course c){
+
+    public boolean update(Course c) {
         String sql = "update tblCourse set course_title=? , course_is_active=? ,course_detail=? , course_duration=? , course_img=? , course_price , category_id=?  where course_id=? ";
         int status = 0;
-        try(PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)){
+        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
             stmt.setString(1, c.getTitle());
             stmt.setBoolean(2, c.isIsActive());
             stmt.setString(3, c.getDetail());
             stmt.setInt(4, c.getDuration());
             stmt.setString(5, c.getImg());
             stmt.setFloat(6, c.getPrice());
-            stmt.setInt(7,c.getCategory().getId());
+            stmt.setInt(7, c.getCategory().getId());
             stmt.setInt(8, c.getId());
             status = stmt.executeUpdate();
-        }catch(Exception e){
+        } catch (Exception e) {
             System.out.println(e);
         }
-        return status==1;
+        return status == 1;
     }
-    public boolean delete(int id){
-         String sql = "update tblCourse set course_is_active=? where course_id=? ";
+
+    public boolean delete(int id) {
+        String sql = "update tblCourse set course_is_active=? where course_id=? ";
         int status = 0;
-        try(PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)){
+        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
             stmt.setBoolean(1, false);
             stmt.setInt(2, id);
             status = stmt.executeUpdate();
-        }catch(Exception e){
+        } catch (Exception e) {
             System.out.println(e);
         }
-        return status==1;
+        return status == 1;
     }
-    
+
+    public boolean add(Course c) {
+        String sql = "INSERT INTO tblCourse (course_id, category_id, course_detail, course_duration, course_img, course_is_active, course_price, course_title) "
+                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        int status = 0;
+        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
+            stmt.setInt(1, c.getId());
+            stmt.setInt(2, c.getCategory().getId());
+            stmt.setString(3, c.getDetail());
+            stmt.setInt(4, c.getDuration());
+            stmt.setString(5, c.getImg());
+            stmt.setBoolean(6, c.isIsActive());
+            stmt.setFloat(7, c.getPrice());
+            stmt.setString(8, c.getTitle());
+            status = stmt.executeUpdate();
+            System.out.println("Add success");
+
+        } catch (Exception e) {
+            System.out.println("Failed" + e.getMessage());
+        }
+        return status == 1;
+    }
+
     public static void main(String[] args) {
         CourseRepository cr = new CourseRepository();
         System.out.println(cr.detail(1).getTitle());

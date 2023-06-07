@@ -69,6 +69,7 @@ public class CategoryRepository {
         }
         return status==1;
     }
+    
     public boolean delete(int id){
          String sql = "update tblCategory set category_is_active=? where category_id=? ";
         int status = 0;
