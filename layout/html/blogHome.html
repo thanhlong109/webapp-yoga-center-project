@@ -148,7 +148,171 @@
             margin-top: 8px;
             gap: 16px;
         }
-        
+        /*post blog*/
+
+        .post-blog{
+            position: fixed;
+            z-index: 80;
+            background-color: rgba(0, 0, 0, 0.6);
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            display: flex;
+            padding: 32px 0;
+            display: none;
+            
+        }
+        .post-blog.active{
+            display: block;
+        }
+        .post-blog-container{
+            width: 700px;
+            margin: auto;
+            background-color: white;
+            border-radius: 8px;
+            padding: 32px;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            position: relative;
+            animation: slideUp .3s ease-in-out;
+        }
+        .post-blog-container .close-btn{
+            position: absolute;
+            top: 32px;
+            right: 32px;
+            font-size: 18px;
+            color: #383838;
+            font-weight: bold;
+            padding: 12px;
+            cursor: pointer;
+        }
+        .post-blog-container .close-btn:hover{
+            color: rgb(230, 55, 55);
+        }
+        .post-blog-container form{
+            display: flex;
+            flex-direction: column;
+        }
+        .post-blog-container h2{
+            font-size: 18px;
+            color: #333;
+        }
+        .img-container{
+            padding: 0 32px;
+            width: 80%;
+            margin: 0 auto; 
+        }
+        .img-container{
+            margin-bottom: 16px;
+        }
+        .img-container img{
+            max-width:100%;
+            display: block;
+            max-height: 200px;
+        }
+        input[type="file"]{
+            display: none;
+        }
+        .img-container figcaption{
+            margin: 4px auto 16px;
+            text-align: center;
+            font-size: 12px;
+        }
+        .uploadImg{
+            max-width: fit-content;
+            padding: 8px 16px;
+            background-color: #025bee;
+            color: white;
+            border-radius: 4px;
+            margin-bottom: 32px;
+            font-size: 14px;
+            border: 2px solid #025bee;
+            transition: all ease-in-out .3s;
+            cursor: pointer;
+        }
+        .uploadImg i{
+            font-size: 18px;
+            margin-right: 8px;
+        }
+        .uploadImg:hover{
+            background-color: white;
+            color: #025bee;
+        }
+        .img-label{
+            margin-bottom: 32px;
+        }
+        .img-label label:first-child{
+            margin-right: 16px;
+        }
+        .box-input{
+            display: flex;
+            margin-bottom: 16px;
+            display: flex;
+        }
+        .box-input label{
+            width: 70px;
+        }
+        .box-input input,.box-input textarea{
+            flex: 1;
+            padding:8px;
+            border-radius:4px;
+            outline: none;
+            border: 2px solid #444444;
+        }
+        .box-input textarea{
+            max-height: 150px;
+            height: 150px;
+        }
+        /**/
+        .post-blog-btn{
+            position: fixed;
+            right: 4px;
+            top: 40%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            padding-right: 32px;
+        }
+        .post-blog-btn-icon{
+            width: 52px;
+            height: 52px;
+            border: 2px solid #383838;
+            color: #383838;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            background-color: white;
+            transform: translateX(50%);
+        }
+        .post-blog-btn-des{
+            background-color: #383838;
+            color: white;
+            height: 52px;
+            line-height: 52px;
+
+            border-radius: 0 24px 24px 0 ;
+            max-width: 0;
+            transition: all ease-in-out .4s;
+        }
+        .post-blog-btn:hover .post-blog-btn-des{
+            max-width: 300px;
+            padding-left: 32px;
+            padding-right: 32px;
+        }
+
+        @keyframes slideUp{
+            0%{
+                transform: translateY(50%);
+                opacity: 0;
+            }
+            100%{
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
 
     </style>
 </head>
@@ -208,7 +372,7 @@
                         <img src="../img/blog/shutterstock_1371365435-1100x490.jpg" alt="">
                     </div>
                     <div>
-                        <a>Is Information Overload Making it Harder to be Happy?</a>
+                        <a href="#">Is Information Overload Making it Harder to be Happy?</a>
                         <div class="small-blog-item-info">
                             <div><i class="fa-regular fa-clock"></i> July 31, 2020</div>
                             <div><i class="fa-solid fa-pen"></i> James Smith</div>
@@ -220,7 +384,7 @@
                         <img src="../img/blog/shutterstock_1371365435-1100x490.jpg" alt="">
                     </div>
                     <div>
-                        <a>Is Information Overload Making it Harder to be Happy?</a>
+                        <a href="#">Is Information Overload Making it Harder to be Happy?</a>
                         <div class="small-blog-item-info">
                             <div><i class="fa-regular fa-clock"></i> July 31, 2020</div>
                             <div><i class="fa-solid fa-pen"></i> James Smith</div>
@@ -232,7 +396,7 @@
                         <img src="../img/blog/shutterstock_1371365435-1100x490.jpg" alt="">
                     </div>
                     <div>
-                        <a>Is Information Overload Making it Harder to be Happy?</a>
+                        <a href="#">Is Information Overload Making it Harder to be Happy?</a>
                         <div class="small-blog-item-info">
                             <div><i class="fa-regular fa-clock"></i> July 31, 2020</div>
                             <div><i class="fa-solid fa-pen"></i> James Smith</div>
@@ -242,6 +406,69 @@
 
             </div>
         </div>
+        <div class="post-blog">
+            <div class="post-blog-container">
+                <i class="fa-solid fa-x close-btn"></i>
+                <h2><i class="fa-solid fa-star"></i> New Blog</h2>
+                <form action="">
+                    <figure class="img-container">
+                        <img id="js-display-img" src="" alt="">
+                        <figcaption  id="js-name-img"></figcaption>
+                    </figure>
+                    <input id="jsuploadImg" type="file" name="blogImg" accept="image/*">
+                    <div class="img-label">
+                        <label>Img cover:</label>
+                        <label class="uploadImg" for="jsuploadImg"><i class="fa-solid fa-upload"></i> Choose A Photo</label>
+                    </div>
+                    
+                    <div class="box-input">
+                        <label>Titles: </label>
+                        <input name="txtBlogTitle" placeholder="Blog title" type="text">
+                    </div>
+                    <div class="box-input">
+                        <label>Content: </label>
+                        <textarea name="txtBlogContent" placeholder="Blog content"></textarea>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="post-blog-btn">
+            <div class="post-blog-btn-icon">
+                <i class="fa-solid fa-plus"></i>
+                <i class="fa-solid fa-pen"></i>
+            </div>
+            <div class="post-blog-btn-des">
+                Write your blog?
+            </div>
+            
+        </div>
     </div>
+    <script defer>
+        const displayImg = document.getElementById("js-display-img");
+        const displayName = document.getElementById("js-name-img");
+        const btnImg = document.getElementById("jsuploadImg");
+
+        const btnCloseBlog = document.querySelector(".close-btn");
+        const postBlog = document.querySelector(".post-blog");
+        const btnPostBlog = document.querySelector(".post-blog-btn");
+
+        btnImg.onchange = ()=>{
+            let reader = new FileReader();
+            reader.readAsDataURL(btnImg.files[0]);
+            reader.onload = ()=>{
+                displayImg.setAttribute("src",reader.result);
+            }
+            console.log(btnImg.files[0].name);
+            displayName.textContent = btnImg.files[0].name;
+        }
+
+        btnCloseBlog.addEventListener("click",()=>{
+            postBlog.classList.toggle("active");
+        })
+        btnPostBlog.addEventListener("click",()=>{
+            postBlog.classList.toggle("active");
+        })
+
+    </script>
 </body>
 </html>
