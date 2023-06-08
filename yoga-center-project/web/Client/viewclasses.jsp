@@ -135,6 +135,6 @@
             </li>
 
         </ul>
-        <jsp:include page="../Asset/footer.jsp"></jsp:include>
+        <jsp:include page="../Component/footer.jsp"></jsp:include>
     </body>
 </html>
