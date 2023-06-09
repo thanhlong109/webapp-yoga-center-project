@@ -223,12 +223,12 @@
         .uploadImg{
             max-width: fit-content;
             padding: 8px 16px;
-            background-color: #025bee;
+            background-color: #3dbca8;
             color: white;
             border-radius: 4px;
             margin-bottom: 32px;
             font-size: 14px;
-            border: 2px solid #025bee;
+            border: 2px solid #3dbca8;
             transition: all ease-in-out .3s;
             cursor: pointer;
         }
@@ -238,7 +238,7 @@
         }
         .uploadImg:hover{
             background-color: white;
-            color: #025bee;
+            color: #3dbca8;
         }
         .img-label{
             margin-bottom: 32px;
@@ -264,6 +264,12 @@
         .box-input textarea{
             max-height: 150px;
             height: 150px;
+        }
+        .post-blog form button{
+            width: fit-content;
+            margin: auto;
+            border: none;
+            padding: 12px 32px;
         }
         /**/
         .post-blog-btn{
@@ -302,6 +308,9 @@
             padding-left: 32px;
             padding-right: 32px;
         }
+        .btnShowRight{
+            display: none;
+        }
 
         @keyframes slideUp{
             0%{
@@ -311,6 +320,65 @@
             100%{
                 transform: translateY(0);
                 opacity: 1;
+            }
+        }
+
+        @media screen and (max-width:739px) {
+            .left-container{
+                gap: 32px;
+            }
+            .container{
+                gap:16px;
+                padding: 32px 12px;
+                grid-template-columns: 1fr;
+            }
+            .blog-item-body{
+                padding: 45px 10px;
+            }
+            .blog-item-title{
+                font-size: 20px;
+            }
+            .blog-item-date{
+                font-size: 14px;
+                padding: 6px 18px;
+                transform: translate(10%,-50%);
+            }
+
+            .post-blog-container{
+                max-width: 90%;
+                padding: 32px 10px;
+            }
+            .right-container{
+                position: fixed;
+                left: 100%;
+                top: 130px;
+                right: 0;
+                bottom: 0;
+                background-color: white;
+                padding: 0;
+                box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
+                overflow: hidden;
+                transition: all ease-in-out .4s;
+            }
+            .right-container.active{
+                padding: 20px;
+                left: 0;
+            }
+            .btnShowRight{
+                position: fixed;
+                display: block;
+                top:30%;
+                right: 16px;
+                background-color: white;
+                width: 32px;
+                height: 32px;
+                border-radius: 50%;
+                color: black;
+                border: 1px solid #383838;
+                text-align: center;
+                line-height: 32px;
+                cursor: pointer;
+                transition: all ease-in-out .3s;
             }
         }
 
@@ -360,6 +428,7 @@
                 </div>
             </div>
         </div>
+        <!-- right container-->
         <div class="right-container">
             <div class="box-section">
                 <h2 class="box-title">Text Widget</h2>
@@ -406,6 +475,9 @@
 
             </div>
         </div>
+
+        <i class="fa-solid fa-chevron-left btnShowRight"></i>
+
         <div class="post-blog">
             <div class="post-blog-container">
                 <i class="fa-solid fa-x close-btn"></i>
@@ -429,9 +501,11 @@
                         <label>Content: </label>
                         <textarea name="txtBlogContent" placeholder="Blog content"></textarea>
                     </div>
+                    <button class="btn btn-light-green" type="submit">Post</button>
                 </form>
             </div>
         </div>
+
         <div class="post-blog-btn">
             <div class="post-blog-btn-icon">
                 <i class="fa-solid fa-plus"></i>
@@ -440,7 +514,6 @@
             <div class="post-blog-btn-des">
                 Write your blog?
             </div>
-            
         </div>
     </div>
     <script defer>
@@ -451,6 +524,9 @@
         const btnCloseBlog = document.querySelector(".close-btn");
         const postBlog = document.querySelector(".post-blog");
         const btnPostBlog = document.querySelector(".post-blog-btn");
+
+        const showRightBtn = document.querySelector(".btnShowRight");
+        const rightContainer = document.querySelector(".right-container");
 
         btnImg.onchange = ()=>{
             let reader = new FileReader();
@@ -467,6 +543,11 @@
         })
         btnPostBlog.addEventListener("click",()=>{
             postBlog.classList.toggle("active");
+        })
+
+        showRightBtn.addEventListener("click",()=>{
+            rightContainer.classList.toggle("active");
+            showRightBtn.classList.toggle("fa-rotate-180");
         })
 
     </script>
