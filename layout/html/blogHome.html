@@ -196,6 +196,7 @@
                 </div>
             </div>
         </div>
+        <!-- right container-->
         <div class="right-container">
             <div class="box-section">
                 <h2 class="box-title">Text Widget</h2>
@@ -208,7 +209,7 @@
                         <img src="../img/blog/shutterstock_1371365435-1100x490.jpg" alt="">
                     </div>
                     <div>
-                        <a>Is Information Overload Making it Harder to be Happy?</a>
+                        <a href="#">Is Information Overload Making it Harder to be Happy?</a>
                         <div class="small-blog-item-info">
                             <div><i class="fa-regular fa-clock"></i> July 31, 2020</div>
                             <div><i class="fa-solid fa-pen"></i> James Smith</div>
@@ -220,7 +221,7 @@
                         <img src="../img/blog/shutterstock_1371365435-1100x490.jpg" alt="">
                     </div>
                     <div>
-                        <a>Is Information Overload Making it Harder to be Happy?</a>
+                        <a href="#">Is Information Overload Making it Harder to be Happy?</a>
                         <div class="small-blog-item-info">
                             <div><i class="fa-regular fa-clock"></i> July 31, 2020</div>
                             <div><i class="fa-solid fa-pen"></i> James Smith</div>
@@ -232,7 +233,7 @@
                         <img src="../img/blog/shutterstock_1371365435-1100x490.jpg" alt="">
                     </div>
                     <div>
-                        <a>Is Information Overload Making it Harder to be Happy?</a>
+                        <a href="#">Is Information Overload Making it Harder to be Happy?</a>
                         <div class="small-blog-item-info">
                             <div><i class="fa-regular fa-clock"></i> July 31, 2020</div>
                             <div><i class="fa-solid fa-pen"></i> James Smith</div>
@@ -242,6 +243,81 @@
 
             </div>
         </div>
+
+        <i class="fa-solid fa-chevron-left btnShowRight"></i>
+
+        <div class="post-blog">
+            <div class="post-blog-container">
+                <i class="fa-solid fa-x close-btn"></i>
+                <h2><i class="fa-solid fa-star"></i> New Blog</h2>
+                <form action="">
+                    <figure class="img-container">
+                        <img id="js-display-img" src="" alt="">
+                        <figcaption  id="js-name-img"></figcaption>
+                    </figure>
+                    <input id="jsuploadImg" type="file" name="blogImg" accept="image/*">
+                    <div class="img-label">
+                        <label>Img cover:</label>
+                        <label class="uploadImg" for="jsuploadImg"><i class="fa-solid fa-upload"></i> Choose A Photo</label>
+                    </div>
+                    
+                    <div class="box-input">
+                        <label>Titles: </label>
+                        <input name="txtBlogTitle" placeholder="Blog title" type="text">
+                    </div>
+                    <div class="box-input">
+                        <label>Content: </label>
+                        <textarea name="txtBlogContent" placeholder="Blog content"></textarea>
+                    </div>
+                    <button class="btn btn-light-green" type="submit">Post</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="post-blog-btn">
+            <div class="post-blog-btn-icon">
+                <i class="fa-solid fa-plus"></i>
+                <i class="fa-solid fa-pen"></i>
+            </div>
+            <div class="post-blog-btn-des">
+                Write your blog?
+            </div>
+        </div>
     </div>
+    <script defer>
+        const displayImg = document.getElementById("js-display-img");
+        const displayName = document.getElementById("js-name-img");
+        const btnImg = document.getElementById("jsuploadImg");
+
+        const btnCloseBlog = document.querySelector(".close-btn");
+        const postBlog = document.querySelector(".post-blog");
+        const btnPostBlog = document.querySelector(".post-blog-btn");
+
+        const showRightBtn = document.querySelector(".btnShowRight");
+        const rightContainer = document.querySelector(".right-container");
+
+        btnImg.onchange = ()=>{
+            let reader = new FileReader();
+            reader.readAsDataURL(btnImg.files[0]);
+            reader.onload = ()=>{
+                displayImg.setAttribute("src",reader.result);
+            }
+            console.log(btnImg.files[0].name);
+            displayName.textContent = btnImg.files[0].name;
+        }
+
+        btnCloseBlog.addEventListener("click",()=>{
+            postBlog.classList.toggle("active");
+        })
+        btnPostBlog.addEventListener("click",()=>{
+            postBlog.classList.toggle("active");
+        })
+
+        showRightBtn.addEventListener("click",()=>{
+            rightContainer.classList.toggle("active");
+            showRightBtn.classList.toggle("fa-rotate-180");
+        })
+
+    </script>
 </body>
 </html>
