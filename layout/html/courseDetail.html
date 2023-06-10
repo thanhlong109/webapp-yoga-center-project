@@ -39,6 +39,7 @@
         }
         .row1{
             display: flex;
+            flex-wrap: wrap;
         }
         .row1>div{
             padding: 0 35px;
@@ -138,7 +139,7 @@
         }
         .surgest-list{
             display: flex;
-            
+            flex-wrap: wrap;
             gap: 24px;
         }
         
@@ -191,7 +192,38 @@
             font-size: 14px;
         }
        
-
+        @media screen and (max-width:740px) {
+            .wrapper-container{
+                padding: 40px 20px;
+                transform: translateY(0);
+            }
+            .banner{
+                padding: 15% 20px 10% 20px;
+            }
+            .banner h2{
+                font-size: 9vw;
+            }
+            .row1{
+                gap: 12px;
+                justify-content: space-between;
+            }
+            .row2 h2{
+                font-size: 24px;
+            }
+            .container{
+                grid-template-columns: 1fr;
+            }
+            .right-container{
+                margin-top: 0px;
+                padding: 0 10px;
+            }
+            .surgest-course-card{
+                width: 100%;
+            }
+            .surgest-course-section h2{
+                font-size: 24px;
+            }
+        }
         
     </style>
 </head>
