@@ -26,28 +26,31 @@ body{
 .container{
     position: relative;
     margin-top: 50px;
-    margin-left: 100px;
+    margin-left: 120px;
 }
 .image-instructor-profile{
-    position:absolute;
-    padding-left: 50px;
-    padding-top: 60px;
+    position: relative;
+    float: left;
+    
 }
 img{
-    width: 60%;
+   max-width: 60%; 
     height: auto;
     border-radius: 100px;
 }
 .bio-instructor-profile{
-    position: relative;
-    margin-top: 90px;
-    margin-left: 350px;
+    padding-left: 0;
+    margin-left: 0;
+    padding-right: 150px;
 }
 h3{
-    font-size: 25px;
-    padding-bottom: 10px;
+    font-size: 22px;
+    font-weight: 600;
+    
     font-family: 'Jost', sans-serif;
 }
 p{
+    text-align: left;
+    font-size: 14px;
     font-family: 'Jost', sans-serif;
 }
