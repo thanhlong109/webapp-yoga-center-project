@@ -20,7 +20,7 @@
         <link rel="stylesheet" href="Asset/css/common.css"/>
     </head>
     <body>
-        <jsp:include page="../Component/header.jsp"></jsp:include>
+        <jsp:include page="./Asset/Component/header.jsp"></jsp:include>
         <div class="banner">
             <h2>Timetable</h2>
             <p>For Offline Classes</p>
@@ -87,6 +87,6 @@
                 </tr>
             </table>
         </div>
-        <jsp:include page="../Component/footer.jsp"></jsp:include>
+        <jsp:include page="./Asset/Component/footer.jsp"></jsp:include>
     </body>
 </html>

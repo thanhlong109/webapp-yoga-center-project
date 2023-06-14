@@ -1,0 +1,56 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+html{
+    scroll-behavior: smooth; 
+}
+
+body{
+    font-family: 'Jost', sans-serif;
+    display: flex;
+    flex-direction: column;
+}
+
+.banner{
+    padding: 15% 20px 10% 20px;
+    width: 100%;
+    text-align: center;
+    background: url(../img/bg/page-title-1.png) top center / cover no-repeat;
+}
+.banner h2{
+    color: #227179;
+    font-size: 3.3vw;
+}
+.container{
+    position: relative;
+    margin-top: 50px;
+    margin-left: 120px;
+}
+.image-instructor-profile{
+    position: relative;
+    float: left;
+    
+}
+img{
+   max-width: 60%; 
+    height: auto;
+    border-radius: 100px;
+}
+.bio-instructor-profile{
+    padding-left: 0;
+    margin-left: 0;
+    padding-right: 150px;
+}
+h3{
+    font-size: 22px;
+    font-weight: 600;
+    
+    font-family: 'Jost', sans-serif;
+}
+p{
+    text-align: left;
+    font-size: 14px;
+    font-family: 'Jost', sans-serif;
+}
