@@ -8,7 +8,9 @@
     <div class="wrapper-footer">
         <div class="footer">
             <div>
-                <img src="Asset/img/logo/footer-logo-1.png" alt="">
+                <a href="#" class="logo">
+                    YOWU.
+                </a>
                 <p>
                     Far far away, behind the word mountains, far from countries Vokalia and Consonantia, there live the blind texts. Separated they.
                 </p>
@@ -34,7 +36,7 @@
             </div>
         </div>
         <div class="copyright">
-            <p>Copyright ©2023 NTLStudio. All Rights Reserved.</p>
+            <p>Copyright ©2023 YowoStudio. All Rights Reserved.</p>
             <div>
                 <a href="#"><i class="fa-brands fa-facebook-f"></i></i></a>
                 <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>

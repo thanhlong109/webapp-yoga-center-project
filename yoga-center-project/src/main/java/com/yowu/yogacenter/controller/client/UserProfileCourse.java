@@ -4,60 +4,96 @@
  */
 package com.yowu.yogacenter.controller.client;
 
+import com.yowu.yogacenter.model.Account;
+import com.yowu.yogacenter.model.Course;
+import com.yowu.yogacenter.model.RegistrationCourse;
+import com.yowu.yogacenter.repository.RegistrationCourseRepository;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import java.util.List;
 
 /**
  *
  * @author ACER
  */
 public class UserProfileCourse extends HttpServlet {
-
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        request.getRequestDispatcher("../Client/userProfileCourse.jsp").forward(request, response);
-    }
-
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+    private final String USERPROFILECOURSEPAGE = "../Client/userProfileCourse.jsp";
+   
+  // this function take registration course of user
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        /*
+        HttpSession ss = request.getSession();
+        int accountID =((Account)ss.getAttribute("account")).getId();*/
+        int accountID = 2;
+        String txtStatus = request.getParameter("status");
+        RegistrationCourseRepository rcRepo = new RegistrationCourseRepository();
+        if(txtStatus!=null){
+            try(PrintWriter out = response.getWriter()){
+                int status = Integer.parseInt(txtStatus);
+                RegistrationCourse.CourseStatus CourseStatus = RegistrationCourse.CourseStatus.values()[status];
+                switch(CourseStatus){
+                    case INPROGRESS:{
+                        List<RegistrationCourse> list = rcRepo.getCoursesByAccountIDAndStatus(accountID,RegistrationCourse.CourseStatus.INPROGRESS.ordinal());
+                        out.print(getHtmlListCourse(list));
+                        break;
+                    }
+                    case FINISH :{
+                        List<RegistrationCourse> list = rcRepo.getCoursesByAccountIDAndStatus(accountID,RegistrationCourse.CourseStatus.FINISH.ordinal());
+                        out.print(getHtmlListCourse(list));
+                        break;
+                    }
+                    case ALL:{
+                        List<RegistrationCourse> list = rcRepo.getCoursesByAccountID(accountID);
+                        out.print(getHtmlListCourse(list));
+                        break;
+                    }
+                }   
+            }catch(Exception e){
+                    System.out.println(e);
+            }
+        }else{
+            List<RegistrationCourse> list = rcRepo.getCoursesByAccountID(accountID);
+            request.setAttribute("listRegistrationCourse", list);
+            request.getRequestDispatcher(USERPROFILECOURSEPAGE).forward(request, response);
+        }
+        
+    }
+    
+    private String getHtmlListCourse(List<RegistrationCourse> list){
+        String data = "";
+        if(list.size()==0){
+            data = "";
+        }else{
+        data = " <table class=\"course-table\"> <tr>\n" +
+"                                    <th></th>\n" +
+"                                    <th>Name</th>\n" +
+"                                    <th>Registation Date</th>\n" +
+"                                    <th>End Date</th>\n" +
+"                                </tr>";
+        for(RegistrationCourse rc : list){
+            Course c = rc.getCourse();
+            data+= "<tr>\n" + 
+"                  <td><img src=\""+c.getImg()
+                    + "\" alt=\"img\"></td>"+"<td>"+c.getTitle()+"</td>"+"<td>"+rc.getRegistrationDate()+"</td>"
+                    +"<td>"+rc.getEndDate()+"</td> </tr>";
+        }
+        data+=" </table>";
+        }
+        return data;
     }
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+   
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+       
     }
 
     /**

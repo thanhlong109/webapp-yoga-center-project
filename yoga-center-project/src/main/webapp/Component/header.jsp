@@ -10,7 +10,7 @@
         <div class="header-wrapper">
             <div class="header">
                 <a href="#" class="logo">
-                    <img src="Asset/img/logo/logo.png" alt="">
+                    YOWU.
                 </a>
                 <div class="nav-wrapper">
                     <ul class="nav">
@@ -44,7 +44,7 @@
                         <li><a href="Client/schedule_trainee.jsp">Schedule</a></li>
                     </ul>
                     
-                    <div class="user">
+                    <div class="user-btn">
                         <a href="Client/login_register.jsp">
                             <i class="fa-solid fa-user"></i> Login/Register  <!-- display name user here, if user null display login/Register-->
                         </a>
@@ -56,7 +56,7 @@
             </div>
         </div>
         <!-- End header -->
-
+        <script src="../Asset/js/cdnjs.cloudflare.com_ajax_libs_jquery_3.7.0_jquery.min.js"></script>
         <script defer>
             const menuBtn = document.querySelector(".menu-mobile");
             const nav = document.querySelector(".nav");
@@ -69,7 +69,7 @@
                 } else {
                     nav.classList.add("show");
                 }
-            })
+            });
             subnavbtns.forEach(subBtn => {
                 subBtn.addEventListener("click", () => {
                     let subnav = subBtn.parentElement.querySelector(".subnav");
@@ -78,9 +78,9 @@
                     } else {
                         subnav.classList.add("show");
                     }
-                })
+                });
 
-            })
+            });
             closeMenuBtns.forEach(closebtn => {
                 closebtn.addEventListener("click", () => {
                     if (closebtn.parentElement.classList.contains("show")) {
@@ -88,11 +88,20 @@
                     } else {
                         closebtn.parentElement.classList.add("show");
                     }
-                })
+                });
 
-            })
+            });
 
-
+            $(window).bind('mousewheel', function(event) {
+                if (event.originalEvent.wheelDelta >= 0) {
+                    //Scroll up
+                    $(".header-wrapper").slideDown(400);
+                }
+                else {
+                    //Scroll down
+                    $(".header-wrapper").slideUp(400);
+                }
+            });  
 
 
         </script>

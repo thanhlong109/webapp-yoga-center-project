@@ -13,8 +13,11 @@
     font-size: 21px;
     margin-bottom: 32px;
 }
-.footer img{
-    margin-bottom: 32px;
+.logo{
+    text-decoration: none;
+    color: #666c7d;
+    font-size: 28px;
+    font-weight: 800;  
 }
 .footer p{
     color: #e9e9e9;

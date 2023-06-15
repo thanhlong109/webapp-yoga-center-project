@@ -43,6 +43,59 @@ public class RegistrationCourseRepository {
         }
         return list;
     }
+    public List<RegistrationCourse> getCoursesByAccountIDAndStatus(int accountId,int status){
+        String sql = "select * from tblRegistrationCourse where account_id=? and course_status=?";
+        List<RegistrationCourse> list = new ArrayList<>();
+        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
+            stmt.setInt(1, accountId);
+            stmt.setInt(2, status);
+            try ( ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    AccountRepository acc = new AccountRepository();
+                    CourseRepository cr = new CourseRepository();
+                    CourseScheduleRepository csr = new CourseScheduleRepository();
+                    RegistrationCourse c = new RegistrationCourse();
+                    c.setId(rs.getInt("registration_id"));
+                    c.setAccount(acc.detail(rs.getInt("account_id")));
+                    c.setCourse(cr.detail(rs.getInt("course_id")));
+                    c.setRegistrationDate(rs.getDate("registration_date"));
+                    c.setCourseSchedule(csr.detail(rs.getInt("course_schedule_id")));
+                    c.setEndDate(rs.getDate("end_date"));
+                    c.setCourseStatus(rs.getInt("course_status"));
+                    list.add(c);
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return list;
+    }
+    public List<RegistrationCourse> getCoursesByAccountID(int accountId){
+        String sql = "select * from tblRegistrationCourse where account_id=?";
+        List<RegistrationCourse> list = new ArrayList<>();
+        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
+            stmt.setInt(1, accountId);
+            try ( ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    AccountRepository acc = new AccountRepository();
+                    CourseRepository cr = new CourseRepository();
+                    CourseScheduleRepository csr = new CourseScheduleRepository();
+                    RegistrationCourse c = new RegistrationCourse();
+                    c.setId(rs.getInt("registration_id"));
+                    c.setAccount(acc.detail(rs.getInt("account_id")));
+                    c.setCourse(cr.detail(rs.getInt("course_id")));
+                    c.setRegistrationDate(rs.getDate("registration_date"));
+                    c.setCourseSchedule(csr.detail(rs.getInt("course_schedule_id")));
+                    c.setEndDate(rs.getDate("end_date"));
+                    c.setCourseStatus(rs.getInt("course_status"));
+                    list.add(c);
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return list;
+    }
 
     public RegistrationCourse detail(int id) {
         String sql = "select * from tblRegistrationCourse where registration_id=? ";
@@ -130,5 +183,9 @@ public class RegistrationCourseRepository {
         }
 
         return status == 1;
+    }
+    public static void main(String[] args) {
+        RegistrationCourseRepository r = new RegistrationCourseRepository();
+        
     }
 }
