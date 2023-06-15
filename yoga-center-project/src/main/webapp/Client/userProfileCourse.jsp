@@ -5,17 +5,19 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="jakarta.tags.core" %>
+<%@page import="com.yowu.yogacenter.model.RegistrationCourse" %>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>User profile</title>
-        <link rel="stylesheet" href="Asset/css/clientHeader.css">
-        <link rel="stylesheet" href="Asset/css/clientFooter.css">
-        <link rel="stylesheet" href="Asset/css/common.css">
+        <link rel="stylesheet" href="../Asset/css/clientHeader.css">
+        <link rel="stylesheet" href="../Asset/css/clientFooter.css">
+        <link rel="stylesheet" href="../Asset/css/common.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <link href="https://fonts.googleapis.com/css2?family=Jost:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
-        <script src="Asset/js/cdnjs.cloudflare.com_ajax_libs_jquery_3.7.0_jquery.min.js"></script>
+        
         <style>
             .banner{
                padding: 12% 20px 10% 20px;
@@ -33,7 +35,7 @@
                padding: 50px;
                width: 1220px;
            }
-           .user{
+           .user2{
                display: flex;
                align-items: center;
            }
@@ -173,12 +175,14 @@
         
     </head>
     <body>
+        
+        <%@include file="../Component/header.jsp" %> 
         <div class="banner">
             <h2>Your Profile</h2>
         </div>
         <div class="container">
-            <div class="user">
-                <div class="user-img"><img src="../img/icon/default-avata.png" alt=""></div>
+            <div class="user2">
+                <div class="user-img"><img src="../Asset/img/avatar/hinh-avatar-1.png" alt=""></div>
                 <h2>Longn99955</h2>
             </div>
             <div class="user-container">
@@ -195,39 +199,39 @@
                     <div class="course-option">
                         <!-- filter course -->
                         <ul class="filter-course">
-                            <li value="1" class="active">All</li>
-                            <li value="2">In Progress</li>
-                            <li value="3">Finished</li>
+                            <li value="<%= RegistrationCourse.CourseStatus.ALL.ordinal() %>" class="active">All</li>
+                            <li value="<%= RegistrationCourse.CourseStatus.INPROGRESS.ordinal() %>">In Progress</li>
+                            <li value="<%= RegistrationCourse.CourseStatus.FINISH.ordinal() %>">Finished</li>
                         </ul>
-                        <div class="display-course-content">
-                            <table class="course-table">
-                                <tr>
-                                    <th></th>
-                                    <th>Name</th>
-                                    <th>Registation Date</th>
-                                    <th>End Date</th>
-                                </tr>
-                                <tr>
-                                    <td><img src="../img/blog/shutterstock_1371365435-1100x490.jpg" alt=""></td>
-                                    <td>Yamas and Niyamas</td>
-                                    <td>2023-06-15</td>
-                                    <td>2023-06-15</td>
-                                </tr>
-                                <tr>
-                                    <td><img src="../img/classes/shutterstock_1371365420-950x1075.jpg" alt=""></td>
-                                    <td>Yamas and Niyamas</td>
-                                    <td>2023-06-15</td>
-                                    <td>2023-06-15</td>
-                                </tr>
-                            </table>
-                        </div>
+                        <c:if test="${listRegistrationCourse!=null}">
+                            <div class="display-course-content">
+                                <table class="course-table">
+                                    <tr>
+                                        <th></th>
+                                        <th>Name</th>
+                                        <th>Registation Date</th>
+                                        <th>End Date</th>
+                                    </tr>
+                                    <c:forEach items="${listRegistrationCourse}" var="rCourse">
+                                        <tr>
+                                            <td><img src="${rCourse.course.img}" alt="img"></td>
+                                            <td>${rCourse.course.title}</td>
+                                            <td>${rCourse.registrationDate}</td>
+                                            <td>${rCourse.endDate}</td>
+                                        </tr>
+                                    </c:forEach>
+
+                                </table>
+                            </div>
+                        </c:if>
+                        
                     </div>
 
                 </div>
 
             </div>
         </div>
-
+        <%@include file="../Component/footer.jsp" %> 
         <script>
             $(document).ready(()=>{
                document.querySelectorAll(".filter-course li").forEach(f =>{
@@ -235,7 +239,7 @@
                     $(f).addClass('active');
                     $(f).siblings().removeClass('active');
                     $.ajax({
-                        url:"TestController",
+                        url:"course?status="+$(f).val(),
                         type:"get",
                         success:function(data){
                             document.querySelector(".display-course-content").innerHTML = data;
@@ -244,11 +248,11 @@
 
                             console.log("ereor");
                         }   
-                    })
-                })
-               })
+                    });
+                });
+               });
 
-            })
+            });
         </script>
     </body>
 </html>

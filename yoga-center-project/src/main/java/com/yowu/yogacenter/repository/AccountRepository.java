@@ -6,6 +6,7 @@ package com.yowu.yogacenter.repository;
 
 import com.yowu.yogacenter.model.Account;
 import com.yowu.yogacenter.util.DBHelpler;
+import java.io.Serializable;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -27,7 +28,7 @@ public class AccountRepository {
                     Account c = new Account();
                     c.setId(rs.getInt("account_id"));
                     c.setImg(rs.getString("account_img"));
-                    c.setName(rs.getString("accoubnt_name"));
+                    c.setName(rs.getString("account_name"));
                     c.setPassword(rs.getString("account_password"));
                     c.setEmail(rs.getString("account_email"));
                     c.setPhone(rs.getString("account_phone"));
@@ -52,7 +53,7 @@ public class AccountRepository {
                     Account c = new Account();
                     c.setId(rs.getInt("account_id"));
                     c.setImg(rs.getString("account_img"));
-                    c.setName(rs.getString("accoubnt_name"));
+                    c.setName(rs.getString("account_name"));
                     c.setPassword(rs.getString("account_password"));
                     c.setEmail(rs.getString("account_email"));
                     c.setPhone(rs.getString("account_phone"));
