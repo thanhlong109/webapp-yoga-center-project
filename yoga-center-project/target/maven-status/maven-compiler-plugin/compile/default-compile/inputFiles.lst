@@ -9,12 +9,15 @@ E:\long\yoga-center-project\src\main\java\com\yowu\yogacenter\repository\BlogRep
 E:\long\yoga-center-project\src\main\java\com\yowu\yogacenter\repository\ClassScheduleRepository.java
 E:\long\yoga-center-project\src\main\java\com\yowu\yogacenter\model\Blog.java
 E:\long\yoga-center-project\src\main\java\com\yowu\yogacenter\repository\CommentRepository.java
+E:\long\yoga-center-project\src\main\java\com\yowu\yogacenter\controller\client\LoginController.java
 E:\long\yoga-center-project\src\main\java\com\yowu\yogacenter\repository\RegistrationCourseRepository.java
 E:\long\yoga-center-project\src\main\java\com\yowu\yogacenter\model\CourseSchedule.java
+E:\long\yoga-center-project\src\main\java\com\yowu\yogacenter\controller\client\UserProfileWishlist.java
 E:\long\yoga-center-project\src\main\java\com\yowu\yogacenter\model\Membership.java
 E:\long\yoga-center-project\src\main\java\com\yowu\yogacenter\repository\RegistrationMembershipRepository.java
 E:\long\yoga-center-project\src\main\java\com\yowu\yogacenter\repository\CourseScheduleRepository.java
 E:\long\yoga-center-project\src\main\java\com\yowu\yogacenter\controller\client\UserProfileCourse.java
+E:\long\yoga-center-project\src\main\java\com\yowu\yogacenter\controller\client\UserProfileBooking.java
 E:\long\yoga-center-project\src\main\java\com\yowu\yogacenter\model\ClassSchedule.java
 E:\long\yoga-center-project\src\main\java\com\yowu\yogacenter\model\Role.java
 E:\long\yoga-center-project\src\main\java\com\yowu\yogacenter\repository\CourseInstructorRepository.java
@@ -25,6 +28,7 @@ E:\long\yoga-center-project\src\main\java\com\yowu\yogacenter\model\RatingCourse
 E:\long\yoga-center-project\src\main\java\com\yowu\yogacenter\repository\CategoryRepository.java
 E:\long\yoga-center-project\src\main\java\com\yowu\yogacenter\model\Category.java
 E:\long\yoga-center-project\src\main\java\com\yowu\yogacenter\model\RoleHasPermission.java
+E:\long\yoga-center-project\src\main\java\com\yowu\yogacenter\controller\client\RegisterAccountController.java
 E:\long\yoga-center-project\src\main\java\com\yowu\yogacenter\model\CourseInstructor.java
 E:\long\yoga-center-project\src\main\java\com\yowu\yogacenter\repository\AccountRepository.java
 E:\long\yoga-center-project\src\main\java\com\yowu\yogacenter\model\Course.java

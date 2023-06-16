@@ -23,7 +23,7 @@
                padding: 12% 20px 10% 20px;
                width: 100%;
                text-align: center;
-               background: url(../img/bg/page-title-1.png) top center / cover no-repeat;
+               background: url(../Asse/img/bg/page-title-1.png) top center / cover no-repeat;
            }
            .banner h2{
                color: #227179;
@@ -182,17 +182,17 @@
         </div>
         <div class="container">
             <div class="user2">
-                <div class="user-img"><img src="../Asset/img/avatar/hinh-avatar-1.png" alt=""></div>
+                <div class="user-img"><img src="../Asset/img/avatar/hinh-avatar-1.png" alt="img"></div>
                 <h2>Longn99955</h2>
             </div>
             <div class="user-container">
                 <!-- Start navigation-->
                 <ul class="user-nav">
-                    <li class="active"><a href=""><i class="fa fa-book" aria-hidden="true"></i> Course</a></li>
-                    <li><a href=""><i class="fa fa-heart" aria-hidden="true"></i> Wishlist</a></li>
-                    <li><a href=""><i class="fa fa-sliders" aria-hidden="true"></i> Setting</a></li>
-                    <li><a href=""><i class="fa fa-shopping-cart" aria-hidden="true"></i> Booking</a></li>
-                    <li><a href=""><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a></li>
+                    <li class="active"><a href="course"><i class="fa fa-book" aria-hidden="true"></i> Course</a></li>
+                    <li><a href="wishlist"><i class="fa fa-heart" aria-hidden="true"></i> Wishlist</a></li>
+                    <li><a href="setting"><i class="fa fa-sliders" aria-hidden="true"></i> Setting</a></li>
+                    <li><a href="booking"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Booking</a></li>
+                    <li><a href="../logout"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a></li>
                 </ul>
                 <!-- end navigation -->
                 <div class="user-content">

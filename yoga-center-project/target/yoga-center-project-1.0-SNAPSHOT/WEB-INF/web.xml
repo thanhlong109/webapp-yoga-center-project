@@ -1,14 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
-
     <servlet>
         <servlet-name>UserProfileCourse</servlet-name>
         <servlet-class>com.yowu.yogacenter.controller.client.UserProfileCourse</servlet-class>
     </servlet>
-
+    <servlet>
+        <servlet-name>UserProfileWishlist</servlet-name>
+        <servlet-class>com.yowu.yogacenter.controller.client.UserProfileWishlist</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UserProfileBooking</servlet-name>
+        <servlet-class>com.yowu.yogacenter.controller.client.UserProfileBooking</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>LoginController</servlet-name>
+        <servlet-class>com.yowu.yogacenter.controller.client.LoginController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>RegisterAccountController</servlet-name>
+        <servlet-class>com.yowu.yogacenter.controller.client.RegisterAccountController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>UserProfileCourse</servlet-name>
         <url-pattern>/userprofile/course</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UserProfileWishlist</servlet-name>
+        <url-pattern>/userprofile/wishlist</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UserProfileBooking</servlet-name>
+        <url-pattern>/userprofile/booking</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LoginController</servlet-name>
+        <url-pattern>/login</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RegisterAccountController</servlet-name>
+        <url-pattern>/register</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -1,5 +1,6 @@
 com\yowu\yogacenter\model\Membership.class
 com\yowu\yogacenter\repository\CommentRepository.class
+com\yowu\yogacenter\controller\client\UserProfileWishlist.class
 com\yowu\yogacenter\model\RegistrationCourse$CourseStatus.class
 com\yowu\yogacenter\repository\AccountRepository.class
 com\yowu\yogacenter\repository\RoleRepository.class
@@ -28,6 +29,7 @@ com\yowu\yogacenter\repository\RegistrationCourseRepository.class
 com\yowu\yogacenter\repository\RegistrationMembershipRepository.class
 com\yowu\yogacenter\model\RegistrationMembership.class
 com\yowu\yogacenter\model\Account.class
+com\yowu\yogacenter\controller\client\UserProfileBooking.class
 com\yowu\yogacenter\model\Role.class
 com\yowu\yogacenter\repository\PermissionRepository.class
 com\yowu\yogacenter\model\RoleHasPermission.class
