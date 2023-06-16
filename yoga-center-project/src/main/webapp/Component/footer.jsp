@@ -36,7 +36,7 @@
             </div>
         </div>
         <div class="copyright">
-            <p>Copyright ©2023 YowoStudio. All Rights Reserved.</p>
+            <p>Copyright ©2023 YowuStudio. All Rights Reserved.</p>
             <div>
                 <a href="#"><i class="fa-brands fa-facebook-f"></i></i></a>
                 <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>

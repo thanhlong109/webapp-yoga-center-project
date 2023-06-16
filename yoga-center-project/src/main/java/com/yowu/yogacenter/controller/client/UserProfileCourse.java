@@ -22,7 +22,7 @@ import java.util.List;
  * @author ACER
  */
 public class UserProfileCourse extends HttpServlet {
-    private final String USERPROFILECOURSEPAGE = "../Client/userProfileCourse.jsp";
+    private final String USER_PROFILE_COURSE_PAGE = "../Client/userProfileCourse.jsp";
    
   // this function take registration course of user
     @Override
@@ -61,7 +61,7 @@ public class UserProfileCourse extends HttpServlet {
         }else{
             List<RegistrationCourse> list = rcRepo.getCoursesByAccountID(accountID);
             request.setAttribute("listRegistrationCourse", list);
-            request.getRequestDispatcher(USERPROFILECOURSEPAGE).forward(request, response);
+            request.getRequestDispatcher(USER_PROFILE_COURSE_PAGE).forward(request, response);
         }
         
     }
@@ -96,11 +96,6 @@ public class UserProfileCourse extends HttpServlet {
        
     }
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
     @Override
     public String getServletInfo() {
         return "Short description";

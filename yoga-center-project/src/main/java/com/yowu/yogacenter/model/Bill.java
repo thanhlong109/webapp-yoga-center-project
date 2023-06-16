@@ -11,6 +11,8 @@ import java.sql.Date;
  * @author DungVNT
  */
 public class Bill {
+    
+    public static enum BillStatus{COMPLETED,CANCELLED,PENDING};
 
     private Course course;
     private Account account;
