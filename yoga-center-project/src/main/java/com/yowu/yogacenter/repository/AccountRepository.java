@@ -69,7 +69,7 @@ public class AccountRepository {
     }
     
     public boolean update(Account c){
-        String sql = "update tblAccount set account_name=? , account_password=? ,account_img=? , account_email=? , account_phone=? , account_is_active where account_id=? ";
+        String sql = "update tblAccount set account_name=? , account_password=? ,account_img=? , account_email=? , account_phone=? , account_is_active=? where account_id=?";
         int status = 0;
         try(PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)){
             stmt.setString(1, c.getName());
@@ -161,8 +161,13 @@ public class AccountRepository {
 
     
     public static void main(String[] args) {
-        CourseRepository cr = new CourseRepository();
-        System.out.println(cr.delete(1));
+        AccountRepository ar = new AccountRepository();
+        Account acc = ar.detail(2);
+        System.out.println(acc.getName());
+        acc.setName("long2");
+        ar.updateGeneral(acc);
+        acc= ar.detail(2);
+        System.out.println(acc.getName());
     }
     
 }

@@ -31,17 +31,58 @@ public class UserProfileBooking extends HttpServlet {
             request.setAttribute("billList", list);
         }catch(Exception e){
             System.out.println(e);
+            
         }
        request.getRequestDispatcher(USER_PROFILE_BOOKING_PAGE).forward(request, response);
+       
     }
-
+    
   
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
+        try(PrintWriter out = response.getWriter()){
+            String action = request.getParameter("action");
+            BillRepository br = new BillRepository();
+            int accountID = 2;
+            int billID = Integer.parseInt(request.getParameter("billid"));
+            switch(action){
+                case "view":{
+                    out.print(getHtmlViewBill(br.detail(billID)));
+                    break;
+                }
+            }
+        }
     }
-
+    
+    private String getHtmlViewBill(Bill b){
+        String data="<h3>Order detail</h3>\n" +
+"                                <div>\n" +
+"                                    <label>Bill ID:</label><span>"+b.getId()
+                + "</span>\n" +
+"                                </div> <div>\n" +
+"                                    <label>Bill Status:</label><span>"+Bill.getEnumIndex(b.getStatus()).name().toLowerCase()
+                + "</span>\n" +
+"                                </div>\n" +
+"                                <div>\n" +
+"                                    <label>Course:</label><span>"+b.getCourse().getTitle()
+                + "</span>\n" +
+"                                </div>\n" +
+"                                <div>\n" +
+"                                    <label>Total Price:</label><span> $"+b.getValue()
+                + "</span>\n" +
+"                                </div>\n" +"<div>\n" +
+"                                    <label>Discount:</label><span>$"+b.getDiscount()
+                + "</span>\n" +
+"                                </div>"+
+"                                <div>\n" +
+"                                    <label>Date:</label><span>"+b.getDate()
+                + "</span>\n" +
+"                                </div> <div onclick=\"backf()\" class=\"backbtn\"><i class=\"fa fa-caret-left\" aria-hidden=\"true\"></i> <span>Back</span></div>";
+        
+        return data;
+    }
     
     @Override
     public String getServletInfo() {

@@ -20,6 +20,10 @@
         <servlet-name>RegisterAccountController</servlet-name>
         <servlet-class>com.yowu.yogacenter.controller.client.RegisterAccountController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>UserProfileSetting</servlet-name>
+        <servlet-class>com.yowu.yogacenter.controller.client.UserProfileSetting</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>UserProfileCourse</servlet-name>
         <url-pattern>/userprofile/course</url-pattern>
@@ -39,6 +43,10 @@
     <servlet-mapping>
         <servlet-name>RegisterAccountController</servlet-name>
         <url-pattern>/register</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UserProfileSetting</servlet-name>
+        <url-pattern>/userprofile/setting</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

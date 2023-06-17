@@ -84,6 +84,7 @@
                 color: #6a6a6a;
                 line-height: 50px;
                 margin-left: 16px;
+                display: block;
             }
             .user-nav a i{
                 margin-right: 16px;
@@ -140,7 +141,7 @@
                 }
                 .user-nav{
                     flex-direction: row;
-                    width: 100%;
+                    width: fit-content;
                 }
                 .user-nav li{
                     width: fit-content;
