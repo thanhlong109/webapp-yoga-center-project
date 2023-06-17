@@ -41,13 +41,15 @@
                             <div class="text">
                                 I neglect my talents Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean. A small river named Duden flows by  
                             </div>
-                            <a href="#" class="read-more-btn">Read More <i class="fa-solid fa-chevron-right"></i></a>
+                            <a href="BlogHomeDetailController" class="read-more-btn">Read More 
+                                <i class="fa-solid fa-chevron-right"></i>
+                            </a>
                         </div>
                     </div>
 
                     <div class="blog-item">
                         <div class="blog-item-img">
-                            <img src="Asset/img/blog/shutterstock_1371365435-1100x490.jpg" alt="">
+                            <img src="Asset/img/blog/shutterstock_551987794-1100x490.jpg" alt="">
                         </div>
                         <div class="blog-item-body">
                             <span class="blog-item-date">July 31, 2020</span>
@@ -55,15 +57,18 @@
                                 <a class="blog-item-author" href="#">James Smith</a>
                             </div>
                             <a class="blog-item-title">
-                                Is Information Overload Making it Harder to be Happy?
+                                The Difference Between Yoga and Yoga Therapy
                             </a>
                             <div class="text">
                                 I neglect my talents Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean. A small river named Duden flows by  
                             </div>
-                            <a href="#" class="read-more-btn">Read More <i class="fa-solid fa-chevron-right"></i></a>
+                            <a href="BlogHomeDetailController" class="read-more-btn"> Read More 
+                                <i class="fa-solid fa-chevron-right"></i>
+                            </a>
                         </div>
                     </div>
                 </div>
+                
                 <!-- right container-->
                 <div class="right-container">
                     <div class="box-section">
@@ -77,7 +82,7 @@
                                 <img src="Asset/img/blog/shutterstock_1371365435-1100x490.jpg" alt="">
                             </div>
                             <div>
-                                <a href="#">Is Information Overload Making it Harder to be Happy?</a>
+                                <a href="BlogHomeDetailController">Is Information Overload Making it Harder to be Happy?</a>
                                 <div class="small-blog-item-info">
                                     <div><i class="fa-regular fa-clock"></i> July 31, 2020</div>
                                     <div><i class="fa-solid fa-pen"></i> James Smith</div>
@@ -86,10 +91,10 @@
                         </div>
                         <div class="small-blog-item">
                             <div class="small-blog-item-img">
-                                <img src="Asset/img/blog/shutterstock_1371365435-1100x490.jpg" alt="">
+                                <img src="Asset/img/blog/shutterstock_551987794-1100x490.jpg" alt="">
                             </div>
                             <div>
-                                <a href="#">Is Information Overload Making it Harder to be Happy?</a>
+                                <a href="BlogHomeDetailController">The Difference Between Yoga and Yoga Therapy</a>
                                 <div class="small-blog-item-info">
                                     <div><i class="fa-regular fa-clock"></i> July 31, 2020</div>
                                     <div><i class="fa-solid fa-pen"></i> James Smith</div>
@@ -98,10 +103,10 @@
                         </div>
                         <div class="small-blog-item">
                             <div class="small-blog-item-img">
-                                <img src="../img/blog/shutterstock_1371365435-1100x490.jpg" alt="">
+                                <img src="Asset/img/blog/iStock-1190436759-1100x490.jpg" alt="">
                             </div>
                             <div>
-                                <a href="#">Is Information Overload Making it Harder to be Happy?</a>
+                                <a href="BlogHomeDetailController">Yin Yoga 101 with Josh Summers</a>
                                 <div class="small-blog-item-info">
                                     <div><i class="fa-regular fa-clock"></i> July 31, 2020</div>
                                     <div><i class="fa-solid fa-pen"></i> James Smith</div>
@@ -117,8 +122,11 @@
                 <div class="post-blog">
                     <div class="post-blog-container">
                         <i class="fa-solid fa-x close-btn"></i>
-                        <h2><i class="fa-solid fa-star"></i> New Blog</h2>
-                        <form action="">
+                        <h2>
+                            <i class="fa-solid fa-star"></i> New Blog
+                        </h2>
+                        
+                        <form action="BlogHomeController">
                             <figure class="img-container">
                                 <img id="js-display-img" src="" alt="">
                                 <figcaption  id="js-name-img"></figcaption>
@@ -137,7 +145,7 @@
                                 <label>Content: </label>
                                 <textarea name="txtBlogContent" placeholder="Blog content"></textarea>
                             </div>
-                            <button class="btn btn-light-green" type="submit">Post</button>
+                            <input class ="btn btn-light-green" type="submit" value="Post" name="btnAction" />
                         </form>
                     </div>
                 </div>

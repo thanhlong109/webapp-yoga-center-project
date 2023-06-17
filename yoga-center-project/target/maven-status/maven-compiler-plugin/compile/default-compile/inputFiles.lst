@@ -6,10 +6,12 @@ D:\HocTap\Summer 2023\SWP391\Project - Maven\webapp-yoga-center-project\yoga-cen
 D:\HocTap\Summer 2023\SWP391\Project - Maven\webapp-yoga-center-project\yoga-center-project\src\main\java\com\yowu\yogacenter\model\Account.java
 D:\HocTap\Summer 2023\SWP391\Project - Maven\webapp-yoga-center-project\yoga-center-project\src\main\java\com\yowu\yogacenter\repository\RatingCourseRepository.java
 D:\HocTap\Summer 2023\SWP391\Project - Maven\webapp-yoga-center-project\yoga-center-project\src\main\java\com\yowu\yogacenter\repository\RegistrationCourseRepository.java
+D:\HocTap\Summer 2023\SWP391\Project - Maven\webapp-yoga-center-project\yoga-center-project\src\main\java\com\yowu\yogacenter\controller\client\DispatchController.java
 D:\HocTap\Summer 2023\SWP391\Project - Maven\webapp-yoga-center-project\yoga-center-project\src\main\java\com\yowu\yogacenter\model\RoleHasPermission.java
 D:\HocTap\Summer 2023\SWP391\Project - Maven\webapp-yoga-center-project\yoga-center-project\src\main\java\com\yowu\yogacenter\repository\CategoryRepository.java
 D:\HocTap\Summer 2023\SWP391\Project - Maven\webapp-yoga-center-project\yoga-center-project\src\main\java\com\yowu\yogacenter\repository\CourseWishlistRepository.java
 D:\HocTap\Summer 2023\SWP391\Project - Maven\webapp-yoga-center-project\yoga-center-project\src\main\java\com\yowu\yogacenter\repository\RoleHasPermissionRepository.java
+D:\HocTap\Summer 2023\SWP391\Project - Maven\webapp-yoga-center-project\yoga-center-project\src\main\java\com\yowu\yogacenter\controller\client\BlogHomeDetailController.java
 D:\HocTap\Summer 2023\SWP391\Project - Maven\webapp-yoga-center-project\yoga-center-project\src\main\java\com\yowu\yogacenter\model\Blog.java
 D:\HocTap\Summer 2023\SWP391\Project - Maven\webapp-yoga-center-project\yoga-center-project\src\main\java\com\yowu\yogacenter\controller\client\UserProfileBooking.java
 D:\HocTap\Summer 2023\SWP391\Project - Maven\webapp-yoga-center-project\yoga-center-project\src\main\java\com\yowu\yogacenter\repository\BlogRepository.java

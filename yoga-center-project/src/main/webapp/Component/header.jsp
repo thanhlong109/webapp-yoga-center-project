@@ -30,7 +30,8 @@
                             </ul>
                         </li>
                         <li><a href="#">Pages</a></li>
-                        <li><a href="#">Blog</a>
+                        <li>
+                            <a href="BlogHomeController">Blog</a>
                             <i class="fa-solid fa-chevron-right subnavbtn pc-hide"></i>
                             <ul class="subnav">
                                 <i class="fa-solid fa-x closebtn"></i>

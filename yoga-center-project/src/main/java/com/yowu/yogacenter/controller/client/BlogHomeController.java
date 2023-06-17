@@ -4,6 +4,8 @@
  */
 package com.yowu.yogacenter.controller.client;
 
+import com.yowu.yogacenter.repository.BlogRepository;
+import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -18,13 +20,18 @@ import jakarta.servlet.http.HttpServletResponse;
 public class BlogHomeController extends HttpServlet {
 
     private final String BLOG_PAGE = "Client/blogHome.jsp";
-    
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
-        
-        request.getRequestDispatcher(BLOG_PAGE).forward(request, response);               
+
+        String url = BLOG_PAGE;
+        //String button = request.getParameter("btnAction");
+        //BlogRepository blogRepo = new BlogRepository();
+
+        RequestDispatcher rd = request.getRequestDispatcher(BLOG_PAGE);
+        rd.forward(request, response);
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
