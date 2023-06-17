@@ -20,6 +20,22 @@
         <servlet-name>RegisterAccountController</servlet-name>
         <servlet-class>com.yowu.yogacenter.controller.client.RegisterAccountController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>BlogHomeController</servlet-name>
+        <servlet-class>com.yowu.yogacenter.controller.client.BlogHomeController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ViewScheduleController</servlet-name>
+        <servlet-class>com.yowu.yogacenter.controller.client.ViewScheduleController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>BlogHomeDetailController</servlet-name>
+        <servlet-class>com.yowu.yogacenter.controller.client.BlogHomeDetailController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DispatchController</servlet-name>
+        <servlet-class>com.yowu.yogacenter.controller.client.DispatchController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>UserProfileCourse</servlet-name>
         <url-pattern>/userprofile/course</url-pattern>
@@ -39,6 +55,22 @@
     <servlet-mapping>
         <servlet-name>RegisterAccountController</servlet-name>
         <url-pattern>/register</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>BlogHomeController</servlet-name>
+        <url-pattern>/BlogHomeController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewScheduleController</servlet-name>
+        <url-pattern>/ViewScheduleController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>BlogHomeDetailController</servlet-name>
+        <url-pattern>/BlogHomeDetailController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DispatchController</servlet-name>
+        <url-pattern>/DispatchController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
