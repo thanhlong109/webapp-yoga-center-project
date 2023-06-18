@@ -6,6 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="jakarta.tags.core" %>
+<%@page import="com.yowu.yogacenter.model.Bill" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -81,12 +82,14 @@
                color: #6a6a6a;
                line-height: 50px;
                margin-left: 16px;
+              display: block;
            }
            .user-nav a i{
                margin-right: 16px;
            }
            .user-content{
                padding: 0 50px;
+               width: 100%;
            }
            .filter-course{
                list-style: none;
@@ -127,23 +130,24 @@
                font-size: 14px;
                color: white;
            }
-           .status-complete{
+           .status-completed{
                background-color: #eabd53;
+               content: "Completed";
            }
            .status-pending{
                background-color: #b3b3b3;
+               content: "Pending";
            }
            .status-cancelled{
                background-color: #ea6553;
-           }
-           a+a{
-               margin-left: 16px;
+               content:"Cancelled";
            }
            
            .view-bill{
                 display: flex;
                 flex-direction: column;
                 gap: 16px;
+                width: 575px;
             }
             .view-bill h3{
                 color: #333;
@@ -175,7 +179,7 @@
                }
                .user-nav{
                    flex-direction: row;
-                   width: 100%;
+                   width: fit-content;
                }
                .user-nav li{
                    width: fit-content;
@@ -184,7 +188,10 @@
                }
                .user-nav a{
                    margin-left: 0; 
-                   text-align: center; 
+                   text-align: center;
+                   display: flex;
+                   flex-direction: column;
+                   padding: 4px;
                }
                .user-nav a i{
                    margin-right: 0;
@@ -201,7 +208,42 @@
                    padding: 8px 12px;
                }
            }
+           .backbtn{
+               display: flex;
+               gap: 8px;
+               align-items: center;
+               transition: all ease-in-out .3s;
+               cursor: pointer;
+               padding: 4px
+           }
 
+           .backbtn:hover{
+               gap: 16px;
+               padding-left: 0;
+           }
+           .view-btn,.cancel-btn{
+               cursor: pointer;
+               padding: 6px;
+               border-radius: 4px;
+           }
+           .view-btn:hover,.cancel-btn:hover{
+               color: white;
+               background: #3dbca8;
+           }
+           .noice-empty{
+                display: flex;
+                margin: auto;
+                justify-content: center;
+                align-items: center;
+                flex-direction: column;
+                background-color: #e6e6e6;
+                border-radius: 16px;
+                padding: 34px 50px;
+            }
+            .noice-empty img{
+                height: 75px;
+                width: 75px;
+            }
        </style>
     </head>
     <body>
@@ -211,8 +253,8 @@
         </div>
         <div class="container">
             <div class="user2">
-                <div class="user-img"><img src="../Asset/img/avatar/hinh-avatar-1.png" alt="img"></div>
-                <h2>Longn99955</h2>
+                <div class="user-img"><img src="../Asset/img/avatar/${account.img}" alt="img"></div>
+                <h2>${account.name}</h2>
             </div>
             <div class="user-container">
                 <!-- Start navigation -->
@@ -228,65 +270,84 @@
                 <div class="user-content">
                     <div class="course-option">
                         <div class="display-course-content">
-                            <table class="course-table">
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Total</th>
-                                    <th>Status</th>
-                                    <th>Date</th>
-                                    <th>Actions</th>
-                                </tr>
-                                <c:forEach items="${billList}" var="bill">
+                            <c:if test="${billList != null && billList.size() gt 0}">
+                                <table class="course-table">
                                     <tr>
-                                        <td>${bill.id}</td>
-                                        <td>${bill.value}</td>
-                                        <td><span class="status status-complete"></span></td>
-                                        <td>2023-06-15</td>
-                                        <td><a href="#">view</a></td>
+                                        <th>ID</th>
+                                        <th>Total</th>
+                                        <th>Status</th>
+                                        <th>Date</th>
+                                        <th>Actions</th>
                                     </tr>
-                                </c:forEach>
-                                    
-                               
-                                
-                                <tr>
-                                    <td>2</td>
-                                    <td>$15</td>
-                                    <td><span class="status status-pending">Pending</span></td>
-                                    <td>2023-06-15</td>
-                                    <td><a href="#">view</a> <a href="#">Cancel</a></td>
-                                </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td>$15</td>
-                                    <td><span class="status status-cancelled">Cancelled </span></td>
-                                    <td>2023-06-15</td>
-                                    <td><a href="#">view</a></td>
-                                </tr>
+                                    <c:forEach items="${billList}" var="bill">
+                                        <tr>
+                                            <c:set var="status" value="${Bill.getEnumIndex(bill.status).name().toLowerCase()}" />
+                                            <td>${bill.id}</td>
+                                            <td>$${bill.value}</td>
+                                            <td><span class="status status-${status}">${status}</span></td>
+                                            <td>${bill.date}</td>
+                                            <td>
+                                                <span class="view-btn" data-billid="${bill.id}" onclick="viewBill(this)" >view</span>
+                                                <c:if test="${status eq 'pending'}">
+                                                    <span class="cancel-btn" data-billid="${bill.id}" onclick="cancelBill(this)" >cancel</span>
+                                                </c:if>
+                                            </td>
+                                        </tr>
+                                    </c:forEach>
+                                </table>
                                 <div class="view-bill">
-                                    <h3>Order detail</h3>
-                                    <div>
-                                        <label>Bill ID:</label><span>#1</span>
-                                    </div>
-                                    <div>
-                                        <label>Bill Status:</label><span>Cancelled</span>
-                                    </div>
-                                    <div>
-                                        <label>Course:</label><span>yoga for beginer</span>
-                                    </div>
-                                    <div>
-                                        <label>Total Price:</label><span>$21</span>
-                                    </div>
-                                    <div>
-                                        <label>Date:</label><span>23/11/2023</span>
-                                    </div>
-
+                                    <!-- dont delete this-->
                                 </div>
-                            </table>
+                            </c:if>
+                             <c:if test="${billList==null || billList.size() lt 1}">
+                                <div class="noice-empty">
+                                    <img src="../Asset/img/icon/empty.png" alt="">
+                                    <h4>Empty!</h4>
+                                </div>
+                            </c:if>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
         <%@include file="../Component/footer.jsp" %> 
+        
+        <script>
+            function backf() {
+                $(".course-table").show();
+                $(".view-bill").hide();
+            }
+            function viewBill(i){
+                $(".course-table").hide();
+                $(".view-bill").show();
+               $.ajax({
+                        url:"booking?action=view&billid="+$(i).data("billid"),
+                        type:"post",
+                        success:function(data){
+                            document.querySelector(".view-bill").innerHTML = data;
+                        },
+                        error: function(msg){
+                            console.log(msg);
+                        }   
+                });
+            }
+            function cancelBill(i){ 
+                 $.ajax({
+                        url:"booking?action=cancel&billid="+$(i).data("billid"),
+                        type:"post",
+                        success:function(data){
+                            const status =  $(i).parent('td').siblings('td').children('.status');
+                            let crrStatus = status.text();
+                            status.removeClass('status-'+crrStatus);
+                            status.addClass('status-cancelled');
+                            status.html('cancelled');
+                            $(i).hide();
+                        },
+                        error: function(msg){
+                            console.log(msg);
+                        }   
+                });
+            }
+        </script>
     </body>
 </html>

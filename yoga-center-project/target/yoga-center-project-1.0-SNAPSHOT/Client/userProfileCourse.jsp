@@ -23,7 +23,7 @@
                padding: 12% 20px 10% 20px;
                width: 100%;
                text-align: center;
-               background: url(../Asse/img/bg/page-title-1.png) top center / cover no-repeat;
+               background: url(../Asset/img/bg/page-title-1.png) top center / cover no-repeat;
            }
            .banner h2{
                color: #227179;
@@ -85,6 +85,7 @@
                color: #6a6a6a;
                line-height: 50px;
                margin-left: 16px;
+               display: block;
            }
            .user-nav a i{
                margin-right: 16px;
@@ -140,7 +141,7 @@
                }
                .user-nav{
                    flex-direction: row;
-                   width: 100%;
+                   width: fit-content;
                }
                .user-nav li{
                    width: fit-content;
@@ -169,7 +170,20 @@
                    padding: 8px 12px;
                }
            }
-
+        .noice-empty{
+                display: flex;
+                margin: auto;
+                justify-content: center;
+                align-items: center;
+                flex-direction: column;
+                background-color: #e6e6e6;
+                border-radius: 16px;
+                padding: 34px 50px;
+            }
+            .noice-empty img{
+                height: 75px;
+                width: 75px;
+            }
        </style>
        
         
@@ -182,8 +196,8 @@
         </div>
         <div class="container">
             <div class="user2">
-                <div class="user-img"><img src="../Asset/img/avatar/hinh-avatar-1.png" alt="img"></div>
-                <h2>Longn99955</h2>
+                <div class="user-img"><img src="../Asset/img/avatar/${account.img}" alt="img"></div>
+                <h2>${account.name}</h2>
             </div>
             <div class="user-container">
                 <!-- Start navigation-->
@@ -203,7 +217,7 @@
                             <li value="<%= RegistrationCourse.CourseStatus.INPROGRESS.ordinal() %>">In Progress</li>
                             <li value="<%= RegistrationCourse.CourseStatus.FINISH.ordinal() %>">Finished</li>
                         </ul>
-                        <c:if test="${listRegistrationCourse!=null}">
+                        <c:if test="${listRegistrationCourse!=null && listRegistrationCourse.size() gt 1}">
                             <div class="display-course-content">
                                 <table class="course-table">
                                     <tr>
@@ -214,7 +228,7 @@
                                     </tr>
                                     <c:forEach items="${listRegistrationCourse}" var="rCourse">
                                         <tr>
-                                            <td><img src="${rCourse.course.img}" alt="img"></td>
+                                            <td><img src="../Asset/img/classes/${rCourse.course.img}" alt="img"></td>
                                             <td>${rCourse.course.title}</td>
                                             <td>${rCourse.registrationDate}</td>
                                             <td>${rCourse.endDate}</td>
@@ -224,6 +238,12 @@
                                 </table>
                             </div>
                         </c:if>
+                         <c:if test="${listRegistrationCourse==null || listRegistrationCourse.size() lt 1}">
+                                <div class="noice-empty">
+                                    <img src="../Asset/img/icon/empty.png" alt="">
+                                    <h4>Empty!</h4>
+                                </div>
+                            </c:if>
                         
                     </div>
 

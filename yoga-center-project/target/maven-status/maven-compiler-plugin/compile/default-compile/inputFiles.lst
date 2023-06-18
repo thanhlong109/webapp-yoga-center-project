@@ -1,5 +1,8 @@
+E:\long\yoga-center-project\src\main\java\com\yowu\yogacenter\controller\client\BlogHomeDetailController.java
+E:\long\yoga-center-project\src\main\java\com\yowu\yogacenter\controller\client\UserProfileSetting.java
 E:\long\yoga-center-project\src\main\java\com\yowu\yogacenter\repository\CourseRepository.java
 E:\long\yoga-center-project\src\main\java\com\yowu\yogacenter\repository\BillRepository.java
+E:\long\yoga-center-project\src\main\java\com\yowu\yogacenter\controller\client\BlogHomeController.java
 E:\long\yoga-center-project\src\main\java\com\yowu\yogacenter\model\Bill.java
 E:\long\yoga-center-project\src\main\java\com\yowu\yogacenter\util\DBHelpler.java
 E:\long\yoga-center-project\src\main\java\com\yowu\yogacenter\model\Comment.java
@@ -10,6 +13,7 @@ E:\long\yoga-center-project\src\main\java\com\yowu\yogacenter\repository\ClassSc
 E:\long\yoga-center-project\src\main\java\com\yowu\yogacenter\model\Blog.java
 E:\long\yoga-center-project\src\main\java\com\yowu\yogacenter\repository\CommentRepository.java
 E:\long\yoga-center-project\src\main\java\com\yowu\yogacenter\controller\client\LoginController.java
+E:\long\yoga-center-project\src\main\java\com\yowu\yogacenter\controller\client\ViewScheduleController.java
 E:\long\yoga-center-project\src\main\java\com\yowu\yogacenter\repository\RegistrationCourseRepository.java
 E:\long\yoga-center-project\src\main\java\com\yowu\yogacenter\model\CourseSchedule.java
 E:\long\yoga-center-project\src\main\java\com\yowu\yogacenter\controller\client\UserProfileWishlist.java
@@ -37,4 +41,5 @@ E:\long\yoga-center-project\src\main\java\com\yowu\yogacenter\model\Registration
 E:\long\yoga-center-project\src\main\java\com\yowu\yogacenter\repository\RoleHasPermissionRepository.java
 E:\long\yoga-center-project\src\main\java\com\yowu\yogacenter\model\RegistrationMembership.java
 E:\long\yoga-center-project\src\main\java\com\yowu\yogacenter\model\Account.java
+E:\long\yoga-center-project\src\main\java\com\yowu\yogacenter\controller\client\DispatchController.java
 E:\long\yoga-center-project\src\main\java\com\yowu\yogacenter\repository\CourseWishlistRepository.java
