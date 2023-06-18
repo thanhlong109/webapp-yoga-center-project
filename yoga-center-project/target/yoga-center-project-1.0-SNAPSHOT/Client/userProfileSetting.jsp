@@ -274,15 +274,15 @@
                                 <form class="general-form" action="setting">
                                     <div class="box-input">
                                         <label>Username:</label>
-                                        <input required type="text" name="txtUsername" placeholder="Username" value="">
+                                        <input required type="text" name="txtUsername" placeholder="Username" value="${account.name}">
                                     </div>
                                     <div class="box-input">
                                         <label>Email:</label>
-                                        <input required  type="email" name="txtEmail" placeholder="Email" value="">
+                                        <input required  type="email" name="txtEmail" placeholder="Email" value="${account.email}">
                                     </div>
                                     <div class="box-input">
                                         <label>Phone Number:</label>
-                                        <input required type="number" name="txtPhone" placeholder="Phone Number" value="">
+                                        <input required type="number" name="txtPhone" placeholder="Phone Number" value="${account.phone}">
                                     </div>
                                     <button type="submit">Save</button>
                                 </form>
@@ -295,8 +295,8 @@
                                     </div>
                                     <input id="img-btn" required style="display: none;" type="file" name="avatar" accept="image/*">
                                     <div >
-                                        <label class="img-btn-label" for="img-btn">Choose File</label>
-                                        <button type="submit">Save</button>
+                                        <label style="display: inline-block" class="img-btn-label" for="img-btn">Choose File</label>
+                                        <button style="display: none" class="avatar-btn" type="submit">Save</button>
                                     </div>
                                 </form>
                             </div>
@@ -332,7 +332,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div>                           
         <script>
         $(document).ready(()=>{
             /*display filter option*/
@@ -386,6 +386,7 @@
             const btnImg =  document.getElementById('img-btn');
             const displayImg = document.querySelector('.show-img img');
             btnImg.onchange = ()=>{
+                $('.avatar-btn').show();
                 let reader = new FileReader();
                 reader.readAsDataURL(btnImg.files[0]);
                 reader.onload = ()=>{
@@ -395,7 +396,7 @@
                 console.log(btnImg.files[0].name);
             };
             
-            /**/
+            /*send to sever*/
             $('.general-form').on('submit',function (e){
                 e.preventDefault();
                 $.ajax({
@@ -405,6 +406,19 @@
                     data     : "action=general&"+$(this).serialize(),
                     success  : function(data) {
                         document.querySelector('.js-username').innerHTML =data;
+                        toast({
+                            title:"Success!",
+                            msg:"Your info has been changed!",
+                            type:'success',
+                            duration:5000   
+                        });
+                    },error: function(xhr, textStatus, errorThrown) {
+                        toast({
+                            title:"Error!",
+                            msg:"Something seem to went wrong!",
+                            type:'error',
+                            duration:5000   
+                        });
                     }
                 });
                 
@@ -419,9 +433,20 @@
                     processData: false,
                     data: formData,
                     success: function(data){
+                         toast({
+                            title:"Success!",
+                            msg:"Avatar has been changed!",
+                            type:'success',
+                            duration:5000   
+                        });
                     },
                     error: function(xhr, textStatus, errorThrown) {
-                     console.log(xhr);
+                        toast({
+                            title:"Error!",
+                            msg:"Something seem to went wrong!",
+                            type:'error',
+                            duration:5000   
+                        });
                     }
                 });
             });
@@ -434,12 +459,25 @@
                     url      : $(this).attr('action'),
                     data     : "action=password&"+$(this).serialize(),
                     success  : function(data) {
-                        
+                        toast({
+                            title:"Success!",
+                            msg:"Password has been changed!",
+                            type:'success',
+                            duration:5000   
+                        });
+                    },error: function(xhr, textStatus, errorThrown) {
+                        toast({
+                            title:"Error!",
+                            msg:"Something seem to went wrong!",
+                            type:'error',
+                            duration:5000   
+                        });
                     }
                 });
                 
             });
         </script>
+        <%@include file="../Component/toast.jsp" %>
         <%@include file="../Component/footer.jsp" %>
     </body>
 </html>

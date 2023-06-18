@@ -7,6 +7,7 @@ package com.yowu.yogacenter.controller.client;
 import com.yowu.yogacenter.model.Account;
 import com.yowu.yogacenter.model.Course;
 import com.yowu.yogacenter.model.RegistrationCourse;
+import com.yowu.yogacenter.repository.AccountRepository;
 import com.yowu.yogacenter.repository.RegistrationCourseRepository;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -32,6 +33,8 @@ public class UserProfileCourse extends HttpServlet {
         HttpSession ss = request.getSession();
         int accountID =((Account)ss.getAttribute("account")).getId();*/
         int accountID = 2;
+        AccountRepository ar = new AccountRepository();
+        request.setAttribute("account", ar.detail(accountID));
         String txtStatus = request.getParameter("status");
         RegistrationCourseRepository rcRepo = new RegistrationCourseRepository();
         if(txtStatus!=null){

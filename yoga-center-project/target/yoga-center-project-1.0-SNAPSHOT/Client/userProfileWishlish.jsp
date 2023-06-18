@@ -22,7 +22,7 @@
                 padding: 12% 20px 10% 20px;
                 width: 100%;
                 text-align: center;
-                background: url(../Asse/img/bg/page-title-1.png) top center / cover no-repeat;
+                background: url(../Asset/img/bg/page-title-1.png) top center / cover no-repeat;
             }
             .banner h2{
                 color: #227179;
@@ -91,6 +91,7 @@
             }
             .user-content{
                 padding: 0 50px;
+                width: 100%;
             }
 
             table{
@@ -138,6 +139,7 @@
                 }
                 .user-container{
                     flex-direction: column;
+                    
                 }
                 .user-nav{
                     flex-direction: row;
@@ -158,6 +160,7 @@
 
                 .user-content{
                     padding: 0;
+                    
                 }
                 td,th{
                     padding: 8px 12px;
@@ -167,8 +170,24 @@
                     max-width: 100%;
                     margin-top: 32px;
                 }
+               
 
             }
+            .noice-empty{
+                display: flex;
+                margin: auto;
+                justify-content: center;
+                align-items: center;
+                flex-direction: column;
+                background-color: #e6e6e6;
+                border-radius: 16px;
+                padding: 34px 50px;
+            }
+            .noice-empty img{
+                height: 75px;
+                width: 75px;
+            }
+            
         </style>
     </head>
     <body>
@@ -178,8 +197,8 @@
         </div>
         <div class="container">
             <div class="user2">
-                <div class="user-img"><img src="../Asset/img/avatar/hinh-avatar-1.png" alt=""></div>
-                <h2>Longn99955</h2>
+                <div class="user-img"><img src="../Asset/img/avatar/${account.img}" alt=""></div>
+                <h2>${account.name}</h2>
             </div>
             <div class="user-container">
                 <ul class="user-nav">
@@ -191,7 +210,7 @@
                 </ul>
                 <div class="user-content">
                         <div class="display-course-content">
-                            <c:if test="${wishlist!=null}">
+                            <c:if test="${wishlist!=null && whishlist.size() > 0}">
                                 <table class="course-table">
                                     <tr>
                                         <th></th>
@@ -200,14 +219,19 @@
                                     </tr>
                                     <c:forEach items="${wishlist}" var="item">
                                         <tr>
-                                            <td><img src="../Asset/img/courses/${item.course.img}" alt="img"></td>
+                                            <td><img src="../Asset/img/classes/${item.course.img}" alt="img"></td>
                                             <td><a href="#">${item.course.title}</a></td>
                                             <td><i onclick="deteleWishlist(this)" data-courseid="${item.course.id}" class="fa fa-trash" aria-hidden="true"></i></td>
                                         </tr>
                                     </c:forEach>
                                 </table>
                             </c:if>
-                            
+                            <c:if test="${wishlist==null || whishlist.size() <= 0}">
+                                <div class="noice-empty">
+                                    <img src="../Asset/img/icon/empty.png" alt="">
+                                    <h4>Empty!</h4>
+                                </div>
+                            </c:if>
                         </div>
                     </div>
 
@@ -223,6 +247,12 @@
                         type:"post",
                         success:function(data){
                             document.querySelector(".display-course-content").innerHTML = data;
+                            toast({
+                                title:"Success!",
+                                msg:"Remove success!",
+                                type:'success',
+                                duration:5000   
+                            });
                         },
                         error: function(msg){
                             console.log(msg);
@@ -232,5 +262,6 @@
             }
             
         </script>
+        <%@include file="../Component/toast.jsp" %>
     </body>
 </html>

@@ -5,6 +5,7 @@
 package com.yowu.yogacenter.controller.client;
 
 import com.yowu.yogacenter.model.Bill;
+import com.yowu.yogacenter.repository.AccountRepository;
 import com.yowu.yogacenter.repository.BillRepository;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -25,6 +26,8 @@ public class UserProfileBooking extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         int accountID = 2;
+        AccountRepository ar = new AccountRepository();
+        request.setAttribute("account", ar.detail(accountID));
         try{
             BillRepository bRepo = new BillRepository();
             List<Bill> list = bRepo.getByAccountID(accountID);
@@ -47,12 +50,20 @@ public class UserProfileBooking extends HttpServlet {
             BillRepository br = new BillRepository();
             int accountID = 2;
             int billID = Integer.parseInt(request.getParameter("billid"));
+            Bill b = br.detail(billID);
             switch(action){
                 case "view":{
-                    out.print(getHtmlViewBill(br.detail(billID)));
+                    out.print(getHtmlViewBill(b));
+                    break;
+                }
+                case "cancel":{
+                    b.setStatus(Bill.BillStatus.CANCELLED.ordinal());
+                    br.update(b);
                     break;
                 }
             }
+        }catch(Exception e){
+            System.out.println(e);
         }
     }
     

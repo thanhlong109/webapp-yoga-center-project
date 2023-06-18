@@ -5,6 +5,7 @@
 package com.yowu.yogacenter.controller.client;
 
 import com.yowu.yogacenter.model.CourseWishlist;
+import com.yowu.yogacenter.repository.AccountRepository;
 import com.yowu.yogacenter.repository.CourseWishlistRepository;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -25,9 +26,11 @@ public class UserProfileWishlist extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        int accountID = 3;
+        int accountID = 2;
+        AccountRepository ar = new AccountRepository();
+        request.setAttribute("account", ar.detail(accountID));
         CourseWishlistRepository cwr = new CourseWishlistRepository();
-        request.setAttribute("wishlist", cwr.getByAccountID(accountID));
+        request.setAttribute("whishlist", cwr.getByAccountID(accountID));
         request.getRequestDispatcher(USER_PROFILE_WISHLISH_PAGE).forward(request, response);
         
     }
@@ -35,8 +38,7 @@ public class UserProfileWishlist extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        int accountID = 3;//thay sang sesion
-        
+        int accountID = 2;//thay sang sesion
         CourseWishlistRepository cwr = new CourseWishlistRepository();
         try(PrintWriter out = response.getWriter()){
             int courseID = Integer.parseInt(request.getParameter("courseid"));

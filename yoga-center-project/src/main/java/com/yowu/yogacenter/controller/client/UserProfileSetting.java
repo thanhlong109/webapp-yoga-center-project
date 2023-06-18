@@ -68,7 +68,6 @@ public class UserProfileSetting extends HttpServlet {
                 String newPassword = request.getParameter("txtNewPassword");
                 if(password.equals(acc.getPassword())){
                    acc.setPassword(newPassword);
-                   
                 }
             }
         }
