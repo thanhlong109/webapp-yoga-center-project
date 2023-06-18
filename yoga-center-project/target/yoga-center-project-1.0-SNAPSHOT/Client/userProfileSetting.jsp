@@ -421,9 +421,23 @@
                     success: function(data){
                     },
                     error: function(xhr, textStatus, errorThrown) {
-                      alert( xhr.status);
+                     console.log(xhr);
                     }
                 });
+            });
+            
+             $('.password-form').on('submit',function (e){
+                e.preventDefault();
+                $.ajax({
+                    type     : "POST",
+                    cache    : false,
+                    url      : $(this).attr('action'),
+                    data     : "action=password&"+$(this).serialize(),
+                    success  : function(data) {
+                        
+                    }
+                });
+                
             });
         </script>
         <%@include file="../Component/footer.jsp" %>

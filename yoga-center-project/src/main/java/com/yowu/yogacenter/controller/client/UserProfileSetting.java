@@ -40,7 +40,7 @@ public class UserProfileSetting extends HttpServlet {
        String action = request.getParameter("action");
        AccountRepository ar = new AccountRepository();
        int accountID = 2;
-        Account acc = ar.detail(2);
+       Account acc = ar.detail(2);
        try(PrintWriter out = response.getWriter()){
         switch(action){
             case "general":{
@@ -64,7 +64,12 @@ public class UserProfileSetting extends HttpServlet {
                 break;
             }
             case "password":{
-                
+                String password = request.getParameter("txtPassword");
+                String newPassword = request.getParameter("txtNewPassword");
+                if(password.equals(acc.getPassword())){
+                   acc.setPassword(newPassword);
+                   
+                }
             }
         }
        }
