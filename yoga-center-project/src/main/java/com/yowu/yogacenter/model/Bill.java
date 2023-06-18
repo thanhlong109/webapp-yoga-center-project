@@ -25,7 +25,7 @@ public class Bill {
 
     public Bill() {
     }
-
+    
     public Bill(Course course, Account account, int id, int status, boolean isActive, float value, int discount, Date date) {
         this.course = course;
         this.account = account;
@@ -100,5 +100,11 @@ public class Bill {
     public void setDate(Date date) {
         this.date = date;
     }
-
+    public static BillStatus getEnumIndex(int i){
+        BillStatus[] arr = BillStatus.values();
+        if(i>=0&&i<arr.length){
+            return arr[i];
+        }
+        return null;
+    }
 }

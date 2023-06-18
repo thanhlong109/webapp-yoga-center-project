@@ -129,8 +129,14 @@ public class AccountRepository {
         }
         return null;
     }
+<<<<<<< HEAD
 
     public boolean update(Account c) {
+=======
+    
+    public boolean update(Account c){
+        String sql = "update tblAccount set account_name=? , account_password=? ,account_img=? , account_email=? , account_phone=? , account_is_active=? where account_id=?";
+>>>>>>> df59f14c610360d990483b12a4d89846b3ea1419
         int status = 0;
         try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(UPDATE_ACCOUNT)) {
             stmt.setString(1, c.getName());
@@ -176,8 +182,18 @@ public class AccountRepository {
     }
 
     public static void main(String[] args) {
+<<<<<<< HEAD
         AccountRepository cr = new AccountRepository();
         System.out.println(cr.delete(1));
+=======
+        AccountRepository ar = new AccountRepository();
+        Account acc = ar.detail(2);
+        System.out.println(acc.getName());
+        acc.setName("long2");
+        ar.updateGeneral(acc);
+        acc= ar.detail(2);
+        System.out.println(acc.getName());
+>>>>>>> df59f14c610360d990483b12a4d89846b3ea1419
     }
 
 }

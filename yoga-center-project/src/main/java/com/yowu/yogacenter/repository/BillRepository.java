@@ -174,6 +174,6 @@ public class BillRepository {
     }
     public static void main(String[] args) {
         BillRepository b = new BillRepository();
-        System.out.println(b.getByAccountID(2).get(0).getCourse().getTitle());
+        
     }
 }

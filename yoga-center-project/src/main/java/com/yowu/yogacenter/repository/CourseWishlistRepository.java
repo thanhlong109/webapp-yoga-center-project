@@ -56,6 +56,7 @@ public class CourseWishlistRepository {
             }
         } catch (Exception e) {
             System.out.println(e);
+            return null;
         }
         return list;
     }
