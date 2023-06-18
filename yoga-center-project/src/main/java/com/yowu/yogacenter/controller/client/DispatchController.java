@@ -16,6 +16,7 @@ public class DispatchController extends HttpServlet {
 
     private final String HOME_PAGE = "Client/Home.jsp";
     private final String BLOG_HOME_CONTROLLER = "BlogHomeController";
+    private final String LOGIN_CONTROLLER = "LoginController";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -29,6 +30,8 @@ public class DispatchController extends HttpServlet {
                 url = HOME_PAGE;
             } else if (button.equals("Post")) {
                 url = BLOG_HOME_CONTROLLER;
+            } else if(button.equals("Login")){
+                url = LOGIN_CONTROLLER;
             }
         } catch (Exception e) {
             log("Error at DispatchController: " + e.toString());

@@ -214,7 +214,7 @@
 
                         </div>
                         <div class="center">
-                            <button class="btn-login" type="submit">
+                            <button class="btn-login" type="submit" name = "btnAction" value = "Login">
                                 Login
                             </button>
                         </div>
@@ -243,7 +243,7 @@
                         </div>
 
                         <div class="center">
-                            <button id="btn2" class="btn-login" type="submit" >
+                            <button id="btn2" class="btn-login" type="submit" name = "btnAction">
                                 Signup
                             </button>     
                         </div>
