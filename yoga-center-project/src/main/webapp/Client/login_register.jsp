@@ -214,7 +214,7 @@
 
                         </div>
                         <div class="center">
-                            <button class="btn-login" type="submit" name = "btnAction" value = "Login">
+                            <button class="btn-login" type="submit">
                                 Login
                             </button>
                         </div>
@@ -223,7 +223,7 @@
                 </div>
                 <div class="signup-box">
                     <h2>SignUp</h2>
-                    <form action="signup" method="POST">
+                    <form action="signup" method="POST" id="form-register">
                         <div class="user-box">
                             <input type="text" name="username" required>
                             <label>Username</label>
@@ -241,9 +241,10 @@
                             <label>Retype Password</label>
                             <p class="note-signup">${errSignup}</p>
                         </div>
-
+                        <div class="captcha" id="html_element"></div>
+                        <div id="error" style="color: red; font-size: 15px;"></div>
                         <div class="center">
-                            <button id="btn2" class="btn-login" type="submit" name = "btnAction">
+                            <button id="btn2" class="btn-login" type="submit">
                                 Signup
                             </button>     
                         </div>
@@ -322,6 +323,34 @@
                     }
                 }
         </script>
+        <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+        <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit"async defer></script>
+        <script type="text/javascript" defer="">
+            var onloadCallback = function () {
+                grecaptcha.render('html_element', {
+                    'sitekey': '6Le2n4kmAAAAAGA2sQ-4rJpYthuvckW-HfPawoN2'
+                });
+            };
+        </script>
+        <script>
+			window.onload = function (){
+                            let isValid = false;
+				const form = document.getElementById("form-register");
+				const error = document.getElementById("error");
+				
+				form.addEventListener("submit", function (event){
+					event.preventDefault();
+					const response = grecaptcha.getResponse();
+					if (response){
+						form.submit();
+					} else {
+						error.innerHTML = "Please check reCAPTCHA.";
+					}
+				});
+			};
+	</script>
+        
+        
         <jsp:include page="../Component/footer.jsp"></jsp:include>
     </body>
 </html>

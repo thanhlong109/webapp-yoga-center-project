@@ -31,7 +31,8 @@ public class AccountRepository {
             + "account_password=? ,account_img=? , account_email=? , account_phone=? , "
             + "account_is_active where account_id=? ";
     private final String DELETE_ACCOUNT = "update tblAccount set account_is_active=? where account_id=? ";
-    private final String CHECK_DUPLICATE = "select account_id from tblAccount where account_id=?";
+    private final String CHECK_DUPLICATE = "select account_email from tblAccount where account_id=?";
+    private final String UPDATE_GENERAL = "update tblAccount set account_name=? , account_email=? ,account_phone=? where account_id=?";
 
     public List<Account> getAll() {
 
@@ -129,14 +130,11 @@ public class AccountRepository {
         }
         return null;
     }
-<<<<<<< HEAD
 
-    public boolean update(Account c) {
-=======
-    
+
+
+
     public boolean update(Account c){
-        String sql = "update tblAccount set account_name=? , account_password=? ,account_img=? , account_email=? , account_phone=? , account_is_active=? where account_id=?";
->>>>>>> df59f14c610360d990483b12a4d89846b3ea1419
         int status = 0;
         try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(UPDATE_ACCOUNT)) {
             stmt.setString(1, c.getName());
@@ -152,7 +150,48 @@ public class AccountRepository {
         }
         return status == 1;
     }
-
+    
+    public boolean updateGeneral(Account c){
+            
+        int status = 0;
+        try(PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(UPDATE_GENERAL)){
+            stmt.setString(1, c.getName());
+            stmt.setString(2, c.getEmail());
+            stmt.setString(3, c.getPhone());
+            stmt.setInt(4, c.getId());
+            status = stmt.executeUpdate();
+        }catch(Exception e){
+            System.out.println(e);
+        }
+        return status==1;
+    }
+    
+    public boolean updateImg(Account c){
+        String sql = "update tblAccount set account_img=? where account_id=? ";
+        int status = 0;
+        try(PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)){
+            stmt.setString(1, c.getImg());
+            stmt.setInt(2, c.getId());
+            status = stmt.executeUpdate();
+        }catch(Exception e){
+            System.out.println(e);
+        }
+        return status==1;
+    }
+    
+    public boolean updatePassword(Account c){
+        String sql = "update tblAccount set account_password=? where account_id=? ";
+        int status = 0;
+        try(PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)){
+            stmt.setString(1, c.getPassword());
+            stmt.setInt(2, c.getId());
+            status = stmt.executeUpdate();
+        }catch(Exception e){
+            System.out.println(e);
+        }
+        return status==1;
+    }
+    
     public boolean delete(int id) {
         int status = 0;
         try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(DELETE_ACCOUNT)) {
@@ -165,35 +204,35 @@ public class AccountRepository {
         return status == 1;
     }
 
-    
 
-    public boolean checkDuplicate(String accountId) {
+
+    public boolean checkDuplicate(String accountEmail) {
         int status = 0;
         try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(CHECK_DUPLICATE)) {
             try ( ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
                     stmt.setString(1, accountId);
+                    rs = ptm.executeQuery();
+                    status = 1;
                 }
             }
         } catch (Exception e) {
             System.out.println(e);
         }
-        return status == 1;
+        return status ;
     }
 
     public static void main(String[] args) {
-<<<<<<< HEAD
-        AccountRepository cr = new AccountRepository();
-        System.out.println(cr.delete(1));
-=======
-        AccountRepository ar = new AccountRepository();
-        Account acc = ar.detail(2);
-        System.out.println(acc.getName());
-        acc.setName("long2");
-        ar.updateGeneral(acc);
-        acc= ar.detail(2);
-        System.out.println(acc.getName());
->>>>>>> df59f14c610360d990483b12a4d89846b3ea1419
+
+//        AccountRepository cr = new AccountRepository();
+//        System.out.println(cr.delete(1));
+//        AccountRepository ar = new AccountRepository();
+//        Account acc = ar.detail(2);
+//        System.out.println(acc.getName());
+//        acc.setName("long2");
+//        ar.updateGeneral(acc);
+//        acc= ar.detail(2);
+//        System.out.println(acc.getName());
     }
 
 }

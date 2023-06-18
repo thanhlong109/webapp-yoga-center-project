@@ -23,6 +23,7 @@ public class LoginController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.setAttribute("type", "login");
         String accountemail = request.getParameter("username");
         String password = request.getParameter("password");
         AccountRepository dao = new AccountRepository();
@@ -50,7 +51,6 @@ public class LoginController extends HttpServlet {
             }
         } catch (Exception e) {
             System.out.println(e);
-            // Xử lý ngoại lệ tại đây, ví dụ:
             // request.setAttribute("ERROR", "An error occurred");
             // request.getRequestDispatcher(ERROR_PAGE).forward(request, response);
         }
