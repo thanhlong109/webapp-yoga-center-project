@@ -9,7 +9,7 @@
         <!-- Start Header -->
         <div class="header-wrapper">
             <div class="header">
-                <a href="#" class="logo">
+                <a href="${pageContext.request.contextPath}" class="logo">
                     YOWU.
                 </a>
                 <div class="nav-wrapper">
@@ -46,7 +46,7 @@
                     </ul>
                     
                     <div class="user-btn">
-                        <a href="Client/login_register.jsp">
+                        <a href="${pageContext.request.contextPath}/login">
                             <i class="fa-solid fa-user"></i> Login/Register  <!-- display name user here, if user null display login/Register-->
                         </a>
                     </div>
@@ -57,7 +57,7 @@
             </div>
         </div>
         <!-- End header -->
-        <script src="../Asset/js/cdnjs.cloudflare.com_ajax_libs_jquery_3.7.0_jquery.min.js"></script>
+        <script src="${pageContext.request.contextPath}/Asset/js/cdnjs.cloudflare.com_ajax_libs_jquery_3.7.0_jquery.min.js"></script>
         <script defer>
             const menuBtn = document.querySelector(".menu-mobile");
             const nav = document.querySelector(".nav");
@@ -103,7 +103,5 @@
                     $(".header-wrapper").slideUp(400);
                 }
             });  
-
-
         </script>
     

@@ -19,12 +19,12 @@ E:\long\yoga-center-project\src\main\java\com\yowu\yogacenter\model\CourseSchedu
 E:\long\yoga-center-project\src\main\java\com\yowu\yogacenter\controller\client\UserProfileWishlist.java
 E:\long\yoga-center-project\src\main\java\com\yowu\yogacenter\model\Membership.java
 E:\long\yoga-center-project\src\main\java\com\yowu\yogacenter\repository\RegistrationMembershipRepository.java
+E:\long\yoga-center-project\src\main\java\com\yowu\yogacenter\controller\client\CourseListController.java
 E:\long\yoga-center-project\src\main\java\com\yowu\yogacenter\repository\CourseScheduleRepository.java
 E:\long\yoga-center-project\src\main\java\com\yowu\yogacenter\controller\client\UserProfileCourse.java
 E:\long\yoga-center-project\src\main\java\com\yowu\yogacenter\controller\client\UserProfileBooking.java
 E:\long\yoga-center-project\src\main\java\com\yowu\yogacenter\model\ClassSchedule.java
 E:\long\yoga-center-project\src\main\java\com\yowu\yogacenter\model\Role.java
-E:\long\yoga-center-project\src\main\java\com\yowu\yogacenter\repository\CourseInstructorRepository.java
 E:\long\yoga-center-project\src\main\java\com\yowu\yogacenter\repository\RoleRepository.java
 E:\long\yoga-center-project\src\main\java\com\yowu\yogacenter\repository\MembershipRepository.java
 E:\long\yoga-center-project\src\main\java\com\yowu\yogacenter\repository\RatingCourseRepository.java
@@ -33,7 +33,6 @@ E:\long\yoga-center-project\src\main\java\com\yowu\yogacenter\repository\Categor
 E:\long\yoga-center-project\src\main\java\com\yowu\yogacenter\model\Category.java
 E:\long\yoga-center-project\src\main\java\com\yowu\yogacenter\model\RoleHasPermission.java
 E:\long\yoga-center-project\src\main\java\com\yowu\yogacenter\controller\client\RegisterAccountController.java
-E:\long\yoga-center-project\src\main\java\com\yowu\yogacenter\model\CourseInstructor.java
 E:\long\yoga-center-project\src\main\java\com\yowu\yogacenter\repository\AccountRepository.java
 E:\long\yoga-center-project\src\main\java\com\yowu\yogacenter\model\Course.java
 E:\long\yoga-center-project\src\main\java\com\yowu\yogacenter\model\Permission.java

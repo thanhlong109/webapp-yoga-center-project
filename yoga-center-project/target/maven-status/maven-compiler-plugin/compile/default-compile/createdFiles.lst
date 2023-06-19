@@ -3,7 +3,6 @@ com\yowu\yogacenter\controller\client\RegisterAccountController.class
 com\yowu\yogacenter\controller\client\UserProfileWishlist.class
 com\yowu\yogacenter\model\RegistrationCourse$CourseStatus.class
 com\yowu\yogacenter\repository\RoleRepository.class
-com\yowu\yogacenter\repository\CourseInstructorRepository.class
 com\yowu\yogacenter\repository\CourseWishlistRepository.class
 com\yowu\yogacenter\controller\client\UserProfileCourse$1.class
 com\yowu\yogacenter\repository\MembershipRepository.class
@@ -13,7 +12,6 @@ com\yowu\yogacenter\model\Comment.class
 com\yowu\yogacenter\repository\CourseRepository.class
 com\yowu\yogacenter\repository\RatingCourseRepository.class
 com\yowu\yogacenter\model\RegistrationCourse.class
-com\yowu\yogacenter\model\CourseInstructor.class
 com\yowu\yogacenter\controller\client\LoginController.class
 com\yowu\yogacenter\model\RatingCourse.class
 com\yowu\yogacenter\model\Permission.class

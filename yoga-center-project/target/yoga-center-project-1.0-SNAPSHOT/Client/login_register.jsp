@@ -309,7 +309,6 @@
                     var slideboxp2 = document.querySelector(".slide-box-p2"); 
                     let data = changebtn.innerHTML;
                     if(slidebox.classList.contains("right")){
-
                         slideboxp1.innerHTML="Fill in the information so that we can contact you";
                         slideboxp2.innerHTML="If you already have an account, click blow button to login";
                         changebtn.innerHTML="Go to login";
@@ -321,6 +320,22 @@
                         slidebox.classList.add("right");
                     }
                 }
+                fill();
+                
+                function fill(){
+                    
+                    if($('.slide-box').hasClass('right')){
+                        $('.slide-box-p1').html("Login and have a great shopping experience");
+                        $('.slide-box-p2').html("If you don't have acount before, please touch button below");
+                        $('#change').html('Create new Account');
+                    }else{
+                        $('.slide-box .slide-box-p1').text("Fill in the information so that we can contact you");
+                        $('.slide-box-p2').html("If you already have an account, click blow button to login");
+                        $('#change').html('Go to login');
+                    }
+                    
+                }
+                
         </script>
         <jsp:include page="../Component/footer.jsp"></jsp:include>
     </body>
