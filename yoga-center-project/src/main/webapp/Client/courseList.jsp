@@ -127,6 +127,7 @@
         </style>
     </head>
     <body>
+        <jsp:include page="../Component/header.jsp"></jsp:include>
         <%
             request.setAttribute("rcRepo",new RegistrationCourseRepository());
         %>

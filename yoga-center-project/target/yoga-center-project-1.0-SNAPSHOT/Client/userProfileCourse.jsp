@@ -196,7 +196,7 @@
         </div>
         <div class="container">
             <div class="user2">
-                <div class="user-img"><img src="../Asset/img/avatar/${account.img}" alt="img"></div>
+                <div class="user-img"><img src="../Asset/img/avatar/${sessionScope.account.img}" alt="img"></div>
                 <h2>${account.name}</h2>
             </div>
             <div class="user-container">

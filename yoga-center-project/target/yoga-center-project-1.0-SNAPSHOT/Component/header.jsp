@@ -18,7 +18,7 @@
                 <li class="active"><a href="#">Home</a></li>
                 <li><a href="#">About Us</a></li>
                 <li>
-                    <a href="Client/viewclasses.jsp">Classes</a>
+                    <a href="${pageContext.request.contextPath}/ViewClass">Classes</a>
                     <i class="fa-solid fa-chevron-right subnavbtn pc-hide"></i>
                     <ul class="subnav">
                         <i class="fa-solid fa-x closebtn"></i>
@@ -42,7 +42,7 @@
                     <li><a href="#">About5</a></li>  
                 </ul>
             </li>
-            <li><a href="Client/schedule_trainee.jsp">Schedule</a></li>
+            <li><a href="${pageContext.request.contextPath}/Timetable">Schedule</a></li>
             </ul>
 
             <div class="user-btn">
