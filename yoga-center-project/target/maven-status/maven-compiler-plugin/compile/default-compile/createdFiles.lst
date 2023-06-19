@@ -39,6 +39,8 @@ com\yowu\yogacenter\model\CourseWishlist.class
 com\yowu\yogacenter\repository\CategoryRepository.class
 com\yowu\yogacenter\repository\RoleHasPermissionRepository.class
 com\yowu\yogacenter\model\CourseSchedule.class
+com\yowu\yogacenter\model\AccountError.class
+com\yowu\yogacenter\model\Role$RoleList.class
 com\yowu\yogacenter\repository\RegistrationMembershipRepository.class
 com\yowu\yogacenter\model\Account.class
 com\yowu\yogacenter\controller\client\UserProfileBooking.class

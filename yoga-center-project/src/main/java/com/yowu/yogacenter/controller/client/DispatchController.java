@@ -29,6 +29,7 @@ public class DispatchController extends HttpServlet {
                 url = HOME_PAGE;
             } else if (button.equals("Post")) {
                 url = BLOG_HOME_CONTROLLER;
+            
             }
         } catch (Exception e) {
             log("Error at DispatchController: " + e.toString());

@@ -248,8 +248,8 @@
         </div>
         <div class="container">
             <div class="user2">
-                <div class="user-img"><img src="../Asset/img/avatar/${account.img}" alt="img"></div>
-                <h2 class="js-username" >${account.name}</h2>
+                <div class="user-img"><img src="../Asset/img/avatar/${sessionScope.account.img}" alt="img"></div>
+                <h2 class="js-username" >${sessionScope.account.name}</h2>
             </div>
             <div class="user-container">
                 <!-- navigation -->

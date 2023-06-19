@@ -27,8 +27,7 @@ public class UserProfileSetting extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        AccountRepository ar = new AccountRepository();
-        request.setAttribute("account", ar.detail(2));
+        
         request.getRequestDispatcher(USER_PROFILE_SETTING_PAGE).forward(request, response);
     }
 
@@ -39,35 +38,34 @@ public class UserProfileSetting extends HttpServlet {
       
        String action = request.getParameter("action");
        AccountRepository ar = new AccountRepository();
-       int accountID = 2;
-       Account acc = ar.detail(2);
+       Account account = (Account)request.getSession().getAttribute("account");
        try(PrintWriter out = response.getWriter()){
         switch(action){
             case "general":{
                 String username = request.getParameter("txtUsername");
                 String email = request.getParameter("txtEmail");
                 String phone = request.getParameter("txtPhone");
-                acc.setName(username);
-                acc.setEmail(email);
-                acc.setPhone(phone);
-                if(ar.updateGeneral(acc)){
+                account.setName(username);
+                account.setEmail(email);
+                account.setPhone(phone);
+                if(ar.updateGeneral(account)){
                     out.print(username);
                 }
                 break;
             }
             case "avatar":{
                 String uploadDirectory = "/Asset/img/avatar/";
-                String imgName = "avatar-acc-id-"+accountID;
+                String imgName = "avatar-acc-id-"+account.getId();
                 String fileName = storeImgWithName(imgName, uploadDirectory, request.getPart("avatar"));
-                acc.setImg(fileName);
-                ar.updateImg(acc);
+                account.setImg(fileName);
+                ar.updateImg(account);
                 break;
             }
             case "password":{
                 String password = request.getParameter("txtPassword");
                 String newPassword = request.getParameter("txtNewPassword");
-                if(password.equals(acc.getPassword())){
-                   acc.setPassword(newPassword);
+                if(password.equals(account.getPassword())){
+                   account.setPassword(newPassword);
                 }
             }
         }

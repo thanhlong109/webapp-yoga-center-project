@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="jakarta.tags.core" %>
 
         <!-- Start Header -->
         <div class="header-wrapper">
@@ -46,9 +47,18 @@
                     </ul>
                     
                     <div class="user-btn">
-                        <a href="Client/login_register.jsp">
-                            <i class="fa-solid fa-user"></i> Login/Register  <!-- display name user here, if user null display login/Register-->
-                        </a>
+                        <c:if test="${sessionScope.account == null}">
+                            <a href="${pageContext.request.contextPath}/login">
+                                <i class="fa-solid fa-user"></i> Login/Register  <!-- display name user here, if user null display login/Register-->
+                            </a>
+                        </c:if>
+                        <c:if test="${sessionScope.account != null}">
+                            <img id="img_account" src="${pageContext.request.contextPath}/Asset/img/avatar/${sessionScope.account.img}" />
+                            <a href="${pageContext.request.contextPath}/userprofile/course">
+                                 ${sessionScope.account.name} <!-- display name user here, if user null display login/Register-->
+                            </a>
+                        </c:if>
+                        
                     </div>
                     <div class="menu-mobile">
                         <i class="fa-solid fa-bars"></i>
