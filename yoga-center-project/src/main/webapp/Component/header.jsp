@@ -10,7 +10,7 @@
         <!-- Start Header -->
         <div class="header-wrapper">
             <div class="header">
-                <a href="#" class="logo">
+                <a href="${pageContext.request.contextPath}" class="logo">
                     YOWU.
                 </a>
                 <div class="nav-wrapper">
@@ -58,7 +58,6 @@
                                  ${sessionScope.account.name} <!-- display name user here, if user null display login/Register-->
                             </a>
                         </c:if>
-                        
                     </div>
                     <div class="menu-mobile">
                         <i class="fa-solid fa-bars"></i>
@@ -67,7 +66,7 @@
             </div>
         </div>
         <!-- End header -->
-        <script src="../Asset/js/cdnjs.cloudflare.com_ajax_libs_jquery_3.7.0_jquery.min.js"></script>
+        <script src="${pageContext.request.contextPath}/Asset/js/cdnjs.cloudflare.com_ajax_libs_jquery_3.7.0_jquery.min.js"></script>
         <script defer>
             const menuBtn = document.querySelector(".menu-mobile");
             const nav = document.querySelector(".nav");
@@ -113,7 +112,5 @@
                     $(".header-wrapper").slideUp(400);
                 }
             });  
-
-
         </script>
     

@@ -130,6 +130,6 @@ public class CourseRepository {
 
     public static void main(String[] args) {
         CourseRepository cr = new CourseRepository();
-        System.out.println(cr.detail(1).getTitle());
+        System.out.println(cr.detail(1).getAccount().getName());
     }
 }

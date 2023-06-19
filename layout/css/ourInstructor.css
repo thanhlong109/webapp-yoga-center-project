@@ -1,0 +1,261 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Jost', sans-serif;
+
+}
+
+.banner {
+    padding: 15% 20px 10% 20px;
+    /* position: relative;
+    min-height: 100vh; */
+    width: 100%;
+    padding-top: 15%;
+    text-align: center;
+    background: url(../img/Trainer/page-title-1.png) top center / cover no-repeat;
+    /* background-image: linear-gradient(0,#fff,#227179); */
+}
+
+.banner h1 {
+    color: #227179;
+    font-size: 59px;
+    font-weight: 500;
+    line-height: 1.2;
+}
+
+.banner-page-caption {
+    margin-top: 13px;
+    color: #547670;
+    font-weight: 400;
+    font-size: 30px;
+}
+.container{
+    margin-top: 30px;
+}
+
+.container__element {
+    display: flex;
+    max-width: 1320px;
+    margin: 0 auto 0 auto;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+/* Nội dung 1 container */
+.container__element-image-left {
+    width: 50%;
+    flex: 1;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.container__element-image-left img {
+    max-width: 100%;
+    height: auto;
+}
+
+.container__element-details-right {
+    width: 50%;
+    flex: 1;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 130px;
+}
+.container__element-image{
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-bottom: 30px;
+}
+.container__element-detail{
+    padding-left: 20px;
+    padding-right: 20px;
+}
+.container__element-detail p{
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 15px;
+    font-size: 21px;
+    font-weight: 400;
+    color:#778482;
+    text-transform: none;
+    line-height: 1.7;
+}
+.container__element-detail-instructor{
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 30px;
+}
+.container__element-detail-instructor h4{
+    color: #333;
+    font-size: 22px;
+    font-weight: 600;
+    text-transform: none;
+}
+.container__element-detail-class{
+    margin-top: 4px;
+    font-size: 18px;
+    color: #6f948d;
+}
+/* Hết nội dung 1 container */
+
+/* Nội dung 2 container */
+
+
+.container__element-content{
+    padding: 85px 0px 45px 0px;
+    height: 1500px;
+}
+/* Phần 2.1 */
+.container__element-introduction{
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 65px;
+
+}
+.container__element-introduction-title{
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 14px;
+    position: relative;
+}
+.container__element-introduction-title h3{
+    font-size: 43px;
+    font-weight: 600;
+    text-transform: none;
+    color: #227179;
+}
+.container__element-introduction-title-border::after{
+    content: "";
+    display: block;
+    position: absolute;
+    width: 65px;
+    height: 1.6px;
+    background-color: #dbe8e7;
+    top: 50%;
+    transform: translateX(-50%);
+    left: 380px;
+}
+
+.container__element-introduction-content{
+    width: 900px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+.container__element-introduction-content p{
+    font-size: 18px;
+    font-weight: 400;
+    color: #878787;
+    text-transform: none;
+    line-height: 1.7;
+}
+/* Hết 2.1 */
+
+/* Phần 2.2 */
+.container__element-instructor{
+    width: 100%;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+.container__element-instructor-line{
+    display: flex;
+    flex-wrap: wrap;
+}
+.container__element-instructor-class{
+   list-style: none;
+   flex: 1;
+   margin: 20px;
+   text-align: center;
+}
+.instructor__class-image img{
+    width: 100%;
+    height: 430px;
+}
+.instructor__class-name{
+    padding-top: 30px;
+    padding-bottom: 15px;
+    color: #227179;
+    font-size: 23px;
+    font-weight: 500;
+    text-transform: none;
+}
+.instructor__class-classes a{
+    color: #afafaf;
+    text-decoration: none;
+}
+/* Hết 2.2 */
+/* Hết nội dung 2 container */
+
+/* Nội dung 3 container */
+
+.container__element-end{
+    padding: 100px 0 120px 0;
+   
+    background-image: url(../img/Trainer/page-title-1.png);
+}
+    /* 3.1 */
+.container__element-end-content,
+ .container__element-end-button{
+    max-width: 960px;
+    text-align: center;
+    margin: 0 auto 0 auto;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 40px;
+}
+.element__end-content-title h3{
+    
+    font-size: 40px;
+    font-weight: 500;
+    color: #3f4b49;
+}
+.element__end-content-detail p{
+    margin-top: 30px;
+    font-size: 19px;
+    color: #9b9b9b;
+    line-height: 1.7;
+}
+    /* Hết 3.1 */
+    
+    /* 3.2 */
+    .container__element-end-button button{
+        font-size: 16px;
+        font-weight: 600;
+        color: #547670;
+        background: #fff;
+        padding: 12px 35px 18px 35px;
+        border-radius: 20px;
+        border: hidden;
+    }
+    /* Hết 3.2 */
+
+    /* 3.3 */
+    .container__element-end-numbers{
+        display: flex;
+        justify-content: space-around;
+        margin-top: 30px;
+        /* margin: 0 auto 0 auto; */
+    }
+    .element__end-number{
+        list-style: none;
+        text-align: center;
+    }
+    .end-number{
+        font-size: 45px;
+        font-weight: 600;
+        margin-bottom: 13px;
+        color: #404b48;
+    }
+    .end-name{
+        color: #3cc3a9;
+        font-weight: 600;
+    }
+    /* Hết 3.3 */
+/* Hết nội dung 3 container */
