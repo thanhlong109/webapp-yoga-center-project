@@ -30,6 +30,7 @@ public class RegisterAccountController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.setAttribute("type", "signup");
         String url = LOGIN_PAGE;
         AccountRepository dao = new AccountRepository();
         AccountError accError = new AccountError();
@@ -49,10 +50,22 @@ public class RegisterAccountController extends HttpServlet {
                 accError.setPasswordError("Email alredy existed!");
                 checkValidation = false;
             }
-            RoleRepository rr = new RoleRepository();
-            Account user = new Account(username, email, password, null, rr.detail(Role.RoleList.TRAINEE.ordinal()));
-            boolean checkInsert = dao.createAccount(user);
-            url = LOGIN_PAGE;
+            if (checkValidation) {
+                RoleRepository rr = new RoleRepository();
+                Account user = new Account(username, email, password, null, rr.detail(Role.RoleList.TRAINEE.ordinal()));
+                boolean checkInsert = dao.createAccount(user);
+                if (checkInsert) {
+                    url = LOGIN_PAGE;
+                } else {
+                    accError.setError("Unknow error!");
+                    request.setAttribute("USER_ERROR", accError);
+                }
+            } else {
+                request.setAttribute("USER_ERROR", accError);
+            }
+
+        } catch (Exception e) {
+            log("Error at SearchController" + e.toString());
         } finally {
             request.getRequestDispatcher(url).forward(request, response);
         }

@@ -40,10 +40,11 @@
 }
 .user-btn{
     margin-left: 30px;
-    padding: 8px 12px;
+    padding: 8px;
     border: 2px solid white;
     transition: all ease-in-out .3s;
     border-radius: 50px;
+    display: block;
 }
 .user-btn:hover{
     border-color: #227179;
@@ -58,9 +59,13 @@
     display: block;
     width: 50px;
     height: 50px;
-    border-radius: 50%;
+    border-radius: 50%;      
+}
+
+.user-btn .img{
     
-        
+    width: 50px;
+    height: 50px;
 }
 
 .user-btn i{
