@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 W:\Work Space\Yoga_Project\yoga-center-project\src\main\java\com\yowu\yogacenter\controller\client\UserProfileSetting.java
 W:\Work Space\Yoga_Project\yoga-center-project\src\main\java\com\yowu\yogacenter\model\RatingCourse.java
 W:\Work Space\Yoga_Project\yoga-center-project\src\main\java\com\yowu\yogacenter\model\Blog.java
@@ -44,3 +45,49 @@ W:\Work Space\Yoga_Project\yoga-center-project\src\main\java\com\yowu\yogacenter
 W:\Work Space\Yoga_Project\yoga-center-project\src\main\java\com\yowu\yogacenter\repository\RegistrationCourseRepository.java
 W:\Work Space\Yoga_Project\yoga-center-project\src\main\java\com\yowu\yogacenter\model\CourseWishlist.java
 W:\Work Space\Yoga_Project\yoga-center-project\src\main\java\com\yowu\yogacenter\repository\PermissionRepository.java
+=======
+E:\long\yoga-center-project\src\main\java\com\yowu\yogacenter\controller\client\BlogHomeDetailController.java
+E:\long\yoga-center-project\src\main\java\com\yowu\yogacenter\controller\client\UserProfileSetting.java
+E:\long\yoga-center-project\src\main\java\com\yowu\yogacenter\repository\CourseRepository.java
+E:\long\yoga-center-project\src\main\java\com\yowu\yogacenter\repository\BillRepository.java
+E:\long\yoga-center-project\src\main\java\com\yowu\yogacenter\controller\client\BlogHomeController.java
+E:\long\yoga-center-project\src\main\java\com\yowu\yogacenter\model\Bill.java
+E:\long\yoga-center-project\src\main\java\com\yowu\yogacenter\util\DBHelpler.java
+E:\long\yoga-center-project\src\main\java\com\yowu\yogacenter\model\Comment.java
+E:\long\yoga-center-project\src\main\java\com\yowu\yogacenter\model\CourseWishlist.java
+E:\long\yoga-center-project\src\main\java\com\yowu\yogacenter\repository\PermissionRepository.java
+E:\long\yoga-center-project\src\main\java\com\yowu\yogacenter\repository\BlogRepository.java
+E:\long\yoga-center-project\src\main\java\com\yowu\yogacenter\repository\ClassScheduleRepository.java
+E:\long\yoga-center-project\src\main\java\com\yowu\yogacenter\model\Blog.java
+E:\long\yoga-center-project\src\main\java\com\yowu\yogacenter\repository\CommentRepository.java
+E:\long\yoga-center-project\src\main\java\com\yowu\yogacenter\controller\client\LoginController.java
+E:\long\yoga-center-project\src\main\java\com\yowu\yogacenter\controller\client\ViewScheduleController.java
+E:\long\yoga-center-project\src\main\java\com\yowu\yogacenter\repository\RegistrationCourseRepository.java
+E:\long\yoga-center-project\src\main\java\com\yowu\yogacenter\model\CourseSchedule.java
+E:\long\yoga-center-project\src\main\java\com\yowu\yogacenter\controller\client\UserProfileWishlist.java
+E:\long\yoga-center-project\src\main\java\com\yowu\yogacenter\model\Membership.java
+E:\long\yoga-center-project\src\main\java\com\yowu\yogacenter\repository\RegistrationMembershipRepository.java
+E:\long\yoga-center-project\src\main\java\com\yowu\yogacenter\controller\client\CourseListController.java
+E:\long\yoga-center-project\src\main\java\com\yowu\yogacenter\repository\CourseScheduleRepository.java
+E:\long\yoga-center-project\src\main\java\com\yowu\yogacenter\controller\client\UserProfileCourse.java
+E:\long\yoga-center-project\src\main\java\com\yowu\yogacenter\controller\client\UserProfileBooking.java
+E:\long\yoga-center-project\src\main\java\com\yowu\yogacenter\model\ClassSchedule.java
+E:\long\yoga-center-project\src\main\java\com\yowu\yogacenter\model\Role.java
+E:\long\yoga-center-project\src\main\java\com\yowu\yogacenter\repository\RoleRepository.java
+E:\long\yoga-center-project\src\main\java\com\yowu\yogacenter\repository\MembershipRepository.java
+E:\long\yoga-center-project\src\main\java\com\yowu\yogacenter\repository\RatingCourseRepository.java
+E:\long\yoga-center-project\src\main\java\com\yowu\yogacenter\model\RatingCourse.java
+E:\long\yoga-center-project\src\main\java\com\yowu\yogacenter\repository\CategoryRepository.java
+E:\long\yoga-center-project\src\main\java\com\yowu\yogacenter\model\Category.java
+E:\long\yoga-center-project\src\main\java\com\yowu\yogacenter\model\RoleHasPermission.java
+E:\long\yoga-center-project\src\main\java\com\yowu\yogacenter\controller\client\RegisterAccountController.java
+E:\long\yoga-center-project\src\main\java\com\yowu\yogacenter\repository\AccountRepository.java
+E:\long\yoga-center-project\src\main\java\com\yowu\yogacenter\model\Course.java
+E:\long\yoga-center-project\src\main\java\com\yowu\yogacenter\model\Permission.java
+E:\long\yoga-center-project\src\main\java\com\yowu\yogacenter\model\RegistrationCourse.java
+E:\long\yoga-center-project\src\main\java\com\yowu\yogacenter\repository\RoleHasPermissionRepository.java
+E:\long\yoga-center-project\src\main\java\com\yowu\yogacenter\model\RegistrationMembership.java
+E:\long\yoga-center-project\src\main\java\com\yowu\yogacenter\model\Account.java
+E:\long\yoga-center-project\src\main\java\com\yowu\yogacenter\controller\client\DispatchController.java
+E:\long\yoga-center-project\src\main\java\com\yowu\yogacenter\repository\CourseWishlistRepository.java
+>>>>>>> 767957ad4dbc907cc339f7604d822fe1dbee4362

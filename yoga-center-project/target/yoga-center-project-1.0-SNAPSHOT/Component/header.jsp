@@ -6,11 +6,10 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="jakarta.tags.core" %>
-
 <!-- Start Header -->
 <div class="header-wrapper">
     <div class="header">
-        <a href="#" class="logo">
+        <a href="${pageContext.request.contextPath}" class="logo">
             YOWU.
         </a>
         <div class="nav-wrapper">
@@ -23,27 +22,27 @@
                     <i class="fa-solid fa-chevron-right subnavbtn pc-hide"></i>
                     <ul class="subnav">
                         <i class="fa-solid fa-x closebtn"></i>
-                        <li><a href="#">About1</a></li>
-                        <li><a href="#">About2</a></li>
-                        <li><a href="#">About3</a></li>
-                        <li><a href="#">About4</a></li>
-                        <li><a href="#">About5</a></li>  
-                    </ul>
-                </li>
-                <li><a href="#">Pages</a></li>
-                <li>
-                    <a href="BlogHomeController">Blog</a>
-                    <i class="fa-solid fa-chevron-right subnavbtn pc-hide"></i>
-                    <ul class="subnav">
-                        <i class="fa-solid fa-x closebtn"></i>
-                        <li class="active"><a href="#">About1</a></li>
-                        <li><a href="#">About2</a></li>
-                        <li><a href="#">About3</a></li>
-                        <li><a href="#">About4</a></li>
-                        <li><a href="#">About5</a></li>  
-                    </ul>
-                </li>
-                <li><a href="Client/schedule_trainee.jsp">Schedule</a></li>
+                <li><a href="#">About1</a></li>
+                <li><a href="#">About2</a></li>
+                <li><a href="#">About3</a></li>
+                <li><a href="#">About4</a></li>
+                <li><a href="#">About5</a></li>  
+            </ul>
+            </li>
+            <li><a href="#">Pages</a></li>
+            <li>
+                <a href="BlogHomeController">Blog</a>
+                <i class="fa-solid fa-chevron-right subnavbtn pc-hide"></i>
+                <ul class="subnav">
+                    <i class="fa-solid fa-x closebtn"></i>
+                    <li class="active"><a href="#">About1</a></li>
+                    <li><a href="#">About2</a></li>
+                    <li><a href="#">About3</a></li>
+                    <li><a href="#">About4</a></li>
+                    <li><a href="#">About5</a></li>  
+                </ul>
+            </li>
+            <li><a href="Client/schedule_trainee.jsp">Schedule</a></li>
             </ul>
 
             <div class="user-btn">
@@ -57,7 +56,7 @@
                         <div class="img">
                             <img id="img_account" src="${pageContext.request.contextPath}/Asset/img/avatar/${sessionScope.account.img}" />
                         </div> 
-                         <!-- display name user here, if user null display login/Register-->
+                        <!-- display name user here, if user null display login/Register-->
                     </a>
 
                 </c:if>
@@ -70,7 +69,8 @@
     </div>
 </div>
 <!-- End header -->
-<script src="../Asset/js/cdnjs.cloudflare.com_ajax_libs_jquery_3.7.0_jquery.min.js"></script>
+
+<script src="${pageContext.request.contextPath}/Asset/js/cdnjs.cloudflare.com_ajax_libs_jquery_3.7.0_jquery.min.js"></script>
 <script defer>
     const menuBtn = document.querySelector(".menu-mobile");
     const nav = document.querySelector(".nav");
@@ -93,7 +93,6 @@
                 subnav.classList.add("show");
             }
         });
-
     });
     closeMenuBtns.forEach(closebtn => {
         closebtn.addEventListener("click", () => {
@@ -103,19 +102,19 @@
                 closebtn.parentElement.classList.add("show");
             }
         });
-
     });
 
     $(window).bind('mousewheel', function (event) {
         if (event.originalEvent.wheelDelta >= 0) {
-            //Scroll up
+//Scroll up
             $(".header-wrapper").slideDown(400);
         } else {
-            //Scroll down
+//Scroll down
             $(".header-wrapper").slideUp(400);
         }
     });
 
 
 </script>
+
 

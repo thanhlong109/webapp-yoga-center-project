@@ -45,6 +45,19 @@
     color: #227179;
     font-size: 15px;
 }
+.user img{
+    max-height: 100%;
+    max-width: 30px;
+    margin-right: 12px;
+}
+.user img{
+    width: 30px;
+    height: 30px; 
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
 .user i{
     margin-right: 12px;

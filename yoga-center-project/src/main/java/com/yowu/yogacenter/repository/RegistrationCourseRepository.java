@@ -8,6 +8,7 @@ import com.yowu.yogacenter.model.RegistrationCourse;
 import com.yowu.yogacenter.util.DBHelpler;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -69,6 +70,23 @@ public class RegistrationCourseRepository {
             System.out.println(e);
         }
         return list;
+    }
+    public int getStudentEnrolled(int courseId){
+        String sql = "select count(*) as num from tblRegistrationCourse where course_id=?";
+        int num = 0;
+        try(PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)){
+            stmt.setInt(1, courseId);
+            try(ResultSet rs = stmt.executeQuery()){
+                while(rs.next()){
+                    num = rs.getInt("num");
+                    return num;
+                }
+            }
+            
+        }catch(Exception e){
+            System.out.println(e);
+        }
+        return num;
     }
     public List<RegistrationCourse> getCoursesByAccountID(int accountId){
         String sql = "select * from tblRegistrationCourse where account_id=?";
@@ -186,6 +204,6 @@ public class RegistrationCourseRepository {
     }
     public static void main(String[] args) {
         RegistrationCourseRepository r = new RegistrationCourseRepository();
-        
+        System.out.println(r.getStudentEnrolled(2));
     }
 }
