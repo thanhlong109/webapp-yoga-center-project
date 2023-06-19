@@ -247,10 +247,12 @@
             <h2>Your Profile</h2>
         </div>
         <div class="container">
-            <div class="user2">
-                <div class="user-img"><img src="../Asset/img/avatar/${sessionScope.account.img}" alt="img"></div>
-                <h2 class="js-username" >${sessionScope.account.name}</h2>
-            </div>
+            <c:if test="${sessionScope.account!=null}">
+                <div class="user2">
+                    <div class="user-img"><img src="../Asset/img/avatar/${sessionScope.account.img}" alt=""></div>
+                    <h2>${sessionScope.account.name}</h2>
+                </div>
+            </c:if>
             <div class="user-container">
                 <!-- navigation -->
                 <ul class="user-nav">
@@ -268,67 +270,70 @@
                             <li data-filterid="avatar">Avatar</li>
                             <li data-filterid="password">Password</li>
                         </ul>
-                        <div class="display-content">
-                            <!-- general section -->
-                            <div class="general">
-                                <form class="general-form" action="setting">
-                                    <div class="box-input">
-                                        <label>Username:</label>
-                                        <input required type="text" name="txtUsername" placeholder="Username" value="${account.name}">
-                                    </div>
-                                    <div class="box-input">
-                                        <label>Email:</label>
-                                        <input required  type="email" name="txtEmail" placeholder="Email" value="${account.email}">
-                                    </div>
-                                    <div class="box-input">
-                                        <label>Phone Number:</label>
-                                        <input required type="number" name="txtPhone" placeholder="Phone Number" value="${account.phone}">
-                                    </div>
-                                    <button type="submit">Save</button>
-                                </form>
-                            </div>
-                            <!-- avatar section -->
-                            <div class="avatar" style="display: none;">
-                                <form class="avatar-form" action="setting" enctype="multipart/form-data">
-                                    <div class="show-img">
-                                        <img src="../Asset/img/avatar/${account.img}" alt="">
-                                    </div>
-                                    <input id="img-btn" required style="display: none;" type="file" name="avatar" accept="image/*">
-                                    <div >
-                                        <label style="display: inline-block" class="img-btn-label" for="img-btn">Choose File</label>
-                                        <button style="display: none" class="avatar-btn" type="submit">Save</button>
-                                    </div>
-                                </form>
-                            </div>
-                            <!-- password section -->
-                            <div class="password" style="display: none;">
-                                <form class="password-form" action="setting">
-                                    <div class="box-input">
-                                        <label>Current Password:</label>
-                                        <div class="box-pass">
-                                            <input required type="password" name="txtPassword" placeholder="Current Password">
-                                            <i class="fa-sharp fa-solid fa-eye"></i>
+                        <c:if test="${sessionScope.account!=null}">
+                            <div class="display-content">
+                                <!-- general section -->
+                                <div class="general">
+                                    <form class="general-form" action="setting">
+                                        <div class="box-input">
+                                            <label>Username:</label>
+                                            <input required type="text" name="txtUsername" placeholder="Username" value="${sessionScope.account.name}">
                                         </div>
-                                    </div>
-                                    <div class="box-input">
-                                        <label>New Password:</label>
-                                        <div class="box-pass">
-                                            <input class="jsCheckPass" id="newPass1" required type="password" name="txtNewPassword" placeholder="New Password">
-                                            <i class="fa-sharp fa-solid fa-eye"></i>
+                                        <div class="box-input">
+                                            <label>Email:</label>
+                                            <input required  type="email" name="txtEmail" placeholder="Email" value="${sessionScope.account.email}">
                                         </div>
-                                    </div>
-                                    <div class="box-input">
-                                        <label>Confirm New Password:</label>
-                                        <div class="box-pass">
-                                            <input  class="jsCheckPass" id="newPass2" required type="password" placeholder="Confirm New Password">
-                                            <i class="fa-sharp fa-solid fa-eye"></i>
+                                        <div class="box-input">
+                                            <label>Phone Number:</label>
+                                            <input required type="number" name="txtPhone" placeholder="Phone Number" value="${sessionScope.account.phone}">
                                         </div>
-                                        <button id="btnPass" type="submit">Save</button>
-                                    </div>
-                                    <h4 class="noice"></h4>
-                                </form>
+                                        <button type="submit">Save</button>
+                                    </form>
+                                </div>
+                                <!-- avatar section -->
+                                <div class="avatar" style="display: none;">
+                                    <form class="avatar-form" action="setting" enctype="multipart/form-data">
+                                        <div class="show-img">
+                                            <img src="../Asset/img/avatar/${sessionScope.account.img}" alt="">
+                                        </div>
+                                        <input id="img-btn" required style="display: none;" type="file" name="avatar" accept="image/*">
+                                        <div >
+                                            <label style="display: inline-block" class="img-btn-label" for="img-btn">Choose File</label>
+                                            <button style="display: none" class="avatar-btn" type="submit">Save</button>
+                                        </div>
+                                    </form>
+                                </div>
+                                <!-- password section -->
+                                <div class="password" style="display: none;">
+                                    <form class="password-form" action="setting">
+                                        <div class="box-input">
+                                            <label>Current Password:</label>
+                                            <div class="box-pass">
+                                                <input required type="password" name="txtPassword" placeholder="Current Password">
+                                                <i class="fa-sharp fa-solid fa-eye"></i>
+                                            </div>
+                                        </div>
+                                        <div class="box-input">
+                                            <label>New Password:</label>
+                                            <div class="box-pass">
+                                                <input class="jsCheckPass" id="newPass1" required type="password" name="txtNewPassword" placeholder="New Password">
+                                                <i class="fa-sharp fa-solid fa-eye"></i>
+                                            </div>
+                                        </div>
+                                        <div class="box-input">
+                                            <label>Confirm New Password:</label>
+                                            <div class="box-pass">
+                                                <input  class="jsCheckPass" id="newPass2" required type="password" placeholder="Confirm New Password">
+                                                <i class="fa-sharp fa-solid fa-eye"></i>
+                                            </div>
+                                            <button id="btnPass" type="submit">Save</button>
+                                        </div>
+                                        <h4 class="noice"></h4>
+                                    </form>
+                                </div>
                             </div>
-                        </div>
+                        </c:if>
+                        
                     </div>
                 </div>
             </div>

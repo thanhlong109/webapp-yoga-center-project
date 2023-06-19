@@ -196,10 +196,12 @@
             <h2>Your Profile</h2>
         </div>
         <div class="container">
-            <div class="user2">
-                <div class="user-img"><img src="../Asset/img/avatar/${sessionScope.account.img}" alt=""></div>
-                <h2>${sessionScope.account.name}</h2>
-            </div>
+            <c:if test="${sessionScope.account!=null}">
+                <div class="user2">
+                    <div class="user-img"><img src="../Asset/img/avatar/${sessionScope.account.img}" alt=""></div>
+                    <h2>${sessionScope.account.name}</h2>
+                </div>
+            </c:if>
             <div class="user-container">
                 <ul class="user-nav">
                     <li ><a href="course"><i class="fa fa-book" aria-hidden="true"></i> Course</a></li>

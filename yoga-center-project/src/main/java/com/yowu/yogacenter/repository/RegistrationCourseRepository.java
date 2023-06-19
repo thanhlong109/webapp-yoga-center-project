@@ -168,6 +168,23 @@ public class RegistrationCourseRepository {
 
         return status == 1;
     }
+     public int getStudentEnrolled(int courseId){
+        String sql = "select count(*) as num from tblRegistrationCourse where course_id=?";
+        int num = 0;
+        try(PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)){
+            stmt.setInt(1, courseId);
+            try(ResultSet rs = stmt.executeQuery()){
+                while(rs.next()){
+                    num = rs.getInt("num");
+                    return num;
+                }
+            }
+            
+        }catch(Exception e){
+            System.out.println(e);
+        }
+        return num;
+    }
 
     public boolean delete(int id) {
         String sql = "UPDATE tblRegistrationCourse SET course_status = 0 "
