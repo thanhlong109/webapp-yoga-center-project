@@ -18,9 +18,7 @@ import java.util.List;
  */
 public class AccountRepository {
     
-    private final String LOGIN_ACCOUNT = "SELECT account_id, account_img, account_name, "
-            + "account_phone, account_is_active, role_id "
-            + "where account_email =? AND account_password =?";
+    private final String LOGIN_ACCOUNT = "SELECT * from tblAccount where ( account_email =? AND account_password =? )";
     private final String CREATE_ACCOUNT = "INSERT INTO tblAccount (account_id, "
             + "account_img, account_name, account_password, account_email, "
             + "account_phone, account_is_active, role_id) "
@@ -72,8 +70,8 @@ public class AccountRepository {
                 c.setId(rs.getInt("account_id"));
                 c.setImg(rs.getString("account_img"));
                 c.setName(rs.getString("account_name"));
-                c.setPassword(rs.getString("account_password"));
-                c.setEmail(rs.getString("account_email"));
+                c.setPassword(password);
+                c.setEmail(accountemail);
                 c.setPhone(rs.getString("account_phone"));
                 c.setIsActive(rs.getBoolean("account_is_active"));
                 c.setRole(cr.detail(rs.getInt("role_id")));
@@ -207,13 +205,12 @@ public class AccountRepository {
 
 
     public boolean checkDuplicate(String accountEmail) {
-        int status = 0;
+        boolean status = false;
         try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(CHECK_DUPLICATE)) {
             try ( ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
-                    stmt.setString(1, accountId);
-                    rs = ptm.executeQuery();
-                    status = 1;
+                    stmt.setString(1, accountEmail);
+                    status = true;
                 }
             }
         } catch (Exception e) {
@@ -224,15 +221,9 @@ public class AccountRepository {
 
     public static void main(String[] args) {
 
-//        AccountRepository cr = new AccountRepository();
-//        System.out.println(cr.delete(1));
-//        AccountRepository ar = new AccountRepository();
-//        Account acc = ar.detail(2);
-//        System.out.println(acc.getName());
-//        acc.setName("long2");
-//        ar.updateGeneral(acc);
-//        acc= ar.detail(2);
-//        System.out.println(acc.getName());
+        AccountRepository cr = new AccountRepository();
+        System.out.println(cr.checkLogin("long@gmail.com", "long123").getName());
+        
     }
 
 }

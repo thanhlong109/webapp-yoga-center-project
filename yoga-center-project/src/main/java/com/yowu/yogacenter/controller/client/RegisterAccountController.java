@@ -8,6 +8,7 @@ import com.yowu.yogacenter.model.Account;
 import com.yowu.yogacenter.model.AccountError;
 import com.yowu.yogacenter.model.Role;
 import com.yowu.yogacenter.repository.AccountRepository;
+import com.yowu.yogacenter.repository.RoleRepository;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -38,25 +39,23 @@ public class RegisterAccountController extends HttpServlet {
             String username = request.getParameter("username");
             String email = request.getParameter("email");
             String password = request.getParameter("password");
-            
-            
-            if (username.length()<5 || username.length()>20){
+
+            if (username.length() < 5 || username.length() > 20) {
                 accError.setFullNameError("Full name must be 5 - 20 charaters");
                 checkValidation = false;
             }
             boolean checkDuplicate = dao.checkDuplicate(email);
-            if (checkDuplicate){
+            if (checkDuplicate) {
                 accError.setPasswordError("Email alredy existed!");
                 checkValidation = false;
             }
-            Role Role = null;
-            Account user = new Account(0, null, username, email, password, null, true, Role);
+            RoleRepository rr = new RoleRepository();
+            Account user = new Account(username, email, password, null, rr.detail(Role.RoleList.TRAINEE.ordinal()));
             boolean checkInsert = dao.createAccount(user);
             url = LOGIN_PAGE;
-            }
-        finally {
-           request.getRequestDispatcher(url).forward(request, response);
-    }
+        } finally {
+            request.getRequestDispatcher(url).forward(request, response);
+        }
     }
 
     @Override

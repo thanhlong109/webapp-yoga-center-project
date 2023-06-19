@@ -251,10 +251,7 @@
 
                     </form>
                 </div>
-                <%
-                    String type = (String) request.getAttribute("type");
-                %>
-                <div class="slide-box <%= type.equals("login")?"right":"" %>">
+                <div class="slide-box ${type.equals("login")?"right":""}">
                     <div>
                         <h2>
                             Welcome To My Site
@@ -273,6 +270,8 @@
                 </div>
             </div>
         </div>
+                    
+<!-- END code font -->
             <script>
                 function show(){
                     var pass = document.querySelector(".pass");
