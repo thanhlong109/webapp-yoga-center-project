@@ -6,6 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="jakarta.tags.core" %>
+<%@page import="com.yowu.yogacenter.repository.RatingCourseRepository" %>
 <%@page import="com.yowu.yogacenter.repository.RegistrationCourseRepository" %>
 <!DOCTYPE html>
 <html>
@@ -123,6 +124,7 @@
         <%@include file="../Component/header.jsp" %>
         <%
             request.setAttribute("rcRepo",new RegistrationCourseRepository());
+            request.setAttribute("rcr",new RatingCourseRepository());
         %>
         <div class="banner">
             <h2>Our Courses</h2>
@@ -144,7 +146,7 @@
                                     <i class=""></i>
                                     <i class=""></i>
                                 </div>
-                                <div class="agv-star-value" style="display: none;" >4.5</div><!-- replace star for  card-->
+                                <div class="agv-star-value" style="display: none;" >${rcr.getAvgCourseRating(course.id)}</div><!-- replace star for  card-->
                             </div>
                             <a>${course.title}</a><!--replace title for  card-->
                         </div>
@@ -179,8 +181,7 @@
                 });
             });
             function goto(url){
-                window.window.location.href = "${pageContext.request.contextPath}/"+url;
-                
+                window.window.location.href = "${pageContext.request.contextPath}/"+url;   
             }
         </script>
         <%@include file="../Component/footer.jsp" %> 

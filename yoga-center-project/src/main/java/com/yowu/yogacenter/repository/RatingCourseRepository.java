@@ -9,6 +9,7 @@ import com.yowu.yogacenter.model.RegistrationCourse;
 import com.yowu.yogacenter.util.DBHelpler;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -97,5 +98,30 @@ public class RatingCourseRepository {
         }
 
         return status == 1;
+    }
+    public float getAvgCourseRating(int courseId){
+        String sql = "select SUM(rating_star) as sum , COUNT(rating_star) as count from tblRatingCourse where course_id=?";
+        float avg = 0;
+        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
+            stmt.setInt(1, courseId);
+            try(ResultSet rs = stmt.executeQuery()){
+                if(rs.next()){
+                    int count = rs.getInt("count");
+                    int sum = rs.getInt("sum");
+                    avg = sum/(float)count;
+                    DecimalFormat df = new DecimalFormat("#.#");
+                    avg = Float.parseFloat(df.format(avg).replace(",", "."));
+                }
+            }
+            
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return avg;
+        
+    }
+    public static void main(String[] args) {
+        RatingCourseRepository rcr = new RatingCourseRepository();
+        System.out.println(rcr.getAvgCourseRating(1));
     }
 }

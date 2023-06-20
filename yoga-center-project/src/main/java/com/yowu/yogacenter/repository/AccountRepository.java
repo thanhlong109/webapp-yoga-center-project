@@ -5,6 +5,7 @@
 package com.yowu.yogacenter.repository;
 
 import com.yowu.yogacenter.model.Account;
+import com.yowu.yogacenter.model.Role;
 import com.yowu.yogacenter.util.DBHelpler;
 import java.io.Serializable;
 import java.sql.PreparedStatement;
@@ -19,10 +20,10 @@ import java.util.List;
 public class AccountRepository {
     
     private final String LOGIN_ACCOUNT = "SELECT * from tblAccount where ( account_email =? AND account_password =? )";
-    private final String CREATE_ACCOUNT = "INSERT INTO tblAccount (account_id, "
+    private final String CREATE_ACCOUNT = "INSERT INTO tblAccount ("
             + "account_img, account_name, account_password, account_email, "
             + "account_phone, account_is_active, role_id) "
-            + "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+            + "VALUES (?, ?, ?, ?, ?, ?, ?)";
     private final String SEARCH_ACCOUNT = "select * from tblAccount where account_id=? ";
     private final String GET_ALL = "select * from tblAccount";
     private final String UPDATE_ACCOUNT = "update tblAccount set account_name=? , "
@@ -74,7 +75,7 @@ public class AccountRepository {
                 c.setEmail(accountemail);
                 c.setPhone(rs.getString("account_phone"));
                 c.setIsActive(rs.getBoolean("account_is_active"));
-                c.setRole(cr.detail(rs.getInt("role_id")));
+                c.setRole(cr.detail(rs.getInt("role_id"))); 
                 return c;
             }
         }
@@ -89,14 +90,13 @@ public class AccountRepository {
 
         int status = 0;
         try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(CREATE_ACCOUNT)) {
-            stmt.setInt(1, c.getId());
-            stmt.setString(2, c.getImg());
-            stmt.setString(3, c.getName());
-            stmt.setString(4, c.getPassword());
-            stmt.setString(5, c.getEmail());
-            stmt.setString(6, c.getPhone());
-            stmt.setBoolean(7, c.isIsActive());
-            stmt.setInt(8, c.getRole().getId());
+            stmt.setString(1, c.getImg());
+            stmt.setString(2, c.getName());
+            stmt.setString(3, c.getPassword());
+            stmt.setString(4, c.getEmail());
+            stmt.setString(5, c.getPhone());
+            stmt.setBoolean(6, c.isIsActive());
+            stmt.setInt(7, c.getRole().getId());
             status = stmt.executeUpdate();
         } catch (Exception e) {
             System.out.println(e);
@@ -220,10 +220,18 @@ public class AccountRepository {
     }
 
     public static void main(String[] args) {
-
-        AccountRepository cr = new AccountRepository();
-        System.out.println(cr.checkLogin("long@gmail.com", "long123").getName());
-        
+    AccountRepository cr = new AccountRepository();
+    Role rl = new Role();
+    RoleRepository rr = new RoleRepository();
+    Account c = new Account("thang", "thang123", "thang@gmail", null, rr.detail(Role.RoleList.TRAINER.ordinal()));
+    boolean isCreated = cr.createAccount(c);
+    
+    if (isCreated) {
+        System.out.println("Tao tai khoan thanh cong!");
+    } else {
+        System.out.println("Không thể tạo tài khoản.");
     }
+}
+
 
 }
