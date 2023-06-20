@@ -251,6 +251,7 @@
         <div class="banner">
             <h2>Your Profile</h2>
         </div>
+        
         <div class="container">
             <c:if test="${sessionScope.account!=null}">
                 <div class="user2">
@@ -258,6 +259,7 @@
                     <h2>${sessionScope.account.name}</h2>
                 </div>
             </c:if>
+
             <div class="user-container">
                 <!-- Start navigation -->
 

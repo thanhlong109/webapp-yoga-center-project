@@ -68,8 +68,6 @@
     </div>
         <!-- End header -->
         <script src="${pageContext.request.contextPath}/Asset/js/cdnjs.cloudflare.com_ajax_libs_jquery_3.7.0_jquery.min.js"></script>
-
-
 <script defer>
     const menuBtn = document.querySelector(".menu-mobile");
     const nav = document.querySelector(".nav");
@@ -92,7 +90,6 @@
                 subnav.classList.add("show");
             }
         });
-
     });
     closeMenuBtns.forEach(closebtn => {
         closebtn.addEventListener("click", () => {
@@ -102,11 +99,12 @@
                 closebtn.parentElement.classList.add("show");
             }
         });
-
     });
+
     $(window).bind('mousewheel', function(event) {
+
         if (event.originalEvent.wheelDelta >= 0) {
-            //Scroll up
+//Scroll up
             $(".header-wrapper").slideDown(400);
         }
         else {
@@ -115,3 +113,4 @@
         }
     });  
 </script>
+

@@ -201,6 +201,7 @@
                     <h2>${sessionScope.account.name}</h2>
                 </div>
             </c:if>
+
             <div class="user-container">
                 <!-- Start navigation-->
                 <ul class="user-nav">

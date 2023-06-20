@@ -121,7 +121,7 @@
         </style>
     </head>
     <body>
-        <%@include file="../Component/header.jsp" %>
+        <jsp:include page="../Component/header.jsp"></jsp:include>
         <%
             request.setAttribute("rcRepo",new RegistrationCourseRepository());
             request.setAttribute("rcr",new RatingCourseRepository());
