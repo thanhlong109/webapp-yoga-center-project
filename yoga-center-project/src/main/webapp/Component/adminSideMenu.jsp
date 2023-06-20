@@ -3,7 +3,7 @@
     Created on : Jun 17, 2023, 7:14:06 PM
     Author     : DungVNT
 --%>
-
+<%@taglib prefix="c" uri="jakarta.tags.core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!-- AdminSideBar -->
 <div class="left-side-bar-wrapper">
@@ -32,7 +32,7 @@
                         <i class="fa-solid fa-book"></i> Course <i class="fa-solid js-arrow fa-chevron-down"></i>
                     </div> 
                     <ul class="sub-nav-2 show">
-                        <li class="active"><a href="#">Add Category Course</a></li>
+                        <li class="active"><a href="<c:url value="/admin/categoryListController"/>">All Category</a></li>
                         <li><a href="#">Edit Category Course</a></li>
                         <li><a href="#">Add New Course</a></li>
                         <li><a href="#">Edit Course</a></li>
@@ -82,7 +82,7 @@
     </div>
 </div>
 <script src="../Asset/js/cdnjs.cloudflare.com_ajax_libs_jquery_3.7.0_jquery.min.js"></script>
-<script defer="">
+<script defer=>
 
     /*open up down each part in left side bar*/
     const nav2btns = document.querySelectorAll(".nav-2-main-container");
