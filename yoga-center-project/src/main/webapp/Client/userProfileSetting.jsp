@@ -390,6 +390,7 @@
             const avatar = document.querySelector('.user-img img');
             const btnImg =  document.getElementById('img-btn');
             const displayImg = document.querySelector('.show-img img');
+            const disPlayImgHeader = document.querySelector('#img_account');
             btnImg.onchange = ()=>{
                 $('.avatar-btn').show();
                 let reader = new FileReader();
@@ -397,8 +398,10 @@
                 reader.onload = ()=>{
                     displayImg.setAttribute("src",reader.result);
                     avatar.setAttribute("src",reader.result);
+                    disPlayImgHeader.setAttribute("src",reader.result);
+                    console.log(disPlayImgHeader);
                 };
-                console.log(btnImg.files[0].name);
+                
             };
             
             /*send to sever*/
@@ -444,6 +447,7 @@
                             type:'success',
                             duration:5000   
                         });
+                        
                     },
                     error: function(xhr, textStatus, errorThrown) {
                         toast({

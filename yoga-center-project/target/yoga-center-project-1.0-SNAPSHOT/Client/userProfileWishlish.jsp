@@ -212,7 +212,7 @@
                 </ul>
                 <div class="user-content">
                         <div class="display-course-content">
-                            <c:if test="${wishlist!=null && whishlist.size() > 0}">
+                            <c:if test="${wishlist!=null && wishlist.size() > 0}">
                                 <table class="course-table">
                                     <tr>
                                         <th></th>
@@ -228,7 +228,7 @@
                                     </c:forEach>
                                 </table>
                             </c:if>
-                            <c:if test="${wishlist==null || whishlist.size() <= 0}">
+                            <c:if test="${wishlist==null || wishlist.size() <= 0}">
                                 <div class="noice-empty">
                                     <img src="../Asset/img/icon/empty.png" alt="">
                                     <h4>Empty!</h4>

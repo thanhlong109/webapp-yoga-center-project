@@ -4,7 +4,13 @@
  */
 package com.yowu.yogacenter.controller.client;
 
+import com.yowu.yogacenter.model.Account;
+import com.yowu.yogacenter.model.Course;
+import com.yowu.yogacenter.model.CourseWishlist;
 import com.yowu.yogacenter.repository.CourseRepository;
+import com.yowu.yogacenter.repository.CourseScheduleRepository;
+import com.yowu.yogacenter.repository.CourseWishlistRepository;
+import com.yowu.yogacenter.repository.RatingCourseRepository;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -17,7 +23,7 @@ import jakarta.servlet.http.HttpServletResponse;
  * @author ACER
  */
 public class CourseDetailController extends HttpServlet {
-    private final String COURSE_DETAIL_PAGE = "courseDetail.jsp";
+    private final String COURSE_DETAIL_PAGE = "Client/courseDetail.jsp";
    
 
     @Override
@@ -26,8 +32,20 @@ public class CourseDetailController extends HttpServlet {
         try{
             int id = Integer.parseInt(request.getParameter("id"));
             CourseRepository cr = new CourseRepository();
-            request.setAttribute("course",cr.detail(id));
-            
+            CourseScheduleRepository sc = new CourseScheduleRepository();
+            RatingCourseRepository  ratec = new RatingCourseRepository();
+            CourseWishlistRepository cwr = new CourseWishlistRepository();
+            Course c = cr.detail(id);
+            Account account = (Account) request.getSession().getAttribute("account");
+            boolean isInWishList = false;
+            if(account!=null){
+                isInWishList = cwr.isExist(id, account.getId());
+            }
+            request.setAttribute("agvRating", ratec.getAvgCourseRating(c.getId()));
+            request.setAttribute("course",c);
+            request.setAttribute("courseScheduleList", sc.getScheduleByCourse(c.getId()));
+            request.setAttribute("surgestCourseList", cr.getRandomNCourses(4));
+            request.setAttribute("isInWishList",isInWishList );
         }catch(Exception e){
             System.out.println(e);
         }
@@ -38,6 +56,29 @@ public class CourseDetailController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        try
+        {
+            String action = request.getParameter("action");
+            int courseId = Integer.parseInt(request.getParameter("courseid"));
+            Account account = (Account) request.getSession().getAttribute("account");
+            if(account==null){
+                throw new IOException();
+            }
+            CourseWishlistRepository cwr = new CourseWishlistRepository();
+            switch(action){
+                case "remove":{
+                    cwr.detele(courseId,account.getId());
+                    break;
+                }
+                case "add":{
+                    
+                    cwr.add(courseId,account.getId());
+                    break;
+                }
+            }
+        }catch(NumberFormatException e){
+            System.out.println(e);
+        }
         
     }
 
