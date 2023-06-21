@@ -253,10 +253,13 @@
         </div>
         
         <div class="container">
-            <div class="user2">
-                <div class="user-img"><img src="../Asset/img/avatar/${sessionScope.account.img}" alt="img"></div>
-                <h2>${account.name}</h2>
-            </div>
+            <c:if test="${sessionScope.account!=null}">
+                <div class="user2">
+                    <div class="user-img"><img src="../Asset/img/avatar/${sessionScope.account.img}" alt=""></div>
+                    <h2>${sessionScope.account.name}</h2>
+                </div>
+            </c:if>
+
             <div class="user-container">
                 <!-- Start navigation -->
 

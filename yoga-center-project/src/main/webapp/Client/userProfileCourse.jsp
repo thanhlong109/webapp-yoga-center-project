@@ -195,10 +195,15 @@
             <h2>Your Profile</h2>
         </div>
         <div class="container">
-            <div class="user2">
-                <div class="user-img"><img src="../Asset/img/avatar/${sessionScope.account.img}" alt="img"></div>
-                <h2>${sessionScope.account.name}</h2>
-            </div>
+
+            <c:if test="${sessionScope.account!=null}">
+                <div class="user2">
+                    <div class="user-img"><img src="../Asset/img/avatar/${sessionScope.account.img}" alt=""></div>
+                    <h2>${sessionScope.account.name}</h2>
+                </div>
+            </c:if>
+
+
             <div class="user-container">
                 <!-- Start navigation-->
                 <ul class="user-nav">
@@ -206,7 +211,7 @@
                     <li><a href="wishlist"><i class="fa fa-heart" aria-hidden="true"></i> Wishlist</a></li>
                     <li><a href="setting"><i class="fa fa-sliders" aria-hidden="true"></i> Setting</a></li>
                     <li><a href="booking"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Booking</a></li>
-                    <li><a href="${pageContext.request.contextPath}/LogoutController"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a></li>
+                    <li><a href="${pageContext.request.contextPath}/logout"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a></li>
                 </ul>
                 <!-- end navigation -->
                 <div class="user-content">

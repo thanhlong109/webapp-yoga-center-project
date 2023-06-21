@@ -186,7 +186,6 @@ public class RegistrationCourseRepository {
 
         return status == 1;
     }
-
     public boolean delete(int id) {
         String sql = "UPDATE tblRegistrationCourse SET course_status = 0 "
                 + "WHERE registration_id = ?";

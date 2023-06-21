@@ -18,14 +18,14 @@ import jakarta.servlet.http.HttpSession;
  * @author Chien Thang
  */
 public class LogoutController extends HttpServlet {
-   private final String LOGIN_PAGE = "Client/Home.jsp";
+   private final String HOME_PAGE = "Client/Home.jsp";
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         HttpSession session = request.getSession();
         session.invalidate();
-        response.sendRedirect("");
+        response.sendRedirect(HOME_PAGE);
     } 
 
     @Override

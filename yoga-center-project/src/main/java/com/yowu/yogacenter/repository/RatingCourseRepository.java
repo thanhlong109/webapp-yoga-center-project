@@ -9,6 +9,7 @@ import com.yowu.yogacenter.model.RegistrationCourse;
 import com.yowu.yogacenter.util.DBHelpler;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,54 +19,72 @@ import java.util.List;
  */
 public class RatingCourseRepository {
 
-    public class CourseInstructorRepository {
+    public List<RatingCourse> getAll() {
+        String sql = "select * from tblRatingCourse";
+        List<RatingCourse> list = new ArrayList<>();
 
-        public List<RatingCourse> getAll() {
-            String sql = "select * from tblRatingCourse";
-            List<RatingCourse> list = new ArrayList<>();
-
-            try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
-                try ( ResultSet rs = stmt.executeQuery()) {
-                    while (rs.next()) {
-                        RatingCourse c = new RatingCourse();
-                        RegistrationCourseRepository rc = new RegistrationCourseRepository();
-                        c.setRegistrationCourse(rc.detail(rs.getInt("registraion_id")));
-                        c.setFeedback(rs.getString("feedback"));
-                        c.setRatingStar(rs.getInt("rating_star"));
-                        list.add(c);
-                    }
+        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
+            try ( ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    RatingCourse c = new RatingCourse();
+                    RegistrationCourseRepository rc = new RegistrationCourseRepository();
+                    c.setRegistrationCourse(rc.detail(rs.getInt("registration_id")));
+                    c.setFeedback(rs.getString("feedback"));
+                    c.setRatingStar(rs.getInt("rating_star"));
+                    list.add(c);
                 }
-            } catch (Exception e) {
-                System.out.println(e);
             }
-            return list;
+        } catch (Exception e) {
+            System.out.println(e);
         }
-
-        public RatingCourse detail(int id) {
-            String sql = "select * from tblRatingCourse where registraion_id=? "
-                    + "AND account_id =? ";
-            try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
-                stmt.setInt(1, id);
-                try ( ResultSet rs = stmt.executeQuery()) {
-                    while (rs.next()) {
-                        RatingCourse c = new RatingCourse();
-                        RegistrationCourseRepository rc = new RegistrationCourseRepository();
-                        c.setRegistrationCourse(rc.detail(rs.getInt("registraion_id")));
-                        c.setFeedback(rs.getString("feedback"));
-                        c.setRatingStar(rs.getInt("rating_star"));
-                        return c;
-                    }
+        return list;
+    }
+     public List<RatingCourse> getByCourseID(int courseId) {
+        String sql = "select * from tblRatingCourse where course_id=?";
+        List<RatingCourse> list = new ArrayList<>();
+        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
+            stmt.setInt(1, courseId);
+            try ( ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    RatingCourse c = new RatingCourse();
+                    RegistrationCourseRepository rc = new RegistrationCourseRepository();
+                    c.setRegistrationCourse(rc.detail(rs.getInt("registration_id")));
+                    c.setFeedback(rs.getString("feedback"));
+                    c.setRatingStar(rs.getInt("rating_star"));
+                    list.add(c);
                 }
-            } catch (Exception e) {
-                System.out.println(e);
             }
-            return null;
+        } catch (Exception e) {
+            System.out.println(e);
         }
-
+        return list;
     }
 
+    public RatingCourse detail(int id) {
+        String sql = "select * from tblRatingCourse where registration_id=? "
+                + "AND account_id =? ";
+        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
+            stmt.setInt(1, id);
+            try ( ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    RatingCourse c = new RatingCourse();
+                    RegistrationCourseRepository rc = new RegistrationCourseRepository();
+                    c.setRegistrationCourse(rc.detail(rs.getInt("registraion_id")));
+                    c.setFeedback(rs.getString("feedback"));
+                    c.setRatingStar(rs.getInt("rating_star"));
+                    return c;
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return null;
+    }
+
+
+
     public boolean add(RatingCourse ratingCourse) {
-        String sql = "INSERT INTO tblRatingCourse (registraion_id, feedback, rating_star) "
+        String sql = "INSERT INTO tblRatingCourse (registration_id, feedback, rating_star) "
                 + "VALUES (?, ?, ?)";
         int status = 0;
 
@@ -83,7 +102,7 @@ public class RatingCourseRepository {
     }
 
     public boolean update(RatingCourse ratingCourse) {
-        String sql = "UPDATE tblRatingCourse SET feedback = ?, rating_star = ? WHERE registraion_id = ?";
+        String sql = "UPDATE tblRatingCourse SET feedback = ?, rating_star = ? WHERE registration_id = ?";
         int status = 0;
 
         try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
@@ -97,5 +116,30 @@ public class RatingCourseRepository {
         }
 
         return status == 1;
+    }
+    public float getAvgCourseRating(int courseId){
+        String sql = "select SUM(rating_star) as sum , COUNT(rating_star) as count from tblRatingCourse where course_id=?";
+        float avg = 0;
+        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
+            stmt.setInt(1, courseId);
+            try(ResultSet rs = stmt.executeQuery()){
+                if(rs.next()){
+                    int count = rs.getInt("count");
+                    int sum = rs.getInt("sum");
+                    avg = sum/(float)count;
+                    DecimalFormat df = new DecimalFormat("#.#");
+                    avg = Float.parseFloat(df.format(avg).replace(",", "."));
+                }
+            }
+            
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return avg;
+        
+    }
+    public static void main(String[] args) {
+        RatingCourseRepository rcr = new RatingCourseRepository();
+        System.out.println(rcr.getByCourseID(2).get(0).getRegistrationCourse().getAccount().getImg());
     }
 }

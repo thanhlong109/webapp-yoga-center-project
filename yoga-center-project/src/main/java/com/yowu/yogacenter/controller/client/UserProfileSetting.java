@@ -27,7 +27,6 @@ public class UserProfileSetting extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
         request.getRequestDispatcher(USER_PROFILE_SETTING_PAGE).forward(request, response);
     }
 

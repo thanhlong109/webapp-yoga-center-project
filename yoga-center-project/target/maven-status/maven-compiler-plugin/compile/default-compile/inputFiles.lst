@@ -8,6 +8,7 @@ W:\Work Space\Yoga_Project\yoga-center-project\src\main\java\com\yowu\yogacenter
 W:\Work Space\Yoga_Project\yoga-center-project\src\main\java\com\yowu\yogacenter\model\Comment.java
 W:\Work Space\Yoga_Project\yoga-center-project\src\main\java\com\yowu\yogacenter\util\DBHelpler.java
 W:\Work Space\Yoga_Project\yoga-center-project\src\main\java\com\yowu\yogacenter\controller\client\UserProfileCourse.java
+W:\Work Space\Yoga_Project\yoga-center-project\src\main\java\com\yowu\yogacenter\controller\client\CourseDetailController.java
 W:\Work Space\Yoga_Project\yoga-center-project\src\main\java\com\yowu\yogacenter\controller\client\ViewScheduleController.java
 W:\Work Space\Yoga_Project\yoga-center-project\src\main\java\com\yowu\yogacenter\model\ClassSchedule.java
 W:\Work Space\Yoga_Project\yoga-center-project\src\main\java\com\yowu\yogacenter\repository\CategoryRepository.java
@@ -16,7 +17,6 @@ W:\Work Space\Yoga_Project\yoga-center-project\src\main\java\com\yowu\yogacenter
 W:\Work Space\Yoga_Project\yoga-center-project\src\main\java\com\yowu\yogacenter\controller\client\UserProfileSetting.java
 W:\Work Space\Yoga_Project\yoga-center-project\src\main\java\com\yowu\yogacenter\model\RatingCourse.java
 W:\Work Space\Yoga_Project\yoga-center-project\src\main\java\com\yowu\yogacenter\controller\client\LogoutController.java
-W:\Work Space\Yoga_Project\yoga-center-project\src\main\java\com\yowu\yogacenter\controller\client\ViewClassController.java
 W:\Work Space\Yoga_Project\yoga-center-project\src\main\java\com\yowu\yogacenter\model\Category.java
 W:\Work Space\Yoga_Project\yoga-center-project\src\main\java\com\yowu\yogacenter\controller\client\UserProfileWishlist.java
 W:\Work Space\Yoga_Project\yoga-center-project\src\main\java\com\yowu\yogacenter\repository\RoleHasPermissionRepository.java

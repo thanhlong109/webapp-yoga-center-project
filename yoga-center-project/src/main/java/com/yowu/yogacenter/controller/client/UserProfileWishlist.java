@@ -30,7 +30,7 @@ public class UserProfileWishlist extends HttpServlet {
         Account account = (Account)request.getSession().getAttribute("account");
         AccountRepository ar = new AccountRepository();
         CourseWishlistRepository cwr = new CourseWishlistRepository();
-        request.setAttribute("whishlist", cwr.getByAccountID(account.getId()));
+        request.setAttribute("wishlist", cwr.getByAccountID(account.getId()));
         request.getRequestDispatcher(USER_PROFILE_WISHLISH_PAGE).forward(request, response);
         
     }
@@ -48,6 +48,7 @@ public class UserProfileWishlist extends HttpServlet {
         }catch(Exception e){
             System.out.println(e);
         }
+        
     }
     private String getHtmlWishlish(List<CourseWishlist> list){
         String data="";
@@ -59,7 +60,7 @@ public class UserProfileWishlist extends HttpServlet {
 "                                        <th>Action</th>\n" +
 "                                    </tr>";
             for(CourseWishlist c : list){
-                data+="<tr> "+"<td><img src=\"../Asset/img/courses/"+c.getCourse().getImg()
+                data+="<tr> "+"<td><img src=\"../Asset/img/classes/"+c.getCourse().getImg()
                         + "\" alt=\"img\"></td>"+"<td><a href=\"#\">"+c.getCourse().getTitle()
                         + "</a></td>"+"<td><i onclick=\"deteleWishlist(this)\" data-courseid=\""+c.getCourse().getId()
                         + "\" class=\"fa fa-trash\" aria-hidden=\"true\"></i></td>\n" +
