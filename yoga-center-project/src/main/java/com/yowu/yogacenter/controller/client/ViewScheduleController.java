@@ -4,6 +4,9 @@
  */
 package com.yowu.yogacenter.controller.client;
 
+import com.yowu.yogacenter.model.CourseSchedule;
+import com.yowu.yogacenter.repository.CategoryRepository;
+import com.yowu.yogacenter.repository.CourseScheduleRepository;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -18,48 +21,32 @@ import jakarta.servlet.http.HttpServletResponse;
 public class ViewScheduleController extends HttpServlet {
 
     private final String SCHEDULE_PAGE = "Client/viewSchedule.jsp";
-    
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        
-        request.getRequestDispatcher(SCHEDULE_PAGE).forward(request, response);  
-    }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        int id = 1;
+        CategoryRepository cr = new CategoryRepository();
+        request.setAttribute("categoryId", cr.detail(id));
+        
+        
+        CourseScheduleRepository csr = new CourseScheduleRepository();
+        request.setAttribute("scheduleList", csr.getAll());
+        
+        
+        
+        request.getRequestDispatcher(SCHEDULE_PAGE).forward(request, response);
     }
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        
     }
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
     @Override
     public String getServletInfo() {
         return "Short description";

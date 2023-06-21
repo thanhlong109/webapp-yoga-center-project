@@ -74,7 +74,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>BlogHomeController</servlet-name>
-        <url-pattern>/BlogHomeController</url-pattern>
+        <url-pattern>/BlogHome</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ViewScheduleController</servlet-name>
@@ -82,7 +82,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>BlogHomeDetailController</servlet-name>
-        <url-pattern>/BlogHomeDetailController</url-pattern>
+        <url-pattern>/BlogHomeDetail</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>DispatchController</servlet-name>

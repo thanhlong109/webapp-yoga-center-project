@@ -40,7 +40,7 @@ public class CourseScheduleRepository {
         }
         return list;
     }
-
+     
     public CourseSchedule detail(int id) {
         String sql = "select * from tblCourseSchedule where course_id=? ";
         try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
