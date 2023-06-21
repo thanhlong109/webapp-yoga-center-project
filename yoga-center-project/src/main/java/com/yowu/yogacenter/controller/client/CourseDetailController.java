@@ -46,6 +46,7 @@ public class CourseDetailController extends HttpServlet {
             request.setAttribute("courseScheduleList", sc.getScheduleByCourse(c.getId()));
             request.setAttribute("surgestCourseList", cr.getRandomNCourses(4));
             request.setAttribute("isInWishList",isInWishList );
+            request.setAttribute("feedbackList",ratec.getByCourseID(id));
         }catch(Exception e){
             System.out.println(e);
         }
