@@ -54,7 +54,8 @@
                 <c:if test="${sessionScope.account != null}">
                     <a class="text-account" href="${pageContext.request.contextPath}/userprofile/course">
                         <div class="img">
-                            <img id="img_account" src="${pageContext.request.contextPath}/Asset/img/avatar/${sessionScope.account.img}" />
+                            <img id="img_account" src="${pageContext.request.contextPath}/Asset/img/avatar/${sessionScope.account.img}" /> 
+                            <span>${sessionScope.account.name}</span>
                         </div> 
                         <!-- display name user here, if user null display login/Register-->
                     </a>

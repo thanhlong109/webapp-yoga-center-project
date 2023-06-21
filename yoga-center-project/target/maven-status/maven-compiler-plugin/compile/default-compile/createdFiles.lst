@@ -4,6 +4,7 @@ com\yowu\yogacenter\controller\client\UserProfileWishlist.class
 com\yowu\yogacenter\model\RegistrationCourse$CourseStatus.class
 com\yowu\yogacenter\repository\RoleRepository.class
 com\yowu\yogacenter\repository\CourseWishlistRepository.class
+com\yowu\yogacenter\controller\client\ViewClassController.class
 com\yowu\yogacenter\controller\client\UserProfileCourse$1.class
 com\yowu\yogacenter\repository\MembershipRepository.class
 com\yowu\yogacenter\repository\RatingCourseRepository$CourseInstructorRepository.class
@@ -22,6 +23,7 @@ com\yowu\yogacenter\model\RegistrationMembership.class
 com\yowu\yogacenter\model\Role.class
 com\yowu\yogacenter\controller\client\BlogHomeController.class
 com\yowu\yogacenter\model\RoleHasPermission.class
+com\yowu\yogacenter\controller\client\CourseListController.class
 com\yowu\yogacenter\controller\client\UserProfileCourse.class
 com\yowu\yogacenter\repository\CourseScheduleRepository.class
 com\yowu\yogacenter\util\DBHelpler.class
