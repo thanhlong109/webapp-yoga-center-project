@@ -244,6 +244,19 @@
                             </div>
                         </form>
 
+                        <div>
+                            <h4>
+                                Or
+                            </h4>
+                        </div>
+                        <form action="loginGG" method="POST">
+                            <div class="login-Google">
+                                <button>
+                                    <a href="https://accounts.google.com/o/oauth2/auth?scope=profile email&redirect_uri=http://localhost:8080/yoga-center-project/LoginGoogleHandler&response_type=code
+                                       &client_id=261325477127-aarmd5ktdhfilg620o9ue7pft00qf0nk.apps.googleusercontent.com&approval_prompt=force">Login With Google</a>
+                                </button>
+                            </div>
+                        </form>
                     </form>
                 </div>
                 <div class="signup-box">
@@ -366,11 +379,11 @@
         <script src="https://www.google.com/recaptcha/api.js" async defer></script>
         <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit"async defer></script>
         <script type="text/javascript" defer="">
-            var onloadCallback = function () {
-                grecaptcha.render('html_element', {
-                    'sitekey': '6Le2n4kmAAAAAGA2sQ-4rJpYthuvckW-HfPawoN2'
-                });
-            };
+                var onloadCallback = function () {
+                    grecaptcha.render('html_element', {
+                        'sitekey': '6Le2n4kmAAAAAGA2sQ-4rJpYthuvckW-HfPawoN2'
+                    });
+                };
         </script>
         <script>
             window.onload = function () {
