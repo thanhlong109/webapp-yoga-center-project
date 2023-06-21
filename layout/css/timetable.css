@@ -1,0 +1,218 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Jost', sans-serif;
+}
+
+.main {
+    max-width: 100%;
+}
+
+/* banner */
+.banner {
+    background: url(../img/Trainer/page-title-1.png) top center / cover no-repeat;
+    padding: 15% 20px 10% 20px;
+    text-align: center;
+    
+}
+
+.banner h1 {
+    font-size: 59px;
+    color: #227179;
+    font-weight: 500;
+    line-height: 1.2;
+
+}
+
+.banner__page-caption {
+    margin-top: 13px;
+    font-size: 24px;
+    color: #547670;
+    font-weight: 400;
+}
+
+/* End banner */
+
+/* container */
+.container {
+    padding-top: 60px;
+    padding-bottom: 30px;
+    margin: 0 auto 0 auto;
+    max-width: 1320px;
+}
+
+/* Select */
+.container__navigation-element {
+    padding-left: 20px;
+    padding-right: 20px;
+    text-align: left;
+}
+
+.navigation__element-select {
+    width: 250px;
+    border: 0;
+    background: none;
+    border-bottom-width: 2px;
+    border-bottom-style: solid;
+    padding-bottom: 10px;
+    font-size: 15px;
+    font-weight: 700;
+    color: #4e4e4e;
+    margin-bottom: 30px
+}
+
+/* End select */
+
+/* Timetable */
+.container__timetable {
+    margin-top: 16px;
+    margin-bottom: 30px;
+
+}
+
+
+table{
+    width: 100%;
+    text-align: center;
+    border-spacing: 2px;
+    border-collapse: separate;
+    margin-bottom: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+table td{
+    width: 154px;
+}
+table tr:nth-child(even){
+    background-color: #f9f9f9;;
+    color: #949494;
+}
+table tr:nth-child(odd){
+    color: #949494;
+    background-color: #f0f0f0;;
+}
+.container__timetable-table {
+    display: table;
+}
+th{
+    background-color: #f0f0f0;
+    border: 1px solid #fff;
+    text-align: center;
+    color: #404040;
+    padding: 22px 10px;
+    font-weight: 700;
+}
+/* td{
+    height: 90px;
+    width: 155px;
+} */
+.timetable__body-event{
+    position: relative;
+}
+.body__event-theme-0{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    position: absolute;
+    
+    background-color: rgb(34, 113, 121);
+    color: rgb(255, 255, 255);
+    height: 100%;
+    top: 0%;
+    width: 100%;
+    min-height: 125px;
+}
+.body__event-theme-1{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    position: absolute;
+    background-color: rgb(61, 188, 168);
+    color: rgb(255, 255, 255);
+    height: 100%;
+    top: 0%;
+    width: 100%;
+    min-height: 125px;
+}
+.body__event-theme-2{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    position: absolute;
+    background-color: rgb(88, 146, 152);
+    color: rgb(255, 255, 255);
+    height: 100%;
+    top: 0%;
+    width: 100%;
+    min-height: 125px;
+}
+.body__event-theme-3{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    position: absolute;
+    background-color: rgb(84, 118, 112);
+    color: rgb(255, 255, 255);
+    height: 100%;
+    top: 0%;
+    width: 100%;
+    min-height: 125px;
+}
+.body__event-theme-4{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    position: absolute;
+    background-color: rgb(241, 97, 90);
+    color: rgb(255, 255, 255);
+    height: 100%;
+    top: 0%;
+    width: 100%;
+    min-height: 125px;
+}
+.body__event-theme-5{
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    text-align: center;
+    background-color: rgb(64, 75, 72);
+    color: rgb(255, 255, 255);
+    height: 100%;
+    top: 0%;
+    width: 100%;
+    min-height: 125px;
+}
+
+
+.body__event__theme-content{
+    padding-top: 25px;
+    line-height: 2;
+}
+
+.event__content-title{
+    font-size: 15px;
+    font-weight: 700;
+    text-decoration: none;
+    color: #f9f9f9;
+}
+.event__content-timeslot{
+    font-size: 15px;
+    font-weight: 500;
+    
+}
+.event__content-subtitle{
+    font-size: 13px;
+}
+
+
+/* End timetable */
+
+/* End container */
