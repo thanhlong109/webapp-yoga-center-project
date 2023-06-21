@@ -79,7 +79,7 @@
                 background: transparent;
             }
             .signup-box .user-box input.input-wrong{
-               border-bottom: 1px  solid red;
+                border-bottom: 1px  solid red;
             }
             .login-box .user-box label,.signup-box .user-box label{
                 position: absolute;
@@ -89,9 +89,9 @@
                 font-size: 16px;
                 color: #333;
                 pointer-events: none;
-                transition: .5s; 
+                transition: .5s;
             }
-             .user-box input:focus ~ label,
+            .user-box input:focus ~ label,
             .user-box input:valid ~ label{
                 top:-20px;
                 left: 0;
@@ -123,7 +123,7 @@
                 border-radius: 24px;
                 border: none;
             }
-             .btn-login:hover{
+            .btn-login:hover{
                 background: #ff416b;
                 color: #fff;
                 border-radius: 5px;
@@ -194,19 +194,19 @@
     </head>
     <body>
         <jsp:include page="../Component/header.jsp"></jsp:include>
-        <div class="main">
-            <div class="box">
-                <div class="login-box">
-                    <h2>LogIn</h2>
-                    <form action="login" method="POST">
-                        <div class="user-box">
-                            <input type="text" name="username" required>
-                            <label>Username</label>
-                        </div>
-                        <div class="user-box">
-                            <input class="pass" type="password" name="password" required>
-                            <label>Password</label>
-                            <p class="note-login">${errLogin}</p>
+            <div class="main">
+                <div class="box">
+                    <div class="login-box">
+                        <h2>LogIn</h2>
+                        <form action="login" method="POST">
+                            <div class="user-box">
+                                <input type="text" name="username" required>
+                                <label>Username</label>
+                            </div>
+                            <div class="user-box">
+                                <input class="pass" type="password" name="password" required>
+                                <label>Password</label>
+                                <p class="note-login">${errLogin}</p>
                         </div>
                         <div class="check">
                             <input onchange="show()" type="checkbox" id="passwordShow" class="show">
@@ -219,6 +219,19 @@
                             </button>
                         </div>
 
+                        <div>
+                            <h4>
+                                Or
+                            </h4>
+                        </div>
+                        <form action="loginGG" method="POST">
+                            <div class="login-Google">
+                                <button>
+                                    <a href="https://accounts.google.com/o/oauth2/auth?scope=profile email&redirect_uri=http://localhost:8080/yoga-center-project/LoginGoogleHandler&response_type=code
+                                       &client_id=261325477127-aarmd5ktdhfilg620o9ue7pft00qf0nk.apps.googleusercontent.com&approval_prompt=force">Login With Google</a>
+                                </button>
+                            </div>
+                        </form>
                     </form>
                 </div>
                 <div class="signup-box">
@@ -270,100 +283,100 @@
                 </div>
             </div>
         </div>
-                    
-<!-- END code font -->
-            <script>
-                function show(){
-                    var pass = document.querySelector(".pass");
-                    var checkbox = document.getElementById("passwordShow");
-                    if(checkbox.checked){
-                        pass.setAttribute("type","text");
 
-                    }else{
-                        pass.setAttribute("type","password");
-                    }
+        <!-- END code font -->
+        <script>
+            function show() {
+                var pass = document.querySelector(".pass");
+                var checkbox = document.getElementById("passwordShow");
+                if (checkbox.checked) {
+                    pass.setAttribute("type", "text");
 
-                }
-                function checkPass(){
-                    var button = document.getElementById("btn2");
-                    var pass1 = document.querySelector(".pass1");
-                    var pass2 = document.querySelector(".pass2");
-                    if(pass1.value==pass2.value){
-                        pass1.classList.remove("input-wrong");
-                        pass2.classList.remove("input-wrong");
-                        document.querySelector(".note-signup").innerHTML="";
-                        btn2.disabled = false;
-                    }else{
-                        pass1.classList.add("input-wrong");
-                        pass2.classList.add("input-wrong");
-                        document.querySelector(".note-signup").innerHTML="passwords don't match!";
-                        btn2.disabled = true;
-                    }
-
+                } else {
+                    pass.setAttribute("type", "password");
                 }
 
-                function change(){
-                    var changebtn = document.getElementById("change");
-                    var slidebox = document.querySelector(".slide-box");
-                    var slideboxp1 = document.querySelector(".slide-box-p1");
-                    var slideboxp2 = document.querySelector(".slide-box-p2"); 
-                    let data = changebtn.innerHTML;
-                    if(slidebox.classList.contains("right")){
-                        slideboxp1.innerHTML="Fill in the information so that we can contact you";
-                        slideboxp2.innerHTML="If you already have an account, click blow button to login";
-                        changebtn.innerHTML="Go to login";
-                        slidebox.classList.remove("right");
-                    }else{
-                        slideboxp1.innerHTML="Login and have a great shopping experience";
-                        slideboxp2.innerHTML="If you don't have acount before, please touch button below";
-                        changebtn.innerHTML="Create new Account";
-                        slidebox.classList.add("right");
-                    }
+            }
+            function checkPass() {
+                var button = document.getElementById("btn2");
+                var pass1 = document.querySelector(".pass1");
+                var pass2 = document.querySelector(".pass2");
+                if (pass1.value == pass2.value) {
+                    pass1.classList.remove("input-wrong");
+                    pass2.classList.remove("input-wrong");
+                    document.querySelector(".note-signup").innerHTML = "";
+                    btn2.disabled = false;
+                } else {
+                    pass1.classList.add("input-wrong");
+                    pass2.classList.add("input-wrong");
+                    document.querySelector(".note-signup").innerHTML = "passwords don't match!";
+                    btn2.disabled = true;
                 }
-                fill();
-                
-                function fill(){
-                    
-                    if($('.slide-box').hasClass('right')){
-                        $('.slide-box-p1').html("Login and have a great shopping experience");
-                        $('.slide-box-p2').html("If you don't have acount before, please touch button below");
-                        $('#change').html('Create new Account');
-                    }else{
-                        $('.slide-box .slide-box-p1').text("Fill in the information so that we can contact you");
-                        $('.slide-box-p2').html("If you already have an account, click blow button to login");
-                        $('#change').html('Go to login');
-                    }
-                    
+
+            }
+
+            function change() {
+                var changebtn = document.getElementById("change");
+                var slidebox = document.querySelector(".slide-box");
+                var slideboxp1 = document.querySelector(".slide-box-p1");
+                var slideboxp2 = document.querySelector(".slide-box-p2");
+                let data = changebtn.innerHTML;
+                if (slidebox.classList.contains("right")) {
+                    slideboxp1.innerHTML = "Fill in the information so that we can contact you";
+                    slideboxp2.innerHTML = "If you already have an account, click blow button to login";
+                    changebtn.innerHTML = "Go to login";
+                    slidebox.classList.remove("right");
+                } else {
+                    slideboxp1.innerHTML = "Login and have a great shopping experience";
+                    slideboxp2.innerHTML = "If you don't have acount before, please touch button below";
+                    changebtn.innerHTML = "Create new Account";
+                    slidebox.classList.add("right");
                 }
+            }
+            fill();
+
+            function fill() {
+
+                if ($('.slide-box').hasClass('right')) {
+                    $('.slide-box-p1').html("Login and have a great shopping experience");
+                    $('.slide-box-p2').html("If you don't have acount before, please touch button below");
+                    $('#change').html('Create new Account');
+                } else {
+                    $('.slide-box .slide-box-p1').text("Fill in the information so that we can contact you");
+                    $('.slide-box-p2').html("If you already have an account, click blow button to login");
+                    $('#change').html('Go to login');
+                }
+
+            }
         </script>
         <script src="https://www.google.com/recaptcha/api.js" async defer></script>
         <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit"async defer></script>
         <script type="text/javascript" defer="">
-            var onloadCallback = function () {
-                grecaptcha.render('html_element', {
-                    'sitekey': '6Le2n4kmAAAAAGA2sQ-4rJpYthuvckW-HfPawoN2'
+                var onloadCallback = function () {
+                    grecaptcha.render('html_element', {
+                        'sitekey': '6Le2n4kmAAAAAGA2sQ-4rJpYthuvckW-HfPawoN2'
+                    });
+                };
+        </script>
+        <script>
+            window.onload = function () {
+                let isValid = false;
+                const form = document.getElementById("form-register");
+                const error = document.getElementById("error");
+
+                form.addEventListener("submit", function (event) {
+                    event.preventDefault();
+                    const response = grecaptcha.getResponse();
+                    if (response) {
+                        form.submit();
+                    } else {
+                        error.innerHTML = "Please check reCAPTCHA.";
+                    }
                 });
             };
         </script>
-        <script>
-			window.onload = function (){
-                            let isValid = false;
-				const form = document.getElementById("form-register");
-				const error = document.getElementById("error");
-				
-				form.addEventListener("submit", function (event){
-					event.preventDefault();
-					const response = grecaptcha.getResponse();
-					if (response){
-						form.submit();
-					} else {
-						error.innerHTML = "Please check reCAPTCHA.";
-					}
-				});
-			};
-	</script>
-        
-        
+
+
         <jsp:include page="../Component/footer.jsp"></jsp:include>
     </body>
 </html>
