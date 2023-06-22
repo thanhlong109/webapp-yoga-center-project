@@ -45,8 +45,20 @@
         <servlet-class>com.yowu.yogacenter.controller.client.CourseListController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>CategoryListController</servlet-name>
-        <servlet-class>com.yowu.yogacenter.controller.admin.CategoryListController</servlet-class>
+        <servlet-name>ViewCategoryListController</servlet-name>
+        <servlet-class>com.yowu.yogacenter.controller.admin.ViewCategoryListController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ViewCourseListController</servlet-name>
+        <servlet-class>com.yowu.yogacenter.controller.admin.ViewCourseListController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ViewBillListController</servlet-name>
+        <servlet-class>com.yowu.yogacenter.controller.admin.ViewBillListController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ViewAccountListController</servlet-name>
+        <servlet-class>com.yowu.yogacenter.controller.admin.ViewAccountListController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>UserProfileCourse</servlet-name>
@@ -93,8 +105,20 @@
         <url-pattern>/courses</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>CategoryListController</servlet-name>
+        <servlet-name>ViewCategoryListController</servlet-name>
         <url-pattern>/admin/categoryListController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewCourseListController</servlet-name>
+        <url-pattern>/admin/viewCourseListController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewBillListController</servlet-name>
+        <url-pattern>/admin/viewBillListController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewAccountListController</servlet-name>
+        <url-pattern>/admin/viewAccountListController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
