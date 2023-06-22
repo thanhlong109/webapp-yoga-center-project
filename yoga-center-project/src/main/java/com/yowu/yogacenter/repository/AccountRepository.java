@@ -22,15 +22,15 @@ public class AccountRepository {
     private final String LOGIN_ACCOUNT = "SELECT * from tblAccount where ( account_email =? AND account_password =? )";
     private final String CREATE_ACCOUNT = "INSERT INTO tblAccount ("
             + "account_img, account_name, account_password, account_email, "
-            + "account_phone, account_is_active, role_id) "
-            + "VALUES (?, ?, ?, ?, ?, ?, ?)";
+            + "account_phone, account_is_active, role_id, social_id) "
+            + "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
     private final String SEARCH_ACCOUNT = "select * from tblAccount where account_id=? ";
     private final String GET_ALL = "select * from tblAccount";
     private final String UPDATE_ACCOUNT = "update tblAccount set account_name=? , "
             + "account_password=? ,account_img=? , account_email=? , account_phone=? , "
             + "account_is_active where account_id=? ";
     private final String DELETE_ACCOUNT = "update tblAccount set account_is_active=? where account_id=? ";
-    private final String CHECK_DUPLICATE = "select account_email from tblAccount where account_id=?";
+    private final String CHECK_DUPLICATE = "select account_email from tblAccount where account_email=?";
     private final String UPDATE_GENERAL = "update tblAccount set account_name=? , account_email=? ,account_phone=? where account_id=?";
 
     public List<Account> getAll() {
@@ -87,7 +87,10 @@ public class AccountRepository {
 
 
     public boolean createAccount(Account c) {
-
+//private final String CREATE_ACCOUNT = "INSERT INTO tblAccount ("
+//            + "account_img, account_name, account_password, account_email, "
+//            + "account_phone, account_is_active, role_id, socialID) "
+//            + "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         int status = 0;
         try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(CREATE_ACCOUNT)) {
             stmt.setString(1, c.getImg());
@@ -97,6 +100,7 @@ public class AccountRepository {
             stmt.setString(5, c.getPhone());
             stmt.setBoolean(6, c.isIsActive());
             stmt.setInt(7, c.getRole().getId());
+            stmt.setString(8, c.getSocialID());
             status = stmt.executeUpdate();
         } catch (Exception e) {
             System.out.println(e);
@@ -120,6 +124,7 @@ public class AccountRepository {
                     c.setPhone(rs.getString("account_phone"));
                     c.setIsActive(rs.getBoolean("account_is_active"));
                     c.setRole(cr.detail(rs.getInt("role_id")));
+                    c.setSocialID(rs.getString("socialID"));
                     return c;
                 }
             }
@@ -203,35 +208,53 @@ public class AccountRepository {
     }
 
 
-
     public boolean checkDuplicate(String accountEmail) {
-        boolean status = false;
-        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(CHECK_DUPLICATE)) {
-            try ( ResultSet rs = stmt.executeQuery()) {
-                while (rs.next()) {
-                    stmt.setString(1, accountEmail);
-                    status = true;
-                }
+    boolean status = false;
+    try (PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(CHECK_DUPLICATE)) {
+        stmt.setString(1, accountEmail);
+        try (ResultSet rs = stmt.executeQuery()) {
+            if (rs.next()) {
+                status = true;
             }
-        } catch (Exception e) {
-            System.out.println(e);
         }
-        return status ;
+    } catch (Exception e) {
+        System.out.println(e);
     }
+    return status;
+}
+
+    
+    
 
     public static void main(String[] args) {
     AccountRepository cr = new AccountRepository();
-    Role rl = new Role();
-    RoleRepository rr = new RoleRepository();
-    Account c = new Account("thang", "thang123", "thang@gmail", null, rr.detail(Role.RoleList.TRAINER.ordinal()));
-    boolean isCreated = cr.createAccount(c);
+    boolean isCreated = cr.checkDuplicate("anmobieblog@gmail.com");
     
     if (isCreated) {
-        System.out.println("Tao tai khoan thanh cong!");
+        System.out.println("Trung email!");
     } else {
-        System.out.println("Không thể tạo tài khoản.");
+        System.out.println("Khong trung email.");
     }
 }
 
+// public static void main(String[] args) {
+//    AccountRepository cr = new AccountRepository();
+//    Role rl = new Role();
+//    RoleRepository rr = new RoleRepository();
+////    private final String CREATE_ACCOUNT = "INSERT INTO tblAccount ("
+////            + "account_img, account_name, account_password, account_email, "
+////            + "account_phone, account_is_active, role_id, socialID) "
+////            + "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+////Account( String name, String password, String email, String phone, Role role, String socialID)
+//    Account c = new Account("thang", "thang123", "thang1@gmail", null, rr.detail(Role.RoleList.TRAINEE.ordinal()),"12345");
+//    System.out.println(c.getRole().getName());
+//    boolean isCreated = cr.createAccount(c);
+//     
+//    if (isCreated) {
+//        System.out.println("Tao tai khoan thanh cong!");
+//    } else {
+//        System.out.println("Không thể tạo tài khoản.");
+//    }
+//}
 
 }

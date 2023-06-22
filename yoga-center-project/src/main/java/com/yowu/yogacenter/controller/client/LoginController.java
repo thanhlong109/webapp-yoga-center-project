@@ -40,7 +40,7 @@ public class LoginController extends HttpServlet {
             Account loginUser = dao.checkLogin(accountemail, password);
 
             if (loginUser == null) {
-                request.setAttribute("ERROR", "Incorrect UserID or Password");
+                request.setAttribute("errLogin", "Incorrect E-mail Address or Password");
                 request.setAttribute("loginStatus", "false"); 
                 url = LOGIN_PAGE;
             } else {

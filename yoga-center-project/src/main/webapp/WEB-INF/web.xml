@@ -48,7 +48,6 @@
         <servlet-name>CourseDetailController</servlet-name>
         <servlet-class>com.yowu.yogacenter.controller.client.CourseDetailController</servlet-class>
     </servlet>
-<<<<<<< HEAD
     <servlet>
         <servlet-name>LoginGoogleHandler</servlet-name>
         <servlet-class>com.yowu.yogacenter.controller.client.LoginGoogleHandler</servlet-class>
@@ -57,8 +56,6 @@
         <servlet-name>LogoutController</servlet-name>
         <servlet-class>com.yowu.yogacenter.controller.client.LogoutController</servlet-class>
     </servlet>
-=======
->>>>>>> 9ba6d531ee6ec4f214a32e0efd5a96dbe2a7b94a
     <servlet-mapping>
         <servlet-name>UserProfileCourse</servlet-name>
         <url-pattern>/userprofile/course</url-pattern>

@@ -186,15 +186,32 @@
             }
             .note-login{
                 position: absolute;
-                top:240px;
+                top:110px;
                 color: red;
                 text-align: center;
-            }
-            .note-login {
-                color: red;
                 font-size: 14px;
-                margin-top: 5px;
+                margin-top: 15px;
             }
+            .or-login {
+                margin: 10px auto;
+                display: flex;
+                align-items: center;
+            }
+
+            .or-login .line {
+                height: 1px;
+                width: 100%;
+                background-color: #dbdbdb;
+                flex: 1;
+            }
+
+            .or-login span {
+                color: #ccc;
+                padding: 0 16px;
+                text-transform: uppercase;
+                font-size: .75rem;
+            }
+            
         </style>
     </head>
     <body>
@@ -206,7 +223,7 @@
                         <form action="login" method="POST">
                             <div class="user-box">
                                 <input type="text" name="username" required>
-                                <label>Username</label>
+                                <label>E-mail Address</label>
                             </div>
                             <div class="user-box">
                                 <input class="pass" type="password" name="password" required>
@@ -223,37 +240,21 @@
                                 Login
                             </button>
                         </div>
-                        //  <%
-                      //      String loginStatus = (String) request.getAttribute("loginStatus");
-                       //     if (loginStatus != null && loginStatus.equals("false")) 
-                        //    {
-                        //    out.print("<p class='note-login'>Login false</p>");
-                       //     }
-                        //%>
-                        <div>
-                            <h4>
-                                Or
-                            </h4>
+                        <div class="or-login">
+                            <div class="line"></div>
+                            <span>OR</span>
+                            <div class="line"></div>
                         </div>
                         <form action="loginGG" method="POST">
                             <div class="login-Google">
                                 <button>
-                                    <a href="https://accounts.google.com/o/oauth2/auth?scope=profile email&redirect_uri=http://localhost:8080/yoga-center-project/LoginGoogleHandler&response_type=code
-                                       &client_id=261325477127-aarmd5ktdhfilg620o9ue7pft00qf0nk.apps.googleusercontent.com&approval_prompt=force">Login With Google</a>
-                                </button>
-                            </div>
-                        </form>
-
-                        <div>
-                            <h4>
-                                Or
-                            </h4>
-                        </div>
-                        <form action="loginGG" method="POST">
-                            <div class="login-Google">
-                                <button>
-                                    <a href="https://accounts.google.com/o/oauth2/auth?scope=profile email&redirect_uri=http://localhost:8080/yoga-center-project/LoginGoogleHandler&response_type=code
-                                       &client_id=261325477127-aarmd5ktdhfilg620o9ue7pft00qf0nk.apps.googleusercontent.com&approval_prompt=force">Login With Google</a>
+                                    <div class="login-gg-box">
+                                        <img src="./Asset/img/logo/Google_Logo.png" alt="" width="10px">
+                                        <span>
+                                            <a href="https://accounts.google.com/o/oauth2/auth?scope=profile email&redirect_uri=http://localhost:8080/yoga-center-project/LoginGoogleHandler&response_type=code
+                                               &client_id=261325477127-aarmd5ktdhfilg620o9ue7pft00qf0nk.apps.googleusercontent.com&approval_prompt=force">Login With Google</a>
+                                        </span>
+                                    </div>  
                                 </button>
                             </div>
                         </form>
@@ -265,10 +266,12 @@
                         <div class="user-box">
                             <input type="text" name="username" required>
                             <label>Username</label>
+                            <span><p class="error">${USER_ERROR.fullNameError}</p></span>
                         </div>
                         <div class="user-box">
-                            <input class="email" type="email" name="email" required>
+                            <input class="email" type="text" name="email" required>
                             <label>Email</label>
+                            <span><p class="error">${errLEmail}</p></span>
                         </div>
                         <div class="user-box">
                             <input class="pass1" type="password" onchange="checkPass()" name="password" required>
@@ -361,29 +364,29 @@
             }
             fill();
 
-                function fill(){
+            function fill() {
 
-                    if($('.slide-box').hasClass('right')){
-                        $('.slide-box-p1').html("Login and have a great shopping experience");
-                        $('.slide-box-p2').html("If you don't have acount before, please touch button below");
-                        $('#change').html('Create new Account');
-                    }else{
-                        $('.slide-box .slide-box-p1').text("Fill in the information so that we can contact you");
-                        $('.slide-box-p2').html("If you already have an account, click blow button to login");
-                        $('#change').html('Go to login');
-                    }
-
+                if ($('.slide-box').hasClass('right')) {
+                    $('.slide-box-p1').html("Login and have a great shopping experience");
+                    $('.slide-box-p2').html("If you don't have acount before, please touch button below");
+                    $('#change').html('Create new Account');
+                } else {
+                    $('.slide-box .slide-box-p1').text("Fill in the information so that we can contact you");
+                    $('.slide-box-p2').html("If you already have an account, click blow button to login");
+                    $('#change').html('Go to login');
                 }
+
+            }
 
         </script>
         <script src="https://www.google.com/recaptcha/api.js" async defer></script>
         <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit"async defer></script>
         <script type="text/javascript" defer="">
-                var onloadCallback = function () {
-                    grecaptcha.render('html_element', {
-                        'sitekey': '6Le2n4kmAAAAAGA2sQ-4rJpYthuvckW-HfPawoN2'
-                    });
-                };
+            var onloadCallback = function () {
+                grecaptcha.render('html_element', {
+                    'sitekey': '6Le2n4kmAAAAAGA2sQ-4rJpYthuvckW-HfPawoN2'
+                });
+            };
         </script>
         <script>
             window.onload = function () {
