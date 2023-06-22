@@ -55,9 +55,6 @@ public class LoginController extends HttpServlet {
             }
         } catch (Exception e) {
             request.setAttribute("ERROR", "Your role is not supported");
-
-            // request.setAttribute("ERROR", "An error occurred");
-            // request.getRequestDispatcher(ERROR_PAGE).forward(request, response);
         } finally {
             try {
                 request.getRequestDispatcher(url).forward(request, response);

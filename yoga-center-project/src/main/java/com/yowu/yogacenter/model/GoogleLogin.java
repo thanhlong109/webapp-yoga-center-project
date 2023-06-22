@@ -10,6 +10,8 @@ package com.yowu.yogacenter.model;
  */
 public class GoogleLogin {
 
+    public static String DEFAULT_IMG = "hinh-avatar-1.png";
+    
     private String id;
 
     private String email;
@@ -22,19 +24,19 @@ public class GoogleLogin {
 
     private String family_name;
 
-    private String picture;
+    private String img;
 
     public GoogleLogin() {
     }
 
-    public GoogleLogin(String id, String email, boolean verified_email, String name, String given_name, String family_name, String picture) {
+    public GoogleLogin(String id, String email, boolean verified_email, String name, String given_name, String family_name) {
         this.id = id;
         this.email = email;
         this.verified_email = verified_email;
         this.name = name;
         this.given_name = given_name;
         this.family_name = family_name;
-        this.picture = picture;
+        this.img = DEFAULT_IMG;
     }
 
     /**
@@ -124,15 +126,12 @@ public class GoogleLogin {
     /**
      * @return the picture
      */
-    public String getPicture() {
-        return picture;
+    public String getImg() {
+        return img;
     }
 
-    /**
-     * @param picture the picture to set
-     */
-    public void setPicture(String picture) {
-        this.picture = picture;
+    public void setImg(String img) {
+        this.img = img;
     }
 
     

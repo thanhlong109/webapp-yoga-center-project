@@ -251,7 +251,7 @@
                                     <div class="login-gg-box">
                                         <img src="./Asset/img/logo/Google_Logo.png" alt="" width="10px">
                                         <span>
-                                            <a href="https://accounts.google.com/o/oauth2/auth?scope=profile email&redirect_uri=http://localhost:8080/yoga-center-project/LoginGoogleHandler&response_type=code
+                                            <a href="https://accounts.google.com/o/oauth2/auth?scope=profile email&redirect_uri=http://localhost:8080/yoga-center-project/LoginWithGoogle&response_type=code
                                                &client_id=261325477127-aarmd5ktdhfilg620o9ue7pft00qf0nk.apps.googleusercontent.com&approval_prompt=force">Login With Google</a>
                                         </span>
                                     </div>  

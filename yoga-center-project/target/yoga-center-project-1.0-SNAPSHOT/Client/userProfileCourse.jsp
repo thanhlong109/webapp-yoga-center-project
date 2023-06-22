@@ -233,7 +233,7 @@
                                     </tr>
                                     <c:forEach items="${listRegistrationCourse}" var="rCourse">
                                         <tr>
-                                            <td><img src="../Asset/img/classes/${sessionScope.rCourse.course.img}" alt="img"></td>
+                                            <td><img src="../Asset/img/classes/${rCourse.course.img}" alt="img"></td>
                                             <td>${rCourse.course.title}</td>
                                             <td>${rCourse.registrationDate}</td>
                                             <td>${rCourse.endDate}</td>

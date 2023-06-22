@@ -49,12 +49,12 @@
         <servlet-class>com.yowu.yogacenter.controller.client.CourseDetailController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>LoginGoogleHandler</servlet-name>
-        <servlet-class>com.yowu.yogacenter.controller.client.LoginGoogleHandler</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>LogoutController</servlet-name>
         <servlet-class>com.yowu.yogacenter.controller.client.LogoutController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>LoginGoogleController</servlet-name>
+        <servlet-class>com.yowu.yogacenter.controller.client.LoginGoogleController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>UserProfileCourse</servlet-name>
@@ -104,15 +104,18 @@
         <servlet-name>CourseDetailController</servlet-name>
         <url-pattern>/course-detail</url-pattern>
     </servlet-mapping>
-    <servlet-mapping>
+    <!--    <servlet-mapping>
         <servlet-name>LoginGoogleHandler</servlet-name>
         <url-pattern>/LoginGoogleHandler</url-pattern>
-    </servlet-mapping>
+    </servlet-mapping>-->
     <servlet-mapping>
         <servlet-name>LogoutController</servlet-name>
         <url-pattern>/logout</url-pattern>
     </servlet-mapping>
-
+    <servlet-mapping>
+        <servlet-name>LoginGoogleController</servlet-name>
+        <url-pattern>/LoginWithGoogle</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
