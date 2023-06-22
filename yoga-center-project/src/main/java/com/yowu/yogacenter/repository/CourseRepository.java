@@ -44,6 +44,34 @@ public class CourseRepository {
         }
         return list;
     }
+    
+    public List<Course> getRandomNCourses(int n) {
+        String sql = "SELECT TOP "+n+" * FROM tblCourse ORDER BY NEWID()";
+        List<Course> list = new ArrayList<>();
+        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
+            
+            try ( ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    CategoryRepository cr = new CategoryRepository();
+                    Course c = new Course();
+                    c.setId(rs.getInt("course_id"));
+                    c.setCategory(cr.detail(rs.getInt("category_id")));
+                    c.setDetail(rs.getString("course_detail"));
+                    c.setDuration(rs.getInt("course_duration"));
+                    c.setImg(rs.getString("course_img"));
+                    c.setIsActive(rs.getBoolean("course_is_active"));
+                    c.setPrice(rs.getFloat("course_price"));
+                    c.setTitle(rs.getString("course_title"));
+                    AccountRepository ar = new AccountRepository();
+                    c.setAccount(ar.detail(rs.getInt("account_id")));
+                    list.add(c);
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return list;
+    }
 
     public Course detail(int id) {
         String sql = "select * from tblCourse where course_id=? ";
@@ -130,6 +158,6 @@ public class CourseRepository {
 
     public static void main(String[] args) {
         CourseRepository cr = new CourseRepository();
-        System.out.println(cr.detail(1).getAccount().getName());
+        System.out.println(cr.getRandomNCourses(4).get(0).getTitle());
     }
 }

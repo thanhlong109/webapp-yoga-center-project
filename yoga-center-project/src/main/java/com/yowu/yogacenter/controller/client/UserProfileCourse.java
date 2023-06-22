@@ -83,7 +83,7 @@ public class UserProfileCourse extends HttpServlet {
         for(RegistrationCourse rc : list){
             Course c = rc.getCourse();
             data+= "<tr>\n" + 
-"                  <td><img src=\""+c.getImg()
+"                  <td><img src=\"../Asset/img/classes/"+c.getImg()
                     + "\" alt=\"img\"></td>"+"<td>"+c.getTitle()+"</td>"+"<td>"+rc.getRegistrationDate()+"</td>"
                     +"<td>"+rc.getEndDate()+"</td> </tr>";
         }

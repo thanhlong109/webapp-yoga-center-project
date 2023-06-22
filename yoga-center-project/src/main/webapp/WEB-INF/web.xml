@@ -60,6 +60,18 @@
         <servlet-name>ViewAccountListController</servlet-name>
         <servlet-class>com.yowu.yogacenter.controller.admin.ViewAccountListController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CourseDetailController</servlet-name>
+        <servlet-class>com.yowu.yogacenter.controller.client.CourseDetailController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>LoginGoogleHandler</servlet-name>
+        <servlet-class>com.yowu.yogacenter.controller.client.LoginGoogleHandler</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>LogoutController</servlet-name>
+        <servlet-class>com.yowu.yogacenter.controller.client.LogoutController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>UserProfileCourse</servlet-name>
         <url-pattern>/userprofile/course</url-pattern>
@@ -78,7 +90,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>RegisterAccountController</servlet-name>
-        <url-pattern>/register</url-pattern>
+        <url-pattern>/signup</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>UserProfileSetting</servlet-name>
@@ -90,7 +102,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ViewScheduleController</servlet-name>
-        <url-pattern>/ViewScheduleController</url-pattern>
+        <url-pattern>/Timetable</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>BlogHomeDetailController</servlet-name>
@@ -119,6 +131,18 @@
     <servlet-mapping>
         <servlet-name>ViewAccountListController</servlet-name>
         <url-pattern>/admin/viewAccountListController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CourseDetailController</servlet-name>
+        <url-pattern>/course-detail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LoginGoogleHandler</servlet-name>
+        <url-pattern>/LoginGoogleHandler</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LogoutController</servlet-name>
+        <url-pattern>/logout</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -9,6 +9,7 @@ import com.yowu.yogacenter.model.CourseWishlist;
 import com.yowu.yogacenter.util.DBHelpler;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -74,32 +75,29 @@ public class CourseWishlistRepository {
         return status == 1;
     }
 
-    public CourseWishlist detail(int id) {
-        String sql = "select * from tblCourseWishlist where course_id=? ";
-        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
+    
+     public boolean isExist(int id,int accountId) {
+        String sql = "select * from tblCourseWishlist where ( course_id=? and account_id=? )";
+        try(PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)){
             stmt.setInt(1, id);
-            try ( ResultSet rs = stmt.executeQuery()) {
-                while (rs.next()) {
-                    CourseWishlist c = new CourseWishlist();
-                    AccountRepository acc = new AccountRepository();
-                    CourseRepository cr = new CourseRepository();
-                    c.setAccount(acc.detail(rs.getInt("account_id")));
-                    c.setCourse(cr.detail(rs.getInt("course_id")));
-                    return c;
+            stmt.setInt(2, accountId);
+            try(ResultSet rs = stmt.executeQuery()){
+                if(rs.next()){
+                    return true;
                 }
             }
-        } catch (Exception e) {
+        }catch(Exception e){
             System.out.println(e);
         }
-        return null;
-    }
+        return false;
+     }
 
-    public void add(CourseWishlist c) {
+    public void add(int courseId,int accountId) {
         String sql = "INSERT INTO tblCourseWishlist (account_id, course_id) VALUES (?, ?)";
 
         try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
-            stmt.setInt(1, c.getAccount().getId());
-            stmt.setInt(2, c.getCourse().getId());
+            stmt.setInt(1, accountId);
+            stmt.setInt(2, courseId);
             stmt.executeUpdate();
         } catch (Exception e) {
             System.out.println(e);
@@ -107,7 +105,7 @@ public class CourseWishlistRepository {
     }
     public static void main(String[] args) {
         CourseWishlistRepository c = new CourseWishlistRepository();
-        
+        System.out.println(c.getByAccountID(2).get(0).getCourse().getTitle());
     }
 
 }

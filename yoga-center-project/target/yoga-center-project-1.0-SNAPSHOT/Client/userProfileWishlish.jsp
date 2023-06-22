@@ -196,10 +196,12 @@
             <h2>Your Profile</h2>
         </div>
         <div class="container">
-            <div class="user2">
-                <div class="user-img"><img src="../Asset/img/avatar/${account.img}" alt=""></div>
-                <h2>${account.name}</h2>
-            </div>
+            <c:if test="${sessionScope.account!=null}">
+                <div class="user2">
+                    <div class="user-img"><img src="../Asset/img/avatar/${sessionScope.account.img}" alt=""></div>
+                    <h2>${sessionScope.account.name}</h2>
+                </div>
+            </c:if>
             <div class="user-container">
                 <ul class="user-nav">
                     <li ><a href="course"><i class="fa fa-book" aria-hidden="true"></i> Course</a></li>
@@ -210,7 +212,7 @@
                 </ul>
                 <div class="user-content">
                         <div class="display-course-content">
-                            <c:if test="${wishlist!=null && whishlist.size() > 0}">
+                            <c:if test="${wishlist!=null && wishlist.size() > 0}">
                                 <table class="course-table">
                                     <tr>
                                         <th></th>
@@ -226,7 +228,7 @@
                                     </c:forEach>
                                 </table>
                             </c:if>
-                            <c:if test="${wishlist==null || whishlist.size() <= 0}">
+                            <c:if test="${wishlist==null || wishlist.size() <= 0}">
                                 <div class="noice-empty">
                                     <img src="../Asset/img/icon/empty.png" alt="">
                                     <h4>Empty!</h4>

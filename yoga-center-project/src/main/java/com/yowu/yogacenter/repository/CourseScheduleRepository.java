@@ -18,7 +18,7 @@ import java.util.List;
 public class CourseScheduleRepository {
 
     public List<CourseSchedule> getAll() {
-        String sql = "select * from tblCourseWishlist";
+        String sql = "select * from tblCourseSchedule";
         List<CourseSchedule> list = new ArrayList<>();
 
         try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
@@ -32,6 +32,27 @@ public class CourseScheduleRepository {
                     c.setStartTime(rs.getTime("start_time"));
                     c.setEndTime(rs.getTime("end_time"));
                     c.setIsActive(rs.getBoolean("is_active"));
+                    list.add(c);
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return list;
+    }
+     public List<CourseSchedule> getScheduleByCourse(int courseId) {
+        String sql = "select * from tblCourseSchedule where (course_id=? and is_active=1)";
+        List<CourseSchedule> list = new ArrayList<>();
+
+        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
+            stmt.setInt(1, courseId);
+            try ( ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    CourseSchedule c = new CourseSchedule();
+                    c.setId(rs.getInt("course_schedule_id"));
+                    c.setDateOfWeek(rs.getString("day_of_week"));
+                    c.setStartTime(rs.getTime("start_time"));
+                    c.setEndTime(rs.getTime("end_time"));
                     list.add(c);
                 }
             }
@@ -122,6 +143,11 @@ public class CourseScheduleRepository {
         
         return status == 1;
     }
+    public static void main(String[] args) {
+        CourseScheduleRepository cs = new CourseScheduleRepository();
+        System.out.println(cs.getScheduleByCourse(2).get(0).dateToString());
+    }
+    
 }
 
 

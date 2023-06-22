@@ -4,6 +4,7 @@
  */
 package com.yowu.yogacenter.controller.client;
 
+import com.yowu.yogacenter.model.Account;
 import com.yowu.yogacenter.model.CourseWishlist;
 import com.yowu.yogacenter.repository.AccountRepository;
 import com.yowu.yogacenter.repository.CourseWishlistRepository;
@@ -26,11 +27,10 @@ public class UserProfileWishlist extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        int accountID = 2;
+        Account account = (Account)request.getSession().getAttribute("account");
         AccountRepository ar = new AccountRepository();
-        request.setAttribute("account", ar.detail(accountID));
         CourseWishlistRepository cwr = new CourseWishlistRepository();
-        request.setAttribute("whishlist", cwr.getByAccountID(accountID));
+        request.setAttribute("wishlist", cwr.getByAccountID(account.getId()));
         request.getRequestDispatcher(USER_PROFILE_WISHLISH_PAGE).forward(request, response);
         
     }
@@ -38,16 +38,17 @@ public class UserProfileWishlist extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        int accountID = 2;//thay sang sesion
+        Account account = (Account)request.getSession().getAttribute("account");
         CourseWishlistRepository cwr = new CourseWishlistRepository();
         try(PrintWriter out = response.getWriter()){
             int courseID = Integer.parseInt(request.getParameter("courseid"));
-            cwr.detele(courseID, accountID);
-            List<CourseWishlist> list = cwr.getByAccountID(accountID);
+            cwr.detele(courseID, account.getId());
+            List<CourseWishlist> list = cwr.getByAccountID(account.getId());
             out.print(getHtmlWishlish(list));
         }catch(Exception e){
             System.out.println(e);
         }
+        
     }
     private String getHtmlWishlish(List<CourseWishlist> list){
         String data="";
@@ -59,7 +60,7 @@ public class UserProfileWishlist extends HttpServlet {
 "                                        <th>Action</th>\n" +
 "                                    </tr>";
             for(CourseWishlist c : list){
-                data+="<tr> "+"<td><img src=\"../Asset/img/courses/"+c.getCourse().getImg()
+                data+="<tr> "+"<td><img src=\"../Asset/img/classes/"+c.getCourse().getImg()
                         + "\" alt=\"img\"></td>"+"<td><a href=\"#\">"+c.getCourse().getTitle()
                         + "</a></td>"+"<td><i onclick=\"deteleWishlist(this)\" data-courseid=\""+c.getCourse().getId()
                         + "\" class=\"fa fa-trash\" aria-hidden=\"true\"></i></td>\n" +
