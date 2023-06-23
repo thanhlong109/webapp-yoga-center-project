@@ -5,6 +5,7 @@
 
 package com.yowu.yogacenter.controller.client;
 
+import jakarta.servlet.ServletContext;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -18,14 +19,13 @@ import jakarta.servlet.http.HttpSession;
  * @author Chien Thang
  */
 public class LogoutController extends HttpServlet {
-   private final String HOME_PAGE = "Client/Home.jsp";
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         HttpSession session = request.getSession();
         session.invalidate();
-        response.sendRedirect(getServletContext().getContextPath());
+        response.sendRedirect(request.getContextPath());
     } 
 
     @Override

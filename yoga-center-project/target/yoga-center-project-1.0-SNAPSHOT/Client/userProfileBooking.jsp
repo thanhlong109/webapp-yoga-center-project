@@ -31,6 +31,7 @@
                max-width: 1320px;
                margin: 0 auto;
                padding: 50px 30px;
+               width: 1220px;
            }
            .user2{
                display: flex;
@@ -56,6 +57,7 @@
            .user-container{
                margin-top: 64px;
                display: flex;
+               
            }
            .user-nav{
                list-style: none;

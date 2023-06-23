@@ -24,7 +24,7 @@
                         <i class="fa-solid fa-chevron-right subnavbtn pc-hide"></i>
                         <ul class="subnav">
                             <i class="fa-solid fa-x closebtn"></i>
-                            <li><a href="#" class="ahihi">${pageContext.request.getRequestURI()}</a></li>
+                            <li><a href="#">About1</a></li>
                             <li><a href="#">About2</a></li>
                             <li><a href="#">About3</a></li>
                             <li><a href="#">About4</a></li>
