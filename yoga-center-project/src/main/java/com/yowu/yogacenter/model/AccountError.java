@@ -11,17 +11,19 @@ package com.yowu.yogacenter.model;
  */
 public class AccountError {
     private String fullNameError;
-    private String roleIDError;
+    private String EmailError;
     private String passwordError;
-    private String confirmError;
     private String error;
 
     public AccountError() {
-        this.fullNameError = "";
-        this.roleIDError = "";
-        this.passwordError = "";
-        this.confirmError = "";
-        this.error = "";
+        
+    }
+
+    public AccountError(String fullNameError, String EmailError, String passwordError, String error) {
+        this.fullNameError = fullNameError;
+        this.EmailError = EmailError;
+        this.passwordError = passwordError;
+        this.error = error;
     }
 
     /**
@@ -39,17 +41,17 @@ public class AccountError {
     }
 
     /**
-     * @return the roleIDError
+     * @return the EmailError
      */
-    public String getRoleIDError() {
-        return roleIDError;
+    public String getEmailError() {
+        return EmailError;
     }
 
     /**
-     * @param roleIDError the roleIDError to set
+     * @param EmailError the EmailError to set
      */
-    public void setRoleIDError(String roleIDError) {
-        this.roleIDError = roleIDError;
+    public void setEmailError(String EmailError) {
+        this.EmailError = EmailError;
     }
 
     /**
@@ -67,20 +69,6 @@ public class AccountError {
     }
 
     /**
-     * @return the confirmError
-     */
-    public String getConfirmError() {
-        return confirmError;
-    }
-
-    /**
-     * @param confirmError the confirmError to set
-     */
-    public void setConfirmError(String confirmError) {
-        this.confirmError = confirmError;
-    }
-
-    /**
      * @return the error
      */
     public String getError() {
@@ -93,6 +81,12 @@ public class AccountError {
     public void setError(String error) {
         this.error = error;
     }
+
+    
+    
+    
+
+    
 
     
     

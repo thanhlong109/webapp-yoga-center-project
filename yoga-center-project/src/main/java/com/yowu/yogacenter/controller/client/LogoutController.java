@@ -25,7 +25,7 @@ public class LogoutController extends HttpServlet {
     throws ServletException, IOException {
         HttpSession session = request.getSession();
         session.invalidate();
-        response.sendRedirect(HOME_PAGE);
+        response.sendRedirect(getServletContext().getContextPath());
     } 
 
     @Override

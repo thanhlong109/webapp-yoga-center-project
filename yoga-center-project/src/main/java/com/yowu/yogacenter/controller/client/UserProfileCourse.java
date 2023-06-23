@@ -29,10 +29,8 @@ public class UserProfileCourse extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        /*
         HttpSession ss = request.getSession();
-        int accountID =((Account)ss.getAttribute("account")).getId();*/
-        int accountID = 2;
+        int accountID =((Account)ss.getAttribute("account")).getId();
         AccountRepository ar = new AccountRepository();
         request.setAttribute("account", ar.detail(accountID));
         String txtStatus = request.getParameter("status");
