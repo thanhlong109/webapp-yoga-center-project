@@ -92,11 +92,13 @@
            }
            .user-content{
                padding: 0 50px;
+               flex: 1;
            }
            .filter-course{
                list-style: none;
                display: flex;
                gap:16px;
+               margin-bottom: 32px;
            }
            .filter-course>li{
                padding: 0px 4px;
@@ -108,7 +110,6 @@
                border-bottom: 2px solid #3dbca8;
            }
            table{
-               margin-top: 46px;
                border-collapse: collapse;
                border: 1px solid #e6e6e6;
                text-align: center;

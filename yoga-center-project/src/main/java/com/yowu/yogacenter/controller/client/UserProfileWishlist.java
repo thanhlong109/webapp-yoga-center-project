@@ -28,9 +28,10 @@ public class UserProfileWishlist extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         Account account = (Account)request.getSession().getAttribute("account");
-        AccountRepository ar = new AccountRepository();
         CourseWishlistRepository cwr = new CourseWishlistRepository();
-        request.setAttribute("wishlist", cwr.getByAccountID(account.getId()));
+        if(account!=null){
+            request.setAttribute("wishlist", cwr.getByAccountID(account.getId()));
+        }
         request.getRequestDispatcher(USER_PROFILE_WISHLISH_PAGE).forward(request, response);
         
     }

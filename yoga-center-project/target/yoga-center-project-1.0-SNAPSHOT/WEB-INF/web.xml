@@ -93,6 +93,19 @@
         <url-pattern>/course-detail</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+
+        <servlet-name>CategoryListController</servlet-name>
+        <url-pattern>/admin/categoryListController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>BlogHomeController</servlet-name>
+        <url-pattern>/blogs</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>BlogDetailController</servlet-name>
+        <url-pattern>/blog-detail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>LogoutController</servlet-name>
         <url-pattern>/logout</url-pattern>
     </servlet-mapping>

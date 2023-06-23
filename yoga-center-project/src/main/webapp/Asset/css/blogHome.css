@@ -31,6 +31,9 @@
         }
         .blog-item-img{
             overflow: hidden;
+            max-height: 300px;
+            display: flex;
+            align-items: center;
         }
         .blog-item-img img{
             width: 100%;
@@ -165,7 +168,7 @@
             right: 0;
             bottom: 0;
             display: flex;
-            padding: 120px 0 32px;
+            padding: 32px 0;
             display: none;
             
         }
@@ -173,7 +176,7 @@
             display: block;
         }
         .post-blog-container{
-            width: 700px;
+            width: 70%;
             margin: auto;
             background-color: white;
             border-radius: 8px;

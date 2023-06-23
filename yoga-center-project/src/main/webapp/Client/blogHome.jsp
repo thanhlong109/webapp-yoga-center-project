@@ -16,6 +16,7 @@
         <title>Blog</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <link href="https://fonts.googleapis.com/css2?family=Jost:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
+
         <link rel="stylesheet" href="Asset/css/blogHome.css">
         <link rel="stylesheet" href="Asset/css/clientHeader.css">
         <link rel="stylesheet" href="Asset/css/clientFooter.css">
@@ -43,13 +44,13 @@
                                 ${blog.title}
                             </a>
                             <div class="text text-ellipsis">
-                                    ${blog.detail}
+                                ${blog.detail}
                             </div>
                             <a href="blog-detail?blogid=${blog.id}" class="read-more-btn">Read More <i class="fa-solid fa-chevron-right"></i></a>
                         </div>
                     </div>
                 </c:forEach>
-               
+
             </div>
             <!-- right container-->
             <div class="right-container">
@@ -59,7 +60,7 @@
                 </div>
                 <div class="box-section">
                     <h2 class="box-title">Recent Articles</h2>
-                    <c:if test="${recentBlogList!=null && recentBlogList.size gt 0}">
+                    <c:if test="${recentBlogList!=null && recentBlogList.size() gt 0}">
                         <div class="box-container">
                             <c:forEach items="${recentBlogList}" var="blog">
                                 <div class="small-blog-item">
@@ -77,8 +78,8 @@
                             </c:forEach>
                         </div>
                         <p class="load-more" data-idd="3" onclick="loadMore(this)">view more <i class="fa fa-caret-down" aria-hidden="true"></i></p>
-                    </c:if>
-                    <c:if test="${recentBlogList==null || recentBlogList.size lt 1}">
+                        </c:if>
+                        <c:if test="${recentBlogList==null || recentBlogList.size() lt 1}">
                         <div class="noice-empty">
                             <img src="Asset/img/icon/empty.png" alt="">
                             <h4>you haven't posted any blogs yet</h4>
@@ -93,7 +94,7 @@
                 <div class="post-blog-container">
                     <i class="fa-solid fa-x close-btn"></i>
                     <h2><i class="fa-solid fa-star"></i> New Blog</h2>
-                    <form action="">
+                    <form action="blogs" method="POST" enctype="multipart/form-data">
                         <figure class="img-container">
                             <img id="js-display-img" src="" alt="">
                             <figcaption  id="js-name-img"></figcaption>
@@ -110,9 +111,9 @@
                         </div>
                         <div class="box-input">
                             <label>Content: </label>
-                            <textarea name="txtBlogContent" placeholder="Blog content"></textarea>
+                            <textarea id="textEditor" name="txtBlogContent" placeholder="Blog content"></textarea>
                         </div>
-                        <button class="btn btn-light-green" type="submit">Post</button>
+                        <button name="action" value="postBlog" class="btn btn-light-green" type="submit">Post</button>
                     </form>
                 </div>
             </div>
@@ -126,61 +127,91 @@
                 </div>
             </div>
         </div>
+        <%@include file="../Component/toast.jsp" %>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+        <script src="https://cdn.tiny.cloud/1/drz9q75t7w0e2yrsegy3qr29p30m6b0nb9zm476dryjq73bq/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@tinymce/tinymce-jquery@1/dist/tinymce-jquery.min.js"></script>
         <script defer>
-            const displayImg = document.getElementById("js-display-img");
-            const displayName = document.getElementById("js-name-img");
-            const btnImg = document.getElementById("jsuploadImg");
+                            const displayImg = document.getElementById("js-display-img");
+                            const displayName = document.getElementById("js-name-img");
+                            const btnImg = document.getElementById("jsuploadImg");
 
-            const btnCloseBlog = document.querySelector(".close-btn");
-            const postBlog = document.querySelector(".post-blog");
-            const btnPostBlog = document.querySelector(".post-blog-btn");
+                            const btnCloseBlog = document.querySelector(".close-btn");
+                            const postBlog = document.querySelector(".post-blog");
+                            const btnPostBlog = document.querySelector(".post-blog-btn");
 
-            const showRightBtn = document.querySelector(".btnShowRight");
-            const rightContainer = document.querySelector(".right-container");
+                            const showRightBtn = document.querySelector(".btnShowRight");
+                            const rightContainer = document.querySelector(".right-container");
 
-            btnImg.onchange = ()=>{
-                let reader = new FileReader();
-                reader.readAsDataURL(btnImg.files[0]);
-                reader.onload = ()=>{
-                    displayImg.setAttribute("src",reader.result);
-                };
-                console.log(btnImg.files[0].name);
-                displayName.textContent = btnImg.files[0].name;
-            };
+                            btnImg.onchange = () => {
+                                let reader = new FileReader();
+                                reader.readAsDataURL(btnImg.files[0]);
+                                reader.onload = () => {
+                                    displayImg.setAttribute("src", reader.result);
+                                };
+                                console.log(btnImg.files[0].name);
+                                displayName.textContent = btnImg.files[0].name;
+                            };
 
-            btnCloseBlog.addEventListener("click",()=>{
-                postBlog.classList.toggle("active");
-            });
-            btnPostBlog.addEventListener("click",()=>{
-                postBlog.classList.toggle("active");
-            });
+                            btnCloseBlog.addEventListener("click", () => {
+                                postBlog.classList.toggle("active");
+                                $('.header-wrapper').slideDown();
+                                $(window).on('mousewheel');
+                            });
+                            btnPostBlog.addEventListener("click", () => {
+            <c:if test="${sessionScope.account!=null}">
+                                postBlog.classList.toggle("active");
+                                $('.header-wrapper').slideUp();
+                                $(window).off('mousewheel');
+            </c:if>
+            <c:if test="${sessionScope.account==null}">
+                                toast({
+                                    title: "Opps!",
+                                    msg: "Login to use this fuction!",
+                                    type: 'error',
+                                    duration: 5000
+                                });
+            </c:if>
 
-            showRightBtn.addEventListener("click",()=>{
-                rightContainer.classList.toggle("active");
-                showRightBtn.classList.toggle("fa-rotate-180");
-            });
-            
-            function loadMore(select){
-                var quantity = $(select).data("idd");
-                if(quantity<=${maxLoadMore}){
-                    $.ajax({
-                        url:"blogs?action=loadmore&quantity="+quantity,
-                        type:"post",
-                        success:function(data){
-                            $('.box-container').append(data);
-                            $(select).data("idd",quantity);
-                            quantity+=3;
-                            if(quantity>=${maxLoadMore}){
-                                $(select).hide();
+                            });
+
+                            showRightBtn.addEventListener("click", () => {
+                                rightContainer.classList.toggle("active");
+                                showRightBtn.classList.toggle("fa-rotate-180");
+                            });
+
+                            function loadMore(select) {
+                                var quantity = $(select).data("idd");
+                                if (quantity <=${maxLoadMore}) {
+                                    $.ajax({
+                                        url: "blogs?action=loadmore&quantity=" + quantity,
+                                        type: "post",
+                                        success: function (data) {
+                                            $('.box-container').append(data);
+                                            $(select).data("idd", quantity);
+                                            quantity += 3;
+                                            if (quantity >=${maxLoadMore}) {
+                                                $(select).hide();
+                                            }
+                                        },
+                                        error: function (msg) {
+
+                                        }
+                                    });
+                                }
+
                             }
-                        },
-                        error: function(msg){
-                            console.log(msg);
-                        }   
-                    });
-                }
-                
-            }
+
+                            $('textarea#textEditor').tinymce({
+                                height: 250,
+                                menubar: false,
+                                plugins: [
+                                    'a11ychecker', 'advlist', 'advcode', 'advtable', 'autolink', 'checklist', 'export',
+                                    'lists', 'link', 'image', 'charmap', 'preview', 'anchor', 'searchreplace', 'visualblocks',
+                                    'powerpaste', 'fullscreen', 'formatpainter', 'insertdatetime', 'media', 'table', 'help', 'wordcount'
+                                ],
+                                toolbar: 'undo redo | a11ycheck casechange blocks | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist checklist outdent indent | removeformat | code table help'
+                            });
         </script>
         <jsp:include page="../Component/footer.jsp"></jsp:include>
     </body>

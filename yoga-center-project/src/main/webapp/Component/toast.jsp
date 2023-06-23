@@ -18,7 +18,7 @@
                 display: flex;
                 position: fixed;
                 flex-direction: column;
-                top:10px;
+                top:100px;
                 right: 32px;
                 z-index: 99999;
             }
@@ -100,9 +100,6 @@
                 color: #ff623d;
             }
 
-            .btn-mng{
-                margin: auto;
-            }
             @keyframes slideIn{
                 from{
                     opacity: 0;
@@ -157,7 +154,7 @@
                 const delay = (duration/1000).toFixed(2);// set time display toast
                 toast.classList.add('toast');
                 toast.classList.add("toast--"+type);
-                toast.style.animation = "slideIn cubic-bezier(0.47, 0, 0.745, 0.715) 0.65s, fadeOut linear 1s"+delay+"s forwards";
+                toast.style.animation = "slideIn cubic-bezier(0.47, 0, 0.745, 0.715) 0.65s, fadeOut linear 1s "+delay+"s forwards";
                 toast.innerHTML = `
                     <div class="toast__icon">
                         <i class="`+icon+`"></i>

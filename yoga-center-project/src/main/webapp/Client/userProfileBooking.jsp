@@ -31,6 +31,7 @@
                max-width: 1320px;
                margin: 0 auto;
                padding: 50px 30px;
+               width: 1220px;
            }
            .user2{
                display: flex;
@@ -56,6 +57,7 @@
            .user-container{
                margin-top: 64px;
                display: flex;
+               
            }
            .user-nav{
                list-style: none;
@@ -89,7 +91,7 @@
            }
            .user-content{
                padding: 0 50px;
-               width: 100%;
+               flex: 1;
            }
            .filter-course{
                list-style: none;
@@ -268,7 +270,7 @@
                     <li><a href="wishlist"><i class="fa fa-heart" aria-hidden="true"></i> Wishlist</a></li>
                     <li><a href="setting"><i class="fa fa-sliders" aria-hidden="true"></i> Setting</a></li>
                     <li class="active"  ><a href="booking"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Booking</a></li>
-                    <li><a href="../logout"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a></li>
+                    <li><a href="${pageContext.request.contextPath}/logout"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a></li>
                 </ul>
                 <!-- End navigation-->
                 <div class="user-content">

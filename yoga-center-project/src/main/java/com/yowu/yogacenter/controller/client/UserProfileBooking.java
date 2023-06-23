@@ -30,9 +30,13 @@ public class UserProfileBooking extends HttpServlet {
         Account acc = (Account)request.getSession().getAttribute("account");
         AccountRepository ar = new AccountRepository();
         request.setAttribute("account", ar.detail(acc.getId()));
+
         try{
             BillRepository bRepo = new BillRepository();
-            List<Bill> list = bRepo.getByAccountID(acc.getId());
+            List<Bill> list=null;
+            if(acc!=null){
+                list = bRepo.getByAccountID(acc.getId());
+            }
             request.setAttribute("billList", list);
         }catch(Exception e){
             System.out.println(e);
