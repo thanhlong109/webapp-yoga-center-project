@@ -211,6 +211,31 @@
                 text-transform: uppercase;
                 font-size: .75rem;
             }
+            .login-btn-gg{
+                background-color: white;
+                display: flex;
+                padding: 12px 16px;
+                border: 2px solid #dce0e3;
+                border-radius: 24px;
+                align-items: center;
+                width: 100%;
+                position: relative;
+                justify-content: center;
+                text-decoration: none;
+                font-size: 15px;
+                font-weight: 600;
+                color: #35414c;
+                transition: all ease-in-out .3s;
+            }
+            .login-btn-gg:hover{
+                background-color: #dce0e3;
+            }
+            .login-btn-gg img{
+                height: 18px;
+                position: absolute;
+                left: 16px
+            }
+            
             
         </style>
     </head>
@@ -247,15 +272,8 @@
                         </div>
                         <form action="loginGG" method="POST">
                             <div class="login-Google">
-                                <button>
-                                    <div class="login-gg-box">
-                                        <img src="./Asset/img/logo/Google_Logo.png" alt="" width="10px">
-                                        <span>
-                                            <a href="https://accounts.google.com/o/oauth2/auth?scope=profile email&redirect_uri=http://localhost:8080/yoga-center-project/LoginWithGoogle&response_type=code
-                                               &client_id=261325477127-aarmd5ktdhfilg620o9ue7pft00qf0nk.apps.googleusercontent.com&approval_prompt=force">Login With Google</a>
-                                        </span>
-                                    </div>  
-                                </button>
+                                <a class="login-btn-gg" href="https://accounts.google.com/o/oauth2/auth?scope=profile email&redirect_uri=http://localhost:8080/yoga-center-project/LoginWithGoogle&response_type=code
+                                               &client_id=261325477127-aarmd5ktdhfilg620o9ue7pft00qf0nk.apps.googleusercontent.com&approval_prompt=force"> <img src="./Asset/img/logo/Google_Logo.png" alt=""> Login With Google</a>
                             </div>
                         </form>
                     </form>

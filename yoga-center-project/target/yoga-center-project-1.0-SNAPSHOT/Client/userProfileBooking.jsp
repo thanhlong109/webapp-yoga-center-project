@@ -89,7 +89,7 @@
            }
            .user-content{
                padding: 0 50px;
-               width: 100%;
+               flex: 1;
            }
            .filter-course{
                list-style: none;

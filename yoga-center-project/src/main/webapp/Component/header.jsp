@@ -6,6 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="jakarta.tags.core" %>
+<%@taglib prefix="fn" uri="jakarta.tags.functions" %>
 
         <!-- Start Header -->
         <div class="header-wrapper">
@@ -16,14 +17,14 @@
                 <div class="nav-wrapper">
                 <ul class="nav">
                     <i class="fa-solid fa-x closebtn"></i>
-                    <li class="active"><a href="#">Home</a></li>
-                    <li><a href="#">About Us</a></li>
-                    <li>
+                    <li class="js-home"><a href="${pageContext.request.contextPath}">Home</a></li>
+                    <li class="js-about"><a href="#">About Us</a></li>
+                    <li class="js-course">
                         <a href="${pageContext.request.contextPath}/courses">Course</a>
                         <i class="fa-solid fa-chevron-right subnavbtn pc-hide"></i>
                         <ul class="subnav">
                             <i class="fa-solid fa-x closebtn"></i>
-                            <li><a href="#">About1</a></li>
+                            <li><a href="#" class="ahihi">${pageContext.request.getRequestURI()}</a></li>
                             <li><a href="#">About2</a></li>
                             <li><a href="#">About3</a></li>
                             <li><a href="#">About4</a></li>
@@ -31,7 +32,7 @@
                         </ul>
                     </li>
                     <li><a href="#">Pages</a></li>
-                    <li>
+                    <li class="js-blog">
                         <a href="${pageContext.request.contextPath}/blogs">Blog</a>
                         <i class="fa-solid fa-chevron-right subnavbtn pc-hide"></i>
                         <ul class="subnav">
@@ -43,7 +44,7 @@
                             <li><a href="#">About5</a></li>  
                         </ul>
                     </li>
-                    <li><a href="${pageContext.request.contextPath}/Timetable">Schedule</a></li>
+                    <li class="js-schedule"><a href="${pageContext.request.contextPath}/Timetable">Schedule</a></li>
                 </ul>
 
                 <div class="user-btn">
@@ -100,17 +101,44 @@
             }
         });
     });
-
+    var scrollvalue = 0;
     $(window).bind('mousewheel', function(event) {
-
-        if (event.originalEvent.wheelDelta >= 0) {
+        scrollvalue +=event.originalEvent.wheelDelta;
+        if ( scrollvalue >= 600) {
 //Scroll up
             $(".header-wrapper").slideDown(400);
+            scrollvalue=0;
         }
-        else {
+        else if(scrollvalue <=-600){
             //Scroll down
             $(".header-wrapper").slideUp(400);
+            scrollvalue=0;
         }
-    });  
+    }); 
+    
+    /* active nav auto*/
+    let currentPath = window.location.pathname;
+    let currentPathName = currentPath.replace('${pageContext.request.contextPath}',"");
+    switch(currentPathName){
+        case '/course-detail':
+        case '/courses':{
+                $('.js-course').addClass('active');
+                break;
+        }
+        case '/blog-detail':
+        case '/blogs':{
+                $('.js-blog').addClass('active');
+                break;
+        }
+        case '/':{
+                $('.js-home').addClass('active');
+                break;
+        }
+        case '/Timetable':{
+                $('.js-schedule').addClass('active');
+                break;
+        }
+        
+    }
 </script>
 

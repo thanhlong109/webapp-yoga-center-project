@@ -30,9 +30,7 @@ public class UserProfileCourse extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession ss = request.getSession();
-        int accountID =((Account)ss.getAttribute("account")).getId();
-        AccountRepository ar = new AccountRepository();
-        request.setAttribute("account", ar.detail(accountID));
+        Account acc =((Account)ss.getAttribute("account"));
         String txtStatus = request.getParameter("status");
         RegistrationCourseRepository rcRepo = new RegistrationCourseRepository();
         if(txtStatus!=null){
@@ -41,17 +39,17 @@ public class UserProfileCourse extends HttpServlet {
                 RegistrationCourse.CourseStatus CourseStatus = RegistrationCourse.CourseStatus.values()[status];
                 switch(CourseStatus){
                     case INPROGRESS:{
-                        List<RegistrationCourse> list = rcRepo.getCoursesByAccountIDAndStatus(accountID,RegistrationCourse.CourseStatus.INPROGRESS.ordinal());
+                        List<RegistrationCourse> list = rcRepo.getCoursesByAccountIDAndStatus(acc.getId(),RegistrationCourse.CourseStatus.INPROGRESS.ordinal());
                         out.print(getHtmlListCourse(list));
                         break;
                     }
                     case FINISH :{
-                        List<RegistrationCourse> list = rcRepo.getCoursesByAccountIDAndStatus(accountID,RegistrationCourse.CourseStatus.FINISH.ordinal());
+                        List<RegistrationCourse> list = rcRepo.getCoursesByAccountIDAndStatus(acc.getId(),RegistrationCourse.CourseStatus.FINISH.ordinal());
                         out.print(getHtmlListCourse(list));
                         break;
                     }
                     case ALL:{
-                        List<RegistrationCourse> list = rcRepo.getCoursesByAccountID(accountID);
+                        List<RegistrationCourse> list = rcRepo.getCoursesByAccountID(acc.getId());
                         out.print(getHtmlListCourse(list));
                         break;
                     }
@@ -60,7 +58,10 @@ public class UserProfileCourse extends HttpServlet {
                     System.out.println(e);
             }
         }else{
-            List<RegistrationCourse> list = rcRepo.getCoursesByAccountID(accountID);
+            List<RegistrationCourse> list = null;
+            if(acc!=null){
+               list = rcRepo.getCoursesByAccountID(acc.getId());
+            }
             request.setAttribute("listRegistrationCourse", list);
             request.getRequestDispatcher(USER_PROFILE_COURSE_PAGE).forward(request, response);
         }

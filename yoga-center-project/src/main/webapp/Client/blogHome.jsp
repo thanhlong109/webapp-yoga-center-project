@@ -150,9 +150,13 @@
 
             btnCloseBlog.addEventListener("click",()=>{
                 postBlog.classList.toggle("active");
+                $('.header-wrapper').slideDown();
+                $(window).on('mousewheel');
             });
             btnPostBlog.addEventListener("click",()=>{
                 postBlog.classList.toggle("active");
+                $('.header-wrapper').slideUp();
+                $(window).off('mousewheel');
             });
 
             showRightBtn.addEventListener("click",()=>{
