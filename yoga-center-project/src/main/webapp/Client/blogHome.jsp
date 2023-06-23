@@ -59,7 +59,7 @@
                 </div>
                 <div class="box-section">
                     <h2 class="box-title">Recent Articles</h2>
-                    <c:if test="${recentBlogList!=null && recentBlogList.size gt 0}">
+                    <c:if test="${recentBlogList!=null && recentBlogList.size() gt 0}">
                         <div class="box-container">
                             <c:forEach items="${recentBlogList}" var="blog">
                                 <div class="small-blog-item">
@@ -78,7 +78,7 @@
                         </div>
                         <p class="load-more" data-idd="3" onclick="loadMore(this)">view more <i class="fa fa-caret-down" aria-hidden="true"></i></p>
                     </c:if>
-                    <c:if test="${recentBlogList==null || recentBlogList.size lt 1}">
+                    <c:if test="${recentBlogList==null || recentBlogList.size() lt 1}">
                         <div class="noice-empty">
                             <img src="Asset/img/icon/empty.png" alt="">
                             <h4>you haven't posted any blogs yet</h4>
@@ -93,7 +93,7 @@
                 <div class="post-blog-container">
                     <i class="fa-solid fa-x close-btn"></i>
                     <h2><i class="fa-solid fa-star"></i> New Blog</h2>
-                    <form action="">
+                    <form action="blogs" method="POST" enctype="multipart/form-data">
                         <figure class="img-container">
                             <img id="js-display-img" src="" alt="">
                             <figcaption  id="js-name-img"></figcaption>
@@ -112,7 +112,7 @@
                             <label>Content: </label>
                             <textarea name="txtBlogContent" placeholder="Blog content"></textarea>
                         </div>
-                        <button class="btn btn-light-green" type="submit">Post</button>
+                        <button name="action" value="postBlog" class="btn btn-light-green" type="submit">Post</button>
                     </form>
                 </div>
             </div>
@@ -126,6 +126,7 @@
                 </div>
             </div>
         </div>
+        <%@include file="../Component/toast.jsp" %>
         <script defer>
             const displayImg = document.getElementById("js-display-img");
             const displayName = document.getElementById("js-name-img");
@@ -154,9 +155,20 @@
                 $(window).on('mousewheel');
             });
             btnPostBlog.addEventListener("click",()=>{
-                postBlog.classList.toggle("active");
-                $('.header-wrapper').slideUp();
-                $(window).off('mousewheel');
+                <c:if test="${sessionScope.account!=null}">
+                    postBlog.classList.toggle("active");
+                    $('.header-wrapper').slideUp();
+                    $(window).off('mousewheel');
+                </c:if>
+                <c:if test="${sessionScope.account==null}">
+                    toast({
+                        title:"Opps!",
+                        msg:"Login to use this fuction!",
+                        type:'error',
+                        duration:5000   
+                    });
+                </c:if>    
+                
             });
 
             showRightBtn.addEventListener("click",()=>{
@@ -179,7 +191,7 @@
                             }
                         },
                         error: function(msg){
-                            console.log(msg);
+                            
                         }   
                     });
                 }
