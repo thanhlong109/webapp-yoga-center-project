@@ -17,7 +17,7 @@ import java.util.List;
  */
 public class BlogRepository {
     public List<Blog> getAll(){
-        String sql = "select * from tblBlog";
+        String sql = "select * from tblBlog order by blog_date desc";
         List<Blog> list = new ArrayList<>();
         
         try(PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)){
@@ -39,6 +39,49 @@ public class BlogRepository {
             System.out.println(e);
         }
         return list;
+    }
+    
+    
+    public List<Blog> getRecentBlogNext3(int ofset,int accountId){
+        String sql = "select * from tblBlog where account_id=? order by blog_date desc OFFSET ? ROWS FETCH NEXT 3 ROWS ONLY";
+        List<Blog> list = new ArrayList<>();
+        try(PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)){
+            stmt.setInt(1, accountId);
+            stmt.setInt(2, ofset);
+            try(ResultSet rs = stmt.executeQuery()){
+                while(rs.next()){
+                    Blog c = new Blog();
+                    AccountRepository cr = new AccountRepository();
+                    c.setId(rs.getInt("blog_id"));
+                    c.setTitle(rs.getString("blog_title"));
+                    c.setDetail(rs.getString("blog_detail"));
+                    c.setIsActive(rs.getBoolean("blog_is_active"));
+                    c.setAccount(cr.detail(rs.getInt("account_id")));
+                    c.setDate(rs.getDate("blog_date"));
+                    c.setImg(rs.getString("blog_img"));
+                    list.add(c);
+                }
+            }
+        }catch(Exception e){
+            System.out.println(e);
+        }
+        return list;
+    }
+    
+    public int getQuantityBlog(){
+        String sql = "select COUNT(*) as count from tblBlog";
+        int count = 0;
+        try(PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)){
+            try(ResultSet rs = stmt.executeQuery()){
+                if(rs.next()){
+                    count = rs.getInt("count");
+                }
+            }
+        
+        }catch(Exception e){
+            System.out.println(e);
+        }
+        return count;
     }
     
     public Blog detail(int id){

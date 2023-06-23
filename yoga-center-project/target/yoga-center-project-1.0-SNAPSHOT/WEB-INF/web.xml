@@ -33,20 +33,20 @@
         <servlet-class>com.yowu.yogacenter.controller.client.ViewScheduleController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>BlogHomeDetailController</servlet-name>
-        <servlet-class>com.yowu.yogacenter.controller.client.BlogHomeDetailController</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>DispatchController</servlet-name>
-        <servlet-class>com.yowu.yogacenter.controller.client.DispatchController</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>CourseListController</servlet-name>
         <servlet-class>com.yowu.yogacenter.controller.client.CourseListController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>CourseDetailController</servlet-name>
         <servlet-class>com.yowu.yogacenter.controller.client.CourseDetailController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CategoryListController</servlet-name>
+        <servlet-class>com.yowu.yogacenter.controller.admin.CategoryListController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>BlogDetailController</servlet-name>
+        <servlet-class>com.yowu.yogacenter.controller.client.BlogDetailController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>LogoutController</servlet-name>
@@ -81,20 +81,8 @@
         <url-pattern>/userprofile/setting</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>BlogHomeController</servlet-name>
-        <url-pattern>/BlogHomeController</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>ViewScheduleController</servlet-name>
         <url-pattern>/Timetable</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>BlogHomeDetailController</servlet-name>
-        <url-pattern>/BlogHomeDetailController</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>DispatchController</servlet-name>
-        <url-pattern>/DispatchController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>CourseListController</servlet-name>
@@ -104,10 +92,6 @@
         <servlet-name>CourseDetailController</servlet-name>
         <url-pattern>/course-detail</url-pattern>
     </servlet-mapping>
-    <!--    <servlet-mapping>
-        <servlet-name>LoginGoogleHandler</servlet-name>
-        <url-pattern>/LoginGoogleHandler</url-pattern>
-    </servlet-mapping>-->
     <servlet-mapping>
         <servlet-name>LogoutController</servlet-name>
         <url-pattern>/logout</url-pattern>

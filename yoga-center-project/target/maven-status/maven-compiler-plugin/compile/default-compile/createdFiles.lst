@@ -12,8 +12,10 @@ com\yowu\yogacenter\model\GoogleUtils.class
 com\yowu\yogacenter\repository\CourseRepository.class
 com\yowu\yogacenter\repository\RatingCourseRepository.class
 com\yowu\yogacenter\model\RegistrationCourse.class
+com\yowu\yogacenter\controller\admin\CategoryListController.class
 com\yowu\yogacenter\controller\client\LoginController.class
 com\yowu\yogacenter\model\RatingCourse.class
+com\yowu\yogacenter\controller\client\BlogDetailController.class
 com\yowu\yogacenter\model\Permission.class
 com\yowu\yogacenter\repository\BillRepository.class
 com\yowu\yogacenter\model\Bill.class
@@ -28,13 +30,16 @@ com\yowu\yogacenter\controller\client\UserProfileCourse.class
 com\yowu\yogacenter\repository\CourseScheduleRepository.class
 com\yowu\yogacenter\util\DBHelpler.class
 com\yowu\yogacenter\model\ClassSchedule.class
+<<<<<<< HEAD
+=======
+com\yowu\yogacenter\controller\client\LoginGoogleHandler.class
+>>>>>>> origin/long2
 com\yowu\yogacenter\model\GoogleLogin.class
 com\yowu\yogacenter\model\Membership.class
 com\yowu\yogacenter\model\Bill$BillStatus.class
 com\yowu\yogacenter\repository\CommentRepository.class
 com\yowu\yogacenter\model\Course.class
 com\yowu\yogacenter\repository\BlogRepository.class
-com\yowu\yogacenter\controller\client\DispatchController.class
 com\yowu\yogacenter\model\CourseWishlist.class
 com\yowu\yogacenter\repository\CategoryRepository.class
 com\yowu\yogacenter\repository\RoleHasPermissionRepository.class
@@ -49,6 +54,5 @@ com\yowu\yogacenter\controller\client\UserProfileBooking.class
 com\yowu\yogacenter\controller\client\UserProfileSetting.class
 com\yowu\yogacenter\model\CourseSchedule$DayOfWeek.class
 com\yowu\yogacenter\repository\PermissionRepository.class
-com\yowu\yogacenter\controller\client\BlogHomeDetailController.class
 com\yowu\yogacenter\model\Blog.class
 com\yowu\yogacenter\model\Category.class

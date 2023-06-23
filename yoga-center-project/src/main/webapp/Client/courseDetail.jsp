@@ -550,7 +550,7 @@
                         error: function(msg){
                             toast({
                                 title:"Opps!",
-                                msg:"Login to use this fuction!",
+                                msg:"Login to add wishlist!",
                                 type:'error',
                                 duration:5000   
                             });
