@@ -18,7 +18,7 @@ import java.util.List;
 public class CourseScheduleRepository {
 
     public List<CourseSchedule> getAll() {
-        String sql = "select * from tblCourseWishlist";
+        String sql = "select * from tblCourseSchedule";
         List<CourseSchedule> list = new ArrayList<>();
 
         try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
