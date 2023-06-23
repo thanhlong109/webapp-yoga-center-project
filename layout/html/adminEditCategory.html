@@ -1,20 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@200;300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="../css/adminCommon.css">
-    <title>Document</title>
     
+    <title>Admin</title>
+
 </head>
+
 <body>
     <div class="container">
         <!--insert left side bar here-->
+
+        <!-- Filter -->
+        <div class="container__navigation-element">
+            <select class="navigation__element-select" name="txtCourse" id="#">
+                <option value="all">All Events</option>
+                <option value="vinyasa-yoga">Vinyasa Yoga</option>
+                <option value="aerial-yoga">Aerial Yoga</option>
+                <option value="meditation-yoga">Meditation Yoga</option>
+                <option value="pure-alignment">Pure Alignment</option>
+                <option value="hot-yoga">Hot Yoga</option>
+                <option value="basic-yoga">Basic Yoga</option>
+            </select>
+        </div>
+        <!-- Search -->
+        <div class="search-wrapper">
+            <div class="input-holder">
+                <input type="text" class="search-input" placeholder="Type to search" name="txtSearch"/>
+                <button class="search-icon" onclick="searchToggle(this, event);"><span></span></button>
+            </div>
+            <span class="close" onclick="searchToggle(this, event);"></span>
+        </div>
+
+        <!-- Main content -->
         <div class="right-container">
             <div class="wrapper-box">
-                
+
                 <table class="table-style-1">
                     <tr>
                         <th>id</th>
@@ -24,28 +53,32 @@
                     </tr>
                     <tr>
                         <td>1</td>
-                        <td class="username" >long123</td>
+                        <td class="username">long123</td>
                         <td>thanhlong109</td>
-                        <td><a class="btn btn-red" href="#delete">Detete</a> <a class="btn btn-green" href="#Edit">Edit</a> </td>
+                        <td><a class="btn btn-red" href="#delete">Detete</a> <a class="btn btn-green"
+                                href="#Edit">Edit</a> </td>
                     </tr>
                     <tr>
                         <td>1</td>
-                        <td class="username" >tam</td>
+                        <td class="username">tam</td>
                         <td>thanhlong109</td>
-                        <td><a class="btn btn-red" href="#delete">Detete</a> <a class="btn btn-green" href="#Edit">Edit</a> </td>
+                        <td><a class="btn btn-red" href="#delete">Detete</a> <a class="btn btn-green"
+                                href="#Edit">Edit</a> </td>
                     </tr>
                     <tr>
                         <td>1</td>
-                        <td class="username" >phong</td>
+                        <td class="username">phong</td>
                         <td>thanhlong109</td>
-                        <td><a class="btn btn-red" href="#delete">Detete</a> <a class="btn btn-green" href="#Edit">Edit</a> </td>
+                        <td><a class="btn btn-red" href="#delete">Detete</a> <a class="btn btn-green"
+                                href="#Edit">Edit</a> </td>
                     </tr>
                 </table>
             </div>
         </div>
     </div>
-    <script>
-        
-    </script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="../js/search.js"></script>
+    
 </body>
+
 </html>
