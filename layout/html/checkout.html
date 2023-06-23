@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout Page</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css
+    ">
+    <link rel="stylesheet" href="../css/checkout.css">
+</head>
+
+<body>
+    <div class="main">
+        <div class="banner">
+            <h1>Checkout</h1>
+        </div>
+        <div class="container">
+            <h2>Checkout</h2>
+            <div class="container__elements">
+                <div class="container__element-form">
+                    <form action="" method="POST">
+                        <!-- form-left -->
+                        <div class="container__element-left">
+                            <div class="element__checkout-account-login ">
+                                <p class="element__checkout-content element__checkout-seperate">
+                                    Logged in as
+                                    <a href="">chienthang1405v@gmail.com </a>
+                                </p>
+                                <a href="../html/clientHome.html">Logout</a>
+                            </div>
+                            <div class="element__checkout-comment">
+                                <textarea name="order__comment" id="order__comment" rows="3"
+                                    placeholder="Note to administrator" spellcheck="false"></textarea>
+                            </div>
+                            <div class="element__checkout-payment">
+                                <div class="checkout__payment-title">
+                                    <h4>Payment</h4>
+                                    <span>
+                                        <!-- Nhúng icon ổ khóa -->
+                                        <i class="fas fa-lock"></i>
+                                        Secure Connection
+                                    </span>
+                                </div>
+                                <ul class="element__checkout-method">
+                                    <li class="element__checkout-method-paypal">
+                                        <input type="radio" name="payment-method">
+                                        <img src="../img/checkout/paypal-logo-preview.png" alt="">
+                                    </li>
+                                    <li class="element__checkout-method-offline__payment">
+                                        <input type="radio" name="payment-method">
+                                        <img src="../img/checkout/pngwing.com.png" alt="">
+                                    </li>
+                                </ul>
+                                <div class="element__checkout-button">
+                                    <button type="submit" name="btnPlaceOrder">Place Order</button>
+                                </div>
+                            </div>
+                            <p class="checkout__element-condition">
+
+                                By completing your purchase you agree to those
+                                <a href="">Term Conditions</a>
+                            </p>
+                        </div>
+                        <!-- form-right -->
+                        <div class="container__element-right">
+                            <h4>Your Order</h4>
+                            <div class="element__right-table">
+                                <table>
+                                    <thead>
+                                        <tr class="table-title">
+                                            <th class="title-content">Mastering Anxiety</th>
+                                            <th class="title-price">$39</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="table-detail">
+                                            <td class="detail-content">Subtotal</td>
+                                            <td class="detail-price">$39</td>
+                                        </tr>
+                                        <tr class="table-total">
+                                            <td class="total-title">Total</td>
+                                            <td class="total-price">$39</td>
+                                        </tr>
+                                    </tbody>
+                                    
+                                </table>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</body>
+
+</html>
