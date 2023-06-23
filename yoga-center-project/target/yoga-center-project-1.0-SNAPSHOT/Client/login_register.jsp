@@ -190,6 +190,11 @@
                 color: red;
                 text-align: center;
             }
+            .note-login {
+                color: red;
+                font-size: 14px;
+                margin-top: 5px;
+            }
         </style>
     </head>
     <body>
@@ -218,6 +223,26 @@
                                 Login
                             </button>
                         </div>
+                        //  <%
+                      //      String loginStatus = (String) request.getAttribute("loginStatus");
+                       //     if (loginStatus != null && loginStatus.equals("false")) 
+                        //    {
+                        //    out.print("<p class='note-login'>Login false</p>");
+                       //     }
+                        //%>
+                        <div>
+                            <h4>
+                                Or
+                            </h4>
+                        </div>
+                        <form action="loginGG" method="POST">
+                            <div class="login-Google">
+                                <button>
+                                    <a href="https://accounts.google.com/o/oauth2/auth?scope=profile email&redirect_uri=http://localhost:8080/yoga-center-project/LoginGoogleHandler&response_type=code
+                                       &client_id=261325477127-aarmd5ktdhfilg620o9ue7pft00qf0nk.apps.googleusercontent.com&approval_prompt=force">Login With Google</a>
+                                </button>
+                            </div>
+                        </form>
 
                         <div>
                             <h4>
@@ -332,22 +357,24 @@
                     changebtn.innerHTML = "Create new Account";
                     slidebox.classList.add("right");
                 }
+
             }
             fill();
 
-            function fill() {
+                function fill(){
 
-                if ($('.slide-box').hasClass('right')) {
-                    $('.slide-box-p1').html("Login and have a great shopping experience");
-                    $('.slide-box-p2').html("If you don't have acount before, please touch button below");
-                    $('#change').html('Create new Account');
-                } else {
-                    $('.slide-box .slide-box-p1').text("Fill in the information so that we can contact you");
-                    $('.slide-box-p2').html("If you already have an account, click blow button to login");
-                    $('#change').html('Go to login');
+                    if($('.slide-box').hasClass('right')){
+                        $('.slide-box-p1').html("Login and have a great shopping experience");
+                        $('.slide-box-p2').html("If you don't have acount before, please touch button below");
+                        $('#change').html('Create new Account');
+                    }else{
+                        $('.slide-box .slide-box-p1').text("Fill in the information so that we can contact you");
+                        $('.slide-box-p2').html("If you already have an account, click blow button to login");
+                        $('#change').html('Go to login');
+                    }
+
                 }
 
-            }
         </script>
         <script src="https://www.google.com/recaptcha/api.js" async defer></script>
         <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit"async defer></script>
