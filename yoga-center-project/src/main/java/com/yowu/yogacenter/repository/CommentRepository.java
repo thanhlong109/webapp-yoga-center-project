@@ -39,7 +39,30 @@ public class CommentRepository {
         }
         return list;
     }
+    
+    public List<Comment> getByBlogId(int blogId) {
+        String sql = "select * from tblComment where blog_id=?";
+        List<Comment> list = new ArrayList<>();
 
+        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
+            stmt.setInt(1, blogId);
+            try ( ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    Comment c = new Comment();
+                    BlogRepository rc = new BlogRepository();
+                    AccountRepository ac = new AccountRepository();
+                    c.setBlog(rc.detail(rs.getInt("blog_id")));
+                    c.setContent(rs.getString("comment_content"));
+                    c.setDate(rs.getDate("comment_date"));
+                    c.setAccount(ac.detail(rs.getInt("account_id")));
+                    list.add(c);
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return list;
+    }
     public Comment detail(int id) {
         String sql = "select * from tblComment where blog_id=? ";
         try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {

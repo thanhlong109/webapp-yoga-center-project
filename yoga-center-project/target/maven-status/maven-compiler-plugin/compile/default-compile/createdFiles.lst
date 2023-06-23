@@ -6,12 +6,12 @@ com\yowu\yogacenter\repository\RoleRepository.class
 com\yowu\yogacenter\repository\CourseWishlistRepository.class
 com\yowu\yogacenter\controller\client\UserProfileCourse$1.class
 com\yowu\yogacenter\repository\MembershipRepository.class
-com\yowu\yogacenter\repository\RatingCourseRepository$CourseInstructorRepository.class
 com\yowu\yogacenter\repository\ClassScheduleRepository.class
 com\yowu\yogacenter\model\Comment.class
 com\yowu\yogacenter\repository\CourseRepository.class
 com\yowu\yogacenter\repository\RatingCourseRepository.class
 com\yowu\yogacenter\model\RegistrationCourse.class
+com\yowu\yogacenter\controller\admin\CategoryListController.class
 com\yowu\yogacenter\controller\client\LoginController.class
 com\yowu\yogacenter\model\RatingCourse.class
 com\yowu\yogacenter\model\Permission.class
@@ -33,7 +33,6 @@ com\yowu\yogacenter\repository\CommentRepository.class
 com\yowu\yogacenter\repository\AccountRepository.class
 com\yowu\yogacenter\model\Course.class
 com\yowu\yogacenter\repository\BlogRepository.class
-com\yowu\yogacenter\controller\client\DispatchController.class
 com\yowu\yogacenter\model\CourseWishlist.class
 com\yowu\yogacenter\repository\CategoryRepository.class
 com\yowu\yogacenter\repository\RoleHasPermissionRepository.class
@@ -47,6 +46,5 @@ com\yowu\yogacenter\controller\client\UserProfileBooking.class
 com\yowu\yogacenter\controller\client\UserProfileSetting.class
 com\yowu\yogacenter\model\CourseSchedule$DayOfWeek.class
 com\yowu\yogacenter\repository\PermissionRepository.class
-com\yowu\yogacenter\controller\client\BlogHomeDetailController.class
 com\yowu\yogacenter\model\Blog.class
 com\yowu\yogacenter\model\Category.class
