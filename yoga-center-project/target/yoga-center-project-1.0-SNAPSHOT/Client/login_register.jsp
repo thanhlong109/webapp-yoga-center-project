@@ -193,7 +193,7 @@
                 margin-top: 15px;
             }
             .or-login {
-                margin: 10px auto;
+                margin: 20px auto;
                 display: flex;
                 align-items: center;
             }
@@ -212,6 +212,10 @@
                 font-size: .75rem;
             }
             
+            .login-gg-box a{
+                color: #333;
+                text-decoration: none;
+            }
         </style>
     </head>
     <body>

@@ -28,7 +28,6 @@ com\yowu\yogacenter\controller\client\UserProfileCourse.class
 com\yowu\yogacenter\repository\CourseScheduleRepository.class
 com\yowu\yogacenter\util\DBHelpler.class
 com\yowu\yogacenter\model\ClassSchedule.class
-com\yowu\yogacenter\controller\client\LoginGoogleHandler.class
 com\yowu\yogacenter\model\GoogleLogin.class
 com\yowu\yogacenter\model\Membership.class
 com\yowu\yogacenter\model\Bill$BillStatus.class

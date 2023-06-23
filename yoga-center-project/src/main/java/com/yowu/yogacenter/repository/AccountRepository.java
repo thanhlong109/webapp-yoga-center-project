@@ -126,7 +126,7 @@ public class AccountRepository {
                     c.setPhone(rs.getString("account_phone"));
                     c.setIsActive(rs.getBoolean("account_is_active"));
                     c.setRole(cr.detail(rs.getInt("role_id")));
-                    c.setSocialID(rs.getString("socialID"));
+                    c.setSocialID(rs.getString("social_id"));
                     return c;
                 }
             }
