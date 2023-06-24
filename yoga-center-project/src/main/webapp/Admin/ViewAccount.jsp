@@ -36,9 +36,9 @@
                                 <th>Account ID</th>
                                 <th>Account Image</th>
                                 <th>Account Name</th>
-                                <th>Account Password</th>
                                 <th>Account Email</th>
                                 <th>Account Phone</th>
+                                <th>Social ID</th>
                                 <th>Role ID</th>
                                 <th>Is Active</th>
                                 <th>Actions</th>
@@ -55,13 +55,13 @@
                                     ${account.name}
                                 </td>
                                 <td>
-                                    ${account.password}
-                                </td>
-                                <td>
                                     ${account.email}
                                 </td>
                                 <td>
                                     ${account.phone}
+                                </td>
+                                <td>
+                                    ${account.socialID}
                                 </td>
                                 <td>
                                     ${account.role.id}

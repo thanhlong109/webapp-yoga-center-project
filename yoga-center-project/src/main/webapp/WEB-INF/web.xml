@@ -72,6 +72,18 @@
         <servlet-name>LogoutController</servlet-name>
         <servlet-class>com.yowu.yogacenter.controller.client.LogoutController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ViewCourseTimeListController</servlet-name>
+        <servlet-class>com.yowu.yogacenter.controller.admin.ViewCourseTimeListController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ViewClassScheduleListController</servlet-name>
+        <servlet-class>com.yowu.yogacenter.controller.admin.ViewClassScheduleListController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ViewMembershipListController</servlet-name>
+        <servlet-class>com.yowu.yogacenter.controller.admin.ViewMembershipListController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>UserProfileCourse</servlet-name>
         <url-pattern>/userprofile/course</url-pattern>
@@ -143,6 +155,18 @@
     <servlet-mapping>
         <servlet-name>LogoutController</servlet-name>
         <url-pattern>/logout</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewCourseTimeListController</servlet-name>
+        <url-pattern>/admin/viewCourseTimeListController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewClassScheduleListController</servlet-name>
+        <url-pattern>/admin/viewClassScheduleListController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewMembershipListController</servlet-name>
+        <url-pattern>/admin/viewMembershipListController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

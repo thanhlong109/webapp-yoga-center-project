@@ -40,7 +40,7 @@
                                 View All & Edit Course</a></li>
                         <li><a href="#">
                                 Add New Course</a></li>   
-                        <li><a href="#">
+                        <li><a href="<c:url value="/admin/viewCourseTimeListController"/>">
                                 View All & Edit Course Time</a></li>
                         <li><a href="#">
                                 Add Course Time</a></li>                        
@@ -84,7 +84,7 @@
                         <i class="fa-solid fa-calendar-days"></i> Schedule <i class="fa-solid fa-chevron-right js-arrow"></i>
                     </div>
                     <ul class="sub-nav-2">
-                        <li><a href="#">
+                        <li><a href="<c:url value="/admin/viewClassScheduleListController"/>">
                                 View All & Edit Schedule</a></li>
                         <li><a href="#">
                                 Add New Schedule</a></li>
@@ -95,7 +95,7 @@
                         <i class="fa-solid fa-calendar-days"></i> Membership <i class="fa-solid fa-chevron-right js-arrow"></i>
                     </div>
                     <ul class="sub-nav-2">
-                        <li><a href="#">
+                        <li><a href="<c:url value="/admin/viewMembershipListController"/>">
                                 View All & Edit Membership</a></li>
                         <li><a href="#">
                                 Add New Membership</a></li>

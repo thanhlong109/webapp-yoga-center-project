@@ -11,7 +11,6 @@ com\yowu\yogacenter\model\Comment.class
 com\yowu\yogacenter\model\GoogleUtils.class
 com\yowu\yogacenter\repository\CourseRepository.class
 com\yowu\yogacenter\repository\RatingCourseRepository.class
-com\yowu\yogacenter\model\RegistrationCourse.class
 com\yowu\yogacenter\controller\client\LoginController.class
 com\yowu\yogacenter\model\RatingCourse.class
 com\yowu\yogacenter\model\Permission.class
@@ -54,7 +53,6 @@ com\yowu\yogacenter\model\Account.class
 com\yowu\yogacenter\controller\client\UserProfileBooking.class
 com\yowu\yogacenter\controller\client\UserProfileSetting.class
 com\yowu\yogacenter\model\CourseSchedule$DayOfWeek.class
-com\yowu\yogacenter\repository\PermissionRepository.class
 com\yowu\yogacenter\controller\client\BlogHomeDetailController.class
 com\yowu\yogacenter\model\Blog.class
 com\yowu\yogacenter\model\Category.class
