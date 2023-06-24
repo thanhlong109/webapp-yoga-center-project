@@ -29,7 +29,7 @@ public class CommentRepository {
                     AccountRepository ac = new AccountRepository();
                     c.setBlog(rc.detail(rs.getInt("blog_id")));
                     c.setContent(rs.getString("comment_content"));
-                    c.setDate(rs.getDate("comment_date"));
+                    c.setDate(rs.getTimestamp("comment_date"));
                     c.setAccount(ac.detail(rs.getInt("account_id")));
                     list.add(c);
                 }
@@ -39,13 +39,29 @@ public class CommentRepository {
         }
         return list;
     }
-    
-    public List<Comment> getByBlogId(int blogId) {
-        String sql = "select * from tblComment where blog_id=?";
+    public int getTotalComment(int blogId){
+        String sql = "select COUNT(*) as num from tblComment where blog_id=? ";
+        int count = 0;
+        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
+            stmt.setInt(1, blogId);
+            try(ResultSet rs = stmt.executeQuery()){
+                if(rs.next()){
+                    count = rs.getInt("num");
+                }
+            }
+        }catch(Exception e){   
+            System.out.println(e);
+        }
+        return count;
+    }
+    public List<Comment> getRecentByBlogId(int offset, int next , int blogId) {
+        String sql = "select * from tblComment where blog_id=? order by comment_date DESC OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
         List<Comment> list = new ArrayList<>();
 
         try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
             stmt.setInt(1, blogId);
+            stmt.setInt(2, offset);
+            stmt.setInt(3, next);    
             try ( ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
                     Comment c = new Comment();
@@ -53,7 +69,7 @@ public class CommentRepository {
                     AccountRepository ac = new AccountRepository();
                     c.setBlog(rc.detail(rs.getInt("blog_id")));
                     c.setContent(rs.getString("comment_content"));
-                    c.setDate(rs.getDate("comment_date"));
+                    c.setDate(rs.getTimestamp("comment_date"));
                     c.setAccount(ac.detail(rs.getInt("account_id")));
                     list.add(c);
                 }
@@ -74,7 +90,7 @@ public class CommentRepository {
                     AccountRepository ac = new AccountRepository();
                     c.setBlog(rc.detail(rs.getInt("blog_id")));
                     c.setContent(rs.getString("comment_content"));
-                    c.setDate(rs.getDate("comment_date"));
+                    c.setDate(rs.getTimestamp("comment_date"));
                     c.setAccount(ac.detail(rs.getInt("account_id")));
                     return c;
                 }
@@ -104,7 +120,7 @@ public class CommentRepository {
         try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
             stmt.setInt(1, c.getBlog().getId());
             stmt.setString(2, c.getContent());
-            stmt.setDate(3, c.getDate());
+            stmt.setTimestamp(3, c.getDate());
             stmt.setInt(4, c.getAccount().getId());
             status = stmt.executeUpdate();
         } catch (Exception e) {
@@ -115,6 +131,6 @@ public class CommentRepository {
 
     public static void main(String[] args) {
         CommentRepository cr = new CommentRepository();
-        System.out.println(cr.getAll());
+        System.out.println(cr.getTotalComment(3));
     }
 }

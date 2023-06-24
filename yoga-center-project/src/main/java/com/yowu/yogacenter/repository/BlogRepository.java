@@ -90,10 +90,11 @@ public class BlogRepository {
         return list;
     }
     
-    public int getQuantityBlog(){
-        String sql = "select COUNT(*) as count from tblBlog";
+    public int getTotalBlog(int accountId){
+        String sql = "select COUNT(*) as count from tblBlog where account_id=?";
         int count = 0;
         try(PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)){
+            stmt.setInt(1, accountId);
             try(ResultSet rs = stmt.executeQuery()){
                 if(rs.next()){
                     count = rs.getInt("count");

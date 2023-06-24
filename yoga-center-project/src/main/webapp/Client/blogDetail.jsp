@@ -42,7 +42,7 @@
                     <div class="separate"></div>
   <!-- ------------------------------------- Comment -------------------------------------------------- -->
                     <div class="comment-area">
-                        <h2 class="comment-area-title">Comments (3)</h2>
+                        <h2 class="comment-area-title">Comments (${totalComment})</h2>
                         <div class="load-comment">
                             <c:forEach items="${commentList}" var="comment">
                                 <div class="user-comment-item">
@@ -52,7 +52,7 @@
                                     <div class="comment-info">
                                         <div>
                                             <h4 class="user-comment-name">${comment.account.name}</h4>
-                                            <p class="user-comment-date"><i class="fa-regular fa-clock"></i> <fmt:formatDate value="${comment.date}" pattern="MMMM d, yyyy" /></p>
+                                            <p class="user-comment-date"><i class="fa-regular fa-clock"></i> <fmt:formatDate value="${comment.date}" pattern="MMMM d, yyyy" /> at <fmt:formatDate value="${comment.date}" pattern="hh:mm:ss a" /></p>
                                         </div>
                                         <p class="user-comment-content text">
                                             ${comment.content}
@@ -61,9 +61,10 @@
                                 </div>
                             </c:forEach>
                         </div>
-                        <form action="#" method="post" class="user-comment">
-                            <textarea name="txtCommentContent" placeholder="Your comment here..."></textarea>
-                            <button type="submit">Post</button>
+                        <form action="blog-detail" method="post" class="user-comment">
+                            <input style="display: none;" name="blogid" value="${blog.id}" type="text"/>
+                            <textarea name="txtCommentContent" placeholder="Write your comment here..."></textarea>
+                            <button name="action" value="comment" type="submit">Post</button>
                         </form>
                     </div>
                 </div>
@@ -114,5 +115,28 @@
                 </div>
             </div>
         <jsp:include page="../Component/footer.jsp"></jsp:include>
+        <%@include file="../Component/toast.jsp" %>
+        <script>
+            $('.user-comment').on('submit',function (e){
+                e.preventDefault();
+                $.ajax({
+                    type     : "POST",
+                    cache    : false,
+                    url      : $(this).attr('action'),
+                    data     : "action=comment&"+$(this).serialize(),
+                    success  : function(data) {
+                        $('.load-comment').prepend(data);
+                    },error: function(xhr, textStatus, errorThrown) {
+                        toast({
+                            title:"Error!",
+                            msg:"Login to use this fuction!",
+                            type:'error',
+                            duration:5000   
+                        });
+                    }
+                });
+
+            });
+        </script>
     </body>
 </html>

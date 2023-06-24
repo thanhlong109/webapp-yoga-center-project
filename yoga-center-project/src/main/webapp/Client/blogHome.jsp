@@ -184,8 +184,8 @@
                         type:"post",
                         success:function(data){
                             $('.box-container').append(data);
-                            $(select).data("idd",quantity);
                             quantity+=3;
+                            $(select).data("idd",quantity);
                             if(quantity>=${maxLoadMore}){
                                 $(select).hide();
                             }

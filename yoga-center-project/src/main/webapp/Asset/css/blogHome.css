@@ -145,6 +145,7 @@
             max-height: 75px;
             min-width: 75px;
             min-height: 75px;
+            border: 1px solid #999;
         }
         .small-blog-item-img img{
            height: 100%;
