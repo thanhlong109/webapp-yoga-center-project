@@ -26,17 +26,10 @@ public class ViewScheduleController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        int id = 1;
-        CategoryRepository cr = new CategoryRepository();
-        request.setAttribute("categoryId", cr.detail(id));
-        
-        
+            throws ServletException, IOException {              
         CourseScheduleRepository csr = new CourseScheduleRepository();
         request.setAttribute("scheduleList", csr.getAll());
-        
-        
-        
+                       
         request.getRequestDispatcher(SCHEDULE_PAGE).forward(request, response);
     }
 
