@@ -38,25 +38,25 @@
                         <c:forEach items="${COURSE_LIST}" var="course">
                             <tr>
                                 <td>
-                                    ${course.id}
+                                    <c:out value="${course.id}"/>                                  
                                 </td>
                                 <td>
-                                    ${course.title}
+                                    <c:out value="${course.title}" />                                  
                                 </td>
                                 <td>
-                                    ${course.detail}
+                                    <c:out value="${course.detail}" />                                  
                                 </td>
                                 <td>
-                                    ${course.duration}
+                                    <c:out value="${course.duration}" />                                    
                                 </td>
                                 <td>
                                     <img src="Asset/img/classes/${course.img}" alt="img">
                                 </td>
                                 <td>
-                                    ${course.category.id}
+                                    <c:out value="${course.category.id}" />                                   
                                 </td>
                                 <td>
-                                    ${course.price}
+                                    <c:out value="${course.price}" />                                    
                                 </td>
                                 <td>
                                     <input type="checkbox" name="isActived" value="ON" 
@@ -64,10 +64,12 @@
                                                checked="checked"
                                            </c:if>
                                            />
-                                </td>
+                                </td> 
                                 <td>
-                                    <a class="btn btn-red" href="#delete">Detete</a> 
-                                    <a class="btn btn-green" href="#Edit">Edit</a> 
+                                    <a class="btn btn-red" href="#delete">
+                                        Detete</a> 
+                                    <a class="btn btn-green" href="updateCourseController?id=${course.id}">
+                                        Edit</a> 
                                 </td>
                             </tr>
                         </c:forEach>

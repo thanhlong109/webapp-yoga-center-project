@@ -59,7 +59,8 @@
                                 </td>
                                 <td>
                                     <a class="btn btn-red" href="#delete">Detete</a> 
-                                    <a class="btn btn-green" href="#Edit">Edit</a> 
+                                    <a class="btn btn-green" href="updateCourseTimeController?id=${courseTime.id}">
+                                        Edit</a> 
                                 </td>
                             </tr>
                         </c:forEach>
