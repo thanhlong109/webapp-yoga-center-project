@@ -14,7 +14,7 @@ body{
 }
 
 .banner{
-    padding: 15% 20px 10% 20px;
+    padding: 12% 20px 10% 20px;
     width: 100%;
     text-align: center;
     background: url(../img/bg/page-title-1.png) top center / cover no-repeat;
@@ -31,13 +31,17 @@ body{
     max-width: 100%;
     overflow-x: scroll;
     padding: 0 20px;
+    width: fit-content;
+    margin: 0 auto;
 }
-
 
 table{
     border-collapse: collapse;
-    margin: 60px auto;
+    margin: 20px auto;
     overflow-x: hidden;
+}
+#dateForm{
+    margin-top: 40px;
 }
 td,tr,th{
     border: 1px solid #fff;
@@ -46,6 +50,7 @@ th{
     color: #404040;
     text-align: center;
     padding: 22px 10px;
+    width: 140px;
 }
 tr:nth-child(odd){
     background-color: #f0f0f0;
@@ -57,7 +62,7 @@ tr:nth-child(even){
     display: none;
 }
 td{
-    height: 90px;
+    height: 180px;
     width: 140px;
     text-align: center;
     color: white;
@@ -66,9 +71,10 @@ td:first-child{
     color: #949494;
 }
 .event:hover{
-    opacity: 0.8
+    opacity: 0.8;
+    cursor: pointer;
 }
-.event-bg-color-1{
+.event-bg-color-0{
     background-color: #227179;
 }
 .event-bg-color-2{
@@ -83,7 +89,7 @@ td:first-child{
 .event-bg-color-5{
     background-color: #404b48;
 }
-.event-bg-color-6{
+.event-bg-color-1{
     background-color: #547670;
 }
 .event .event-title, .event .event-slot{

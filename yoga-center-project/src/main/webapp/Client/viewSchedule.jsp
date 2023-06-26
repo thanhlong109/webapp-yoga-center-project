@@ -5,6 +5,8 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="jakarta.tags.core" %>
+<%@taglib prefix="fmt" uri="jakarta.tags.fmt" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,14 +24,17 @@
 </head>
 <body>
     <jsp:include page="../Component/header.jsp"></jsp:include>
+    <fmt:setLocale value="en_US" />
     <div class="banner">
         <h2>Timetable</h2>
         <p>For Offline Classes</p>
     </div>
     <div class="wrapper-table">
+        <form action="Timetable" id="dateForm" method="POST">
+                <input type="date" name="txtDate" lang="en-US" value="${dateSelected}"/>
+        </form>
         <table>
             <tr>
-                <th></th>
                 <th>Monday</th>
                 <th>Tuesday</th>
                 <th>Wednesday</th>
@@ -38,56 +43,40 @@
                 <th>Saturday</th>
                 <th>Sunday</th>
             </tr>
-            <tr>
-                <td>10:00 am</td>
-                <td></td>
-                <td rowspan="2" class="event event-bg-color-1">
-                    <a class="event-title">Meditation Yoga</a>
-                    <p class="event-slot">10:00 am - 12:00 pm</p>
-                    <p class="event-sub-title">Yoga Center</p>
-                </td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+         <c:forEach items="${scheduleTable}" var="row" >
+             <tr>
+                 <c:forEach items="${row}" var="item">
+                     <td <c:if test="${item!=null}">data-typeid="${item.registrationCourse.course.category.id}"</c:if> class="event" >
+                         <c:if test="${item!=null}">
+                            <a class="event-title">${item.registrationCourse.course.category.name}</a>
+                            <p class="event-slot"><fmt:formatDate value="${item.startTime}" pattern="HH:mm a" /> - <fmt:formatDate value="${item.endTime}" pattern="HH:mm a" /></p>
+                            <p class="event-sub-title">Yowu Studio</p>
+                         </c:if>
+                     </td>
+                 </c:forEach>
             </tr>
-            <tr>
-                <td>10:00 am</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                
-                <td></td>
-            </tr>
-            <tr>
-                <td>10:00 am</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td rowspan="2" class="event event-bg-color-4">
-                    <a class="event-title">Meditation Yoga</a>
-                    <p class="event-slot">10:00 am - 12:00 pm</p>
-                    <p class="event-sub-title">Yoga Center</p>
-                </td>
-                <td></td>
-                <td></td>
-            </tr>
-            <tr>
-                <td>10:00 am</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-               
-            </tr>
+         </c:forEach>
+            
         </table>
     </div>
     <jsp:include page="../Component/footer.jsp"></jsp:include>
+    <script>
+        $(document).ready(function(){
+           var dataIDs = [];
+           $('td[data-typeid]').each(function(){
+               var dataid = $(this).data('typeid');
+               dataIDs.push(dataid); 
+           });
+           var uniqueArr = Array.from(new Set(dataIDs));
+           for(var i=0;i<uniqueArr.length;i++){
+               $('td[data-typeid="'+uniqueArr[i]+'"]').addClass('event-bg-color-'+i);
+           }
+           $('#dateForm input[type="date"]').on("change",function(){
+                $('#dateForm').submit();
+           });
+        });
+        document.querySelector('#dateForm input[type="date"]').valueAsDate = Date.parse('${dateSelected}');
+        
+    </script>
 </body>
 </html>
