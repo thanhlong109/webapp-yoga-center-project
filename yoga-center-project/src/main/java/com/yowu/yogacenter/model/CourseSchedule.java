@@ -96,4 +96,12 @@ public class CourseSchedule {
         this.course = course;
     }
     
+    public static DayOfWeek getEnumIndex(int i){
+        DayOfWeek[] arr = DayOfWeek.values();
+        if(i>=0&&i<arr.length){
+            return arr[i];
+        }
+        return null;
+    }
+    
 }
