@@ -42,7 +42,7 @@
                     <div class="separate"></div>
   <!-- ------------------------------------- Comment -------------------------------------------------- -->
                     <div class="comment-area">
-                        <h2 class="comment-area-title">Comments (${totalComment})</h2>
+                        <h2 class="comment-area-title">Comments (<span id="total-cmt">${totalComment}</span>)</h2>
                         <div class="load-comment">
                             <c:forEach items="${commentList}" var="comment">
                                 <div class="user-comment-item">
@@ -126,6 +126,8 @@
                     data     : "action=comment&"+$(this).serialize(),
                     success  : function(data) {
                         $('.load-comment').prepend(data);
+                        var tt = parseInt($('#total-cmt').text(),10) + 1;
+                        $('#total-cmt').html(tt);
                     },error: function(xhr, textStatus, errorThrown) {
                         toast({
                             title:"Error!",

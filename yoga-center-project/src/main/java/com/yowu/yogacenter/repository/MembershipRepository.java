@@ -18,7 +18,7 @@ import java.util.List;
 public class MembershipRepository {
 
     public List<Membership> getAll() {
-        String sql = "select * from tblCourseWishlist";
+        String sql = "select * from tblMembership";
         List<Membership> list = new ArrayList<>();
 
         try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
@@ -29,8 +29,8 @@ public class MembershipRepository {
                     c.setName(rs.getString("membership_name"));
                     c.setDuration(rs.getInt("membership_duration"));
                     c.setPrice(rs.getFloat("membership_price"));
-                    c.setDescription(rs.getString("membership_discription"));
-                    c.setDiscount(rs.getInt("membership_discount"));
+                    c.setDescription(rs.getString("membership_description"));
+                    c.setDiscount(rs.getInt("membership_discours"));
                     c.setIsActive(rs.getBoolean("membership_is_active"));
                     list.add(c);
                 }
