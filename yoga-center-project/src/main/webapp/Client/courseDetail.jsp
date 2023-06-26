@@ -514,14 +514,24 @@
                         url:"course-detail?courseid="+${course.id}+"&action=remove",
                         type:"post",
                         success:function(data){
-                            toast({
-                                title:"Success!",
-                                msg:"Remove success!",
-                                type:'success',
-                                duration:5000   
-                            });
-                            $('.jsWishlist').removeClass('added');
-                            $('.jsWishlist').html('<i class="fa-regular fa-bookmark"></i> Add To WishList');
+                             if(data=='account-failed'){
+                                 toast({
+                                    title:"Opps!",
+                                    msg:"Login to use this fuction!",
+                                    type:'error',
+                                    duration:5000   
+                                });
+                                   
+                            }else{
+                                toast({
+                                    title:"Success!",
+                                    msg:"Remove success!",
+                                    type:'success',
+                                    duration:5000   
+                                });
+                                $('.jsWishlist').removeClass('added');
+                                $('.jsWishlist').html('<i class="fa-regular fa-bookmark"></i> Add To WishList');
+                            }
                         },
                         error: function(msg){
                             toast({
@@ -538,14 +548,25 @@
                         url:"course-detail?courseid="+${course.id}+"&action=add",
                         type:"post",
                         success:function(data){
-                            $('.jsWishlist').addClass('added');
-                            $('.jsWishlist').html('<i class="fa fa-times" aria-hidden="true"></i> Remove From WishList');
-                            toast({
-                                title:"Success!",
-                                msg:"Add success!",
-                                type:'success',
-                                duration:5000   
-                            });
+                            if(data=='account-failed'){
+                                 toast({
+                                    title:"Opps!",
+                                    msg:"Login to use this fuction!",
+                                    type:'error',
+                                    duration:5000   
+                                });
+                                   
+                            }else{
+                                toast({
+                                    title:"Success!",
+                                    msg:"Add success!",
+                                    type:'success',
+                                    duration:5000   
+                                });
+                                $('.jsWishlist').addClass('added');
+                                $('.jsWishlist').html('<i class="fa fa-times" aria-hidden="true"></i> Remove From WishList');
+                            }
+                            
                         },
                         error: function(msg){
                             toast({

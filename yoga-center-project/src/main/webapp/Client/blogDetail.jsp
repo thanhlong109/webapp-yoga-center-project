@@ -126,9 +126,20 @@
                     data     : "action=comment&"+$(this).serialize(),
                     success  : function(data) {
                         $('.load-comment').prepend(data);
-                        var tt = parseInt($('#total-cmt').text(),10) + 1;
-                        $('#total-cmt').html(tt);
-                    },error: function(xhr, textStatus, errorThrown) {
+                        if(data == 'account-failed'){
+                            toast({
+                                title:"Error!",
+                                msg:"Login to use this fuction!",
+                                type:'error',
+                                duration:5000   
+                            });
+                        }else{
+                            var tt = parseInt($('#total-cmt').text(),10) + 1;
+                            $('#total-cmt').html(tt);
+                        }
+                        
+                        
+                    },error: function(msg) {
                         toast({
                             title:"Error!",
                             msg:"Login to use this fuction!",
