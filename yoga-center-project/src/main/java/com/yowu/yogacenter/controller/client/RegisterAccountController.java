@@ -47,14 +47,15 @@ public class RegisterAccountController extends HttpServlet {
             }
             boolean checkDuplicate = dao.checkDuplicate(email);
             if (checkDuplicate) {
-                accError.setPasswordError("Email alredy existed!");
+                request.setAttribute("errLEmail", "E-mail already valid!!!");
                 checkValidation = false;
             }
             if (checkValidation) {
                 RoleRepository rr = new RoleRepository();
-                Account user = new Account(username, email, password, null, rr.detail(Role.RoleList.TRAINEE.ordinal()));
+                Account user = new Account(username, password, email, null, rr.detail(Role.RoleList.TRAINEE.ordinal()), null);
                 boolean checkInsert = dao.createAccount(user);
                 if (checkInsert) {
+                    request.setAttribute("type", "login");
                     url = LOGIN_PAGE;
                 } else {
                     accError.setError("Unknow error!");
@@ -65,8 +66,9 @@ public class RegisterAccountController extends HttpServlet {
             }
 
         } catch (Exception e) {
-            log("Error at SearchController" + e.toString());
+            log("Error at CreateController: " + e.toString());
         } finally {
+
             request.getRequestDispatcher(url).forward(request, response);
         }
     }

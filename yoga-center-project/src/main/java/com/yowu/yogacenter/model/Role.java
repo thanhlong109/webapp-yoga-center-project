@@ -10,7 +10,7 @@ package com.yowu.yogacenter.model;
  */
 public class Role {
     
-    public static enum RoleList {TRAINEE, TRAINER, ADMIN, CASHER};
+    public static enum RoleList {VIEWER ,TRAINEE, TRAINER, ADMIN, CASHER};
 
     private int id;
     private String name;

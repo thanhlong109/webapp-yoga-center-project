@@ -5,6 +5,8 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="jakarta.tags.core" %>
+<%@taglib prefix="fmt" uri="jakarta.tags.fmt"%>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -14,63 +16,55 @@
         <title>Document</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <link href="https://fonts.googleapis.com/css2?family=Jost:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="Asset/css/blogHomeDetail.css">
+        <link rel="stylesheet" href="Asset/css/blogDetail.css">
         <link rel="stylesheet" href="Asset/css/clientHeader.css">
         <link rel="stylesheet" href="Asset/css/clientFooter.css">
         <link rel="stylesheet" href="Asset/css/common.css">    
     </head>
     <body>
         <jsp:include page="../Component/header.jsp"></jsp:include>
+        <fmt:setLocale value="en_US" />
             <div class="banner">
-                <h2>Is Information Overload Making it Harder to be Happy?</h2>
-                <p>July 31, 2020 <span></span> James Smith</p>
+                <h2>${blog.title}</h2>
+                <p><fmt:formatDate value="${blog.date}" pattern="MMMM d, yyyy" /> <span></span> ${blog.account.name}</p>
             </div>
             <div class="container">
                 <div class="left-container">
                     <div class="blog">
                         <div class="blog-img">
-                            <img src="Asset/img/blog/shutterstock_1371365435-1100x490.jpg" alt="">
+                            <img src="Asset/img/blog/${blog.img}" alt="">
                         </div>
+                        <h3 class="blog-sub-title">${blog.title}</h3>
                         <div class="blog-content text">
-                            Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean. A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth. Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life.
+                            ${blog.detail}
                         </div>
                     </div>
                     <div class="separate"></div>
+  <!-- ------------------------------------- Comment -------------------------------------------------- -->
                     <div class="comment-area">
-                        <h2 class="comment-area-title">Comments (3)</h2>
+                        <h2 class="comment-area-title">Comments (<span id="total-cmt">${totalComment}</span>)</h2>
                         <div class="load-comment">
-                            <div class="user-comment-item">
-                                <div class="user-comment-avata">
-                                    <img src="Asset/img/Trainer/personnel-3.jpg" alt="">
-                                </div>
-                                <div class="comment-info">
-                                    <div>
-                                        <h4 class="user-comment-name">James Smith</h4>
-                                        <p class="user-comment-date"><i class="fa-regular fa-clock"></i> Jule 07, 2023 at 10:21 AM</p>
+                            <c:forEach items="${commentList}" var="comment">
+                                <div class="user-comment-item">
+                                    <div class="user-comment-avata">
+                                        <img src="Asset/img/avatar/${comment.account.img}" alt="">
                                     </div>
-                                    <p class="user-comment-content text">
-                                        Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="user-comment-item">
-                                <div class="user-comment-avata">
-                                    <img src="Asset/img/Trainer/personnel-3.jpg" alt="">
-                                </div>
-                                <div class="comment-info">
-                                    <div>
-                                        <h4 class="user-comment-name">James Smith</h4>
-                                        <p class="user-comment-date"><i class="fa-regular fa-clock"></i> Jule 07, 2023 at 10:21 AM</p>
+                                    <div class="comment-info">
+                                        <div>
+                                            <h4 class="user-comment-name">${comment.account.name}</h4>
+                                            <p class="user-comment-date"><i class="fa-regular fa-clock"></i> <fmt:formatDate value="${comment.date}" pattern="MMMM d, yyyy" /> at <fmt:formatDate value="${comment.date}" pattern="hh:mm:ss a" /></p>
+                                        </div>
+                                        <p class="user-comment-content text">
+                                            ${comment.content}
+                                        </p>
                                     </div>
-                                    <p class="user-comment-content text">
-                                        Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.
-                                    </p>
                                 </div>
-                            </div>
+                            </c:forEach>
                         </div>
-                        <form action="#" method="post" class="user-comment">
-                            <textarea name="txtCommentContent" placeholder="Your comment here..."></textarea>
-                            <button type="submit">Post</button>
+                        <form action="blog-detail" method="post" class="user-comment">
+                            <input style="display: none;" name="blogid" value="${blog.id}" type="text"/>
+                            <textarea name="txtCommentContent" placeholder="Write your comment here..."></textarea>
+                            <button name="action" value="comment" type="submit">Post</button>
                         </form>
                     </div>
                 </div>
@@ -121,5 +115,41 @@
                 </div>
             </div>
         <jsp:include page="../Component/footer.jsp"></jsp:include>
+        <%@include file="../Component/toast.jsp" %>
+        <script>
+            $('.user-comment').on('submit',function (e){
+                e.preventDefault();
+                $.ajax({
+                    type     : "POST",
+                    cache    : false,
+                    url      : $(this).attr('action'),
+                    data     : "action=comment&"+$(this).serialize(),
+                    success  : function(data) {
+                        $('.load-comment').prepend(data);
+                        if(data == 'account-failed'){
+                            toast({
+                                title:"Error!",
+                                msg:"Login to use this fuction!",
+                                type:'error',
+                                duration:5000   
+                            });
+                        }else{
+                            var tt = parseInt($('#total-cmt').text(),10) + 1;
+                            $('#total-cmt').html(tt);
+                        }
+                        
+                        
+                    },error: function(msg) {
+                        toast({
+                            title:"Error!",
+                            msg:"Login to use this fuction!",
+                            type:'error',
+                            duration:5000   
+                        });
+                    }
+                });
+
+            });
+        </script>
     </body>
 </html>

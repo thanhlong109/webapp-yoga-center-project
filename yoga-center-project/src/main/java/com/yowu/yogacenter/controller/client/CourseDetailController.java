@@ -6,7 +6,6 @@ package com.yowu.yogacenter.controller.client;
 
 import com.yowu.yogacenter.model.Account;
 import com.yowu.yogacenter.model.Course;
-import com.yowu.yogacenter.model.CourseWishlist;
 import com.yowu.yogacenter.repository.CourseRepository;
 import com.yowu.yogacenter.repository.CourseScheduleRepository;
 import com.yowu.yogacenter.repository.CourseWishlistRepository;
@@ -46,6 +45,7 @@ public class CourseDetailController extends HttpServlet {
             request.setAttribute("courseScheduleList", sc.getScheduleByCourse(c.getId()));
             request.setAttribute("surgestCourseList", cr.getRandomNCourses(4));
             request.setAttribute("isInWishList",isInWishList );
+            request.setAttribute("feedbackList",ratec.getByCourseID(id));
         }catch(Exception e){
             System.out.println(e);
         }
@@ -56,24 +56,25 @@ public class CourseDetailController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try
+        try(PrintWriter out = response.getWriter())
         {
             String action = request.getParameter("action");
             int courseId = Integer.parseInt(request.getParameter("courseid"));
             Account account = (Account) request.getSession().getAttribute("account");
             if(account==null){
-                throw new IOException();
-            }
-            CourseWishlistRepository cwr = new CourseWishlistRepository();
-            switch(action){
-                case "remove":{
-                    cwr.detele(courseId,account.getId());
-                    break;
-                }
-                case "add":{
-                    
-                    cwr.add(courseId,account.getId());
-                    break;
+                out.print("account-failed");
+            }else{
+                CourseWishlistRepository cwr = new CourseWishlistRepository();
+                switch(action){
+                    case "remove":{
+                        cwr.detele(courseId,account.getId());
+                        break;
+                    }
+                    case "add":{
+
+                        cwr.add(courseId,account.getId());
+                        break;
+                    }
                 }
             }
         }catch(NumberFormatException e){

@@ -37,9 +37,12 @@
     width: 100%;
 }
 .blog-content{
-    margin-top: 32px;
+    margin-top: 16px;
 }
-
+.blog-sub-title{
+    margin-top:32px;
+    color: #227179;
+}
 .separate{
     border-bottom: 1px solid #d7d7d7;
     margin: 16px 0;
@@ -77,10 +80,10 @@
     max-height: 85px;
     min-width: 85px;
     min-height: 85px;
+    border-radius: 50%;
 }
 .user-comment-avata img{
     width: 100%;
-    border-radius: 50%;
 }
 
 .comment-info>div{
@@ -88,9 +91,13 @@
     justify-content: space-between;
     margin-bottom: 8px;
 }
+.comment-info{
+    width: 100%;
+}
 .user-comment-name{
     font-size: 16px;
     color: #444444;
+    text-transform: capitalize;
 }
 
 .user-comment-date{

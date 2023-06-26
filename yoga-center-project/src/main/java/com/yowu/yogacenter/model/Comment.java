@@ -5,6 +5,7 @@
 package com.yowu.yogacenter.model;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 
 /**
  *
@@ -14,13 +15,13 @@ public class Comment {
 
     private Blog blog;
     private String content;
-    private Date date;
+    private Timestamp date;
     private Account account;
 
     public Comment() {
     }
 
-    public Comment(Blog blog, String content, Date date, Account account) {
+    public Comment(Blog blog, String content, Timestamp date, Account account) {
         this.blog = blog;
         this.content = content;
         this.date = date;
@@ -43,11 +44,11 @@ public class Comment {
         this.content = content;
     }
 
-    public Date getDate() {
+    public Timestamp getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(Timestamp date) {
         this.date = date;
     }
 

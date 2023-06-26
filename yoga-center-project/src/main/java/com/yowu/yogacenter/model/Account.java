@@ -20,11 +20,12 @@ public class Account {
     private String phone;
     private boolean isActive;
     private Role role;
+    private String socialID;
 
     public Account() {
     }
 
-    public Account( String name, String password, String email, String phone, Role role) {
+    public Account( String name, String password, String email, String phone, Role role, String socialID) {
         this.img = DEFAULT_IMG;
         this.name = name;
         this.password = password;
@@ -32,6 +33,7 @@ public class Account {
         this.phone = phone;
         this.isActive = true;
         this.role = role;
+        this.socialID = socialID;
     }
 
     public int getId() {
@@ -96,6 +98,16 @@ public class Account {
 
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    
+    public String getSocialID() {
+        return socialID;
+    }
+
+    
+    public void setSocialID(String socialID) {
+        this.socialID = socialID;
     }
 
 }

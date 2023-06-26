@@ -10,17 +10,25 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class LoginController extends HttpServlet {
 
     private final String LOGIN_PAGE = "Client/login_register.jsp";
-   
+
     private final String ADMIN_PAGE = "";
     private final String HOME_PAGE = "Client/Home.jsp";
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.setAttribute("type", "login");
+        request.getRequestDispatcher(LOGIN_PAGE).forward(request, response);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) {
         request.setAttribute("type", "login");
 
         String url = LOGIN_PAGE;
@@ -32,13 +40,14 @@ public class LoginController extends HttpServlet {
             Account loginUser = dao.checkLogin(accountemail, password);
 
             if (loginUser == null) {
-                request.setAttribute("ERROR", "Incorrect UserID or Password");
+                request.setAttribute("errLogin", "Incorrect E-mail Address or Password");
+                request.setAttribute("loginStatus", "false"); 
                 url = LOGIN_PAGE;
             } else {
                 HttpSession session = request.getSession();
                 session.setAttribute("account", loginUser);
                 Role role = loginUser.getRole();
-                if (Role.RoleList.ADMIN.ordinal()== role.getId()) {
+                if (Role.RoleList.ADMIN.ordinal() == role.getId()) {
                     url = ADMIN_PAGE;
                 } else if (Role.RoleList.TRAINEE.ordinal() == role.getId() || Role.RoleList.TRAINER.ordinal() == role.getId()) {
                     url = HOME_PAGE;
@@ -46,20 +55,13 @@ public class LoginController extends HttpServlet {
             }
         } catch (Exception e) {
             request.setAttribute("ERROR", "Your role is not supported");
-                   
-            // request.setAttribute("ERROR", "An error occurred");
-            // request.getRequestDispatcher(ERROR_PAGE).forward(request, response);
+        } finally {
+            try {
+                request.getRequestDispatcher(url).forward(request, response);
+            } catch (ServletException | IOException ex) {
+                Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
-        finally{
-             request.getRequestDispatcher(url).forward(request, response);
-        }
-    }
-
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        request.setAttribute("type", "login");
-        request.getRequestDispatcher(LOGIN_PAGE).forward(request, response);
     }
 
     @Override

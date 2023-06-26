@@ -1,0 +1,152 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+body{
+    font-family: 'Jost', sans-serif;
+    font-size: 17px;
+}
+.header__menu{
+    width: 100%;
+    min-height: 100vh;
+    background: #eceaff;
+    color: #525252;
+}
+nav{
+    width: 100%;
+    padding: 10px 10%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    position: relative;
+    background: #1a1a1a;
+}
+.user-pic{
+    width: 40px;
+    margin-left: 30px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+.sub-menu__wrap{
+    position: absolute;
+    top: 100%;
+    right: 10%;
+    width: 320px;
+    /* quan trong de mo menu drop down */
+    max-height: 0px;
+    overflow: hidden;
+    transition: max-height 0.5s;
+}
+.sub-menu__wrap.open-menu{
+    max-height: 400px;
+}
+
+.sub-menu{
+    background: #fff;
+    padding: 20px;
+    margin: 10px;
+}
+.user-info{
+    display: flex;
+    align-items: center;
+}
+.user-info h3{
+    font-weight: 500;
+}
+.user-info img{
+    width: 60px;
+    border-radius: 50%;
+    margin-right: 15px;
+}
+.sub-menu hr{
+    border: 0;
+    height: 1px;
+    width: 100%;
+    background: #ccc;
+    margin: 15px 0 10px;
+}
+
+.sub-menu__link{
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: #525252;
+    margin: 12px 0;
+}
+.sub-menu__link p{
+    width: 100%;
+}
+.sub-menu__link img{
+    width: 40px;
+    background: #e5e5e5;
+    border-radius: 50%;
+    padding: 8px;
+    margin-right: 15px;
+}
+.sub-menu__link span{
+    font-size: 22px;
+    transition: transform 0.5s;
+}
+.sub-menu__link:hover span{
+    transform: translateX(5px);
+}
+.sub-menu__link:hover p{
+    font-weight: 600;
+}
+
+/* Search-box */
+#search-box{
+    background: #fff;
+    border-radius: 30px;
+    
+    display: flex;
+}
+#search-box #search-text{
+    border: none;
+    outline: none;
+    background: none;
+    font-size: 15px;
+    padding: 0px;
+    width: 0;
+    transition: all 0.25s ease-in-out;
+}
+#search-box:hover #search-text, #search-box #search-text:valid{
+    width: 300px;
+    padding: 10px 0 10px 15px;
+}
+#search-box #btnSearch{
+    background: #fff;
+    border: none;
+    padding: 15px;
+    cursor: pointer;
+    border-radius: 50%;
+    font-size: 15px;
+    
+}
+/* filter */
+.container__navigation-element {
+    padding-left: 20px;
+    padding-right: 20px;
+    text-align: left;
+    display: inline-block;
+}
+
+.navigation__element-select {
+    width: 250px;
+    border: none;
+    outline: none;
+    background: none;
+    border-bottom-width: 2px;
+    border-bottom-style: solid;
+    border-bottom-color: #fff;
+    padding-bottom: 10px;
+    font-size: 15px;
+    font-weight: 700;
+    color: #fff;
+    
+}
+.navigation__element-select option{
+    color: #fff;
+    background: #525252;
+}

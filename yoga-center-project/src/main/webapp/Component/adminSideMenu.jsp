@@ -3,7 +3,7 @@
     Created on : Jun 17, 2023, 7:14:06 PM
     Author     : DungVNT
 --%>
-
+<%@taglib prefix="c" uri="jakarta.tags.core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!-- AdminSideBar -->
 <div class="left-side-bar-wrapper">
@@ -32,12 +32,18 @@
                         <i class="fa-solid fa-book"></i> Course <i class="fa-solid js-arrow fa-chevron-down"></i>
                     </div> 
                     <ul class="sub-nav-2 show">
-                        <li class="active"><a href="#">Add Category Course</a></li>
-                        <li><a href="#">Edit Category Course</a></li>
-                        <li><a href="#">Add New Course</a></li>
-                        <li><a href="#">Edit Course</a></li>
-                        <li><a href="#">Add course time</a></li>
-                        <li><a href="#">Edit Course time</a></li>
+                        <li class="active"><a href="<c:url value="/admin/categoryListController"/>">
+                                View All & Edit Category</a></li>
+                        <li><a href="#">
+                                Add New Category</a></li>
+                        <li><a href="<c:url value="/admin/viewCourseListController"/>">
+                                View All & Edit Course</a></li>
+                        <li><a href="#">
+                                Add New Course</a></li>   
+                        <li><a href="<c:url value="/admin/viewCourseTimeListController"/>">
+                                View All & Edit Course Time</a></li>
+                        <li><a href="#">
+                                Add Course Time</a></li>                        
                     </ul>
                 </li>
                 <li class="nav-2-main-container">
@@ -45,8 +51,10 @@
                         <i class="fa-solid fa-money-bill-wave"></i> Bill <i class="fa-solid fa-chevron-right js-arrow"></i>
                     </div>
                     <ul class="sub-nav-2">
-                        <li><a href="#">Bill Analysis</a></li>
-                        <li><a href="#">view bill details</a></li>
+                        <li><a href="#">
+                                Bill Analysis</a></li>
+                        <li><a href="<c:url value="/admin/viewBillListController"/>">
+                                View Bill Details</a></li>
                     </ul> 
                 </li>
                 <li class="nav-2-main-container">
@@ -54,7 +62,8 @@
                         <i class="fa-sharp fa-solid fa-rss"></i> Blog <i class="fa-solid fa-chevron-right js-arrow"></i>
                     </div> 
                     <ul class="sub-nav-2">
-                        <li><a href="#">Blog Analysis</a></li>
+                        <li><a href="#">
+                                Blog Analysis</a></li>
                     </ul> 
                 </li>
                 <li class="nav-2-main-container">
@@ -62,19 +71,34 @@
                         <i class="fa-solid fa-user-group"></i> Account <i class="fa-solid fa-chevron-right js-arrow"></i>
                     </div>
                     <ul class="sub-nav-2">
-                        <li><a href="#">Account Analysis</a></li>
-                        <li><a href="#">Add New Account</a></li>
-                        <li><a href="#">Edit Account</a></li>
+                        <li><a href="#">
+                                Account Analysis</a></li>
+                        <li><a href="<c:url value="/admin/viewAccountListController"/>">
+                                View All & Edit Account</a></li>
+                        <li><a href="#">
+                                Add New Account</a></li>
                     </ul> 
-
                 </li>
                 <li class="nav-2-main-container">
                     <div class="nav-2-main">
                         <i class="fa-solid fa-calendar-days"></i> Schedule <i class="fa-solid fa-chevron-right js-arrow"></i>
                     </div>
                     <ul class="sub-nav-2">
-                        <li><a href="#">View Schedule</a></li>
-                        <li><a href="#">Edit Schedule</a></li>
+                        <li><a href="<c:url value="/admin/viewClassScheduleListController"/>">
+                                View All & Edit Schedule</a></li>
+                        <li><a href="#">
+                                Add New Schedule</a></li>
+                    </ul> 
+                </li>
+                <li class="nav-2-main-container">
+                    <div class="nav-2-main">
+                        <i class="fa-solid fa-calendar-days"></i> Membership <i class="fa-solid fa-chevron-right js-arrow"></i>
+                    </div>
+                    <ul class="sub-nav-2">
+                        <li><a href="<c:url value="/admin/viewMembershipListController"/>">
+                                View All & Edit Membership</a></li>
+                        <li><a href="#">
+                                Add New Membership</a></li>
                     </ul> 
                 </li>
             </ul>
@@ -82,7 +106,7 @@
     </div>
 </div>
 <script src="../Asset/js/cdnjs.cloudflare.com_ajax_libs_jquery_3.7.0_jquery.min.js"></script>
-<script defer="">
+<script defer>
 
     /*open up down each part in left side bar*/
     const nav2btns = document.querySelectorAll(".nav-2-main-container");

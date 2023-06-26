@@ -82,9 +82,10 @@
                 width: 45px;
                 border-radius: 50%;
             }
-            .stars i{
+            .yellow-stars{
                 font-size: 12px;
                 color: #fc9d1d;
+                line-height: 100%;
             }
             .avg-star{
                 font-size: 12px;
@@ -191,7 +192,7 @@
             .surgest-card-body>div:first-child p{
                 color: #3dbca8;
             }
-            .surgest-card-stars{
+            .green-stars{
                 font-size: 12px;
                 color: #3dbca8;
             }
@@ -228,6 +229,67 @@
                 cursor: pointer;
             }
             
+            .separate{
+                border-bottom: 1px solid #d7d7d7;
+                margin: 32px 0;
+            }
+            /*feedback*/
+             .feedback-area{
+                background-color: #e9ebee4d;
+                padding: 32px 0px;
+            }
+            .feedback-area-title{
+                color: #444444;
+                margin-bottom: 32px;
+                font-size: 1.4em;
+                padding-left: 24px
+            }
+
+            .load-feedback{
+                display: flex;
+                flex-direction: column;
+                gap: 32px;
+            }
+
+            .user-feedback-item{
+                display: flex;
+                gap: 16px;
+                padding: 16px 24px;
+            }
+            .user-feedback-item:hover{
+                background-color: #9f9d9d44;
+            }
+
+            .user-feedback-avata{
+                overflow: hidden;
+                display: flex;
+                justify-content: center;
+                border-radius: 50%;
+                border: 1px solid #5e5e5e;
+                align-items: center;
+                max-width: 85px;
+                max-height: 85px;
+                min-width: 85px;
+                min-height: 85px;
+                border-radius: 50%;
+            }
+            .user-feedback-avata img{
+                width: 100%;
+            }
+            .feedback-info{
+                flex:1;
+            }
+            .feedback-info>div{
+                display: flex;
+                justify-content: space-between;
+                margin-bottom: 8px;
+            }
+            .user-feedback-name{
+                font-size: 16px;
+                color: #444444;
+            }
+
+
 
             @media screen and (max-width:740px) {
                 .wrapper-container{
@@ -288,14 +350,14 @@
                 <div>
                     <h4>Review</h4>
                     <!--display star and avg , edit at javascrip-->
-                    <div class="stars">
+                    <div data-avg="${agvRating}" class="yellow-stars stars">
                         <i class=""></i>
                         <i class=""></i>
                         <i class=""></i>
                         <i class=""></i>
                         <i class=""></i>
                     </div>
-                    <div class="avg-star"></div>
+                    <div class="avg-star">( ${agvRating}/5 )</div>
                 </div>
                 <div>
                     <!--wish list btn-->
@@ -315,12 +377,42 @@
                             <img src="${pageContext.request.contextPath}/Asset/img/classes/${course.img}" alt="">
                         </div>
                     </div>
+                    <div class="separate"></div>
+                    <c:if test="${feedbackList!=null && feedbackList.size() gt 0}">
+                        <div class="feedback-area">
+                            <h2 class="feedback-area-title">Feedback (${feedbackList.size()})</h2>
+                            <div class="load-feedback">
+                                <c:forEach items="${feedbackList}" var="feedbackItem">
+                                    <c:set var="feedbackAcc" value="${feedbackItem.registrationCourse.account}"/>
+                                    <div class="user-feedback-item">
+                                        <div class="user-feedback-avata">
+                                            <img src="${pageContext.request.contextPath}/Asset/img/avatar/${feedbackAcc.img}" alt="avatar.img">
+                                        </div>
+                                        <div class="feedback-info">
+                                            <div>
+                                                <h4 class="user-feedback-name">${feedbackAcc.name}</h4>
+                                                <div data-avg="${feedbackItem.ratingStar}" class="yellow-stars stars">
+                                                    <i class=""></i>
+                                                    <i class=""></i>
+                                                    <i class=""></i>
+                                                    <i class=""></i>
+                                                    <i class=""></i>
+                                                </div>
+                                            </div>
+                                            <p class="user-feedback-content text">
+                                                ${feedbackItem.feedback}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </c:forEach>
+                            </div>
+                        </div>
+                    </c:if>
                 </div>
                 <div class="right-container">
                     <div class="right-box">
                         <div class="label">Date</div>
                         <select class="label-value jsdate" onchange="loadTime(this)"></select>
-<!--                        <div class="label-value jsdate"></div>replace date at java script-->
                     </div>
                     <div class="right-box">
                         <div class="label">Time</div>
@@ -337,6 +429,7 @@
                     <a href="#" class="book-btn">Book now</a>
                 </div>
             </div>
+                   
             
             <c:set var="ratingRepo" value="<%= new RatingCourseRepository()%>"/> 
             <c:set var="rcRepo" value="<%= new RegistrationCourseRepository()%>"/> 
@@ -351,14 +444,13 @@
                             <div class="surgest-card-body">
                                 <div>
                                     <p>${c.category.name}</p> <!--replace category for surgest card -->
-                                    <div class="surgest-card-stars">
+                                    <div data-avg="${ratingRepo.getAvgCourseRating(c.id)}" class="green-stars stars">
                                         <i class=""></i>
                                         <i class=""></i>
                                         <i class=""></i>
                                         <i class=""></i>
                                         <i class=""></i>
                                     </div>
-                                    <div class="agv-star-value" style="display: none;" >${ratingRepo.getAvgCourseRating(c.id)}</div><!-- replace star for surgest card-->
                                 </div>
                                 <a>${c.title}</a><!--replace title for surgest card-->
                             </div>
@@ -373,25 +465,26 @@
             </div>
         </div>
         <%@include file="../Component/toast.jsp" %>                         
-        <script defer>
+        <script defer>    
             /*display star*/
-            const stars = document.querySelectorAll(".stars i");
-            const agvStar = document.querySelector(".avg-star");
-            let avg = ${agvRating}; //replace avg star here
-            agvStar.textContent = "("+avg + "/5)";
-            stars.forEach(star =>{
-                if(avg>0){
-                    star.classList.add("fa-solid");
-                    if(avg<1){
-                        star.classList.add("fa-star-half-stroke");
+            const starsParents = document.querySelectorAll(".stars");
+            starsParents.forEach(sp =>{
+                let stars = sp.querySelectorAll(".stars i");
+                var avg = $(sp).data('avg');
+                stars.forEach(star =>{
+                    if(avg>0){
+                        star.classList.add("fa-solid");
+                        if(avg<1){
+                            star.classList.add("fa-star-half-stroke");
+                        }else{
+                            star.classList.add("fa-star");
+                        } 
                     }else{
+                        star.classList.add("fa-regular");
                         star.classList.add("fa-star");
-                    } 
-                }else{
-                    star.classList.add("fa-regular");
-                    star.classList.add("fa-star");
-                }
-                avg-=1;
+                    }
+                    avg-=1;
+                });
             });
             /*display date text*/
             const displayDate = document.querySelector(".jsdate");
@@ -410,29 +503,7 @@
                 $('.right-container li.time-'+id).show();
                 $('.right-container li.time-'+id).siblings().hide();    
             }
-            
-            /*Display star for surgest card*/
 
-            const surgestCards = document.querySelectorAll(".surgest-course-card");
-            surgestCards.forEach(card =>{
-                let sgCardStars = card.querySelectorAll(".surgest-card-stars i");
-                let avgSt = card.querySelector(".agv-star-value").textContent;
-                sgCardStars.forEach(st =>{
-                    if(avgSt>0){
-                    st.classList.add("fa-solid");
-                    if(avgSt<1){
-                        st.classList.add("fa-star-half-stroke");
-                    }else{
-                        st.classList.add("fa-star");
-                    } 
-                    }else{
-                        st.classList.add("fa-regular");
-                        st.classList.add("fa-star");
-                    }
-                    avgSt-=1;
-                });
-            });
-            
             function goto(url){
                 window.window.location.href = "${pageContext.request.contextPath}/"+url;   
             }
@@ -443,14 +514,24 @@
                         url:"course-detail?courseid="+${course.id}+"&action=remove",
                         type:"post",
                         success:function(data){
-                            toast({
-                                title:"Success!",
-                                msg:"Remove success!",
-                                type:'success',
-                                duration:5000   
-                            });
-                            $('.jsWishlist').removeClass('added');
-                            $('.jsWishlist').html('<i class="fa-regular fa-bookmark"></i> Add To WishList');
+                             if(data=='account-failed'){
+                                 toast({
+                                    title:"Opps!",
+                                    msg:"Login to use this fuction!",
+                                    type:'error',
+                                    duration:5000   
+                                });
+                                   
+                            }else{
+                                toast({
+                                    title:"Success!",
+                                    msg:"Remove success!",
+                                    type:'success',
+                                    duration:5000   
+                                });
+                                $('.jsWishlist').removeClass('added');
+                                $('.jsWishlist').html('<i class="fa-regular fa-bookmark"></i> Add To WishList');
+                            }
                         },
                         error: function(msg){
                             toast({
@@ -467,14 +548,25 @@
                         url:"course-detail?courseid="+${course.id}+"&action=add",
                         type:"post",
                         success:function(data){
-                            $('.jsWishlist').addClass('added');
-                            $('.jsWishlist').html('<i class="fa fa-times" aria-hidden="true"></i> Remove From WishList');
-                            toast({
-                                title:"Success!",
-                                msg:"Add success!",
-                                type:'success',
-                                duration:5000   
-                            });
+                            if(data=='account-failed'){
+                                 toast({
+                                    title:"Opps!",
+                                    msg:"Login to use this fuction!",
+                                    type:'error',
+                                    duration:5000   
+                                });
+                                   
+                            }else{
+                                toast({
+                                    title:"Success!",
+                                    msg:"Add success!",
+                                    type:'success',
+                                    duration:5000   
+                                });
+                                $('.jsWishlist').addClass('added');
+                                $('.jsWishlist').html('<i class="fa fa-times" aria-hidden="true"></i> Remove From WishList');
+                            }
+                            
                         },
                         error: function(msg){
                             toast({

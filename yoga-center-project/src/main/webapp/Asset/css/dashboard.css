@@ -1,0 +1,203 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : Jun 20, 2023, 7:57:42 PM
+    Author     : DungVNT
+*/
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+html{
+    scroll-behavior: smooth; 
+}
+
+body{
+    font-family: 'Jost', sans-serif;
+    display: flex;
+    flex-direction: column;
+    
+}
+body::-webkit-scrollbar{
+    display: none;
+}
+.container{
+    background-color: #E9EDEF;
+    min-height: 100vh;
+    display: flex;
+}
+.left-side-bar-wrapper{
+    position: relative;
+    z-index: 80;
+    background-color: #fff;
+}
+.left-side-bar-wrapper>i{
+    height: 32px;
+    width: 32px;
+    position: absolute;
+    right: -32px;
+    top: 100px;
+    text-align: center;
+    line-height: 32px;
+    background-color: rgb(68, 146, 229);
+    border-radius: 50%;
+    color: #ffffff;
+    cursor: pointer;
+}
+
+.left-side-bar{
+    background-color: #fff;
+    width: 0px;
+    overflow-x: hidden;
+    padding: 20px 0px;
+    transition: all ease-in-out .3s;
+}
+.left-side-bar.open{
+    width: 270px;
+    padding: 20px;
+}
+.logo{
+    text-align: center;
+}
+.logo a{
+    text-decoration: none;
+    color: #666c7d;
+    font-size: 28px;
+    font-weight: 800;  
+}
+.left-nav{
+    margin-top: 64px;
+    color: #8A92A6;
+}
+
+.left-nav a{
+    text-decoration: none;
+    color: #8A92A6;
+}
+.main-nav{
+    padding: 8px 0px;
+}
+.separate{
+    height: 1px;
+    width: 100%;
+    background-color: #8A92A6;
+    margin: 24px 0 16px 0;
+}
+.nav-item.active{
+    background-color: #3A57E8;
+    border-radius: 4px;
+    box-shadow: 0 0 4px #666c7d;
+}
+.nav-item.active a{
+    color: white;
+}
+.nav-item a,.nav-item.m{
+    padding: 6px 0 4px 20px;
+    width: 100%;
+    display: block;
+}
+.nav-item:not(.nav-item:last-child){
+    margin-bottom: 8px;
+}
+.nav-2{
+    list-style: none;
+}
+.nav-2-main{
+    padding: 4px 0;
+    margin-bottom: 8px;
+    cursor: pointer;
+    padding-left: 30px;
+    border: 2px solid #fff;
+    transition: all ease-in-out .3s;
+    border-radius: 4px;
+    user-select: none;
+}
+.nav-2-main:hover{
+    border: 2px solid #8A92A6;
+}
+.nav-2 i{
+    width: 24px;
+}
+.sub-nav-2{
+    list-style-type: none;
+    overflow: hidden;
+    margin-left: 30px;
+    padding-left: 40px;
+    max-height: 0;
+    transition: all ease-in-out .3s;
+}
+.sub-nav-2::-webkit-scrollbar{
+    display: none;
+}
+.sub-nav-2.show{
+    max-height: 300px;
+}
+.sub-nav-2 li{
+    margin-bottom: 8px;
+}
+.sub-nav-2 li:last-child{
+    margin-bottom: 16px;
+}
+.sub-nav-2 li.active a{
+    color: #666c7d;
+    font-weight: 600;
+}
+
+.sub-container{
+    flex: 1;
+    z-index: 1;
+}
+
+.header-wrapper{
+    padding: 20px;
+    background: linear-gradient(0deg,#666c7d,#8A92A6);
+}
+.header{
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    background-color: #fff;
+    padding: 10px 40px;
+    column-gap: 16px;
+}
+.header .fa-user{
+    height: 32px;
+    width: 32px;
+    line-height: 32px;
+    text-align: center;
+    background-color: #666c7d;
+    color: white;
+    border-radius: 50%;
+}
+
+/*chart*/
+.section1{
+    display: grid;
+    grid-template-columns: 4fr 2fr;
+    gap: 32px;
+    padding: 32px 64px;
+}
+.chart-container{
+    position: relative;
+    padding: 16px 16px 0px 16px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.15);
+    border-radius: 16px;
+    background-color: #fff;
+}
+.center-chart{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-60%,-50%);
+    font-size: 50px;
+    line-height: 50px;
+    color: #666c7d;
+}
+.section1 h3{
+    color: #8A92A6;
+    text-align: center;
+}

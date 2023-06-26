@@ -33,24 +33,56 @@
         <servlet-class>com.yowu.yogacenter.controller.client.ViewScheduleController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>BlogHomeDetailController</servlet-name>
-        <servlet-class>com.yowu.yogacenter.controller.client.BlogHomeDetailController</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>DispatchController</servlet-name>
-        <servlet-class>com.yowu.yogacenter.controller.client.DispatchController</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>CourseListController</servlet-name>
         <servlet-class>com.yowu.yogacenter.controller.client.CourseListController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ViewCategoryListController</servlet-name>
+        <servlet-class>com.yowu.yogacenter.controller.admin.ViewCategoryListController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ViewCourseListController</servlet-name>
+        <servlet-class>com.yowu.yogacenter.controller.admin.ViewCourseListController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ViewBillListController</servlet-name>
+        <servlet-class>com.yowu.yogacenter.controller.admin.ViewBillListController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ViewAccountListController</servlet-name>
+        <servlet-class>com.yowu.yogacenter.controller.admin.ViewAccountListController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>CourseDetailController</servlet-name>
         <servlet-class>com.yowu.yogacenter.controller.client.CourseDetailController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ViewClassController</servlet-name>
-        <servlet-class>com.yowu.yogacenter.controller.client.ViewClassController</servlet-class>
+        <servlet-name>BlogDetailController</servlet-name>
+        <servlet-class>com.yowu.yogacenter.controller.client.BlogDetailController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>LoginGoogleHandler</servlet-name>
+        <servlet-class>com.yowu.yogacenter.controller.client.LoginGoogleHandler</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>LogoutController</servlet-name>
+        <servlet-class>com.yowu.yogacenter.controller.client.LogoutController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>LoginGoogleController</servlet-name>
+        <servlet-class>com.yowu.yogacenter.controller.client.LoginGoogleController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ViewCourseTimeListController</servlet-name>
+        <servlet-class>com.yowu.yogacenter.controller.admin.ViewCourseTimeListController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ViewClassScheduleListController</servlet-name>
+        <servlet-class>com.yowu.yogacenter.controller.admin.ViewClassScheduleListController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ViewMembershipListController</servlet-name>
+        <servlet-class>com.yowu.yogacenter.controller.admin.ViewMembershipListController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>UserProfileCourse</servlet-name>
@@ -77,32 +109,60 @@
         <url-pattern>/userprofile/setting</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>BlogHomeController</servlet-name>
-        <url-pattern>/BlogHomeController</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>ViewScheduleController</servlet-name>
         <url-pattern>/Timetable</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>BlogHomeDetailController</servlet-name>
-        <url-pattern>/BlogHomeDetailController</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>DispatchController</servlet-name>
-        <url-pattern>/DispatchController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>CourseListController</servlet-name>
         <url-pattern>/courses</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+        <servlet-name>ViewCategoryListController</servlet-name>
+        <url-pattern>/admin/categoryListController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewCourseListController</servlet-name>
+        <url-pattern>/admin/viewCourseListController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewBillListController</servlet-name>
+        <url-pattern>/admin/viewBillListController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewAccountListController</servlet-name>
+        <url-pattern>/admin/viewAccountListController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>CourseDetailController</servlet-name>
         <url-pattern>/course-detail</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ViewClassController</servlet-name>
-        <url-pattern>/ViewClass</url-pattern>
+        <servlet-name>BlogHomeController</servlet-name>
+        <url-pattern>/blogs</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>BlogDetailController</servlet-name>
+        <url-pattern>/blog-detail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LogoutController</servlet-name>
+        <url-pattern>/logout</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LoginGoogleController</servlet-name>
+        <url-pattern>/LoginWithGoogle</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewCourseTimeListController</servlet-name>
+        <url-pattern>/admin/viewCourseTimeListController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewClassScheduleListController</servlet-name>
+        <url-pattern>/admin/viewClassScheduleListController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewMembershipListController</servlet-name>
+        <url-pattern>/admin/viewMembershipListController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

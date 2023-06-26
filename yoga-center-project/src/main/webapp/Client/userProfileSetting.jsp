@@ -89,6 +89,7 @@
             }
             .user-content{
                 padding: 0 50px;
+                flex:1;
             }
             .filter-course{
                 list-style: none;
@@ -260,7 +261,7 @@
                     <li><a href="wishlist"><i class="fa fa-heart" aria-hidden="true"></i> Wishlist</a></li>
                     <li class="active"><a href="setting"><i class="fa fa-sliders" aria-hidden="true"></i> Setting</a></li>
                     <li><a href="booking"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Booking</a></li>
-                    <li><a href="../logout"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a></li>
+                    <li><a href="${pageContext.request.contextPath}/logout"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a></li>
                 </ul>
                 <div class="user-content">
                     <div class="course-option">
@@ -285,7 +286,7 @@
                                         </div>
                                         <div class="box-input">
                                             <label>Phone Number:</label>
-                                            <input required type="number" name="txtPhone" placeholder="Phone Number" value="${sessionScope.account.phone}">
+                                            <input required type="number" name="txtPhone" placeholder="Phone Number" <c:if test="${sessionScope.account.phone!=null}">value="${sessionScope.account.phone}</c:if>">
                                         </div>
                                         <button type="submit">Save</button>
                                     </form>
