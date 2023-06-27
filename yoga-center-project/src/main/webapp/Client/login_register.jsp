@@ -317,10 +317,10 @@
                 <div class="slide-box ${type.equals("login")?"right":""}">
                     <div>
                         <h2>
-                            Welcome To My Site
+                            Welcome To Yowu.
                         </h2>
                         <p class="slide-box-p1">
-                            Login and have a great shopping experience
+                            Login and have a great booking experience
                         </p>
                         <p class="slide-box-p2">
                             If you don't have acount before, please touch button below
@@ -377,7 +377,7 @@
                     changebtn.innerHTML = "Go to login";
                     slidebox.classList.remove("right");
                 } else {
-                    slideboxp1.innerHTML = "Login and have a great shopping experience";
+                    slideboxp1.innerHTML = "Login and have a great booking experience";
                     slideboxp2.innerHTML = "If you don't have acount before, please touch button below";
                     changebtn.innerHTML = "Create new Account";
                     slidebox.classList.add("right");
@@ -389,7 +389,7 @@
             function fill() {
 
                 if ($('.slide-box').hasClass('right')) {
-                    $('.slide-box-p1').html("Login and have a great shopping experience");
+                    $('.slide-box-p1').html("Login and have a great booking experience");
                     $('.slide-box-p2').html("If you don't have acount before, please touch button below");
                     $('#change').html('Create new Account');
                 } else {

@@ -4,7 +4,9 @@
  */
 package com.yowu.yogacenter.controller.client;
 
+import com.yowu.yogacenter.model.Category;
 import com.yowu.yogacenter.model.ClassSchedule;
+import com.yowu.yogacenter.repository.CategoryRepository;
 import com.yowu.yogacenter.repository.ClassScheduleRepository;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -43,10 +45,16 @@ public class ViewScheduleController extends HttpServlet {
         LocalDate endOfWeek = date.with(TemporalAdjusters.nextOrSame(DayOfWeek.SUNDAY));
         Date sDate = Date.valueOf(startOfWeek);
         Date eDate = Date.valueOf(endOfWeek);
+        Date[] daysList = new Date[7];
+        for(int i=0;i<7;i++){
+            daysList[i] = Date.valueOf(startOfWeek.plusDays(i));
+        }
+        CategoryRepository cr = new CategoryRepository();
         //get data from data base
         ClassScheduleRepository csr = new ClassScheduleRepository();
         List<ClassSchedule> scheduleList = csr.getScheduleBetweenDateByAccount(sDate, eDate, 2);
         List<Time> timeList = csr.getTimeScheduleBetweenDateByAccount(sDate, eDate, 2);
+        List<Category> categoryList = cr.getAllActive();
         //generate 2 demension array
         ClassSchedule[][] scheduleTable = new ClassSchedule[timeList.size()][7];
         Calendar cal = Calendar.getInstance();
@@ -56,8 +64,10 @@ public class ViewScheduleController extends HttpServlet {
             int y = timeList.indexOf(cs.getStartTime());
             scheduleTable[y][x] = cs;
         }
+        request.setAttribute("categoryList", categoryList);
         request.setAttribute("dateSelected", date);
         request.setAttribute("scheduleTable", scheduleTable);  
+        request.setAttribute("daysList", daysList);
     }
 
     @Override

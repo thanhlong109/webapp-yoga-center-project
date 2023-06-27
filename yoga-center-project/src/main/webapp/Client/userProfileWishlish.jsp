@@ -222,7 +222,7 @@
                                     <c:forEach items="${wishlist}" var="item">
                                         <tr>
                                             <td><img src="../Asset/img/classes/${item.course.img}" alt="img"></td>
-                                            <td><a href="#">${item.course.title}</a></td>
+                                            <td><a href="../course-detail?id=${item.course.id}">${item.course.title}</a></td>
                                             <td><i onclick="deteleWishlist(this)" data-courseid="${item.course.id}" class="fa fa-trash" aria-hidden="true"></i></td>
                                         </tr>
                                     </c:forEach>

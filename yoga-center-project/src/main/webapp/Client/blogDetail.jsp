@@ -125,7 +125,6 @@
                     url      : $(this).attr('action'),
                     data     : "action=comment&"+$(this).serialize(),
                     success  : function(data) {
-                        $('.load-comment').prepend(data);
                         if(data == 'account-failed'){
                             toast({
                                 title:"Error!",
@@ -136,6 +135,7 @@
                         }else{
                             var tt = parseInt($('#total-cmt').text(),10) + 1;
                             $('#total-cmt').html(tt);
+                            $('.load-comment').prepend(data);
                         }
                         
                         
