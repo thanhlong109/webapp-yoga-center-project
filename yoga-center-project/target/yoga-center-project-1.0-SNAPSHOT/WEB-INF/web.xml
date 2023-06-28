@@ -56,6 +56,22 @@
         <servlet-name>LoginGoogleController</servlet-name>
         <servlet-class>com.yowu.yogacenter.controller.client.LoginGoogleController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CheckoutController</servlet-name>
+        <servlet-class>com.yowu.yogacenter.controller.client.CheckoutController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AuthorizePaymentController</servlet-name>
+        <servlet-class>com.yowu.yogacenter.checkout.AuthorizePaymentController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CheckoutResultController</servlet-name>
+        <servlet-class>com.yowu.yogacenter.checkout.CheckoutResultController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CheckoutSendController</servlet-name>
+        <servlet-class>com.yowu.yogacenter.checkout.CheckoutSendController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>UserProfileCourse</servlet-name>
         <url-pattern>/userprofile/course</url-pattern>
@@ -93,7 +109,6 @@
         <url-pattern>/course-detail</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-
         <servlet-name>CategoryListController</servlet-name>
         <url-pattern>/admin/categoryListController</url-pattern>
     </servlet-mapping>
@@ -112,6 +127,22 @@
     <servlet-mapping>
         <servlet-name>LoginGoogleController</servlet-name>
         <url-pattern>/LoginWithGoogle</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CheckoutController</servlet-name>
+        <url-pattern>/Checkout</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AuthorizePaymentController</servlet-name>
+        <url-pattern>/authorize_payment</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CheckoutResultController</servlet-name>
+        <url-pattern>/CheckoutResult</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CheckoutSendController</servlet-name>
+        <url-pattern>/CheckoutSendController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

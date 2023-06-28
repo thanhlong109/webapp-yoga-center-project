@@ -200,7 +200,6 @@
                                     });
                                 }
 
-                            }
 
                             $('textarea#textEditor').tinymce({
                                 height: 250,

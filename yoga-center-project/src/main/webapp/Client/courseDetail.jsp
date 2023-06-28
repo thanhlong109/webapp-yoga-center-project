@@ -23,7 +23,7 @@
                 box-sizing: border-box;
             }
             html{
-                scroll-behavior: smooth; 
+                scroll-behavior: smooth;
             }
 
             body{
@@ -48,7 +48,7 @@
                 background-color: white;
                 transform: translateY(-50px);
             }
-            .container{ 
+            .container{
                 display: grid;
                 grid-template-columns: 2fr 1fr;
                 gap: 32px;
@@ -202,7 +202,7 @@
                 margin: 8px 0;
                 text-decoration: none;
                 font-weight: 600;
-            } 
+            }
             .surgest-card-footer{
                 padding: 20px;
                 border-top: 1px solid #e6e6e6;
@@ -225,16 +225,16 @@
                 list-style: none;
             }
             .hover-poiter{
-                
+
                 cursor: pointer;
             }
-            
+
             .separate{
                 border-bottom: 1px solid #d7d7d7;
                 margin: 32px 0;
             }
             /*feedback*/
-             .feedback-area{
+            .feedback-area{
                 background-color: #e9ebee4d;
                 padding: 32px 0px;
             }
@@ -325,18 +325,18 @@
             }
 
         </style>
-    
+
     </head>
     <body>
         <%@include file="../Component/header.jsp" %>
         <div class="banner">
-            <h2>Yoga for Beginners Course</h2>
+            <h2>${course.title}</h2>
         </div>
         <div class="wrapper-container">
             <div class="row1">
                 <div onclick='goto("teacher?id=1")'  class="teacher hover-poiter">
                     <div class="teacher-img">
-                        <img src="${pageContext.request.contextPath}/Asset/img/avatar/${course.account.img}" alt=""> <!--replace Teacher img here-->
+                        <img src="${pageContext.request.contextPath}/Asset/img/avatar/${course.account.img}" alt="#"> <!--replace Teacher img here-->
                     </div>
                     <div>
                         <h4>Teacher</h4>
@@ -368,7 +368,7 @@
             </div>
             <div class="container">
                 <div class="left-container">
-                    
+
                     <div class="row2">
                         <h2>${course.title}</h2> <!--replace Course title here-->
                         <p>${course.detail}</p> <!--Course description here-->
@@ -424,141 +424,175 @@
                     </div>
                     <div class="right-box">
                         <div class="label">Price</div>
-                        <div class="label-value"><c:if test="${course.price>0}">$${course.price}</c:if><c:if test="${course.price<=0}">Free</c:if></div> <!--replace price here-->
-                    </div>
-                    <a href="#" class="book-btn">Book now</a>
-                </div>
-            </div>
-                   
-            
-            <c:set var="ratingRepo" value="<%= new RatingCourseRepository()%>"/> 
-            <c:set var="rcRepo" value="<%= new RegistrationCourseRepository()%>"/> 
-            <div class="surgest-course-section">
-                <h2>More courses you might like</h2>
-                <div class="surgest-list"> <!-- list surgest course here -->
-                    <c:forEach items="${surgestCourseList}" var="c">
-                        <div onclick="goto('course-detail?id=${c.id}')" class="surgest-course-card">
-                            <div class="surgest-card-img">
-                                <img src="${pageContext.request.contextPath}/Asset/img/classes/${c.img}" alt="">
-                            </div>
-                            <div class="surgest-card-body">
-                                <div>
-                                    <p>${c.category.name}</p> <!--replace category for surgest card -->
-                                    <div data-avg="${ratingRepo.getAvgCourseRating(c.id)}" class="green-stars stars">
-                                        <i class=""></i>
-                                        <i class=""></i>
-                                        <i class=""></i>
-                                        <i class=""></i>
-                                        <i class=""></i>
-                                    </div>
-                                </div>
-                                <a>${c.title}</a><!--replace title for surgest card-->
-                            </div>
-                            <div class="surgest-card-footer">
-                                <p class="surgest-card-price"><c:if test="${c.price>0}">$${c.price}</c:if><c:if test="${c.price<=0}">Free</c:if></p>
-                                <p class="surgest-card-student"><i class="fa fa-users" aria-hidden="true"></i> ${rcRepo.getStudentEnrolled(c.id)} Student Enrolled </p>
-                            </div>
+                        <div class="label-value">
+                            <c:if test="${course.price>0}">$${course.price}</c:if>
+                            <c:if test="${course.price<=0}">Free</c:if>
+                            </div> <!--replace price here-->
                         </div>
-                    </c:forEach>
-                    
+                        <div  class="course-card">
+                            
+                            <c:if test="${sessionScope.account == null}">
+                                
+                                <c:if test="${course.price>0}">
+                                     <a href="${pageContext.request.contextPath}/login">
+                                        <p>Book now</p>
+                                    </a>
+                                </c:if>   
+                                <c:if test="${course.price<=0}">
+                                    <a href="${pageContext.request.contextPath}/login">
+                                      <p>Errol</p> 
+                                    </a>
+                                </c:if>
+                            </c:if>
+                            <c:if test="${sessionScope.account != null}">
+                                
+                                 <c:if test="${course.price>0}">
+                                     <a onclick="gotoCheckout('Checkout?id=${course.id}')" class="course-card">
+                                        <p>Book now</p>
+                                    </a>
+                                </c:if>   
+                                <c:if test="${course.price<=0}">
+                                    <a href="">
+                                      <p>Errol</p> 
+                                    </a>
+                                </c:if>
+                            </c:if>
+                        </div>
+                    </div>
+                </div>
+
+
+                <c:set var="ratingRepo" value="<%= new RatingCourseRepository()%>"/> 
+                <c:set var="rcRepo" value="<%= new RegistrationCourseRepository()%>"/> 
+                <div class="surgest-course-section">
+                    <h2>More courses you might like</h2>
+                    <div class="surgest-list"> <!-- list surgest course here -->
+                        <c:forEach items="${surgestCourseList}" var="c">
+                            <div onclick="goto('course-detail?id=${c.id}')" class="surgest-course-card">
+                                <div class="surgest-card-img">
+                                    <img src="${pageContext.request.contextPath}/Asset/img/classes/${c.img}" alt="">
+                                </div>
+                                <div class="surgest-card-body">
+                                    <div>
+                                        <p>${c.category.name}</p> <!--replace category for surgest card -->
+                                        <div data-avg="${ratingRepo.getAvgCourseRating(c.id)}" class="green-stars stars">
+                                            <i class=""></i>
+                                            <i class=""></i>
+                                            <i class=""></i>
+                                            <i class=""></i>
+                                            <i class=""></i>
+                                        </div>
+                                    </div>
+                                    <a>${c.title}</a><!--replace title for surgest card-->
+                                </div>
+                                <div class="surgest-card-footer">
+                                    <p class="surgest-card-price"><c:if test="${c.price>0}">$${c.price}</c:if><c:if test="${c.price<=0}">Free</c:if></p>
+                                    <p class="surgest-card-student"><i class="fa fa-users" aria-hidden="true"></i> ${rcRepo.getStudentEnrolled(c.id)} Student Enrolled </p>
+                                </div>
+                            </div>
+                        </c:forEach>
+
+                    </div>
                 </div>
             </div>
-        </div>
-        <%@include file="../Component/toast.jsp" %>                         
-        <script defer>    
-            /*display star*/
-            const starsParents = document.querySelectorAll(".stars");
-            starsParents.forEach(sp =>{
-                let stars = sp.querySelectorAll(".stars i");
-                var avg = $(sp).data('avg');
-                stars.forEach(star =>{
-                    if(avg>0){
-                        star.classList.add("fa-solid");
-                        if(avg<1){
-                            star.classList.add("fa-star-half-stroke");
-                        }else{
+            <%@include file="../Component/toast.jsp" %>                         
+            <script defer>
+                /*display star*/
+                const starsParents = document.querySelectorAll(".stars");
+                starsParents.forEach(sp => {
+                    let stars = sp.querySelectorAll(".stars i");
+                    var avg = $(sp).data('avg');
+                    stars.forEach(star => {
+                        if (avg > 0) {
+                            star.classList.add("fa-solid");
+                            if (avg < 1) {
+                                star.classList.add("fa-star-half-stroke");
+                            } else {
+                                star.classList.add("fa-star");
+                            }
+                        } else {
+                            star.classList.add("fa-regular");
                             star.classList.add("fa-star");
-                        } 
-                    }else{
-                        star.classList.add("fa-regular");
-                        star.classList.add("fa-star");
-                    }
-                    avg-=1;
+                        }
+                        avg -= 1;
+                    });
                 });
-            });
-            /*display date text*/
-            const displayDate = document.querySelector(".jsdate");
-            const displayTime = document.querySelector(".jstime");
-            var dateData="";
-            var timeData="";
-            <c:forEach items="${courseScheduleList}" var="i">
-                dateData+= "<option value='${i.id}' > ${i.dateToString()} </option>";
-                timeData+="<li class='time-${i.id}' > ${i.startTime} - ${i.endTime}</li>";
-            </c:forEach>
-                displayDate.innerHTML =dateData;
+                /*display date text*/
+                const displayDate = document.querySelector(".jsdate");
+                const displayTime = document.querySelector(".jstime");
+                var dateData = "";
+                var timeData = "";
+                <c:forEach items="${courseScheduleList}" var="i">
+                dateData += "<option value='${i.id}' > ${i.dateToString()} </option>";
+                timeData += "<li class='time-${i.id}' > ${i.startTime} - ${i.endTime}</li>";
+                </c:forEach>
+                displayDate.innerHTML = dateData;
                 displayTime.innerHTML = timeData;
-            loadTime($('.jsdate'));
-            function loadTime(select){
-                var id = $(select).val();
-                $('.right-container li.time-'+id).show();
-                $('.right-container li.time-'+id).siblings().hide();    
-            }
+                loadTime($('.jsdate'));
+                function loadTime(select) {
+                    var id = $(select).val();
+                    $('.right-container li.time-' + id).show();
+                    $('.right-container li.time-' + id).siblings().hide();
+                }
 
-            function goto(url){
-                window.window.location.href = "${pageContext.request.contextPath}/"+url;   
-            }
-            
-            $('.jsWishlist').click(()=>{
-                if($('.jsWishlist').hasClass('added')){
-                   $.ajax({
-                        url:"course-detail?courseid="+${course.id}+"&action=remove",
-                        type:"post",
-                        success:function(data){
-                            toast({
-                                title:"Success!",
-                                msg:"Remove success!",
-                                type:'success',
-                                duration:5000   
-                            });
-                            $('.jsWishlist').removeClass('added');
-                            $('.jsWishlist').html('<i class="fa-regular fa-bookmark"></i> Add To WishList');
-                        },
-                        error: function(msg){
-                            toast({
-                                title:"Opps!",
-                                msg:"Login to use this fuction!",
-                                type:'error',
-                                duration:5000   
-                            });
-                        }   
-                    });
-                }else{
-                    
-                   $.ajax({
-                        url:"course-detail?courseid="+${course.id}+"&action=add",
-                        type:"post",
-                        success:function(data){
-                            $('.jsWishlist').addClass('added');
-                            $('.jsWishlist').html('<i class="fa fa-times" aria-hidden="true"></i> Remove From WishList');
-                            toast({
-                                title:"Success!",
-                                msg:"Add success!",
-                                type:'success',
-                                duration:5000   
-                            });
-                        },
-                        error: function(msg){
-                            toast({
-                                title:"Opps!",
-                                msg:"Login to add wishlist!",
-                                type:'error',
-                                duration:5000   
-                            });
-                        }   
-                    });
-                }  
-            }); 
-        </script>
-        <%@include file="../Component/footer.jsp" %> 
+                function goto(url) {
+                    window.window.location.href = "${pageContext.request.contextPath}/" + url;
+                }
+
+                function gotoCheckout(url) {
+                    window.window.location.href = "${pageContext.request.contextPath}/" + url;
+                }
+                $('.jsWishlist').click(() => {
+                    if ($('.jsWishlist').hasClass('added')) {
+                        $.ajax({
+                            url: "course-detail?courseid=" +${course.id} + "&action=remove",
+                            type: "post",
+                            success: function (data) {
+                                toast({
+                                    title: "Success!",
+                                    msg: "Remove success!",
+                                    type: 'success',
+                                    duration: 5000
+                                });
+                                $('.jsWishlist').removeClass('added');
+                                $('.jsWishlist').html('<i class="fa-regular fa-bookmark"></i> Add To WishList');
+                            },
+                            error: function (msg) {
+                                toast({
+                                    title: "Opps!",
+                                    msg: "Login to use this fuction!",
+                                    type: 'error',
+                                    duration: 5000
+                                });
+                            }
+                        });
+                    } else {
+
+                        $.ajax({
+                            url: "course-detail?courseid=" +${course.id} + "&action=add",
+                            type: "post",
+                            success: function (data) {
+                                $('.jsWishlist').addClass('added');
+                                $('.jsWishlist').html('<i class="fa fa-times" aria-hidden="true"></i> Remove From WishList');
+                                toast({
+                                    title: "Success!",
+                                    msg: "Add success!",
+                                    type: 'success',
+                                    duration: 5000
+                                });
+                            },
+                            error: function (msg) {
+                                toast({
+                                    title: "Opps!",
+                                    msg: "Login to add wishlist!",
+                                    type: 'error',
+                                    duration: 5000
+                                });
+                            }
+                        });
+                    }
+                });
+            </script>
+            <%@include file="../Component/footer.jsp" %> 
     </body>
 </html>

@@ -7,7 +7,6 @@ package com.yowu.yogacenter.controller.client;
 import com.yowu.yogacenter.model.Account;
 import com.yowu.yogacenter.model.Blog;
 import com.yowu.yogacenter.repository.BlogRepository;
-import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -42,15 +41,15 @@ public class BlogHomeController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         BlogRepository br = new BlogRepository();
-        int max = br.getQuantityBlog();
+        int max=0;
         Account acc = (Account) request.getSession().getAttribute("account");
-
-        if(max>MAX_NUM_LOAD_MORE){
-            max = MAX_NUM_LOAD_MORE;
-        }
         request.setAttribute("blogList", br.getAll());
         if(acc!=null){
             request.setAttribute("recentBlogList", br.getRecentBlog(0,NUM_LOAD_EACH_TIME,acc.getId()));
+            max = br.getTotalBlog(acc.getId());  
+            if(max>MAX_NUM_LOAD_MORE){
+                max = MAX_NUM_LOAD_MORE;
+            }
         }
         request.setAttribute("maxLoadMore", max);
         request.getRequestDispatcher(BLOG_PAGE).forward(request, response);
