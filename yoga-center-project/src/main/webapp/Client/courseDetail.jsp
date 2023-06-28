@@ -11,7 +11,8 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <title>Course Detail</title>
         <link rel="stylesheet" href="${pageContext.request.contextPath}/Asset/css/clientHeader.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/Asset/css/clientFooter.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -535,6 +536,7 @@
                     $('.right-container li.time-' + id).siblings().hide();
                 }
 
+<<<<<<< HEAD
                 function goto(url) {
                     window.window.location.href = "${pageContext.request.contextPath}/" + url;
                 }

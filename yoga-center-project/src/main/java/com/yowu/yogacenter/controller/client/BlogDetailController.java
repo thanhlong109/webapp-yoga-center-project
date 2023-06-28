@@ -18,7 +18,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.List;
-import javax.imageio.IIOException;
+import java.util.Locale;
 
 /**
  *
@@ -54,28 +54,29 @@ public class BlogDetailController extends HttpServlet {
         try(PrintWriter out = response.getWriter()){
             String action = request.getParameter("action");
             Account acc = (Account) request.getSession().getAttribute("account");
-            Timestamp time = new Timestamp(System.currentTimeMillis());
-            switch(action){
-                case "comment":{
-                        if(acc==null){
-                            throw new ServletException();
-                        }
-                        CommentRepository cr = new CommentRepository();
-                        String commentContent = request.getParameter("txtCommentContent");
-                        int blogId = Integer.parseInt(request.getParameter("blogid"));
-                        Blog b = new Blog();
-                        b.setId(blogId);
-                        Comment cmt = new Comment(b, commentContent, time, acc);
-                        cr.add(cmt);
-                        out.print(getHTMLComment(cmt));
-                    break;
+            if(acc!=null){
+                Timestamp time = new Timestamp(System.currentTimeMillis());
+                switch(action){
+                    case "comment":{
+                            CommentRepository cr = new CommentRepository();
+                            String commentContent = request.getParameter("txtCommentContent");
+                            int blogId = Integer.parseInt(request.getParameter("blogid"));
+                            Blog b = new Blog();
+                            b.setId(blogId);
+                            Comment cmt = new Comment(b, commentContent, time, acc);
+                            cr.add(cmt);
+                            out.print(getHTMLComment(cmt));
+                        break;
+                    }
                 }
+            }else{
+                out.print("account-failed");
             }
         }
     }
 
     private String getHTMLComment(Comment c){
-        SimpleDateFormat sdf = new SimpleDateFormat("MMMM d, yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("MMMM d, yyyy",Locale.ENGLISH);
         String date = sdf.format(c.getDate());
         SimpleDateFormat sdf2 = new SimpleDateFormat("hh:mm:ss a");
         String time = sdf2.format(c.getDate());

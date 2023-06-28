@@ -8,7 +8,6 @@ import com.yowu.yogacenter.model.Category;
 import com.yowu.yogacenter.util.DBHelpler;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,7 +20,6 @@ public class CategoryRepository {
     public List<Category> getAll(){
         String sql = "select * from tblCategory";
         List<Category> list = new ArrayList<>();
-        
         try(PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)){
             try(ResultSet rs = stmt.executeQuery()){
                 while(rs.next()){
@@ -29,6 +27,24 @@ public class CategoryRepository {
                     c.setId(rs.getInt("category_id"));
                     c.setName(rs.getString("category_name"));
                     c.setIsActive(rs.getBoolean("category_is_active"));
+                    list.add(c);
+                }
+            }
+        }catch(Exception e){
+            System.out.println(e);
+        }
+        return list;
+    }
+    public List<Category> getAllActive(){
+        String sql = "select * from tblCategory where category_is_active=1";
+        List<Category> list = new ArrayList<>();
+        try(PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)){
+            try(ResultSet rs = stmt.executeQuery()){
+                while(rs.next()){
+                    Category c = new Category();
+                    c.setId(rs.getInt("category_id"));
+                    c.setName(rs.getString("category_name"));
+                    c.setIsActive(true);
                     list.add(c);
                 }
             }
@@ -85,6 +101,6 @@ public class CategoryRepository {
     
     public static void main(String[] args) {
         CategoryRepository cr = new CategoryRepository();
-        System.out.println(cr.getAll().get(0).getName());
+        System.out.println(cr.getAllActive().get(0).getName());
     }
 }

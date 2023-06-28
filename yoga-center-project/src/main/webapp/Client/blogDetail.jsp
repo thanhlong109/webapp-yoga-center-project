@@ -42,7 +42,7 @@
                     <div class="separate"></div>
   <!-- ------------------------------------- Comment -------------------------------------------------- -->
                     <div class="comment-area">
-                        <h2 class="comment-area-title">Comments (${totalComment})</h2>
+                        <h2 class="comment-area-title">Comments (<span id="total-cmt">${totalComment}</span>)</h2>
                         <div class="load-comment">
                             <c:forEach items="${commentList}" var="comment">
                                 <div class="user-comment-item">
@@ -125,8 +125,21 @@
                     url      : $(this).attr('action'),
                     data     : "action=comment&"+$(this).serialize(),
                     success  : function(data) {
-                        $('.load-comment').prepend(data);
-                    },error: function(xhr, textStatus, errorThrown) {
+                        if(data == 'account-failed'){
+                            toast({
+                                title:"Error!",
+                                msg:"Login to use this fuction!",
+                                type:'error',
+                                duration:5000   
+                            });
+                        }else{
+                            var tt = parseInt($('#total-cmt').text(),10) + 1;
+                            $('#total-cmt').html(tt);
+                            $('.load-comment').prepend(data);
+                        }
+                        
+                        
+                    },error: function(msg) {
                         toast({
                             title:"Error!",
                             msg:"Login to use this fuction!",
