@@ -31,12 +31,13 @@
                                 <th>Actions</th>
                             </tr>
                         <c:forEach items="${CATEGORY_LIST}" var="category">
+                        <%--    <c:if test="${category.isActive == true}">  --%>
                             <tr>
                                 <td>
-                                    ${category.id}
+                                    <c:out value="${category.id}"/>
                                 </td>
-                                <td>
-                                    ${category.name}
+                                <td>           
+                                    <c:out value="${category.name}"/>
                                 </td>
                                 <td>
                                     <input type="checkbox" name="isActived" value="ON" 
@@ -46,10 +47,13 @@
                                            />
                                 </td>
                                 <td>
-                                    <a class="btn btn-red" href="#delete">Detete</a> 
-                                    <a class="btn btn-green" href="#Edit">Edit</a> 
+                                    <a class="btn btn-red" href="deleteCategoryController?id=${category.id}">
+                                        Detete</a>
+                                    <a class="btn btn-green" href="updateCategoryController?id=${category.id}">
+                                        Edit</a> 
                                 </td>
                             </tr>
+                            <%-- </c:if> --%>
                         </c:forEach>
                     </table>
 

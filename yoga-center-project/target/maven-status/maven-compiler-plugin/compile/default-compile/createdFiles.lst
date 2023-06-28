@@ -5,6 +5,7 @@ com\yowu\yogacenter\model\RegistrationCourse$CourseStatus.class
 com\yowu\yogacenter\controller\admin\ViewMembershipListController.class
 com\yowu\yogacenter\repository\RoleRepository.class
 com\yowu\yogacenter\repository\CourseWishlistRepository.class
+com\yowu\yogacenter\controller\admin\UpdateCategoryController.class
 com\yowu\yogacenter\controller\client\UserProfileCourse$1.class
 com\yowu\yogacenter\repository\MembershipRepository.class
 com\yowu\yogacenter\repository\ClassScheduleRepository.class
@@ -60,5 +61,9 @@ com\yowu\yogacenter\controller\admin\ViewCourseTimeListController.class
 com\yowu\yogacenter\controller\client\UserProfileSetting.class
 com\yowu\yogacenter\model\CourseSchedule$DayOfWeek.class
 com\yowu\yogacenter\repository\PermissionRepository.class
+<<<<<<< HEAD
+=======
+com\yowu\yogacenter\controller\client\BlogHomeDetailController.class
+>>>>>>> fa39d7e158477d96055c017ebdea66c004c33bc7
 com\yowu\yogacenter\model\Blog.class
 com\yowu\yogacenter\model\Category.class
