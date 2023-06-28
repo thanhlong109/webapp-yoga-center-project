@@ -27,13 +27,27 @@ import java.util.Locale;
 public class BlogDetailController extends HttpServlet {
     private final String BLOG_DETAIL_PAGE = "Client/blogDetail.jsp";
     private final int NUM_LOAD = 6;
+    private final int MAX_NUM_LOAD_MORE = 15;
+    private final int NUM_LOAD_EACH_TIME = 3;
     
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try{
-            int blogId = Integer.parseInt(request.getParameter("blogid"));
+            // load for right blog bar
+            int max =0;
             BlogRepository br = new BlogRepository();
+            Account acc = (Account) request.getSession().getAttribute("account");
+            request.setAttribute("blogList", br.getAll());
+            if(acc!=null){
+                request.setAttribute("recentBlogList", br.getRecentBlog(0,NUM_LOAD_EACH_TIME,acc.getId()));
+                max = br.getTotalBlog(acc.getId());  
+                if(max>MAX_NUM_LOAD_MORE){
+                    max = MAX_NUM_LOAD_MORE;
+                }
+            }
+            // load for blog detail and comment
+            int blogId = Integer.parseInt(request.getParameter("blogid"));
             CommentRepository cr = new CommentRepository();
             int tt = cr.getTotalComment(blogId);
             List<Comment> commentList = cr.getRecentByBlogId(0,NUM_LOAD,blogId);
@@ -41,6 +55,7 @@ public class BlogDetailController extends HttpServlet {
             request.setAttribute("commentList", commentList );
             request.setAttribute("blog", blog);
             request.setAttribute("totalComment", tt);
+            request.setAttribute("maxLoadMore", max);
         }catch(Exception e){
             System.out.println(e);
         }

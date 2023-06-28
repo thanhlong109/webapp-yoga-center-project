@@ -438,7 +438,7 @@
                                      <a href="${pageContext.request.contextPath}/login">
                                         <p>Book now</p>
                                     </a>
-                                </c:if>   
+                                </c:if>
                                 <c:if test="${course.price<=0}">
                                     <a href="${pageContext.request.contextPath}/login">
                                       <p>Errol</p> 
@@ -535,8 +535,6 @@
                     $('.right-container li.time-' + id).show();
                     $('.right-container li.time-' + id).siblings().hide();
                 }
-
-<<<<<<< HEAD
                 function goto(url) {
                     window.window.location.href = "${pageContext.request.contextPath}/" + url;
                 }

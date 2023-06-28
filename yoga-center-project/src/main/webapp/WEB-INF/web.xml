@@ -69,7 +69,6 @@
         <servlet-class>com.yowu.yogacenter.controller.client.LoginGoogleController</servlet-class>
     </servlet>
     <servlet>
-<<<<<<< HEAD
         <servlet-name>CheckoutController</servlet-name>
         <servlet-class>com.yowu.yogacenter.controller.client.CheckoutController</servlet-class>
     </servlet>
@@ -84,7 +83,8 @@
     <servlet>
         <servlet-name>CheckoutSendController</servlet-name>
         <servlet-class>com.yowu.yogacenter.checkout.CheckoutSendController</servlet-class>
-=======
+    </servlet>
+    <servlet>
         <servlet-name>ViewCourseTimeListController</servlet-name>
         <servlet-class>com.yowu.yogacenter.controller.admin.ViewCourseTimeListController</servlet-class>
     </servlet>
@@ -95,7 +95,6 @@
     <servlet>
         <servlet-name>ViewMembershipListController</servlet-name>
         <servlet-class>com.yowu.yogacenter.controller.admin.ViewMembershipListController</servlet-class>
->>>>>>> origin/long2
     </servlet>
     <servlet-mapping>
         <servlet-name>UserProfileCourse</servlet-name>
@@ -166,7 +165,6 @@
         <url-pattern>/LoginWithGoogle</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-<<<<<<< HEAD
         <servlet-name>CheckoutController</servlet-name>
         <url-pattern>/Checkout</url-pattern>
     </servlet-mapping>
@@ -181,7 +179,8 @@
     <servlet-mapping>
         <servlet-name>CheckoutSendController</servlet-name>
         <url-pattern>/CheckoutSendController</url-pattern>
-=======
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>ViewCourseTimeListController</servlet-name>
         <url-pattern>/admin/viewCourseTimeListController</url-pattern>
     </servlet-mapping>
@@ -192,7 +191,6 @@
     <servlet-mapping>
         <servlet-name>ViewMembershipListController</servlet-name>
         <url-pattern>/admin/viewMembershipListController</url-pattern>
->>>>>>> origin/long2
     </servlet-mapping>
     <session-config>
         <session-timeout>

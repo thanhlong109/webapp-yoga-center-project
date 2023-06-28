@@ -236,7 +236,7 @@
                 position: absolute;
                 left: 16px
             }
-            
+
             .login-gg-box a{
                 color: #333;
                 text-decoration: none;
@@ -246,6 +246,10 @@
                 color: red; 
                 font-size: 15px;
             }
+
+            @media screen and (max-width:739px){
+               
+            }           
         </style>
     </head>
     <body>
@@ -322,17 +326,10 @@
                 <div class="slide-box ${type.equals("login")?"right":""}">
                     <div>
                         <h2>
-<<<<<<< HEAD
-                            Welcome To YOWU.
-                        </h2>
-                        <p class="slide-box-p1">
-                            Login and have a great experience
-=======
                             Welcome To Yowu.
                         </h2>
                         <p class="slide-box-p1">
                             Login and have a great booking experience
->>>>>>> origin/long2
                         </p>
                         <p class="slide-box-p2">
                             If you don't have acount before, please touch button below
@@ -389,11 +386,7 @@
                     changebtn.innerHTML = "Go to login";
                     slidebox.classList.remove("right");
                 } else {
-<<<<<<< HEAD
-                    slideboxp1.innerHTML = "Login and have a great experience";
-=======
                     slideboxp1.innerHTML = "Login and have a great booking experience";
->>>>>>> origin/long2
                     slideboxp2.innerHTML = "If you don't have acount before, please touch button below";
                     changebtn.innerHTML = "Create new Account";
                     slidebox.classList.add("right");
@@ -405,11 +398,8 @@
             function fill() {
 
                 if ($('.slide-box').hasClass('right')) {
-<<<<<<< HEAD
-                    $('.slide-box-p1').html("Login and have a great experience");
-=======
                     $('.slide-box-p1').html("Login and have a great booking experience");
->>>>>>> origin/long2
+
                     $('.slide-box-p2').html("If you don't have acount before, please touch button below");
                     $('#change').html('Create new Account');
                 } else {
