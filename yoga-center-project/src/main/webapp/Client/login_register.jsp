@@ -302,7 +302,9 @@
                         <div class="check">
                             <input onchange="show()" type="checkbox" id="passwordShow" class="show">
                             <label for="passwordShow">Show</label>
-
+                        </div>
+                        <div class="reset-password">
+                            <a href="Client/forgetPassword.jsp"> Forgot Password? </a>
                         </div>
                         <div class="center">
                             <button class="btn-login" type="submit">
