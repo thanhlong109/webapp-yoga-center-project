@@ -51,9 +51,12 @@
                                     ${courseTime.endTime}
                                 </td>                                                 
                                 <td>
-                                    <a class="btn btn-red" href="#delete">Detete</a> 
-                                    <a class="btn btn-green" href="updateCourseTimeController?id=${courseTime.id}">
-                                        Edit</a> 
+                                    <a class="btn btn-red" href="deleteCourseController?id=${courseTime.id}">
+                                        Detete
+                                    </a> 
+                                    <a class="btn btn-green" href="updateCourseScheduleController?id=${courseTime.id}">
+                                        Edit
+                                    </a> 
                                 </td>
                             </tr>
                             </c:if>
