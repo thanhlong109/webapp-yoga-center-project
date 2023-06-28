@@ -16,6 +16,12 @@
         <link rel="stylesheet" href="../Asset/css/dashboard.css">
         <link rel="stylesheet" href="../Asset/css/adminCommon.css">
         <script src="../js/cdnjs.cloudflare.com_ajax_libs_Chart.js_2.4.0_Chart.min.js"></script>
+        <style>
+            img{
+                width: 200px;
+                height: 200px;
+            }
+        </style>
     </head>
     <body>
         <div class="container">
@@ -50,7 +56,7 @@
                                     <c:out value="${course.duration}" />                                    
                                 </td>
                                 <td>
-                                    <img src="Asset/img/classes/${course.img}" alt="img">
+                                    <img src="../Asset/img/classes/${course.img}" alt="img">
                                 </td>
                                 <td>
                                     <c:out value="${course.category.id}" />                                   

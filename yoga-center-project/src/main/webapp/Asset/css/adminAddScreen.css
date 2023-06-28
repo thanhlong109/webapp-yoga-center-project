@@ -86,7 +86,7 @@ button#btn__Reset{
     background: red;
 }
 button#btn__Add:hover{
- opacity: 0.65;   
+    opacity: 0.65;
 }
 button#btn__Reset:hover{
     opacity: 0.5;
