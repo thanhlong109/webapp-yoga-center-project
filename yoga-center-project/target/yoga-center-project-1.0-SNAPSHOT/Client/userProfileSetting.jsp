@@ -237,7 +237,7 @@
                     margin-top: 64px;
                 }
                 form{
-                    min-width: none;
+                    min-width: 0px;
                 }
 
             }

@@ -235,12 +235,14 @@
                 position: absolute;
                 left: 16px
             }
-            
-            
             .login-gg-box a{
                 color: #333;
                 text-decoration: none;
             }
+            @media screen and (max-width:739px){
+                
+            }
+            
         </style>
     </head>
     <body>

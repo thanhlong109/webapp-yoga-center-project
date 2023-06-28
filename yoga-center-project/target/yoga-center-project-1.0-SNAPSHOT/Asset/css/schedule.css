@@ -76,6 +76,9 @@ body{
     margin: 32px auto;
     padding-bottom: 32px;
 }
+.wrapper-table::-webkit-scrollbar{
+    display: none;
+}
 
 table{
     border-collapse: collapse;
@@ -154,6 +157,22 @@ tr:nth-child(odd) .hide{
 }
 tr:nth-child(even) .hide{
     background-color: #f9f9f9;
+}
+.noice-empty{
+    display: flex;
+    margin: auto;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: #e6e6e6;
+    border-radius: 16px;
+    padding: 34px 50px;
+    color: #4e4e4e;
+    pointer-events: none;
+}
+.noice-empty img{
+    height: 75px;
+    width: 75px;
 }
 
 

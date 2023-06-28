@@ -9,6 +9,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
         <style>
             body{
                 font-family: 'Jost', sans-serif;
@@ -113,6 +114,17 @@
             @keyframes fadeOut{
                 to{
                     opacity: 0;
+                }
+            }
+            @media screen and (max-width:739px){
+                #toast{
+                    right: 10px;
+                    
+                }
+                .toast{
+                    min-width: 100px;
+                    max-width: 350px;
+                    padding: 0;
                 }
             }
         </style>
