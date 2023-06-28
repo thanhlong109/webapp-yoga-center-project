@@ -11,6 +11,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
         <title>User profile</title>
         <link rel="stylesheet" href="../Asset/css/clientHeader.css">
         <link rel="stylesheet" href="../Asset/css/clientFooter.css">
@@ -245,7 +246,7 @@
                             </div>
                         </c:if>
                          <c:if test="${listRegistrationCourse==null || listRegistrationCourse.size() lt 1}">
-                                <div class="noice-empty">
+                                <div class="noice-empty" style="margin-top: 20px">
                                     <img src="../Asset/img/icon/empty.png" alt="">
                                     <h4>Empty!</h4>
                                 </div>

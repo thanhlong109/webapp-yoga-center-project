@@ -40,7 +40,7 @@
                         </div>
                     </div>
                     <div class="separate"></div>
-  <!-- ------------------------------------- Comment -------------------------------------------------- -->
+  <!-- ------------------------------------- Start Comment -------------------------------------------------- -->
                     <div class="comment-area">
                         <h2 class="comment-area-title">Comments (<span id="total-cmt">${totalComment}</span>)</h2>
                         <div class="load-comment">
@@ -50,7 +50,7 @@
                                         <img src="Asset/img/avatar/${comment.account.img}" alt="">
                                     </div>
                                     <div class="comment-info">
-                                        <div>
+                                        <div class="comment-time-wrapper">
                                             <h4 class="user-comment-name">${comment.account.name}</h4>
                                             <p class="user-comment-date"><i class="fa-regular fa-clock"></i> <fmt:formatDate value="${comment.date}" pattern="MMMM d, yyyy" /> at <fmt:formatDate value="${comment.date}" pattern="hh:mm:ss a" /></p>
                                         </div>
@@ -67,56 +67,14 @@
                             <button name="action" value="comment" type="submit">Post</button>
                         </form>
                     </div>
+   <!-- ------------------------------------- End Comment -------------------------------------------------- -->
                 </div>
-                <div class="right-container">
-                    <div class="box-section">
-                        <h2 class="box-title">Text Widget</h2>
-                        <p class="text" >A wonderful serenity has taken possession of my entire soul, like these sweet mornings of spring which I enjoy with my whole heart. I am alone, and feel the charm of existence in this spot.</p>
-                    </div>
-                    <div class="box-section">
-                        <h2 class="box-title">Recent Articles</h2>
-                        <div class="small-blog-item">
-                            <div class="small-blog-item-img">
-                                <img src="Asset/img/blog/shutterstock_1371365435-1100x490.jpg" alt="">
-                            </div>
-                            <div>
-                                <a>Is Information Overload Making it Harder to be Happy?</a>
-                                <div class="small-blog-item-info">
-                                    <div><i class="fa-regular fa-clock"></i> July 31, 2020</div>
-                                    <div><i class="fa-solid fa-pen"></i> James Smith</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="small-blog-item">
-                            <div class="small-blog-item-img">
-                                <img src="Asset/img/blog/shutterstock_1371365435-1100x490.jpg" alt="">
-                            </div>
-                            <div>
-                                <a>Is Information Overload Making it Harder to be Happy?</a>
-                                <div class="small-blog-item-info">
-                                    <div><i class="fa-regular fa-clock"></i> July 31, 2020</div>
-                                    <div><i class="fa-solid fa-pen"></i> James Smith</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="small-blog-item">
-                            <div class="small-blog-item-img">
-                                <img src="Asset/img/blog/shutterstock_1371365435-1100x490.jpg" alt="">
-                            </div>
-                            <div>
-                                <a>Is Information Overload Making it Harder to be Happy?</a>
-                                <div class="small-blog-item-info">
-                                    <div><i class="fa-regular fa-clock"></i> July 31, 2020</div>
-                                    <div><i class="fa-solid fa-pen"></i> James Smith</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <%@include file="../Component/rightBarBlog.jsp" %>
             </div>
         <jsp:include page="../Component/footer.jsp"></jsp:include>
         <%@include file="../Component/toast.jsp" %>
         <script>
+            //this is comment progress
             $('.user-comment').on('submit',function (e){
                 e.preventDefault();
                 $.ajax({
@@ -125,7 +83,6 @@
                     url      : $(this).attr('action'),
                     data     : "action=comment&"+$(this).serialize(),
                     success  : function(data) {
-                        $('.load-comment').prepend(data);
                         if(data == 'account-failed'){
                             toast({
                                 title:"Error!",
@@ -136,9 +93,8 @@
                         }else{
                             var tt = parseInt($('#total-cmt').text(),10) + 1;
                             $('#total-cmt').html(tt);
-                        }
-                        
-                        
+                            $('.load-comment').prepend(data);
+                        }  
                     },error: function(msg) {
                         toast({
                             title:"Error!",
@@ -150,6 +106,7 @@
                 });
 
             });
+            //
         </script>
     </body>
 </html>

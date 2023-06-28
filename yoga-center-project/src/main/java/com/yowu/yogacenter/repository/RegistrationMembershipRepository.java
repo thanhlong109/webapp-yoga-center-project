@@ -30,7 +30,7 @@ public class RegistrationMembershipRepository {
                     c.setMembership(mb.detail(rs.getInt("membership_id")));
                     c.setAccount(acc.detail(rs.getInt("account_id")));
                     c.setRegistrationDate(rs.getDate("registration_date"));
-                    c.setExpirationDate(rs.getDate("expiration_date"));
+                    c.setExpirationDate(rs.getDate("expriration_date"));
                     list.add(c);
                 }
             }
@@ -41,7 +41,7 @@ public class RegistrationMembershipRepository {
     }
 
     public RegistrationMembership detail(int id) {
-        String sql = "select * from tblRegistrationMembership where membership_id=? ";
+        String sql = "select * from tblRegistrationMembership where account_id=? ";
         try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
             stmt.setInt(1, id);
             try ( ResultSet rs = stmt.executeQuery()) {
@@ -52,7 +52,7 @@ public class RegistrationMembershipRepository {
                     c.setMembership(mb.detail(rs.getInt("membership_id")));
                     c.setAccount(acc.detail(rs.getInt("account_id")));
                     c.setRegistrationDate(rs.getDate("registration_date"));
-                    c.setExpirationDate(rs.getDate("expiration_date"));
+                    c.setExpirationDate(rs.getDate("expriration_date"));
                     return c;
                 }
             }
@@ -64,7 +64,7 @@ public class RegistrationMembershipRepository {
 
     public boolean add(RegistrationMembership registrationMembership) {
         String sql = "INSERT INTO tblRegistrationMembership "
-                + "(membership_id, account_id, registration_date, expiration_date)"
+                + "(membership_id, account_id, registration_date, expriration_date)"
                 + "VALUES (?, ?, ?, ?)";
         int status = 0;
 
@@ -84,7 +84,7 @@ public class RegistrationMembershipRepository {
 
     public boolean update(RegistrationMembership registrationMembership) {
         String sql = "UPDATE tblRegistrationMembership SET account_id = ?, "
-                + "registration_date = ?, expiration_date = ? "
+                + "registration_date = ?, expriration_date = ? "
                 + "WHERE membership_id = ?";
         int status = 0;
 
@@ -101,4 +101,20 @@ public class RegistrationMembershipRepository {
 
         return status == 1;
     }
+    public static void main(String[] args) {
+    RegistrationMembershipRepository repository = new RegistrationMembershipRepository();
+    int account = 2;
+
+    RegistrationMembership registrationMembership = repository.detail(account);
+
+    if (registrationMembership != null) {
+        System.out.println("Membership ID: " + registrationMembership.getMembership().getId());
+        System.out.println("Account ID: " + registrationMembership.getAccount().getId());
+        System.out.println("Registration Date: " + registrationMembership.getRegistrationDate());
+        System.out.println("Expiration Date: " + registrationMembership.getExpirationDate());
+    } else {
+        System.out.println("RegistrationMembership not found!");
+    }
+}
+
 }

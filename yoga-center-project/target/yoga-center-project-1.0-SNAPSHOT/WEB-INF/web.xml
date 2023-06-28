@@ -61,16 +61,28 @@
         <servlet-class>com.yowu.yogacenter.controller.client.BlogDetailController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>LoginGoogleHandler</servlet-name>
-        <servlet-class>com.yowu.yogacenter.controller.client.LoginGoogleHandler</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>LogoutController</servlet-name>
         <servlet-class>com.yowu.yogacenter.controller.client.LogoutController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>LoginGoogleController</servlet-name>
         <servlet-class>com.yowu.yogacenter.controller.client.LoginGoogleController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CheckoutController</servlet-name>
+        <servlet-class>com.yowu.yogacenter.controller.client.CheckoutController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AuthorizePaymentController</servlet-name>
+        <servlet-class>com.yowu.yogacenter.checkout.AuthorizePaymentController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CheckoutResultController</servlet-name>
+        <servlet-class>com.yowu.yogacenter.checkout.CheckoutResultController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CheckoutSendController</servlet-name>
+        <servlet-class>com.yowu.yogacenter.checkout.CheckoutSendController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ViewCourseTimeListController</servlet-name>
@@ -83,6 +95,30 @@
     <servlet>
         <servlet-name>ViewMembershipListController</servlet-name>
         <servlet-class>com.yowu.yogacenter.controller.admin.ViewMembershipListController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateCategoryController</servlet-name>
+        <servlet-class>com.yowu.yogacenter.controller.admin.UpdateCategoryController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteCategoryController</servlet-name>
+        <servlet-class>com.yowu.yogacenter.controller.admin.DeleteCategoryController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddCategoryController</servlet-name>
+        <servlet-class>com.yowu.yogacenter.controller.admin.AddCategoryController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateCourseController</servlet-name>
+        <servlet-class>com.yowu.yogacenter.controller.admin.UpdateCourseController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteCourseController</servlet-name>
+        <servlet-class>com.yowu.yogacenter.controller.admin.DeleteCourseController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateCourseScheduleController</servlet-name>
+        <servlet-class>com.yowu.yogacenter.controller.admin.UpdateCourseScheduleController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>UserProfileCourse</servlet-name>
@@ -153,6 +189,22 @@
         <url-pattern>/LoginWithGoogle</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+        <servlet-name>CheckoutController</servlet-name>
+        <url-pattern>/Checkout</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AuthorizePaymentController</servlet-name>
+        <url-pattern>/authorize_payment</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CheckoutResultController</servlet-name>
+        <url-pattern>/CheckoutResult</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CheckoutSendController</servlet-name>
+        <url-pattern>/CheckoutSendController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>ViewCourseTimeListController</servlet-name>
         <url-pattern>/admin/viewCourseTimeListController</url-pattern>
     </servlet-mapping>
@@ -163,6 +215,30 @@
     <servlet-mapping>
         <servlet-name>ViewMembershipListController</servlet-name>
         <url-pattern>/admin/viewMembershipListController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateCategoryController</servlet-name>
+        <url-pattern>/admin/updateCategoryController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteCategoryController</servlet-name>
+        <url-pattern>/admin/deleteCategoryController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddCategoryController</servlet-name>
+        <url-pattern>/admin/addCategoryController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateCourseController</servlet-name>
+        <url-pattern>/admin/updateCourseController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteCourseController</servlet-name>
+        <url-pattern>/admin/deleteCourseController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateCourseScheduleController</servlet-name>
+        <url-pattern>/admin/updateCourseScheduleController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -11,6 +11,7 @@
 <html>
     <head>
         <title>User profile</title>
+        <meta name="viewport" content="width=device-width,initial-scale=1">
         <link rel="stylesheet" href="../Asset/css/clientHeader.css">
         <link rel="stylesheet" href="../Asset/css/clientFooter.css">
         <link rel="stylesheet" href="../Asset/css/common.css">
@@ -180,24 +181,21 @@
                    flex-direction: column;
                }
                .user-nav{
-                   flex-direction: row;
-                   width: fit-content;
-               }
-               .user-nav li{
-                   width: fit-content;
-                   display: flex;
-                   height: fit-content;
-               }
-               .user-nav a{
-                   margin-left: 0; 
-                   text-align: center;
-                   display: flex;
-                   flex-direction: column;
-                   padding: 4px;
-               }
-               .user-nav a i{
-                   margin-right: 0;
-               }
+                    flex-direction: row;
+                    width: 100%;
+                }
+                .user-nav li{
+                    width: fit-content;
+                    display: flex;
+                    height: fit-content;
+                }
+                .user-nav a{
+                    margin-left: 0; 
+                    text-align: center; 
+                }
+                .user-nav a i{
+                    margin-right: 0;
+                }
 
                .user-content{
                    padding: 0;

@@ -136,6 +136,14 @@
     flex-direction: column;
     gap: 20px;
 }
+.box-container{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.load-more{
+    cursor: pointer;
+}
 .box-title{
     font-size: 20px;
     color: #383838;
@@ -159,10 +167,11 @@
     max-height: 75px;
     min-width: 75px;
     min-height: 75px;
+    border: 1px solid #999;
 }
 .small-blog-item-img img{
-    height: 100%;
-    display: block;
+   height: 100%;
+   display: block;
 }
 .small-blog-item-info{
     display: flex;
@@ -170,5 +179,103 @@
     font-size: 14px;
     margin-top: 8px;
     gap: 16px;
+}
+.btnShowRight{
+    display: none;
+}
+.noice-empty{
+    display: flex;
+    margin: auto;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: #e6e6e6;
+    border-radius: 16px;
+    padding: 34px 50px;
+}
+.noice-empty img{
+    height: 75px;
+    width: 75px;
+}
+.noice-empty h4{
+    color: #555;
+    font-weight: 500;
+}
+@media screen and (max-width:739px) {
+    .left-container{
+        gap: 32px;
+    }
+    .container{
+        gap:16px;
+        padding: 32px 12px;
+        grid-template-columns: 1fr;
+    }
+    .blog-item-body{
+        padding: 45px 10px;
+    }
+    .blog-item-title{
+        font-size: 20px;
+    }
+    .blog-item-date{
+        font-size: 14px;
+        padding: 6px 18px;
+        transform: translate(10%,-50%);
+    }
+
+    .post-blog-container{
+        max-width: 90%;
+        padding: 32px 10px;
+    }
+    .right-container{
+        position: fixed;
+        left: 100%;
+        top: 130px;
+        right: 0;
+        bottom: 0;
+        background-color: white;
+        padding: 0;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
+        overflow: hidden;
+        transition: all ease-in-out .4s;
+    }
+    .right-container.active{
+        padding: 20px;
+        left: 0;
+        overflow-y: scroll;
+    }
+    .btnShowRight{
+        position: fixed;
+        display: block;
+        top:30%;
+        right: 16px;
+        background-color: white;
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        color: black;
+        border: 1px solid #383838;
+        text-align: center;
+        line-height: 32px;
+        cursor: pointer;
+        transition: all ease-in-out .3s;
+    }
+    .user-comment-avata{
+        max-width: 50px;
+        max-height: 50px;
+        min-width: 50px;
+        min-height: 50px;
+    }
+    .comment-time-wrapper{
+        flex-direction: column;
+    }
+    .comment-area-title{
+        font-size: 20px;
+    }
+    .user-comment-name{
+        font-size: 15px;
+    }
+    .user-comment-date{
+        font-size: 12px;
+    }
 }
 

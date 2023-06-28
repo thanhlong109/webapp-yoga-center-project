@@ -30,10 +30,10 @@
                                 <th>Date of Week</th>
                                 <th>Start Time</th>
                                 <th>End Time</th>
-                                <th>Is Active</th>
                                 <th>Actions</th>
                             </tr>
                         <c:forEach items="${COURSE_TIME_LIST}" var="courseTime">
+                            <c:if test="${courseTime.isActive == true}">
                             <tr>
                                 <td>
                                     ${courseTime.id}
@@ -51,17 +51,12 @@
                                     ${courseTime.endTime}
                                 </td>                                                 
                                 <td>
-                                    <input type="checkbox" name="isActived" value="ON" 
-                                           <c:if test="${courseTime.isActive}"> 
-                                               checked="checked"
-                                           </c:if>
-                                           />
-                                </td>
-                                <td>
                                     <a class="btn btn-red" href="#delete">Detete</a> 
-                                    <a class="btn btn-green" href="#Edit">Edit</a> 
+                                    <a class="btn btn-green" href="updateCourseTimeController?id=${courseTime.id}">
+                                        Edit</a> 
                                 </td>
                             </tr>
+                            </c:if>
                         </c:forEach>
                     </table>
 

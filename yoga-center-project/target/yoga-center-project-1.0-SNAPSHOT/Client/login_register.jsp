@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="jakarta.tags.core" %>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -29,14 +30,14 @@
             .main{
                 background-color: #f3e0e2;
                 width: 100vw;
-                height: 120vh;
+                height: 140vh;
             }
             .box{
                 display: flex;
                 position: relative;
-                top: 50%;
+                top:0;
                 left: 50%;
-                transform: translate(-50%,-50%);
+                transform: translate(-50%,150px);
                 width: 700px;
                 background: linear-gradient(90deg,#ff464b,#ff416b);
                 border-radius: 10px;
@@ -211,6 +212,7 @@
                 text-transform: uppercase;
                 font-size: .75rem;
             }
+
             .login-btn-gg{
                 background-color: white;
                 display: flex;
@@ -235,12 +237,50 @@
                 position: absolute;
                 left: 16px
             }
-            
-            
+
             .login-gg-box a{
                 color: #333;
                 text-decoration: none;
             }
+            .trans-btn{
+                display: none;
+                margin-top: 16px;
+                text-align: center;
+                text-decoration: underline;
+                font-size: 14px;
+                color: #333;
+            }
+            @media screen and (max-width:739px){
+                .box{
+                    width: 90%;
+                }
+                .login-box{
+                    border-radius: 10px;
+                    display: none;
+                }
+                .signup-box{
+                    border-radius: 10px;
+                    display: none;
+                    padding: 50px 10px;
+                }
+                .slide-box{
+                    display: none;
+                }
+                .trans-btn{
+                    display: block;
+                }
+                .show{
+                    display: block;
+                }
+            } 
+            .error{
+                color: red; 
+                font-size: 15px;
+            }
+
+            @media screen and (max-width:739px){
+               
+            }           
         </style>
     </head>
     <body>
@@ -257,12 +297,14 @@
                             <div class="user-box">
                                 <input class="pass" type="password" name="password" required>
                                 <label>Password</label>
-                                <p class="note-login">${errLogin}</p>
+                                <p class="note-login error" >${errLogin}</p>
                         </div>
                         <div class="check">
                             <input onchange="show()" type="checkbox" id="passwordShow" class="show">
                             <label for="passwordShow">Show</label>
-
+                        </div>
+                        <div class="reset-password">
+                            <a href="Client/forgetPassword.jsp"> Forgot Password? </a>
                         </div>
                         <div class="center">
                             <button class="btn-login" type="submit">
@@ -280,7 +322,7 @@
                                                &client_id=261325477127-aarmd5ktdhfilg620o9ue7pft00qf0nk.apps.googleusercontent.com&approval_prompt=force"> <img src="./Asset/img/logo/Google_Logo.png" alt=""> Login With Google</a>
                             </div>
                         </form>
-                    </form>
+                        <div class='trans-btn' >Create New Account </div>
                 </div>
                 <div class="signup-box">
                     <h2>SignUp</h2>
@@ -291,7 +333,7 @@
                             <span><p class="error">${USER_ERROR.fullNameError}</p></span>
                         </div>
                         <div class="user-box">
-                            <input class="email" type="text" name="email" required>
+                            <input class="email" type="email" name="email" required>
                             <label>Email</label>
                             <span><p class="error">${errLEmail}</p></span>
                         </div>
@@ -302,7 +344,7 @@
                         <div class="user-box">
                             <input class="pass2" type="password" onchange="checkPass()" required>
                             <label>Retype Password</label>
-                            <p class="note-signup">${errSignup}</p>
+                            <p class="note-signup error">${errSignup}</p>
                         </div>
                         <div class="captcha" id="html_element"></div>
                         <div id="error" style="color: red; font-size: 15px;"></div>
@@ -311,16 +353,16 @@
                                 Signup
                             </button>     
                         </div>
-
+                        <div class='trans-btn' >Go To Login </div>
                     </form>
                 </div>
                 <div class="slide-box ${type.equals("login")?"right":""}">
                     <div>
                         <h2>
-                            Welcome To My Site
+                            Welcome To Yowu.
                         </h2>
                         <p class="slide-box-p1">
-                            Login and have a great shopping experience
+                            Login and have a great booking experience
                         </p>
                         <p class="slide-box-p2">
                             If you don't have acount before, please touch button below
@@ -377,7 +419,7 @@
                     changebtn.innerHTML = "Go to login";
                     slidebox.classList.remove("right");
                 } else {
-                    slideboxp1.innerHTML = "Login and have a great shopping experience";
+                    slideboxp1.innerHTML = "Login and have a great booking experience";
                     slideboxp2.innerHTML = "If you don't have acount before, please touch button below";
                     changebtn.innerHTML = "Create new Account";
                     slidebox.classList.add("right");
@@ -389,7 +431,8 @@
             function fill() {
 
                 if ($('.slide-box').hasClass('right')) {
-                    $('.slide-box-p1').html("Login and have a great shopping experience");
+                    $('.slide-box-p1').html("Login and have a great booking experience");
+
                     $('.slide-box-p2').html("If you don't have acount before, please touch button below");
                     $('#change').html('Create new Account');
                 } else {
@@ -399,6 +442,21 @@
                 }
 
             }
+            
+            /*for mobile ui*/
+            $(document).ready(function (){
+                if(currentPathName=='/login'){
+                    $('.login-box').addClass('show');
+                    $('.signup-box').removeClass('show');
+                }else{
+                    $('.login-box').removeClass('show');
+                    $('.signup-box').addClass('show');
+                }
+                $('.trans-btn').click(function(){
+                    $('.login-box').toggleClass("show");
+                    $('.signup-box').toggleClass("show");
+                });
+            });
 
         </script>
         <script src="https://www.google.com/recaptcha/api.js" async defer></script>

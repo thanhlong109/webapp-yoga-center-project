@@ -34,7 +34,7 @@
                     <ul class="sub-nav-2 show">
                         <li class="active"><a href="<c:url value="/admin/categoryListController"/>">
                                 View All & Edit Category</a></li>
-                        <li><a href="#">
+                        <li><a href="../Admin/AddCategory.jsp">
                                 Add New Category</a></li>
                         <li><a href="<c:url value="/admin/viewCourseListController"/>">
                                 View All & Edit Course</a></li>

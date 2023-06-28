@@ -14,6 +14,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -27,6 +28,9 @@ public class UserProfileBooking extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         Account acc = (Account)request.getSession().getAttribute("account");
+        AccountRepository ar = new AccountRepository();
+        request.setAttribute("account", ar.detail(acc.getId()));
+
         try{
             BillRepository bRepo = new BillRepository();
             List<Bill> list=null;

@@ -1,0 +1,93 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : Jun 26, 2023, 9:54:08 AM
+    Author     : DungVNT
+*/
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    font-family: 'Jost', sans-serif;
+    font-size: 17px;
+}
+#wrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+}
+form{
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.25);
+    border-radius: 8px;
+    padding: 40px;
+}
+h3{
+    text-align: center;
+    font-size: 24px;
+    font-weight: 500;
+    margin-bottom: 15px;
+    color: #202124;
+}
+.input__group{
+    margin-bottom: 15px;
+    position: relative;
+}
+input{
+    height: 50px;
+    width: 300px;
+    outline: none;
+    border: 1px solid #dadce0;
+    padding: 10px;
+    border-radius: 8px;
+    font-size: inherit;
+    color: #202124;
+    transition: all 0.3s ease-in-out;
+}
+label{
+    position: absolute;
+    padding: 0px 5px;
+    left: 5%;
+    top: 50%;
+    transform: translateY(-50%);
+    background: #fff;
+    pointer-events: none;
+    /* thuộc tính giúp bấm vào label vẫn focus đc */
+    transition: all 0.3s ease-in-out;
+}
+.input__group input:focus + label, .input__group input:valid + label{
+    top: 0px;
+    font-size: 13px;
+    font-weight: 500;
+    color: #1bc888;
+}
+/* lớp giả valid + required giúp chúng ta setup khi có dữ liệu thì
+khi chữ đc focus sẽ kh còn bị nhảy xuống nếu ta bấm ra ngoài  */
+.input__group input:focus{
+    border: 2px solid #1bc888;
+}
+button{
+    height: 50px;
+    width: 150px;
+    border: none;
+    border-radius: 8px;
+    color: #fff;
+    font-size: 17px;
+    cursor: pointer;
+}
+button#btn__Add{
+    background: #1bc888;
+}
+button#btn__Reset{
+    background: red;
+}
+button#btn__Add:hover{
+    opacity: 0.65;
+}
+button#btn__Reset:hover{
+    opacity: 0.5;
+}
