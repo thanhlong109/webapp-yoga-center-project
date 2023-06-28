@@ -4,6 +4,7 @@ com\yowu\yogacenter\controller\client\UserProfileWishlist.class
 com\yowu\yogacenter\model\RegistrationCourse$CourseStatus.class
 com\yowu\yogacenter\controller\admin\ViewMembershipListController.class
 com\yowu\yogacenter\repository\RoleRepository.class
+com\yowu\yogacenter\checkout\CheckoutSendController.class
 com\yowu\yogacenter\repository\CourseWishlistRepository.class
 com\yowu\yogacenter\controller\client\UserProfileCourse$1.class
 com\yowu\yogacenter\repository\MembershipRepository.class
@@ -11,7 +12,9 @@ com\yowu\yogacenter\repository\ClassScheduleRepository.class
 com\yowu\yogacenter\model\Comment.class
 com\yowu\yogacenter\model\GoogleUtils.class
 com\yowu\yogacenter\repository\CourseRepository.class
+com\yowu\yogacenter\checkout\Config.class
 com\yowu\yogacenter\repository\RatingCourseRepository.class
+com\yowu\yogacenter\checkout\CheckoutResultController.class
 com\yowu\yogacenter\model\RegistrationCourse.class
 com\yowu\yogacenter\controller\client\LoginController.class
 com\yowu\yogacenter\model\RatingCourse.class
@@ -20,6 +23,7 @@ com\yowu\yogacenter\model\Permission.class
 com\yowu\yogacenter\repository\BillRepository.class
 com\yowu\yogacenter\model\Bill.class
 com\yowu\yogacenter\repository\RegistrationCourseRepository.class
+com\yowu\yogacenter\checkout\PaymentDTO.class
 com\yowu\yogacenter\controller\admin\ViewCategoryListController.class
 com\yowu\yogacenter\controller\client\LogoutController.class
 com\yowu\yogacenter\model\RegistrationMembership.class
@@ -43,7 +47,9 @@ com\yowu\yogacenter\repository\BlogRepository.class
 com\yowu\yogacenter\controller\client\LoginGoogleController.class
 com\yowu\yogacenter\controller\admin\ViewAccountListController.class
 com\yowu\yogacenter\model\CourseWishlist.class
+com\yowu\yogacenter\controller\client\CheckoutController.class
 com\yowu\yogacenter\repository\CategoryRepository.class
+.netbeans_automatic_build
 com\yowu\yogacenter\controller\admin\ViewCourseListController.class
 com\yowu\yogacenter\repository\RoleHasPermissionRepository.class
 com\yowu\yogacenter\model\CourseSchedule.class

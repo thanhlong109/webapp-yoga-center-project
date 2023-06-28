@@ -41,13 +41,13 @@ public class RegisterAccountController extends HttpServlet {
             String email = request.getParameter("email");
             String password = request.getParameter("password");
 
-            if (username.length() < 5 || username.length() > 20) {
-                accError.setFullNameError("Full name must be 5 - 20 charaters");
+            if (username.length() < 5 || username.length() > 30) {
+                accError.setFullNameError("Username must be 5 - 30 charaters");
                 checkValidation = false;
             }
             boolean checkDuplicate = dao.checkDuplicate(email);
             if (checkDuplicate) {
-                request.setAttribute("errLEmail", "E-mail already valid!!!");
+                request.setAttribute("errLEmail", "E-mail already existed!!!");
                 checkValidation = false;
             }
             if (checkValidation) {

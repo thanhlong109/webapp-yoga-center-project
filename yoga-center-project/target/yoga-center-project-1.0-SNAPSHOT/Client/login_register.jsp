@@ -212,6 +212,7 @@
                 text-transform: uppercase;
                 font-size: .75rem;
             }
+
             .login-btn-gg{
                 background-color: white;
                 display: flex;
@@ -236,6 +237,7 @@
                 position: absolute;
                 left: 16px
             }
+
             .login-gg-box a{
                 color: #333;
                 text-decoration: none;
@@ -270,8 +272,15 @@
                 .show{
                     display: block;
                 }
+            } 
+            .error{
+                color: red; 
+                font-size: 15px;
             }
-            
+
+            @media screen and (max-width:739px){
+               
+            }           
         </style>
     </head>
     <body>
@@ -288,7 +297,7 @@
                             <div class="user-box">
                                 <input class="pass" type="password" name="password" required>
                                 <label>Password</label>
-                                <p class="note-login">${errLogin}</p>
+                                <p class="note-login error" >${errLogin}</p>
                         </div>
                         <div class="check">
                             <input onchange="show()" type="checkbox" id="passwordShow" class="show">
@@ -322,7 +331,7 @@
                             <span><p class="error">${USER_ERROR.fullNameError}</p></span>
                         </div>
                         <div class="user-box">
-                            <input class="email" type="text" name="email" required>
+                            <input class="email" type="email" name="email" required>
                             <label>Email</label>
                             <span><p class="error">${errLEmail}</p></span>
                         </div>
@@ -333,7 +342,7 @@
                         <div class="user-box">
                             <input class="pass2" type="password" onchange="checkPass()" required>
                             <label>Retype Password</label>
-                            <p class="note-signup">${errSignup}</p>
+                            <p class="note-signup error">${errSignup}</p>
                         </div>
                         <div class="captcha" id="html_element"></div>
                         <div id="error" style="color: red; font-size: 15px;"></div>
@@ -421,6 +430,7 @@
 
                 if ($('.slide-box').hasClass('right')) {
                     $('.slide-box-p1').html("Login and have a great booking experience");
+
                     $('.slide-box-p2').html("If you don't have acount before, please touch button below");
                     $('#change').html('Create new Account');
                 } else {

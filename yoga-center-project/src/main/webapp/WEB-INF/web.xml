@@ -61,16 +61,28 @@
         <servlet-class>com.yowu.yogacenter.controller.client.BlogDetailController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>LoginGoogleHandler</servlet-name>
-        <servlet-class>com.yowu.yogacenter.controller.client.LoginGoogleHandler</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>LogoutController</servlet-name>
         <servlet-class>com.yowu.yogacenter.controller.client.LogoutController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>LoginGoogleController</servlet-name>
         <servlet-class>com.yowu.yogacenter.controller.client.LoginGoogleController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CheckoutController</servlet-name>
+        <servlet-class>com.yowu.yogacenter.controller.client.CheckoutController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AuthorizePaymentController</servlet-name>
+        <servlet-class>com.yowu.yogacenter.checkout.AuthorizePaymentController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CheckoutResultController</servlet-name>
+        <servlet-class>com.yowu.yogacenter.checkout.CheckoutResultController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CheckoutSendController</servlet-name>
+        <servlet-class>com.yowu.yogacenter.checkout.CheckoutSendController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ViewCourseTimeListController</servlet-name>
@@ -151,6 +163,22 @@
     <servlet-mapping>
         <servlet-name>LoginGoogleController</servlet-name>
         <url-pattern>/LoginWithGoogle</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CheckoutController</servlet-name>
+        <url-pattern>/Checkout</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AuthorizePaymentController</servlet-name>
+        <url-pattern>/authorize_payment</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CheckoutResultController</servlet-name>
+        <url-pattern>/CheckoutResult</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CheckoutSendController</servlet-name>
+        <url-pattern>/CheckoutSendController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ViewCourseTimeListController</servlet-name>

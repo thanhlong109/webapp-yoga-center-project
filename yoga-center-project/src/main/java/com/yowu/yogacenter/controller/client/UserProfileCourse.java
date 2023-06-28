@@ -30,7 +30,9 @@ public class UserProfileCourse extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession ss = request.getSession();
+
         Account acc =((Account)ss.getAttribute("account"));
+
         String txtStatus = request.getParameter("status");
         RegistrationCourseRepository rcRepo = new RegistrationCourseRepository();
         if(txtStatus!=null){
