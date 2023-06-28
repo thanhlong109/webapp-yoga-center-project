@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="jakarta.tags.core" %>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -29,14 +30,14 @@
             .main{
                 background-color: #f3e0e2;
                 width: 100vw;
-                height: 120vh;
+                height: 140vh;
             }
             .box{
                 display: flex;
                 position: relative;
-                top: 50%;
+                top:0;
                 left: 50%;
-                transform: translate(-50%,-50%);
+                transform: translate(-50%,150px);
                 width: 700px;
                 background: linear-gradient(90deg,#ff464b,#ff416b);
                 border-radius: 10px;
@@ -239,8 +240,36 @@
                 color: #333;
                 text-decoration: none;
             }
+            .trans-btn{
+                display: none;
+                margin-top: 16px;
+                text-align: center;
+                text-decoration: underline;
+                font-size: 14px;
+                color: #333;
+            }
             @media screen and (max-width:739px){
-                
+                .box{
+                    width: 90%;
+                }
+                .login-box{
+                    border-radius: 10px;
+                    display: none;
+                }
+                .signup-box{
+                    border-radius: 10px;
+                    display: none;
+                    padding: 50px 10px;
+                }
+                .slide-box{
+                    display: none;
+                }
+                .trans-btn{
+                    display: block;
+                }
+                .show{
+                    display: block;
+                }
             }
             
         </style>
@@ -282,7 +311,7 @@
                                                &client_id=261325477127-aarmd5ktdhfilg620o9ue7pft00qf0nk.apps.googleusercontent.com&approval_prompt=force"> <img src="./Asset/img/logo/Google_Logo.png" alt=""> Login With Google</a>
                             </div>
                         </form>
-                    </form>
+                        <div class='trans-btn' >Create New Account </div>
                 </div>
                 <div class="signup-box">
                     <h2>SignUp</h2>
@@ -313,7 +342,7 @@
                                 Signup
                             </button>     
                         </div>
-
+                        <div class='trans-btn' >Go To Login </div>
                     </form>
                 </div>
                 <div class="slide-box ${type.equals("login")?"right":""}">
@@ -401,6 +430,21 @@
                 }
 
             }
+            
+            /*for mobile ui*/
+            $(document).ready(function (){
+                if(currentPathName=='/login'){
+                    $('.login-box').addClass('show');
+                    $('.signup-box').removeClass('show');
+                }else{
+                    $('.login-box').removeClass('show');
+                    $('.signup-box').addClass('show');
+                }
+                $('.trans-btn').click(function(){
+                    $('.login-box').toggleClass("show");
+                    $('.signup-box').toggleClass("show");
+                });
+            });
 
         </script>
         <script src="https://www.google.com/recaptcha/api.js" async defer></script>
