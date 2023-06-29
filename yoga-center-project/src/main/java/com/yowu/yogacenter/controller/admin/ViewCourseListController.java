@@ -23,7 +23,6 @@ public class ViewCourseListController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        System.out.println(1);
         CourseRepository _courseRepository = new CourseRepository();
         request.setAttribute("COURSE_LIST", _courseRepository.getAll());
         request.getRequestDispatcher(COURSE_LIST_PAGE).forward(request, response);

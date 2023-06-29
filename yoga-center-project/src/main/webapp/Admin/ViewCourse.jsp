@@ -38,10 +38,11 @@
                                 <th>Course Image</th>
                                 <th>Category ID</th>
                                 <th>Course Price</th>
-                                <th>Is Active</th>
+                                <th>Account ID</th>
                                 <th>Actions</th>
                             </tr>
                         <c:forEach items="${COURSE_LIST}" var="course">
+                            <c:if test="${course.isActive == true}">
                             <tr>
                                 <td>
                                     <c:out value="${course.id}"/>                                  
@@ -65,19 +66,16 @@
                                     <c:out value="${course.price}" />                                    
                                 </td>
                                 <td>
-                                    <input type="checkbox" name="isActived" value="ON" 
-                                           <c:if test="${course.isActive}"> 
-                                               checked="checked"
-                                           </c:if>
-                                           />
+                                   <c:out value="${course.account.id}" />  
                                 </td> 
                                 <td>
                                     <a class="btn btn-red" href="#delete">
-                                        Detete</a> 
+                                        Delete</a> 
                                     <a class="btn btn-green" href="updateCourseController?id=${course.id}">
                                         Edit</a> 
                                 </td>
                             </tr>
+                            </c:if>
                         </c:forEach>
                     </table>
 

@@ -74,7 +74,7 @@
                                            />
                                 </td>
                                 <td>
-                                    <a class="btn btn-red" href="#delete">Detete</a> 
+                                    <a class="btn btn-red" href="#delete">Delete</a> 
                                     <a class="btn btn-green" href="#Edit">Edit</a> 
                                 </td>
                             </tr>

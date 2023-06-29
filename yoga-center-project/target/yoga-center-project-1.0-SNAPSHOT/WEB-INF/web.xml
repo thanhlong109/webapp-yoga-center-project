@@ -108,6 +108,10 @@
         <servlet-name>UpdateCourseScheduleController</servlet-name>
         <servlet-class>com.yowu.yogacenter.controller.admin.UpdateCourseScheduleController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AddCourseController</servlet-name>
+        <servlet-class>com.yowu.yogacenter.controller.admin.AddCourseController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>UserProfileCourse</servlet-name>
         <url-pattern>/userprofile/course</url-pattern>
@@ -215,6 +219,10 @@
     <servlet-mapping>
         <servlet-name>UpdateCourseScheduleController</servlet-name>
         <url-pattern>/admin/updateCourseScheduleController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddCourseController</servlet-name>
+        <url-pattern>/admin/addCourseController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

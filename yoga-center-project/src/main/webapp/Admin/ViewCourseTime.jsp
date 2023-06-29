@@ -42,7 +42,7 @@
                                     ${courseTime.course.id}
                                 </td>
                                 <td>
-                                    ${courseTime.dateOfWeek}
+                                    ${courseTime.dateToString()}
                                 </td>
                                 <td>
                                     ${courseTime.startTime}
@@ -51,7 +51,7 @@
                                     ${courseTime.endTime}
                                 </td>                                                 
                                 <td>
-                                    <a class="btn btn-red" href="#delete">Detete</a> 
+                                    <a class="btn btn-red" href="#delete">Delete</a> 
                                     <a class="btn btn-green" href="updateCourseTimeController?id=${courseTime.id}">
                                         Edit</a> 
                                 </td>
