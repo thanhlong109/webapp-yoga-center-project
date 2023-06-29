@@ -17,6 +17,29 @@ import java.util.List;
  * @author Chien Thang
  */
 public class BlogRepository {
+    public List<Blog> getActive(){
+        String sql = "select * from tblBlog where blog_is_active=1 order by blog_date desc";
+        List<Blog> list = new ArrayList<>();
+        try(PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)){
+            try(ResultSet rs = stmt.executeQuery()){
+                while(rs.next()){
+                    Blog c = new Blog();
+                    AccountRepository cr = new AccountRepository();
+                    c.setId(rs.getInt("blog_id"));
+                    c.setTitle(rs.getString("blog_title"));
+                    c.setDetail(rs.getString("blog_detail"));
+                    c.setIsActive(true);
+                    c.setAccount(cr.detail(rs.getInt("account_id")));
+                    c.setDate(rs.getTimestamp("blog_date"));
+                    c.setImg(rs.getString("blog_img"));
+                    list.add(c);
+                }
+            }
+        }catch(Exception e){
+            System.out.println(e);
+        }
+        return list;
+    }
     public List<Blog> getAll(){
         String sql = "select * from tblBlog order by blog_date desc";
         List<Blog> list = new ArrayList<>();
@@ -41,7 +64,6 @@ public class BlogRepository {
         }
         return list;
     }
-    
     public boolean create(Blog blog){
         String sql = "INSERT INTO tblBlog ("
             + "blog_img, blog_date, account_id, blog_is_active, "
@@ -162,5 +184,6 @@ public class BlogRepository {
     }
     public static void main(String[] args) {
         BlogRepository cr = new BlogRepository();
+        System.out.println(cr.getActive().get(0).getImg());
     }
 }

@@ -4,6 +4,7 @@
  */
 package com.yowu.yogacenter.model;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 
 
@@ -11,7 +12,7 @@ import java.sql.Timestamp;
  *
  * @author DungVNT
  */
-public class Blog {
+public class Blog implements Serializable{
 
     private int id;
     private String title;

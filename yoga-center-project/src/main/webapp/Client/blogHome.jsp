@@ -49,7 +49,7 @@
                         </div>
                     </div>
                 </c:forEach>
-
+                <%@include file="../Component/pagination.jsp" %>
             </div>
             <%@include file="../Component/rightBarBlog.jsp" %>
 
@@ -114,7 +114,40 @@
                 ],
                 toolbar: 'undo redo | a11ycheck casechange blocks | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist checklist outdent indent | removeformat | code table help'
             });
-
+            
+            /*check validation*/
+            $(document).ready(function (){
+                var maxLengthTitle = 50;
+                var maxLengthContent = 3000;
+                var minLengthContent = 200;
+                $('.post-blog form').on("submit",function (e){
+                   e.preventDefault();
+                   if($('input[name="txtBlogTitle"]').val().length>maxLengthTitle){
+                        toast({
+                            title: "Opps!",
+                            msg: "Blog title must short than 50 characters!",
+                            type: 'warning',
+                            duration: 3000
+                        });
+                   }else if($('textarea[name="txtBlogContent"]').val().length>maxLengthContent){
+                       toast({
+                            title: "Opps!",
+                            msg: "Blog content must short than 3000 characters!",
+                            type: 'warning',
+                            duration: 3000
+                        });
+                   }else if($('textarea[name="txtBlogContent"]').val().length<minLengthContent){
+                       toast({
+                            title: "Opps!",
+                            msg: "Blog content to short, require at least 200 character!",
+                            type: 'warning',
+                            duration: 3000
+                        });
+                   }else{
+                       $(this).submit();
+                   }
+                });
+            });
 
             //display img when upload
             btnImg.onchange = () => {
@@ -147,7 +180,8 @@
                     duration: 5000
                 });
             </c:if>
-
+             
+             
             });
         </script>
         <jsp:include page="../Component/footer.jsp"></jsp:include>
