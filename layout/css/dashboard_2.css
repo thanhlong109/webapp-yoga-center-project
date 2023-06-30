@@ -1,0 +1,529 @@
+/* ROOT VARIABLES */
+:root {
+    --color-primary: #7380ec;
+    --color-danger: #ff7782;
+    --color-success: #41f1b6;
+    --color-warning: #ffbb55;
+    --color-white: #fff;
+    --color-info-dark: #7d8da1;
+    --color-info-light: #dce1eb;
+    --color-dark: #363949;
+    --color-light: rgba(132, 139, 200, 0.18);
+    
+    --color-primary-variant: #111e88;
+    --color-dark-variant: #677483;
+    --color-background: #f6f6f9;
+
+    --card-border-radius: 2rem;
+    --border-radius-1: 0.4rem;
+    --border-radius-2: 0.8rem;
+    --border-radius-3: 1.2rem;
+
+    --card-padding: 1.8rem;
+    --padding-1: 1.2rem;
+
+    --box-shadow: 0 2rem 3rem var(--color-light);
+}  
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    border: 0;
+    outline: none;
+    list-style: none;
+    text-decoration: none;
+    appearance: none;
+}
+
+html {
+    font-size: 14px;
+}
+
+body {
+    font-family: 'Jost', sans-serif;
+    width: 100vw;
+    height: 100vh;
+    font-size: 0.88rem;
+    background: var(--color-background);
+    user-select: none;
+    overflow-x: hidden;
+}
+
+.container {
+    display: grid;
+    width: 96%;
+    margin: 0 auto;
+    gap: 1.8rem;
+    /*chỉ định kích thước giữa các hàng và cột*/
+    grid-template-columns: 18rem auto;
+    /*định nghĩa số column trên 1 row của 
+    grid-layout ---Với TH này left_side_bar = 20rem
+                               main = auto */
+
+}
+
+a {
+    color: var(--color-dark);
+}
+
+img {
+    display: block;
+    width: 100%;
+}
+
+h1 {
+    font-weight: 800;
+    font-size: 1.8rem;
+}
+
+h2 {
+    font-size: 1.4rem;
+
+}
+
+h3 {
+    font-size: 0.87rem;
+}
+
+h4 {
+    font-size: 0.8rem;
+}
+
+h5 {
+    font-size: 0.77rem;
+}
+
+.profile-photo {
+    width: 2.8rem;
+    height: 2.8rem;
+    border-radius: 50%;
+    overflow-x: hidden;
+}
+small {
+    font-size: 0.75rem;
+}
+.text-muted {
+    color: var(--color-info-dark);
+}
+b {
+    color: var(--color-dark);
+}
+
+p {
+    color: var(--color-dark-variant);
+}
+
+.primary {
+    color: var(--color-primary);
+}
+
+.danger {
+    color: var(--color-danger);
+}
+
+.success {
+    color: var(--color-success);
+}
+
+.warning {
+    color: var(--color-warning);
+}
+
+/* aside */
+aside {
+    height: 100vh;
+    
+}
+
+aside .top {
+    
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1.4rem;
+
+}
+
+aside .logo {
+    margin-left: 30%;
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--color-dark);
+}
+
+aside .close {
+    display: none;
+}
+
+/* sidebar */
+aside .sidebar {
+    
+    display: flex;
+    flex-direction: column;
+    height: 96vh;
+    position: relative;
+    top: 3rem;
+}
+aside h3 {
+    font-weight: 500;
+}
+
+aside .sidebar .sidebar-elements a{
+    display: flex;
+    color: var(--color-info-dark);
+    margin-left: 2rem;
+    gap: 1rem;
+    align-items: center;
+    position: relative;
+    height: 3.7rem;
+    transition: all 300ms ease;
+}
+aside .sidebar .sidebar-elements a span{
+    font-size: 1.6rem;
+    transition: all 300ms ease;
+}
+/* aside .sidebar .sidebar-elements:last-child{
+    position: absolute;
+    bottom: 2rem;
+    width: 100%;
+} */
+aside .sidebar .sidebar-elements a.active{
+    background: var(--color-light);
+    color: var(--color-primary);
+    margin-left: 0;
+}
+aside .sidebar .sidebar-elements a.active::before{
+    content: '';
+    width: 6px;
+    height: 100%;
+    background: var(--color-primary);
+}
+aside .sidebar .sidebar-elements a.active span{
+    color: var(--color-primary);
+    margin-left: calc(1rem - 3px);
+}
+aside .sidebar .sidebar-elements a:hover{
+    color: var(--color-primary);
+}
+aside .sidebar .sidebar-elements a:hover span{
+    margin-left: 1rem;
+}
+aside .sidebar .sidebar-elements .sub-item{
+    margin-left: 1.4rem;
+    padding-left: 2.7rem;
+    /* max-height: 0;  */
+    display: none;
+    transition: max-height 300ms ease;
+    overflow: hidden; 
+}
+/* aside .sidebar .sidebar-elements .sub-item.show{
+    max-height: 21rem;
+} */
+
+/* ====================MAIN================ */
+main{
+    margin-top: 1.4rem;
+    margin-bottom: 2.5rem;
+}
+main .top{
+    display: flex;
+    justify-content: end;
+    gap: 2rem;
+}
+main .top button#menu-btn{
+    display: none;
+}
+main .top .profile{
+    display: flex;
+    text-align: right;
+    gap: 2rem;
+}
+
+/* search-box */
+ #search-box{
+    background: var(--color-white);
+    border-radius: var(--border-radius-2);
+    
+}
+#search-box #search-text{
+    border: none;
+    outline: none;
+    background: none;
+    font-size: 1.2rem;
+    padding: 0;
+    width: 0;
+    transition: all 0.25s ease-in-out;
+}
+#search-box:hover #search-text, #search-box #search-text:valid{
+    width: 300px;
+    padding: 10px 0 10px 15px;
+}
+#search-box #btnSearch{
+    background: var(--color-white);
+    border: none;
+    
+    cursor: pointer;
+    border-radius: 50%;
+    font-size: 1.2rem;
+    width: 2.8rem;
+    height: 2.8rem;
+} 
+main h1{
+    margin-top: 1.4rem;
+    margin-left: 2rem;
+    margin-bottom: 1rem;
+}
+/* wrapper */
+#wrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+}
+#wrapper form{
+    box-shadow:var(--box-shadow);
+    border-radius: var(--border-radius-3);
+    padding: 2.8rem;
+    width: 80%;
+    height: 80%;
+}
+
+#wrapper h3{
+    text-align: center;
+    font-size: 1.68rem;
+    font-weight: 500;
+    margin-bottom: 1.5rem;
+    color: var(--color-dark);
+}
+#wrapper .input__group{
+    margin-bottom: 1rem;
+    position: relative;
+}
+#wrapper .input__group.detail{
+    width: 100%;
+}
+
+/*
+#wrapper .input__group.image{
+    width: 100%;
+    background: var(--color-white);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0.8rem;
+    border-radius: var(--border-radius-1);
+}
+#wrapper .input__group.image .image-area{
+    position: relative;
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width:50%;
+    margin-bottom: 0.8rem;
+    border-radius: var(--border-radius-3);
+    overflow: hidden;
+    background: transparent;
+    border: 2px dashed var(--color-primary);
+    padding: 0.7rem;
+}
+#wrapper .input__group.image .image-area span{
+    font-size: 2.5rem;
+}
+#wrapper .input__group.image .image-area h3{
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+#wrapper .input__group.image .image-area img{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    z-index: 100;
+}
+#wrapper .input__group.image .image-area::before{
+    content: attr(data-img);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, .5);
+    color: var(--color-white);
+    font-weight: 500;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    pointer-events: none;
+    opacity: 0;
+    transition: all 300ms ease;
+    z-index: 200;
+}
+#wrapper .input__group.image .image-area.active:hover:before{
+opacity: 1;
+}
+#wrapper .input__group.image .select-image{
+    display: block;
+    cursor: pointer;
+    padding: 1rem 0;
+    background: var(--color-primary);
+    color: var(--color-white);
+    font-weight: 500;
+    border-radius: var(--border-radius-3);
+    border: none;
+    transition: all 300ms ease;
+}
+#wrapper .input__group.image .select-image:hover{
+    background: var(--color-primary-variant);
+}*/
+#wrapper .input__group.image{
+    width: 100%;
+    height: 25rem;
+    background: var(--color-white);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0.8rem;
+    border-radius: var(--border-radius-1);
+    position: relative;
+}
+#wrapper .input__group.image input{
+    border: none;
+    text-align: center;
+    position: absolute;
+    bottom: 0;
+    left: 30%;
+    width: fit-content;
+    
+}
+#wrapper .input__group.image img{
+    
+    width: 100%;
+    height: 75%;
+    border: 2px dashed var(--color-primary);
+    border-radius: var(--border-radius-3);
+    background: none;
+    object-fit: cover;
+    object-position: center;
+
+    
+}
+#wrapper .input__group.detail textarea{
+    width: 100%;
+    resize: none;
+    padding: 0.8rem 0.7rem;
+    border-radius: var(--border-radius-1);
+    border: 1px solid var(--color-info-light);
+    outline: none;
+    font-size: inherit;
+    color: var(--color-dark);
+    transition: all 0.3s ease-in-out;
+}
+#wrapper input{
+    height: 3.5rem;
+    width: 100%;
+    outline: none;
+    border: 1px solid var(--color-info-light);
+    padding: 0.7rem;
+    border-radius: var(--border-radius-1);
+    font-size: inherit;
+    color: var(--color-dark);
+    transition: all 0.3s ease-in-out;
+}
+#wrapper label{
+    position: absolute;
+    padding: 0px 0.35rem;
+    left: 5%;
+    top: 50%;
+    transform: translateY(-50%);
+    background: var(--color-white);
+    pointer-events: none;
+    /* thuộc tính giúp bấm vào label vẫn focus đc */
+    transition: all 0.3s ease-in-out;
+}
+#wrapper .input__group.detail label{
+    position: absolute;
+    left: 5%;
+    top: 30%;
+}
+
+#wrapper .input__group input:focus + label, #wrapper .input__group input:valid + label{
+    top: 0px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--color-primary);
+}
+#wrapper .input__group.filter{
+    width: 100%;
+    height: 5rem;
+    background: var(--color-white);
+    padding: 1rem 2rem;
+    position: relative;
+}
+#wrapper .input__group .input-filter{
+    position: absolute;
+    width: 20rem;
+    border: 0;
+    background: none;
+    border-bottom-width: 2px;
+    border-bottom-style: solid;
+    padding-bottom: 0.5rem;
+    left: 20%;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1rem;
+    font-weight: 300;
+    color: var(--color-primary);
+    
+}
+#wrapper .input__group.detail textarea:focus + label, #wrapper .input__group.detail textarea:valid + label{
+    top: 0px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--color-primary);
+}
+
+/* lớp giả valid + required giúp chúng ta setup khi có dữ liệu thì
+khi chữ đc focus sẽ kh còn bị nhảy xuống nếu ta bấm ra ngoài  */
+#wrapper .input__group input:focus{
+    border: 2px solid var(--color-primary);
+}
+#wrapper .input__group.detail textarea:focus{
+    border: 2px solid var(--color-primary);
+}
+
+#wrapper .input__button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#wrapper button{
+    margin: 0.2rem;
+    height: 50px;
+    width: 8rem;
+    border: none;
+    border-radius: var(--border-radius-2);
+    color: var(--color-white);
+    font-size: 17px;
+    cursor: pointer;
+}
+#wrapper button#btn__Add{
+    background: var(--color-success);
+}
+#wrapper button#btn__Reset{
+    background: var(--color-warning);
+}
+#wrapper button#btn__Add:hover{
+ opacity: 0.65;   
+}
+#wrapper button#btn__Reset:hover{
+    opacity: 0.5;
+}
