@@ -7,9 +7,13 @@ package com.yowu.yogacenter.checkout;
 import com.yowu.yogacenter.model.Account;
 import com.yowu.yogacenter.model.Bill;
 import com.yowu.yogacenter.model.Course;
+import com.yowu.yogacenter.model.CourseSchedule;
+import com.yowu.yogacenter.model.RegistrationCourse;
 import com.yowu.yogacenter.repository.AccountRepository;
 import com.yowu.yogacenter.repository.BillRepository;
 import com.yowu.yogacenter.repository.CourseRepository;
+import com.yowu.yogacenter.repository.CourseScheduleRepository;
+import com.yowu.yogacenter.repository.RegistrationCourseRepository;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -64,11 +68,25 @@ public class CheckoutSendController extends HttpServlet {
             Bill order = new Bill(c, acc, status, isActive, total, discount, date, orderCode, method);
             BillRepository billRepo = new BillRepository();
             billRepo.add(order);
+            
+//            System.out.println(billRepo);
+            int courseScheduleID = Integer.parseInt(request.getParameter("course_scheduleId"));
+//            System.out.println(courseId);
+            CourseScheduleRepository csr = new CourseScheduleRepository();
+ //           System.out.println(csr);
+            CourseSchedule cs = csr.detailByScheduleID(courseScheduleID);
+//            System.out.println(cs);
+            int course_status = 1;
+            boolean regis_status = true;
+            RegistrationCourse regis = new RegistrationCourse(acc, c, date, date, cs, course_status, regis_status);
+            RegistrationCourseRepository regisRepo = new RegistrationCourseRepository();
+            regisRepo.addRegistration(regis);
+            System.out.println(regis);
+            
 //            url = SUCCESS;
             if (method.equals("studio")) {
                 url = PENDING_CHECKOUT;
                 request.getRequestDispatcher(url).forward(request, response);
-
             }else{
                 long totalVnPay = (long)(total*100);
                 url = vnpay_payment(orderCode, totalVnPay, request, response);

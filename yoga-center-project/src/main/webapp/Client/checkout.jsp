@@ -37,8 +37,8 @@
                 <div class="container__elements">
                     <div class="container__element-form">
                         <form action="CheckoutSendController">
-                            <input type="hidden" name="id" value="3" >
-                            
+                            <input type="hidden" id="course_id" name="id" value="" >
+                            <<input type="hidden" id="course_scheduleId" name="course_scheduleId" value="">
                             <!-- form-left -->
                             <div class="container__element-left">
                                 <div class="element__checkout-account-login ">
@@ -124,21 +124,17 @@
         </div>
     </div>
     <jsp:include page="../Component/footer.jsp"></jsp:include>
-<!--    <script>
-        // Lấy giá trị subtotal và total từ các phần tử HTML
-        var subtotalValue = document.querySelector(".detail-price").textContent;
-        var totalValue = document.querySelector(".total-price").textContent;
-        var discountValue = document.querySelector(".title-price").textContent;
-        // Loại bỏ ký tự "$" từ giá trị subtotal
-        subtotalValue = subtotalValue.replace("$", "");
-
-// Loại bỏ ký tự "$" từ giá trị total
-        totalValue = totalValue.replace("$", "");
-        // Cập nhật giá trị của các trường ẩn
-        document.getElementById("subtotal").value = subtotalValue;
-        document.getElementById("total").value = totalValue;
-        document.getElementById("discount").value = discountValue;
-    </script>-->
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        console.log(params);
+        var id = params.get('id');
+        var scheduleId = params.get('course_scheduleId');
+        console.log(id);
+        console.log(scheduleId);
+        
+        document.getElementById('course_id').value = id;
+        document.getElementById('course_scheduleId').value = scheduleId;
+    </script>
 
 </body>
 
