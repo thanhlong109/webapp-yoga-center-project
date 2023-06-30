@@ -76,7 +76,7 @@ public class CheckoutSendController extends HttpServlet {
  //           System.out.println(csr);
             CourseSchedule cs = csr.detailByScheduleID(courseScheduleID);
 //            System.out.println(cs);
-            int course_status = 1;
+            int course_status = 0;
             boolean regis_status = true;
             RegistrationCourse regis = new RegistrationCourse(acc, c, date, date, cs, course_status, regis_status);
             RegistrationCourseRepository regisRepo = new RegistrationCourseRepository();
