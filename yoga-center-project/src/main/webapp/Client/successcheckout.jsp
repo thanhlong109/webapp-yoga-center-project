@@ -4,7 +4,7 @@
     Author     : Chien Thang
 --%>
 
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="c" uri="jakarta.tags.core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -65,7 +65,7 @@
                                 </tr>
                                 <tr>
                                     <th>Amount paid:</th>
-                                    <td class="amout">${PAYMENT.vnp_Amount} VND</td>
+                                    <td class="amout">$${sessionScope.billCourse.value}</td>
                                 </tr>
                                 
                             </tbody>
@@ -98,7 +98,7 @@
                                 </tr>
                                 <tr>
                                     <th>Payment date:</td>
-                                    <td>${PAYMENT.vnp_PayDate}</td>
+                                    <td>${sessionScope.billCourse.paymentDate}</td>
                                 </tr>
                             </tbody>
                         </table>

@@ -269,7 +269,7 @@
                         url:"course?status="+$(f).val(),
                         type:"get",
                         success:function(data){
-                            document.querySelector(".display-course-content").innerHTML = data;
+                            $('.display-course-content').html(data);
                         },
                         error: function(msg){
 

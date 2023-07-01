@@ -63,11 +63,11 @@
                                 </div>
                                 <ul class="element__checkout-method">
                                     <li class="element__checkout-method-paypal">
-                                        <input type="radio" name="payment-method" value="vnpay">
+                                        <input type="radio" name="payment-method" value="VNPAY">
                                         <img src="Asset/img/checkout/paypal-logo-preview.png" alt="">
                                     </li>
                                     <li class="element__checkout-method-offline__payment">
-                                        <input type="radio" name="payment-method" value="studio">
+                                        <input type="radio" name="payment-method" value="STUDIO">
                                         <img src="Asset/img/checkout/pngwing.com.png" alt="">
                                     </li>
                                 </ul>

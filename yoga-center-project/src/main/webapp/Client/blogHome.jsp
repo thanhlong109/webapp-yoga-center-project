@@ -49,47 +49,10 @@
                         </div>
                     </div>
                 </c:forEach>
-
+                <%@include file="../Component/pagination.jsp" %>
             </div>
             <%@include file="../Component/rightBarBlog.jsp" %>
-
-
-            <div class="post-blog">
-                <div class="post-blog-container">
-                    <i class="fa-solid fa-x close-btn"></i>
-                    <h2><i class="fa-solid fa-star"></i> New Blog</h2>
-                    <form action="blogs" method="POST" enctype="multipart/form-data">
-                        <figure class="img-container">
-                            <img id="js-display-img" src="" alt="">
-                            <figcaption  id="js-name-img"></figcaption>
-                        </figure>
-                        <input id="jsuploadImg" type="file" name="blogImg" accept="image/*">
-                        <div class="img-label">
-                            <label>Img cover:</label>
-                            <label class="uploadImg" for="jsuploadImg"><i class="fa-solid fa-upload"></i> Choose A Photo</label>
-                        </div>
-
-                        <div class="box-input">
-                            <label>Titles: </label>
-                            <input name="txtBlogTitle" placeholder="Blog title" type="text">
-                        </div>
-                        <div class="box-input">
-                            <label>Content: </label>
-                            <textarea id="textEditor" name="txtBlogContent" placeholder="Blog content"></textarea>
-                        </div>
-                        <button name="action" value="postBlog" class="btn btn-light-green" type="submit">Post</button>
-                    </form>
-                </div>
-            </div>
-            <div class="post-blog-btn">
-                <div class="post-blog-btn-icon">
-                    <i class="fa-solid fa-plus"></i>
-                    <i class="fa-solid fa-pen"></i>
-                </div>
-                <div class="post-blog-btn-des">
-                    Write your blog?
-                </div>
-            </div>
+            <%@include file="../Component/postBlog.jsp" %>
         </div>
         <%@include file="../Component/toast.jsp" %>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>

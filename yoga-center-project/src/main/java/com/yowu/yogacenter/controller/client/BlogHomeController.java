@@ -4,6 +4,7 @@
  */
 package com.yowu.yogacenter.controller.client;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.yowu.yogacenter.model.Account;
 import com.yowu.yogacenter.model.Blog;
 import com.yowu.yogacenter.repository.BlogRepository;
@@ -20,6 +21,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -34,25 +36,45 @@ public class BlogHomeController extends HttpServlet {
 
     private final String BLOG_PAGE = "Client/blogHome.jsp";
     private final int MAX_NUM_LOAD_MORE = 15;
-    private final int NUM_LOAD_EACH_TIME = 3;
+    private final int NUM_BLOG_RECENT_LOAD = 3;
     private final int STORING_TIME_IMG = 2000;
    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        BlogRepository br = new BlogRepository();
-        int max=0;
-        Account acc = (Account) request.getSession().getAttribute("account");
-        request.setAttribute("blogList", br.getAll());
-        if(acc!=null){
-            request.setAttribute("recentBlogList", br.getRecentBlog(0,NUM_LOAD_EACH_TIME,acc.getId()));
-            max = br.getTotalBlog(acc.getId());  
-            if(max>MAX_NUM_LOAD_MORE){
-                max = MAX_NUM_LOAD_MORE;
+        try{
+            BlogRepository br = new BlogRepository();
+            int max=0;
+            Account acc = (Account) request.getSession().getAttribute("account");
+            if(acc!=null){
+                request.setAttribute("recentBlogList", br.getRecentBlog(0,NUM_BLOG_RECENT_LOAD,acc.getId()));
+                max = br.getTotalBlog(acc.getId());  
+                if(max>MAX_NUM_LOAD_MORE){
+                    max = MAX_NUM_LOAD_MORE;
+                }
             }
+            request.setAttribute("maxLoadMore", max);
+            
+            //Phan trang
+            String xpage = request.getParameter("page");
+            int itemPerPage = 2; // number item each page
+            int size = br.countActive();
+            int numPage = (int) Math.ceil(size / (double) itemPerPage);// this will print how many page number
+            int page=1;
+            if(xpage!=null){
+                page = Integer.parseInt(xpage);
+            }
+            int start = (page - 1) * itemPerPage;
+            List<Blog> lst = br.getActive(start, itemPerPage);
+            request.setAttribute("blogList",lst );
+            request.setAttribute("page", page);
+            request.setAttribute("numpage", numPage);
+            //end phan trang
+            
+            request.getRequestDispatcher(BLOG_PAGE).forward(request, response);
+        }catch(Exception e){
+            System.out.println(e);
         }
-        request.setAttribute("maxLoadMore", max);
-        request.getRequestDispatcher(BLOG_PAGE).forward(request, response);
     }
 
    
@@ -67,7 +89,7 @@ public class BlogHomeController extends HttpServlet {
             switch(action){
                 case "loadmore":{
                     int quantity = Integer.parseInt(request.getParameter("quantity"));
-                    List<Blog> list = br.getRecentBlog(quantity,NUM_LOAD_EACH_TIME,acc.getId());
+                    List<Blog> list = br.getRecentBlog(quantity,NUM_BLOG_RECENT_LOAD,acc.getId());
                     out.print(getHtmlRecentBlog(list));
                     break;
                 }
@@ -90,6 +112,39 @@ public class BlogHomeController extends HttpServlet {
                     br.update(bl);
                     Thread.sleep(STORING_TIME_IMG);
                     response.sendRedirect("blogs");
+                    break;
+                }
+                case "getBlog":{
+                    ObjectMapper objMapper = new ObjectMapper();
+                    int bId = Integer.parseInt(request.getParameter("id"));
+                    Blog b = br.detail(bId);
+                    b.setAccount(null);
+                    if(b!=null){
+                        out.print(objMapper.writeValueAsString(b));
+                    }
+                    break;
+                }
+                case "editBlog":{
+                    int bId = Integer.parseInt(request.getParameter("id"));
+                    Blog b = br.detail(bId);
+                    String txtBlogTitle = request.getParameter("txtBlogTitle");
+                    String txtBlogContent = request.getParameter("txtBlogContent");
+                    b.setTitle(txtBlogTitle);
+                    b.setDetail(txtBlogContent);
+                    Part p = request.getPart("blogImg");
+                    if(p!=null){
+                        String uploadDirectory = "/Asset/img/blog/";
+                        String imgName = "img-blog-id-"+b.getId();
+                        String fileName = storeImgWithName(imgName, uploadDirectory, p);
+                    }
+                    br.update(b);
+                    Thread.sleep(STORING_TIME_IMG);
+                    response.sendRedirect("blogs");
+                    break;
+                }
+                case "deleteBlog":{
+                    int bId = Integer.parseInt(request.getParameter("id"));
+                    System.out.println("delete"+br.delete(bId));
                     break;
                 }
             }

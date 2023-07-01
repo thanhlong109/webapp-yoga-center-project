@@ -38,16 +38,20 @@ public class CourseDetailController extends HttpServlet {
             CourseWishlistRepository cwr = new CourseWishlistRepository();
             Course c = cr.detail(id);
             Account account = (Account) request.getSession().getAttribute("account");
-            String accountID = Integer.toString(account.getId());
             RegistrationCourseRepository rcr = new RegistrationCourseRepository();
-            boolean regisStatus = true;
-            RegistrationCourse rc = rcr.getRegisIdByCourseIdAndAccountID(accountID, id, regisStatus);
+//            boolean regisStatus = true;
+//            RegistrationCourse rc = rcr.getRegisIdByCourseIdAndAccountID(accountID, id, regisStatus);
             boolean isInWishList = false;
-            if(account!=null){
+            RegistrationCourse rc2 = null;
+            if(account != null){
                 isInWishList = cwr.isExist(id, account.getId());
+                rc2 = rcr.getRegisIdByCourseIdAndAccountID(account.getId(),id,true);
+            }
+            if(rc2!=null){
+                request.setAttribute("registrationCourse", rc2);
             }
             
-            request.setAttribute("regisID", rc);
+            request.setAttribute("regisID", rc2);
             request.setAttribute("agvRating", ratec.getAvgCourseRating(c.getId()));
             request.setAttribute("course",c);
             request.setAttribute("courseScheduleList", sc.getScheduleByCourse(c.getId()));

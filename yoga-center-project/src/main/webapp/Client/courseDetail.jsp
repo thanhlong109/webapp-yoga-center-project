@@ -464,7 +464,7 @@
                                 </a>
                             </c:if>
                         </c:if>
-                        <c:if test="${sessionScope.account != null}">
+                        <c:if test="${sessionScope.account != null && registrationCourse==null}">
 
                             <c:if test="${course.price>0}">
                                 <a class="book-course" onclick="gotoCheckout('Checkout?id=${course.id}')" class="course-card">
@@ -476,6 +476,9 @@
                                     <p>Errol</p> 
                                 </a>
                             </c:if>
+                        </c:if>
+                        <c:if test="${sessionScope.account != null && registrationCourse!=null}">
+                            <p>Erroled</p>
                         </c:if>
                     </div>
                 </div>

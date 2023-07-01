@@ -61,6 +61,7 @@ public class CheckoutResultController extends HttpServlet {
                 boolean updateRegis = regis.updateStatus(true, accountID, billR.getCourse().getId());
                 System.out.println(updateRegis);
                 Bill billL = bill.getAllByAccountIdAndCourseID(accountID, billR.getCourse().getId());
+                System.out.println(billL);
                 if (check) {
                     session.setAttribute("billCourse", billL);
                     request.setAttribute("PAYMENT", payment);

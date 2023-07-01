@@ -89,7 +89,7 @@ public class CheckoutSendController extends HttpServlet {
             System.out.println(regis);
 
 //            url = SUCCESS;
-            if (method.equals("studio")) {
+            if (method.equals("STUDIO")) {
                 url = PENDING_CHECKOUT;
                 HttpSession session = request.getSession();
                 session.setAttribute("bill", order);

@@ -5,14 +5,14 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="jakarta.tags.core" %>
 <!DOCTYPE html>
 <html>
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Payment | YowuYoga</title>
-        <!-- Google font -->
-        <!-- <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'> -->
+
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@100;200;300;400&display=swap"
@@ -24,7 +24,7 @@
         <link rel="stylesheet" href="Asset/css/clientHeader.css">
         <link rel="stylesheet" href="Asset/css/clientFooter.css">
         <link rel="stylesheet" href="Asset/css/common.css">
-        <link rel="stylesheet" href="Asset/css/stylepayment-failure.css">
+        <link rel="stylesheet" href="Asset/css/stylepayment-success.css">
 
     </head>
 
@@ -59,7 +59,7 @@
                                 </tr>
                                 <tr>
                                     <th>Amount paid:</th>
-                                    <td class="amout">${PAYMENT.vnp_Amount} VND</td>
+                                    <td class="amout">$${sessionScope.billCourse.value}</td>
                                 </tr>
                                 
                             </tbody>
@@ -75,11 +75,7 @@
                             <tbody>
                                 <tr>
                                     <th>Payment product:</th>
-                                    <td>${PAYMENT.vnp_BankTranNo}</td>
-                                </tr>
-                                <tr>
-                                    <th>Bank Transaction Number:</td>
-                                    <td>${PAYMENT.vnp_BankTranNo}</td>
+                                    <td>${sessionScope.billCourse.course.title}</td>
                                 </tr>
                                 <tr>
                                     <th>Bank code:</td>
@@ -91,7 +87,7 @@
                                 </tr>
                                 <tr>
                                     <th>Payment date:</td>
-                                    <td>${PAYMENT.vnp_PayDate}</td>
+                                    <td>${sessionScope.billCourse.paymentDate}</td>
                                 </tr>
                             </tbody>
                         </table>
