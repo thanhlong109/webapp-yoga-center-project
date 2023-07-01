@@ -43,7 +43,7 @@
                     <a href="blogs?page=${page-1}"><i class="fa-solid fa-chevron-left"></i></a>
                 </c:if>
                 <c:forEach begin="${1}" var="i" end="${numpage}">
-                    <a href="index?page=${i}" <c:if test="${i==page}">class="p-active"</c:if> >${i}</a>
+                    <a href="blogs?page=${i}" <c:if test="${i==page}">class="p-active"</c:if> >${i}</a>
                 </c:forEach>
                 <c:if test="${page<numpage}">
                     <a href="blogs?page=${page<numpage?(page+1):numpage}"><i class="fa-solid fa-chevron-right"></i></a>

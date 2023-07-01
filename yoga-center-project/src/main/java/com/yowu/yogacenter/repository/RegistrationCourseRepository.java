@@ -44,8 +44,37 @@ public class RegistrationCourseRepository {
         }
         return list;
     }
+    public RegistrationCourse getRegisIdByCourseIdAndAccountID(int accountId, int courseId, boolean regisStatus) {
+        String sql = "select * from tblRegistrationCourse "
+                + "WHERE account_id = ? AND course_id = ? AND registration_status = ? ";
+        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
+            stmt.setInt(1, accountId);
+            stmt.setInt(2, courseId);
+            stmt.setBoolean(3, regisStatus);
+            try ( ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    AccountRepository acc = new AccountRepository();
+                    CourseRepository cr = new CourseRepository();
+                    CourseScheduleRepository cs = new CourseScheduleRepository();
+                    RegistrationCourse c = new RegistrationCourse();
+                    c.setId(rs.getInt("registration_id"));
+                    c.setCourse(cr.detail(rs.getInt("course_id")));
+                    c.setAccount(acc.detail(rs.getInt("account_id")));
+                    c.setCourseSchedule(cs.detail(rs.getInt("course_schedule_id")));
+                    c.setRegistrationDate(rs.getDate("registration_date"));
+                    c.setEndDate(rs.getDate("end_date"));
+                    c.setCourseStatus(rs.getInt("course_status"));
+                    c.setRegistrationtatus(rs.getBoolean("registration_status"));
+                    return c;
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return null;
+    }
     public List<RegistrationCourse> getCoursesByAccountIDAndStatus(int accountId,int status){
-        String sql = "select * from tblRegistrationCourse where account_id=? and course_status=?";
+        String sql = "select * from tblRegistrationCourse where account_id=? and course_status=? and registration_status=1";
         List<RegistrationCourse> list = new ArrayList<>();
         try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
             stmt.setInt(1, accountId);
@@ -63,6 +92,7 @@ public class RegistrationCourseRepository {
                     c.setCourseSchedule(csr.detail(rs.getInt("course_schedule_id")));
                     c.setEndDate(rs.getDate("end_date"));
                     c.setCourseStatus(rs.getInt("course_status"));
+                    c.setRegistrationtatus(true);
                     list.add(c);
                 }
             }
@@ -72,7 +102,7 @@ public class RegistrationCourseRepository {
         return list;
     }
     public int getStudentEnrolled(int courseId){
-        String sql = "select count(*) as num from tblRegistrationCourse where course_id=?";
+        String sql = "select count(*) as num from tblRegistrationCourse where course_id=? and registration_status=1";
         int num = 0;
         try(PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)){
             stmt.setInt(1, courseId);
@@ -89,7 +119,7 @@ public class RegistrationCourseRepository {
         return num;
     }
     public List<RegistrationCourse> getCoursesByAccountID(int accountId){
-        String sql = "select * from tblRegistrationCourse where account_id=?";
+        String sql = "select * from tblRegistrationCourse where account_id=? and registration_status=1";
         List<RegistrationCourse> list = new ArrayList<>();
         try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
             stmt.setInt(1, accountId);
@@ -106,6 +136,7 @@ public class RegistrationCourseRepository {
                     c.setCourseSchedule(csr.detail(rs.getInt("course_schedule_id")));
                     c.setEndDate(rs.getDate("end_date"));
                     c.setCourseStatus(rs.getInt("course_status"));
+                    c.setRegistrationtatus(true);
                     list.add(c);
                 }
             }
@@ -245,6 +276,6 @@ public class RegistrationCourseRepository {
     }
     public static void main(String[] args) {
         RegistrationCourseRepository r = new RegistrationCourseRepository();
-        System.out.println(r.getStudentEnrolled(2));
+        System.out.println(r.getCoursesByAccountID(4).get(0).getCourse().getTitle());
     }
 }

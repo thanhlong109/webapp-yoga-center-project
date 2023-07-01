@@ -4,6 +4,7 @@
  */
 package com.yowu.yogacenter.controller.client;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.yowu.yogacenter.model.Account;
 import com.yowu.yogacenter.model.Blog;
 import com.yowu.yogacenter.repository.BlogRepository;
@@ -55,21 +56,16 @@ public class BlogHomeController extends HttpServlet {
             request.setAttribute("maxLoadMore", max);
             
             //Phan trang
-            List<Blog> list = br.getActive();
             String xpage = request.getParameter("page");
-            int itemPerPage = 3; // number item each page
-            int size = list.size();
+            int itemPerPage = 2; // number item each page
+            int size = br.countActive();
             int numPage = (int) Math.ceil(size / (double) itemPerPage);// this will print how many page number
             int page=1;
             if(xpage!=null){
                 page = Integer.parseInt(xpage);
             }
             int start = (page - 1) * itemPerPage;
-            int end = Math.min(page * itemPerPage, size);
-            List<Blog> lst = new ArrayList<>();
-            for (int i = start; i < end; i++) {
-                lst.add(list.get(i));
-            }
+            List<Blog> lst = br.getActive(start, itemPerPage);
             request.setAttribute("blogList",lst );
             request.setAttribute("page", page);
             request.setAttribute("numpage", numPage);
@@ -116,6 +112,39 @@ public class BlogHomeController extends HttpServlet {
                     br.update(bl);
                     Thread.sleep(STORING_TIME_IMG);
                     response.sendRedirect("blogs");
+                    break;
+                }
+                case "getBlog":{
+                    ObjectMapper objMapper = new ObjectMapper();
+                    int bId = Integer.parseInt(request.getParameter("id"));
+                    Blog b = br.detail(bId);
+                    b.setAccount(null);
+                    if(b!=null){
+                        out.print(objMapper.writeValueAsString(b));
+                    }
+                    break;
+                }
+                case "editBlog":{
+                    int bId = Integer.parseInt(request.getParameter("id"));
+                    Blog b = br.detail(bId);
+                    String txtBlogTitle = request.getParameter("txtBlogTitle");
+                    String txtBlogContent = request.getParameter("txtBlogContent");
+                    b.setTitle(txtBlogTitle);
+                    b.setDetail(txtBlogContent);
+                    Part p = request.getPart("blogImg");
+                    if(p!=null){
+                        String uploadDirectory = "/Asset/img/blog/";
+                        String imgName = "img-blog-id-"+b.getId();
+                        String fileName = storeImgWithName(imgName, uploadDirectory, p);
+                    }
+                    br.update(b);
+                    Thread.sleep(STORING_TIME_IMG);
+                    response.sendRedirect("blogs");
+                    break;
+                }
+                case "deleteBlog":{
+                    int bId = Integer.parseInt(request.getParameter("id"));
+                    System.out.println("delete"+br.delete(bId));
                     break;
                 }
             }

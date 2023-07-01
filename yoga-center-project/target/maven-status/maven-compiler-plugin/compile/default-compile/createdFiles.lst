@@ -47,6 +47,7 @@ com\yowu\yogacenter\model\GoogleLogin.class
 com\yowu\yogacenter\model\Membership.class
 com\yowu\yogacenter\model\Bill$BillStatus.class
 com\yowu\yogacenter\repository\CommentRepository.class
+com\yowu\yogacenter\util\MyTools.class
 com\yowu\yogacenter\repository\AccountRepository.class
 com\yowu\yogacenter\controller\admin\ViewClassScheduleListController.class
 com\yowu\yogacenter\model\Course.class

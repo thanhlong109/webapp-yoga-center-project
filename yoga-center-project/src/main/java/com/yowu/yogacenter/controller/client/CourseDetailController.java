@@ -6,10 +6,12 @@ package com.yowu.yogacenter.controller.client;
 
 import com.yowu.yogacenter.model.Account;
 import com.yowu.yogacenter.model.Course;
+import com.yowu.yogacenter.model.RegistrationCourse;
 import com.yowu.yogacenter.repository.CourseRepository;
 import com.yowu.yogacenter.repository.CourseScheduleRepository;
 import com.yowu.yogacenter.repository.CourseWishlistRepository;
 import com.yowu.yogacenter.repository.RatingCourseRepository;
+import com.yowu.yogacenter.repository.RegistrationCourseRepository;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -37,8 +39,14 @@ public class CourseDetailController extends HttpServlet {
             Course c = cr.detail(id);
             Account account = (Account) request.getSession().getAttribute("account");
             boolean isInWishList = false;
+            RegistrationCourseRepository rcr = new RegistrationCourseRepository();
+            RegistrationCourse rc = null;
             if(account!=null){
                 isInWishList = cwr.isExist(id, account.getId());
+                rc = rcr.getRegisIdByCourseIdAndAccountID(account.getId(),id,true);
+            }
+            if(rc!=null){
+                request.setAttribute("registrationCourse", rc);
             }
             request.setAttribute("agvRating", ratec.getAvgCourseRating(c.getId()));
             request.setAttribute("course",c);

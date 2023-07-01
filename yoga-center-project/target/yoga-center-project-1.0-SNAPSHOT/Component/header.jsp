@@ -106,11 +106,12 @@
     var scrollvalue = 0;
     $(window).bind('mousewheel', function (event) {
         scrollvalue += event.originalEvent.wheelDelta;
+        var currentPoint = window.pageYOffset;
         if (scrollvalue >= 600) {
 //Scroll up
             $(".header-wrapper").slideDown(400);
             scrollvalue = 0;
-        } else if (scrollvalue <= -600) {
+        } else if (scrollvalue <= -600 && currentPoint>200) {
             //Scroll down
             $(".header-wrapper").slideUp(400);
             scrollvalue = 0;

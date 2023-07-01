@@ -224,7 +224,7 @@
                             <li value="<%= RegistrationCourse.CourseStatus.INPROGRESS.ordinal() %>">In Progress</li>
                             <li value="<%= RegistrationCourse.CourseStatus.FINISH.ordinal() %>">Finished</li>
                         </ul>
-                        <c:if test="${listRegistrationCourse!=null && listRegistrationCourse.size() gt 1}">
+                        <c:if test="${listRegistrationCourse!=null && listRegistrationCourse.size() gt 0}">
                             <div class="display-course-content">
                                 <table class="course-table">
                                     <tr>
@@ -269,7 +269,7 @@
                         url:"course?status="+$(f).val(),
                         type:"get",
                         success:function(data){
-                            document.querySelector(".display-course-content").innerHTML = data;
+                            $('.display-course-content').html(data);
                         },
                         error: function(msg){
 

@@ -72,7 +72,7 @@
                 <%@include file="../Component/rightBarBlog.jsp" %>
             </div>
         <jsp:include page="../Component/footer.jsp"></jsp:include>
-        <%@include file="../Component/toast.jsp" %>
+        <jsp:include page="../Component/postBlog.jsp"/>
         <script>
             //this is comment progress
             $('.user-comment').on('submit',function (e){
