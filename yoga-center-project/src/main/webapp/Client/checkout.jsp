@@ -38,7 +38,7 @@
                     <div class="container__element-form">
                         <form action="CheckoutSendController">
                             <input type="hidden" id="course_id" name="id" value="" >
-                            <<input type="hidden" id="course_scheduleId" name="course_scheduleId" value="">
+                            <input type="hidden" id="course_scheduleId" name="course_scheduleId" value="">
                             <!-- form-left -->
                             <div class="container__element-left">
                                 <div class="element__checkout-account-login ">
@@ -103,12 +103,13 @@
                                     <tbody>
                                         <tr class="table-detail">
                                             <td class="detail-content">Subtotal</td>
-                                            <td class="detail-price">${course.price - (course.price * (discount.discount) / 100)}</td>
+                                    
+                                            <td class="detail-price">$${course.price - (course.price * (discount.discount) / 100)}</td>
                                     <input type="hidden" id="subtotal" name="subtotal" value="${course.price - (course.price * (discount.discount) / 100)}">
                                     </tr>
                                     <tr class="table-total">
                                         <td class="total-title">Total</td>
-                                        <td class="total-price">${course.price - (course.price * (discount.discount) / 100)}</td>
+                                        <td class="total-price">$${course.price - (course.price * (discount.discount) / 100)}</td>
                                     <input type="hidden" id="total" name="total" value="${course.price - (course.price * (discount.discount) / 100)}">
                                     </tr>
                                     </tbody>

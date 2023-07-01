@@ -105,7 +105,7 @@
             const btnPostBlog = document.querySelector(".post-blog-btn");
 
             $('textarea#textEditor').tinymce({
-                height: 250,
+                height: 150,
                 menubar: false,
                 plugins: [
                     'a11ychecker', 'advlist', 'advcode', 'advtable', 'autolink', 'checklist', 'export',

@@ -14,12 +14,14 @@ import com.yowu.yogacenter.repository.BillRepository;
 import com.yowu.yogacenter.repository.CourseRepository;
 import com.yowu.yogacenter.repository.CourseScheduleRepository;
 import com.yowu.yogacenter.repository.RegistrationCourseRepository;
+import jakarta.mail.Session;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
@@ -39,8 +41,10 @@ import java.util.TimeZone;
  * @author Chien Thang
  */
 public class CheckoutSendController extends HttpServlet {
-    private final String CHECKOUT_PAGE ="Client/checkout.jsp";
+
+    private final String CHECKOUT_PAGE = "Client/checkout.jsp";
     private final String PENDING_CHECKOUT = "Client/pending.jsp";
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -59,7 +63,7 @@ public class CheckoutSendController extends HttpServlet {
                 discount = Integer.parseInt(sDiscount);
             }
             String method = request.getParameter("payment-method");
-            
+
             int status = 2;
             boolean isActive = true;
             long millis = System.currentTimeMillis();
@@ -68,12 +72,13 @@ public class CheckoutSendController extends HttpServlet {
             Bill order = new Bill(c, acc, status, isActive, total, discount, date, orderCode, method);
             BillRepository billRepo = new BillRepository();
             billRepo.add(order);
-            
+
+            //Bill bill = billRepo.getCourseIdByOrdercode(orderCode);
 //            System.out.println(billRepo);
             int courseScheduleID = Integer.parseInt(request.getParameter("course_scheduleId"));
 //            System.out.println(courseId);
             CourseScheduleRepository csr = new CourseScheduleRepository();
- //           System.out.println(csr);
+            //           System.out.println(csr);
             CourseSchedule cs = csr.detailByScheduleID(courseScheduleID);
 //            System.out.println(cs);
             int course_status = 0;
@@ -82,27 +87,30 @@ public class CheckoutSendController extends HttpServlet {
             RegistrationCourseRepository regisRepo = new RegistrationCourseRepository();
             regisRepo.addRegistration(regis);
             System.out.println(regis);
-            
+
 //            url = SUCCESS;
             if (method.equals("studio")) {
                 url = PENDING_CHECKOUT;
+                HttpSession session = request.getSession();
+                session.setAttribute("bill", order);
                 request.getRequestDispatcher(url).forward(request, response);
-            }else{
-                long totalVnPay = (long)(total*100);
+                System.out.println(url);
+            } else {
+                long totalVnPay = (long) (total * 100);
                 url = vnpay_payment(orderCode, totalVnPay, request, response);
                 response.sendRedirect(url);
                 System.out.println(url);
             }
         } catch (Exception e) {
             System.out.println(e);
-        }        
+        }
     }
 
     private String vnpay_payment(String paymentCode, long price, HttpServletRequest req, HttpServletResponse resp) throws UnsupportedEncodingException, IOException {
         String vnp_Version = "2.1.0";
         String vnp_Command = "pay";
         String orderType = "100";
-        long amount = price*23520;
+        long amount = price * 23520;
         String bankCode = "";
 
         String vnp_TxnRef = paymentCode;

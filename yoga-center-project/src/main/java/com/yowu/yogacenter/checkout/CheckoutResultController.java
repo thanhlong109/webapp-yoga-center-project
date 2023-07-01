@@ -16,6 +16,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.text.ParseException;
 
 /**
  *
@@ -44,7 +45,8 @@ public class CheckoutResultController extends HttpServlet {
             HttpSession session = request.getSession();
             String orderCode = vnp_TxnRef; // Lấy orderCode từ vnp_OrderInfo hoặc từ đâu đó khác
             session.setAttribute("orderCode", orderCode);
-
+//http://localhost:8080/yoga-center-project/CheckoutSendController?id=3&course_scheduleId=5&order__comment=&payment-method=studio&btnPlaceOrder=&discountTotal=&subtotal=54.0&total=54.0
+            
             
             Account acc = (Account) request.getSession().getAttribute("account");
             String accountID = Integer.toString(acc.getId());
@@ -54,11 +56,13 @@ public class CheckoutResultController extends HttpServlet {
 
             if (vnp_ResponseCode.equals("00")) {
                 boolean check = bill.updateStatus(vnp_TxnRef, vnp_PayDate, 0);
-                Bill billR = bill.getByCourseIdOrdercode(vnp_TxnRef);
+                Bill billR = bill.getCourseIdByOrdercode(vnp_TxnRef);
                 System.out.println(billR.getCourse().getId());
                 boolean updateRegis = regis.updateStatus(true, accountID, billR.getCourse().getId());
                 System.out.println(updateRegis);
+                Bill billL = bill.getAllByAccountIdAndCourseID(accountID, billR.getCourse().getId());
                 if (check) {
+                    session.setAttribute("billCourse", billL);
                     request.setAttribute("PAYMENT", payment);
                     url = SUCCESS_CHECKOUT;
                 }
@@ -71,7 +75,7 @@ public class CheckoutResultController extends HttpServlet {
             }
             System.out.println(vnp_PayDate);
 
-        } catch (Exception e) {
+        } catch (NumberFormatException | ParseException e) {
             log("Error at PaymentResultController: " + e.toString());
         } finally {
             request.getRequestDispatcher(url).forward(request, response);

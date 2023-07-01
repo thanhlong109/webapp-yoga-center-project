@@ -4,6 +4,7 @@
     Author     : Chien Thang
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -55,12 +56,16 @@
                                     <td>${sessionScope.account.email}</td>
                                 </tr>
                                 <tr>
+                                    <th>Payment method:</td>
+                                    <td>${sessionScope.billCourse.method}</td>
+                                </tr>
+                                <tr>
                                     <th>Order code:</th>
-                                    <td>${sessionScope.orderCode}</td>
+                                    <td>${PAYMENT.vnp_TxnRef}</td>
                                 </tr>
                                 <tr>
                                     <th>Amount paid:</th>
-                                    <td class="amout">3.000.000 VND</td>
+                                    <td class="amout">${PAYMENT.vnp_Amount} VND</td>
                                 </tr>
                                 
                             </tbody>
@@ -74,21 +79,26 @@
                     <div class="col-md-12 payment-details">
                         <table>
                             <tbody>
+                                
                                 <tr>
-                                    <th>Billing content:</td>
-                                    <td>Order payment: 685787</td>
+                                    <th>Payment product:</th>
+                                    <td>${sessionScope.billCourse.course.title}</td>
+                                </tr>
+                                <tr>
+                                    <th>Bank Transaction Number:</td>
+                                    <td>${PAYMENT.vnp_BankTranNo}</td>
                                 </tr>
                                 <tr>
                                     <th>Bank code:</td>
-                                    <td>NCB</td>
+                                    <td>${PAYMENT.vnp_BankCode}</td>
                                 </tr>
                                 <tr>
                                     <th>Payment type:</td>
-                                    <td>VISA</td>
+                                    <td>${PAYMENT.vnp_CardType}</td>
                                 </tr>
                                 <tr>
                                     <th>Payment date:</td>
-                                    <td>25/06/2023 21:25</td>
+                                    <td>${PAYMENT.vnp_PayDate}</td>
                                 </tr>
                             </tbody>
                         </table>

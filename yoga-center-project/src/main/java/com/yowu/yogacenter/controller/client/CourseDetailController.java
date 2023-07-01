@@ -6,10 +6,12 @@ package com.yowu.yogacenter.controller.client;
 
 import com.yowu.yogacenter.model.Account;
 import com.yowu.yogacenter.model.Course;
+import com.yowu.yogacenter.model.RegistrationCourse;
 import com.yowu.yogacenter.repository.CourseRepository;
 import com.yowu.yogacenter.repository.CourseScheduleRepository;
 import com.yowu.yogacenter.repository.CourseWishlistRepository;
 import com.yowu.yogacenter.repository.RatingCourseRepository;
+import com.yowu.yogacenter.repository.RegistrationCourseRepository;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -36,10 +38,16 @@ public class CourseDetailController extends HttpServlet {
             CourseWishlistRepository cwr = new CourseWishlistRepository();
             Course c = cr.detail(id);
             Account account = (Account) request.getSession().getAttribute("account");
+            String accountID = Integer.toString(account.getId());
+            RegistrationCourseRepository rcr = new RegistrationCourseRepository();
+            boolean regisStatus = true;
+            RegistrationCourse rc = rcr.getRegisIdByCourseIdAndAccountID(accountID, id, regisStatus);
             boolean isInWishList = false;
             if(account!=null){
                 isInWishList = cwr.isExist(id, account.getId());
             }
+            
+            request.setAttribute("regisID", rc);
             request.setAttribute("agvRating", ratec.getAvgCourseRating(c.getId()));
             request.setAttribute("course",c);
             request.setAttribute("courseScheduleList", sc.getScheduleByCourse(c.getId()));

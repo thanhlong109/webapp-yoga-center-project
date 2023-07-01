@@ -47,24 +47,21 @@
                             <tbody>
                                 <tr>
                                     <th>Customer:</th>
-                                    <td>Duong Ton Bao</td>
+                                    <td>${sessionScope.account.name}</td>
                                 </tr>
                                 <tr>
                                     <th>Email:</th>
-                                    <td>duongbao2k3@gmail.com</td>
+                                    <td>${sessionScope.account.email}</td>
                                 </tr>
                                 <tr>
                                     <th>Order code:</th>
-                                    <td>ABC123456</td>
+                                    <td>${PAYMENT.vnp_TxnRef}</td>
                                 </tr>
                                 <tr>
                                     <th>Amount paid:</th>
-                                    <td class="amout">3.000.000 VND</td>
+                                    <td class="amout">${PAYMENT.vnp_Amount} VND</td>
                                 </tr>
-                                <tr>
-                                    <th>Error code:</th>
-                                    <td class="error-code">24</td>
-                                </tr>
+                                
                             </tbody>
                         </table>
                     </div>
@@ -77,20 +74,24 @@
                         <table>
                             <tbody>
                                 <tr>
-                                    <th>Billing content:</td>
-                                    <td>Order payment: 685787</td>
+                                    <th>Payment product:</th>
+                                    <td>${PAYMENT.vnp_BankTranNo}</td>
+                                </tr>
+                                <tr>
+                                    <th>Bank Transaction Number:</td>
+                                    <td>${PAYMENT.vnp_BankTranNo}</td>
                                 </tr>
                                 <tr>
                                     <th>Bank code:</td>
-                                    <td>NCP</td>
+                                    <td>${PAYMENT.vnp_BankCode}</td>
                                 </tr>
                                 <tr>
                                     <th>Payment type:</td>
-                                    <td>VISA</td>
+                                    <td>${PAYMENT.vnp_CardType}</td>
                                 </tr>
                                 <tr>
                                     <th>Payment date:</td>
-                                    <td>25/06/2023 21:25</td>
+                                    <td>${PAYMENT.vnp_PayDate}</td>
                                 </tr>
                             </tbody>
                         </table>
