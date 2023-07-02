@@ -217,7 +217,7 @@ public class BillRepository {
             stmt.setInt(6, c.getDiscount());
             stmt.setDate(7, c.getDate());
             stmt.setInt(8, c.getId());
-            stmt.setString(8, c.getOrdercode());
+            stmt.setString(9, c.getOrdercode());
             stmt.setString(10, c.getMethod());
             stmt.setDate(11, c.getPaymentDate());
             status = stmt.executeUpdate();
