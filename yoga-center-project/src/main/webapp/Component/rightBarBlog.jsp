@@ -138,7 +138,7 @@
         </c:if>
     </div>
 </div>
-
+    
 <i class="fa-solid fa-chevron-left btnShowRight"></i>
 <script defer>
     //show off right part blog on mobile view
@@ -198,6 +198,7 @@
             type:"post",
             success:function(data){
                 $(select).parents('.small-blog-item').hide();
+                $('.js-blog-'+id).hide();
                  toast({
                     title: "Success!",
                     msg: "Delete success!",

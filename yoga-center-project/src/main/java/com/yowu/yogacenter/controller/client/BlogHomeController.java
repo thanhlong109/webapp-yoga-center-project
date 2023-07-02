@@ -8,6 +8,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.yowu.yogacenter.model.Account;
 import com.yowu.yogacenter.model.Blog;
 import com.yowu.yogacenter.repository.BlogRepository;
+import com.yowu.yogacenter.util.MyTools;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -58,14 +59,14 @@ public class BlogHomeController extends HttpServlet {
             //Phan trang
             String xpage = request.getParameter("page");
             int itemPerPage = 2; // number item each page
-            int size = br.countActive();
+            int size = br.count();
             int numPage = (int) Math.ceil(size / (double) itemPerPage);// this will print how many page number
             int page=1;
             if(xpage!=null){
                 page = Integer.parseInt(xpage);
             }
             int start = (page - 1) * itemPerPage;
-            List<Blog> lst = br.getActive(start, itemPerPage);
+            List<Blog> lst = br.getAll(start, itemPerPage);
             request.setAttribute("blogList",lst );
             request.setAttribute("page", page);
             request.setAttribute("numpage", numPage);
@@ -144,7 +145,9 @@ public class BlogHomeController extends HttpServlet {
                 }
                 case "deleteBlog":{
                     int bId = Integer.parseInt(request.getParameter("id"));
-                    System.out.println("delete"+br.delete(bId));
+                    Blog b = br.detail(bId);
+                    br.delete(bId);
+                    DeleteImgWithName(b.getImg());
                     break;
                 }
             }
@@ -171,8 +174,12 @@ public class BlogHomeController extends HttpServlet {
 "                                <div class=\"small-blog-item-info\">\n" +
 "                                    <div><i class=\"fa-regular fa-clock\"></i> "+dateString
                         + "</div>\n" +
-"                                    <div style=\"text-transform: capitalize;\" ><i class=\"fa-solid fa-pen\"></i> "+b.getAccount().getName()
-                        + "</div>\n" +
+"                                     <div class=\"small-blog-item-action\">\n" +
+"                                    <div onclick=\"editBlog("+b.getId()
+                        + ")\"><i class=\"fa-solid fa-pen-to-square\"></i> Edit</div>\n" +
+"                                    <div onclick=\"deleteBlog("+b.getId()
+                        + ",this)\"><i class=\"fa-solid fa-trash\"></i> Delete</div>\n" +
+"                                </div>"+
 "                                </div>\n" +
 "                            </div>\n" +
 "                        </div>";
@@ -180,12 +187,23 @@ public class BlogHomeController extends HttpServlet {
         }
         return data;
     };
+    private void DeleteImgWithName(String fileName){
+        String buildLocation = getServletContext().getRealPath("");
+        String realPath = getServletContext().getRealPath("/Asset/img/blog/").replace(buildLocation, "");
+        String mainLocation = "\\src\\main\\webapp\\";
+        Path path = Paths.get(buildLocation);
+        path = path.getParent();
+        path = path.getParent();
+        System.out.println();
+        String filePath = path.toString()+mainLocation+realPath+fileName;
+        MyTools.deleteFile(filePath);
+    }
     
      private String storeImgWithName(String name,String uploadDirectory,Part part){
         String fileName="";
         try{
             String orginName = part.getSubmittedFileName();
-             String extension = orginName.substring(orginName.lastIndexOf("."));
+            String extension = orginName.substring(orginName.lastIndexOf("."));
             fileName = name+extension;
             String buildLocation = getServletContext().getRealPath("");
             String realPath = getServletContext().getRealPath(uploadDirectory).replace(buildLocation, "");

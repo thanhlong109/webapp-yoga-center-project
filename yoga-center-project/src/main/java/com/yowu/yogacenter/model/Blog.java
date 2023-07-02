@@ -17,7 +17,6 @@ public class Blog implements Serializable{
     private int id;
     private String title;
     private String detail;
-    private boolean isActive = true;
     private Account account;
     private Timestamp date;
     private String img;
@@ -25,11 +24,10 @@ public class Blog implements Serializable{
     public Blog() {
     }
 
-    public Blog(int id, String title, String detail, boolean isActive, Account account, Timestamp date, String img) {
+    public Blog(int id, String title, String detail, Account account, Timestamp date, String img) {
         this.id = id;
         this.title = title;
         this.detail = detail;
-        this.isActive = isActive;
         this.account = account;
         this.date = date;
         this.img = img;
@@ -77,13 +75,6 @@ public class Blog implements Serializable{
         this.detail = detail;
     }
 
-    public boolean isIsActive() {
-        return isActive;
-    }
-
-    public void setIsActive(boolean isActive) {
-        this.isActive = isActive;
-    }
 
     public Account getAccount() {
         return account;

@@ -1,4 +1,4 @@
-<%-- 
+f<%-- 
     Document   : blogHomeDetail
     Created on : Jun 17, 2023, 12:17:06 PM
     Author     : DatTGT
@@ -93,6 +93,7 @@
                         }else{
                             var tt = parseInt($('#total-cmt').text(),10) + 1;
                             $('#total-cmt').html(tt);
+                            $('.user-comment textarea').val('');
                             $('.load-comment').prepend(data);
                         }  
                     },error: function(msg) {

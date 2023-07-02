@@ -20,7 +20,6 @@
         <link rel="stylesheet" href="Asset/css/clientHeader.css">
         <link rel="stylesheet" href="Asset/css/clientFooter.css">
         <link rel="stylesheet" href="Asset/css/common.css">
-    </head>
     <body>
         <jsp:include page="../Component/header.jsp"></jsp:include>
         <fmt:setLocale value="en_US" />
@@ -30,7 +29,7 @@
         <div class="container">
             <div class="left-container">
                 <c:forEach items="${blogList}" var="blog">
-                    <div class="blog-item">
+                    <div class="blog-item js-blog-${blog.id}">
                         <div class="blog-item-img">
                             <img src="Asset/img/blog/${blog.img}" alt="">
                         </div>
