@@ -23,6 +23,15 @@
             color: #3dbca8;
             font-style: italic;
         }
+        
+        .element__checkout-method img{
+            height: 4vh;
+            width: 4vh;
+        }
+        .checkout-method{
+            margin-left: 15px;
+            margin-top: 2px;
+        }
     </style>
 </head>
 
@@ -64,11 +73,13 @@
                                 <ul class="element__checkout-method">
                                     <li class="element__checkout-method-paypal">
                                         <input type="radio" name="payment-method" value="VNPAY">
-                                        <img src="Asset/img/checkout/paypal-logo-preview.png" alt="">
+                                        <img src="Asset/img/checkout/vnpay.png" alt="">
+                                        <span class="checkout-method">VnPay</span>
                                     </li>
                                     <li class="element__checkout-method-offline__payment">
                                         <input type="radio" name="payment-method" value="STUDIO">
                                         <img src="Asset/img/checkout/pngwing.com.png" alt="">
+                                        <span class="checkout-method">Studio</span>
                                     </li>
                                 </ul>
                                 <div class="element__checkout-button">
@@ -113,7 +124,6 @@
                                     <input type="hidden" id="total" name="total" value="${course.price - (course.price * (discount.discount) / 100)}">
                                     </tr>
                                     </tbody>
-
                                 </table>
                             </div>
 
