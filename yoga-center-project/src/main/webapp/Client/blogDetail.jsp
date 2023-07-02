@@ -88,7 +88,7 @@ f<%--
                                 title:"Error!",
                                 msg:"Login to use this fuction!",
                                 type:'error',
-                                duration:5000   
+                                duration:5000
                             });
                         }else{
                             var tt = parseInt($('#total-cmt').text(),10) + 1;

@@ -53,6 +53,65 @@
             <%@include file="../Component/rightBarBlog.jsp" %>
             <%@include file="../Component/postBlog.jsp" %>
         </div>
+        <%@include file="../Component/toast.jsp" %>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+        <script src="https://cdn.tiny.cloud/1/drz9q75t7w0e2yrsegy3qr29p30m6b0nb9zm476dryjq73bq/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@tinymce/tinymce-jquery@1/dist/tinymce-jquery.min.js"></script>
+        <script defer>
+            const displayImg = document.getElementById("js-display-img");
+            const displayName = document.getElementById("js-name-img");
+            const btnImg = document.getElementById("jsuploadImg");
+
+            const btnCloseBlog = document.querySelector(".close-btn");
+            const postBlog = document.querySelector(".post-blog");
+            const btnPostBlog = document.querySelector(".post-blog-btn");
+
+            $('textarea#textEditor').tinymce({
+                height: 150,
+                menubar: false,
+                plugins: [
+                    'a11ychecker', 'advlist', 'advcode', 'advtable', 'autolink', 'checklist', 'export',
+                    'lists', 'link', 'image', 'charmap', 'preview', 'anchor', 'searchreplace', 'visualblocks',
+                    'powerpaste', 'fullscreen', 'formatpainter', 'insertdatetime', 'media', 'table', 'help', 'wordcount'
+                ],
+                toolbar: 'undo redo | a11ycheck casechange blocks | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist checklist outdent indent | removeformat | code table help'
+            });
+
+
+            //display img when upload
+            btnImg.onchange = () => {
+                let reader = new FileReader();
+                reader.readAsDataURL(btnImg.files[0]);
+                reader.onload = () => {
+                    displayImg.setAttribute("src", reader.result);
+                };
+                console.log(btnImg.files[0].name);
+                displayName.textContent = btnImg.files[0].name;
+            };
+            //off post blog on mobile view
+            btnCloseBlog.addEventListener("click", () => {
+                postBlog.classList.toggle("active");
+                $('.header-wrapper').slideDown();
+                $(window).on('mousewheel');
+            });
+            //show post blog on mobile view
+            btnPostBlog.addEventListener("click", () => {
+            <c:if test="${sessionScope.account!=null}">
+                postBlog.classList.toggle("active");
+                $('.header-wrapper').slideUp();
+                $(window).off('mousewheel');
+            </c:if>
+            <c:if test="${sessionScope.account==null}">
+                toast({
+                    title: "Opps!",
+                    msg: "Login to use this fuction!",
+                    type: 'error',
+                    duration: 5000
+                });
+            </c:if>
+
+            });
+        </script>
         <jsp:include page="../Component/footer.jsp"></jsp:include>
     </body>
 </html>

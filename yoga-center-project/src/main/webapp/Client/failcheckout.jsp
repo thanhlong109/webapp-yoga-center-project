@@ -5,14 +5,14 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="jakarta.tags.core" %>
 <!DOCTYPE html>
 <html>
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Payment | YowuYoga</title>
-        <!-- Google font -->
-        <!-- <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'> -->
+
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@100;200;300;400&display=swap"
@@ -24,7 +24,7 @@
         <link rel="stylesheet" href="Asset/css/clientHeader.css">
         <link rel="stylesheet" href="Asset/css/clientFooter.css">
         <link rel="stylesheet" href="Asset/css/common.css">
-        <link rel="stylesheet" href="Asset/css/stylepayment-failure.css">
+        <link rel="stylesheet" href="Asset/css/stylepayment-success.css">
 
     </head>
 
@@ -47,24 +47,21 @@
                             <tbody>
                                 <tr>
                                     <th>Customer:</th>
-                                    <td>Duong Ton Bao</td>
+                                    <td>${sessionScope.account.name}</td>
                                 </tr>
                                 <tr>
                                     <th>Email:</th>
-                                    <td>duongbao2k3@gmail.com</td>
+                                    <td>${sessionScope.account.email}</td>
                                 </tr>
                                 <tr>
                                     <th>Order code:</th>
-                                    <td>ABC123456</td>
+                                    <td>${PAYMENT.vnp_TxnRef}</td>
                                 </tr>
                                 <tr>
                                     <th>Amount paid:</th>
-                                    <td class="amout">3.000.000 VND</td>
+                                    <td class="amout">$${sessionScope.billCourse.value}</td>
                                 </tr>
-                                <tr>
-                                    <th>Error code:</th>
-                                    <td class="error-code">24</td>
-                                </tr>
+                                
                             </tbody>
                         </table>
                     </div>
@@ -77,20 +74,20 @@
                         <table>
                             <tbody>
                                 <tr>
-                                    <th>Billing content:</td>
-                                    <td>Order payment: 685787</td>
+                                    <th>Payment product:</th>
+                                    <td>${sessionScope.billCourse.course.title}</td>
                                 </tr>
                                 <tr>
                                     <th>Bank code:</td>
-                                    <td>NCP</td>
+                                    <td>${PAYMENT.vnp_BankCode}</td>
                                 </tr>
                                 <tr>
                                     <th>Payment type:</td>
-                                    <td>VISA</td>
+                                    <td>${PAYMENT.vnp_CardType}</td>
                                 </tr>
                                 <tr>
                                     <th>Payment date:</td>
-                                    <td>25/06/2023 21:25</td>
+                                    <td>${sessionScope.billCourse.paymentDate}</td>
                                 </tr>
                             </tbody>
                         </table>

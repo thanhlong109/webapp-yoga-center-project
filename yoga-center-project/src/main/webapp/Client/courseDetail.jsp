@@ -330,6 +330,12 @@
                     font-size: 24px;
                 }
             }
+            
+            
+            .book1 a{
+                text-decoration: none;
+                color: #fbc12d;
+            }
 
         </style>
 
@@ -443,17 +449,17 @@
                             <c:if test="${course.price<=0}">Free</c:if>
                             </div> <!--replace price here-->
                         </div>
-                        <div  class="course-card">
+                        <div  class="course-card book1">
 
                         <c:if test="${sessionScope.account == null}">
 
                             <c:if test="${course.price>0}">
-                                <a href="${pageContext.request.contextPath}/login">
+                                <a class="book-course" href="${pageContext.request.contextPath}/login">
                                     <p>Book now</p>
                                 </a>
                             </c:if>
                             <c:if test="${course.price<=0}">
-                                <a href="${pageContext.request.contextPath}/login">
+                                <a class="book-course" href="${pageContext.request.contextPath}/login">
                                     <p>Errol</p> 
                                 </a>
                             </c:if>
@@ -461,12 +467,12 @@
                         <c:if test="${sessionScope.account != null && registrationCourse==null}">
 
                             <c:if test="${course.price>0}">
-                                <a onclick="gotoCheckout('Checkout?id=${course.id}')" class="course-card">
+                                <a class="book-course" onclick="gotoCheckout('Checkout?id=${course.id}')" class="course-card">
                                     <p>Book now</p>
                                 </a>
                             </c:if>   
                             <c:if test="${course.price<=0}">
-                                <a href="">
+                                <a class="book-course" href="">
                                     <p>Errol</p> 
                                 </a>
                             </c:if>

@@ -4,16 +4,15 @@
     Author     : Chien Thang
 --%>
 
+<%@taglib prefix="c" uri="jakarta.tags.core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        
+
         <title>Payment | YowuYoga</title>
-        <!-- Google font -->
-        <!-- <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'> -->
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@100;200;300;400&display=swap"
@@ -32,23 +31,28 @@
         <jsp:include page="../Component/header.jsp"></jsp:include>
 
 
-        <div class="outline">
-            <div class="container payment-body">
-                <div class="row payment-container">
-                    <div class="col-md-12 pay-header">
-                        <h5>PAYMENT INFORMATION</h5>
-                    </div>
+            <div class="outline">
+                <div class="container payment-body">
+                    <div class="row payment-container">
+                        <div class="col-md-12 pay-header">
+                            <h5>PAYMENT INFORMATION</h5>
+                        </div>
 
-                    <div class="col-md-12 pay-img">
-                        <img src="Asset/img/checkout/icons8-pending-100.png" alt="" width="100px">
-                        <h4>Payment Pending</h4>
-                    </div>
-                    <div class="col-md-12 payment-in4">
-                        <table>
-                            <tbody>
-                                <tr>
-                                    <th>Customer:</th>
-                                    <td>${sessionScope.account.name}</td>
+                        <div class="col-md-12 pay-img">
+                            <img src="Asset/img/checkout/icons8-pending-100.png" alt="" width="100px">
+                            <h4>Payment Pending</h4>
+                        </div>
+                        <div class="col-md-12 payment-in4">
+                        <c:if test="${sessionScope.bill == null}">
+                            <h2>Opps.</h2>
+                            <p>We'are sorry, but somthing went wrong.</p>
+                            <a href="${pageContext.request.contextPath}/">Go back to home page.</a>    
+                        </c:if>
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <th>Customer:</th>
+                                        <td>${sessionScope.account.name}</td>
                                 </tr>
                                 <tr>
                                     <th>Email:</th>
@@ -56,13 +60,17 @@
                                 </tr>
                                 <tr>
                                     <th>Order code:</th>
-                                    <td>${sessionScope.orderCode}</td>
+                                    <td>${bill.ordercode}</td>
+                                </tr>
+                                <tr>
+                                    <th>Discount:</td>
+                                    <td>${bill.discount}%</td>
                                 </tr>
                                 <tr>
                                     <th>Amount paid:</th>
-                                    <td class="amout">3.000.000 VND</td>
+                                    <td class="amout">$${bill.value}</td>
                                 </tr>
-                                
+
                             </tbody>
                         </table>
                     </div>
@@ -75,12 +83,16 @@
                         <table>
                             <tbody>
                                 <tr>
+                                    <th>Payment product:</td>
+                                    <td>${bill.course.title}</td>
+                                </tr>
+                                <tr>
                                     <th>Payment type:</td>
                                     <td>In Studio</td>
                                 </tr>
                                 <tr>
-                                    <th>Payment date:</td>
-                                    <td>25/06/2023 21:25</td>
+                                    <th>Payment date:</th>
+                                    <td>${bill.date}</td>
                                 </tr>
                             </tbody>
                         </table>

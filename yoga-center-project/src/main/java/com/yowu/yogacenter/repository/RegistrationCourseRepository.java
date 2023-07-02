@@ -4,6 +4,7 @@
  */
 package com.yowu.yogacenter.repository;
 
+import com.yowu.yogacenter.model.CourseSchedule;
 import com.yowu.yogacenter.model.RegistrationCourse;
 import com.yowu.yogacenter.util.DBHelpler;
 import java.sql.PreparedStatement;
@@ -44,6 +45,7 @@ public class RegistrationCourseRepository {
         }
         return list;
     }
+    
     public RegistrationCourse getRegisIdByCourseIdAndAccountID(int accountId, int courseId, boolean regisStatus) {
         String sql = "select * from tblRegistrationCourse "
                 + "WHERE account_id = ? AND course_id = ? AND registration_status = ? ";
@@ -101,23 +103,55 @@ public class RegistrationCourseRepository {
         }
         return list;
     }
+
+    public RegistrationCourse getRegisIdByCourseIdAndAccountID(String accountId, int courseId, boolean regisStatus) {
+        String sql = "select * from tblRegistrationCourse "
+                + "WHERE account_id = ? AND course_id = ? AND registration_status = ? ";
+        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
+            stmt.setString(1, accountId);
+            stmt.setInt(2, courseId);
+            stmt.setBoolean(3, regisStatus);
+            try ( ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    AccountRepository acc = new AccountRepository();
+                    CourseRepository cr = new CourseRepository();
+                    CourseScheduleRepository cs = new CourseScheduleRepository();
+                    RegistrationCourse c = new RegistrationCourse();
+                    c.setId(rs.getInt("registration_id"));
+                    c.setCourse(cr.detail(rs.getInt("course_id")));
+                    c.setAccount(acc.detail(rs.getInt("account_id")));
+                    c.setCourseSchedule(cs.detail(rs.getInt("course_schedule_id")));
+                    c.setRegistrationDate(rs.getDate("registration_date"));
+                    c.setEndDate(rs.getDate("end_date"));
+                    c.setCourseStatus(rs.getInt("course_status"));
+                    c.setRegistrationtatus(rs.getBoolean("registration_status"));
+                    return c;
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return null;
+    }
+
     public int getStudentEnrolled(int courseId){
         String sql = "select count(*) as num from tblRegistrationCourse where course_id=? and registration_status=1";
         int num = 0;
-        try(PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)){
+        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
             stmt.setInt(1, courseId);
-            try(ResultSet rs = stmt.executeQuery()){
-                while(rs.next()){
+            try ( ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
                     num = rs.getInt("num");
                     return num;
                 }
             }
-            
-        }catch(Exception e){
+
+        } catch (Exception e) {
             System.out.println(e);
         }
         return num;
     }
+
     public List<RegistrationCourse> getCoursesByAccountID(int accountId){
         String sql = "select * from tblRegistrationCourse where account_id=? and registration_status=1";
         List<RegistrationCourse> list = new ArrayList<>();
@@ -194,7 +228,7 @@ public class RegistrationCourseRepository {
 
         return status == 1;
     }
-    
+
     public boolean addRegistration(RegistrationCourse registrationCourse) {
         String sql = "INSERT INTO tblRegistrationCourse (account_id, course_id, "
                 + "registration_date, end_date, course_schedule_id, course_status, "
@@ -241,7 +275,7 @@ public class RegistrationCourseRepository {
 
         return status == 1;
     }
-    
+
     public boolean updateStatus(boolean status, String accountId, int courseId) {
         String sql = "UPDATE tblRegistrationCourse SET registration_status = ? "
                 + "WHERE account_id = ? AND course_id = ? ";
@@ -256,9 +290,9 @@ public class RegistrationCourseRepository {
             System.out.println(e);
         }
 
-        return updateStatus ;
+        return updateStatus;
     }
-    
+
     public boolean delete(int id) {
         String sql = "UPDATE tblRegistrationCourse SET course_status = 0 "
                 + "WHERE registration_id = ?";
@@ -274,8 +308,5 @@ public class RegistrationCourseRepository {
 
         return status == 1;
     }
-    public static void main(String[] args) {
-        RegistrationCourseRepository r = new RegistrationCourseRepository();
-        System.out.println(r.getCoursesByAccountID(4).get(0).getCourse().getTitle());
-    }
+
 }
