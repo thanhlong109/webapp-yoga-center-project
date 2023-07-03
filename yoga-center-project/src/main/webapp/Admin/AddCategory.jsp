@@ -49,7 +49,7 @@
                         </div>
                     </div>
                 </div>
-                <h1>Update Category</h1>
+                <h1>Add Category</h1>
                 <div id="wrapper">
                     <form action="../admin/addCategoryController" >
                         <h3>Add Category</h3>

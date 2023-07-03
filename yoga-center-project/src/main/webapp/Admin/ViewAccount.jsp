@@ -69,7 +69,7 @@
                                     <th>Account Email</th>
                                     <th>Account Phone</th>
                                     <th>Social ID</th>
-                                    <th>Role ID</th>
+                                    <th>Role</th>
                                     <th>Actions</th>
                                 </tr>
                             <c:forEach items="${ACCOUNT_LIST}" var="account">
@@ -94,10 +94,11 @@
                                         ${account.socialID}
                                     </td>
                                     <td>
-                                        ${account.role.id}
+                                        ${account.role.name}
                                     </td>                                                                                   
                                     <td>
-                                        <a class="btn btn-red" href="#delete">Delete</a> 
+                                        <a class="btn btn-red" href="deleteAccountController?id=${account.id}">
+                                            Delete</a> 
                                     </td>
                                 </tr>
                                 </c:if>

@@ -4,6 +4,7 @@
  */
 package com.yowu.yogacenter.controller.admin;
 
+import com.yowu.yogacenter.repository.CourseRepository;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -17,10 +18,16 @@ import jakarta.servlet.http.HttpServletResponse;
  */
 public class DeleteCourseController extends HttpServlet {
 
+    private final String VIEW_COURSE_LIST_CONTROLLER = "viewCourseListController";
+    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+       int id = Integer.parseInt(request.getParameter("id"));
        
+       CourseRepository _courseRepository = new CourseRepository();
+        _courseRepository.delete(id);
+       response.sendRedirect(VIEW_COURSE_LIST_CONTROLLER);
     }
 
     @Override

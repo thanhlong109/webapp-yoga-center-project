@@ -102,7 +102,7 @@
                                             <c:out value="${course.account.id}" />  
                                         </td> 
                                         <td>
-                                            <a class="btn btn-red" href="#delete">
+                                            <a class="btn btn-red" href="deleteCourseController?id=${course.id}">
                                                 Delete</a> 
                                             <a class="btn btn-green" href="updateCourseController?id=${course.id}">
                                                 Edit</a> 

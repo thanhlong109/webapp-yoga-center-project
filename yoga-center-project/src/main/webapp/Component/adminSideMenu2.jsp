@@ -79,7 +79,7 @@
                 <li><a href="#">Account Analysis</a></li>
                 <li><a href="<c:url value="/admin/viewAccountListController"/>">
                         View & Edit Account</a></li>
-                <li><a href="#">Add New Account</a></li>
+                <li><a href="../Admin/AddAccount.jsp">Add New Account</a></li>
             </ul>
         </div>
         <div class="sidebar-elements">
