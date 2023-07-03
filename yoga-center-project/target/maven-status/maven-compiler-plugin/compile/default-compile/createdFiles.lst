@@ -1,3 +1,4 @@
+com\yowu\yogacenter\controller\client\HomeController.class
 com\yowu\yogacenter\controller\client\ViewScheduleController.class
 com\yowu\yogacenter\controller\client\RegisterAccountController.class
 com\yowu\yogacenter\controller\client\UserProfileWishlist.class
