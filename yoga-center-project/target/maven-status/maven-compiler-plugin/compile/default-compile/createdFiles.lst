@@ -36,6 +36,7 @@ com\yowu\yogacenter\model\Role.class
 com\yowu\yogacenter\controller\client\BlogHomeController.class
 com\yowu\yogacenter\model\RoleHasPermission.class
 com\yowu\yogacenter\controller\client\CourseListController.class
+com\yowu\yogacenter\controller\client\MembershipController.class
 com\yowu\yogacenter\controller\client\UserProfileCourse.class
 com\yowu\yogacenter\repository\CourseScheduleRepository.class
 com\yowu\yogacenter\util\DBHelpler.class

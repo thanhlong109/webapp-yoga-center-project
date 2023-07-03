@@ -43,7 +43,7 @@
             <div class="section1">
                 <div>
                     <div>
-                        <img src="Asset/img/icon/icon1-1.png" alt="">
+                        <img src="./Asset/img/icon/icon1-1.png" alt="">
                     </div>
                     <div>
                         <h2>Many Style</h2>
@@ -90,7 +90,7 @@
                 <ul class="caroursel">
                     <li class="card card-zoom">
                         <div class="card-img">
-                            <img src="..Asset/img/classes/shutterstock_1371365420-950x1075.jpg" alt="">
+                            <img src="Asset/img/classes/shutterstock_1371365420-950x1075.jpg" alt="">
                             <div class="card-hide">
                                 <p><i class="fa-solid fa-book"></i> 7 Lessons</p>
                                 <p><i class="fa-solid fa-user-group"></i> 188 Student Enrolled</p>
