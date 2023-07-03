@@ -4,11 +4,13 @@
  */
 package com.yowu.yogacenter.model;
 
+import java.io.Serializable;
+
 /**
  *
  * @author DungVNT
  */
-public class Account {
+public class Account implements Serializable{
     
     public static String DEFAULT_IMG = "hinh-avatar-1.png";
 

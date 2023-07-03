@@ -112,17 +112,17 @@ public class ClassScheduleRepository {
         return null;
     }
 
-    public boolean add(ClassSchedule classSchedule) {
-        String sql = "INSERT INTO tblClassSchedule (registration_id, class_date, slot_start_time, slot_end_time, class_status) VALUES (?, ?, ?, ?, ?)";
+    public boolean addClassSchedule(ClassSchedule classSchedule) {
+        String sql = "INSERT INTO tblClassSchedule ( class_date, slot_start_time, slot_end_time, class_status, registration_id)"
+                + " VALUES (?, ?, ?, ?, ?)";
         int status = 0;
 
         try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
-            stmt.setInt(1, classSchedule.getRegistrationCourse().getId());
-            stmt.setDate(2, classSchedule.getDate());
-            stmt.setTime(3, classSchedule.getStartTime());
-            stmt.setTime(4, classSchedule.getEndTime());
-            stmt.setInt(5, classSchedule.getStatus());
-
+            stmt.setDate(1, classSchedule.getDate());
+            stmt.setTime(2, classSchedule.getStartTime());
+            stmt.setTime(3, classSchedule.getEndTime());
+            stmt.setInt(4, classSchedule.getStatus());
+            stmt.setInt(5, classSchedule.getRegisId());
             status = stmt.executeUpdate();
         } catch (Exception e) {
             System.out.println(e);

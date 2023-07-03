@@ -60,6 +60,32 @@ public class AccountRepository {
         }
         return list;
     }
+    
+    public List<Account> getIntructorList(){
+        String sql ="select * from (select account_id from tblCourse where course_is_active=1 group by account_id )c join tblAccount a on (c.account_id=a.account_id and a.account_is_active=1)";
+         List<Account> list = new ArrayList<>();
+        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
+            try ( ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    RoleRepository cr = new RoleRepository();
+                    Account c = new Account();
+                    c.setId(rs.getInt("account_id"));
+                    c.setImg(rs.getString("account_img"));
+                    c.setName(rs.getString("account_name"));
+                    c.setPassword(rs.getString("account_password"));
+                    c.setEmail(rs.getString("account_email"));
+                    c.setPhone(rs.getString("account_phone"));
+                    c.setIsActive(rs.getBoolean("account_is_active"));
+                    c.setRole(cr.detail(rs.getInt("role_id")));
+                    c.setSocialID(rs.getString("social_id"));
+                    list.add(c);
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return list;
+    }
 
     public Account checkLogin(String accountemail, String password) {
 
@@ -248,38 +274,11 @@ public class AccountRepository {
         return null;
     }
 
-// public static void main(String[] args) {
-//    AccountRepository cr = new AccountRepository();
-//    Role rl = new Role();
-//    RoleRepository rr = new RoleRepository();
-////    private final String CREATE_ACCOUNT = "INSERT INTO tblAccount ("
-////            + "account_img, account_name, account_password, account_email, "
-////            + "account_phone, account_is_active, role_id, socialID) "
-////            + "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-////Account( String name, String password, String email, String phone, Role role, String socialID)
-//    Account c = new Account("thang", "thang123", "thang1@gmail", null, rr.detail(Role.RoleList.TRAINEE.ordinal()),"12345");
-//    System.out.println(c.getRole().getName());
-//    boolean isCreated = cr.createAccount(c);
-//     
-//    if (isCreated) {
-//        System.out.println("Tao tai khoan thanh cong!");
-//    } else {
-//        System.out.println("Không thể tạo tài khoản.");
-//    }
-//}
     public static void main(String[] args) {
         AccountRepository accountRepository = new AccountRepository();
 
-        // Test with valid Google login credentials
-        String validEmail = "anmobiebalog@gmail.com";
-        String validSocialID = "1234567890";
-        Account validAccount = accountRepository.checkLoginGoogle(validEmail, validSocialID);
-        if (validAccount != null) {
-            System.out.println("Valid account !");
-
-        } else {
-            System.out.println("Invalid account!");
-        }
+        System.out.println(accountRepository.getIntructorList().get(0).getName());
+        
 
     }
 

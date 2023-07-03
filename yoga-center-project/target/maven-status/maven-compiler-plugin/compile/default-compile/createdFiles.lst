@@ -1,3 +1,4 @@
+com\yowu\yogacenter\controller\client\HomeController.class
 com\yowu\yogacenter\controller\client\ViewScheduleController.class
 com\yowu\yogacenter\controller\client\RegisterAccountController.class
 com\yowu\yogacenter\controller\client\UserProfileWishlist.class
@@ -36,6 +37,7 @@ com\yowu\yogacenter\model\Role.class
 com\yowu\yogacenter\controller\client\BlogHomeController.class
 com\yowu\yogacenter\model\RoleHasPermission.class
 com\yowu\yogacenter\controller\client\CourseListController.class
+com\yowu\yogacenter\controller\client\MembershipController.class
 com\yowu\yogacenter\controller\client\UserProfileCourse.class
 com\yowu\yogacenter\repository\CourseScheduleRepository.class
 com\yowu\yogacenter\util\DBHelpler.class
@@ -47,6 +49,7 @@ com\yowu\yogacenter\model\GoogleLogin.class
 com\yowu\yogacenter\model\Membership.class
 com\yowu\yogacenter\model\Bill$BillStatus.class
 com\yowu\yogacenter\repository\CommentRepository.class
+com\yowu\yogacenter\util\MyTools.class
 com\yowu\yogacenter\repository\AccountRepository.class
 com\yowu\yogacenter\controller\admin\ViewClassScheduleListController.class
 com\yowu\yogacenter\model\Course.class

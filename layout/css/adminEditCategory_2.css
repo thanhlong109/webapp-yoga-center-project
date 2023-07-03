@@ -1,0 +1,318 @@
+/* ROOT VARIABLES */
+:root {
+    --color-primary: #7380ec;
+    --color-danger: #ff7782;
+    --color-success: #41f1b6;
+    --color-warning: #ffbb55;
+    --color-white: #fff;
+    --color-info-dark: #7d8da1;
+    --color-info-light: #dce1eb;
+    --color-dark: #363949;
+    --color-light: rgba(132, 139, 200, 0.18);
+    
+    --color-primary-variant: #111e88;
+    --color-dark-variant: #677483;
+    --color-background: #f6f6f9;
+
+    --card-border-radius: 2rem;
+    --border-radius-1: 0.4rem;
+    --border-radius-2: 0.8rem;
+    --border-radius-3: 1.2rem;
+
+    --card-padding: 1.8rem;
+    --padding-1: 1.2rem;
+
+    --box-shadow: 0 2rem 3rem var(--color-light);
+}  
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    border: 0;
+    outline: none;
+    list-style: none;
+    text-decoration: none;
+    appearance: none;
+}
+
+html {
+    font-size: 14px;
+}
+
+body {
+    font-family: 'Jost', sans-serif;
+    width: 100vw;
+    height: 100vh;
+    font-size: 0.88rem;
+    background: var(--color-background);
+    user-select: none;
+    overflow-x: hidden;
+}
+.container {
+    display: grid;
+    width: 96%;
+    margin: 0 auto;
+    gap: 1.8rem;
+    /*chỉ định kích thước giữa các hàng và cột*/
+    grid-template-columns: 18rem auto;
+    /*định nghĩa số column trên 1 row của 
+    grid-layout ---Với TH này left_side_bar = 20rem
+                               main = auto */
+
+}
+
+a {
+    color: var(--color-dark);
+}
+
+img {
+    display: block;
+    width: 100%;
+}
+
+h1 {
+    font-weight: 800;
+    font-size: 1.8rem;
+}
+
+h2 {
+    font-size: 1.4rem;
+
+}
+
+h3 {
+    font-size: 0.87rem;
+}
+
+h4 {
+    font-size: 0.8rem;
+}
+
+h5 {
+    font-size: 0.77rem;
+}
+
+.profile-photo {
+    width: 2.8rem;
+    height: 2.8rem;
+    border-radius: 50%;
+    overflow-x: hidden;
+}
+small {
+    font-size: 0.75rem;
+}
+.text-muted {
+    color: var(--color-info-dark);
+}
+b {
+    color: var(--color-dark);
+}
+
+p {
+    color: var(--color-dark-variant);
+}
+
+.primary {
+    color: var(--color-primary);
+}
+
+.danger {
+    color: var(--color-danger);
+}
+
+.success {
+    color: var(--color-success);
+}
+
+.warning {
+    color: var(--color-warning);
+}
+
+/* aside */
+aside {
+    height: 100vh;
+    
+}
+
+aside .top {
+    
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1.4rem;
+
+}
+
+aside .logo {
+    margin-left: 30%;
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--color-dark);
+}
+
+aside .close {
+    display: none;
+}
+
+/* sidebar */
+aside .sidebar {
+    
+    display: flex;
+    flex-direction: column;
+    height: 96vh;
+    position: relative;
+    top: 3rem;
+}
+aside h3 {
+    font-weight: 500;
+}
+
+aside .sidebar .sidebar-elements a{
+    display: flex;
+    color: var(--color-info-dark);
+    margin-left: 2rem;
+    gap: 1rem;
+    align-items: center;
+    position: relative;
+    height: 3.7rem;
+    transition: all 300ms ease;
+}
+aside .sidebar .sidebar-elements a span{
+    font-size: 1.6rem;
+    transition: all 300ms ease;
+}
+/* aside .sidebar .sidebar-elements:last-child{
+    position: absolute;
+    bottom: 2rem;
+    width: 100%;
+} */
+aside .sidebar .sidebar-elements a.active{
+    background: var(--color-light);
+    color: var(--color-primary);
+    margin-left: 0;
+}
+aside .sidebar .sidebar-elements a.active::before{
+    content: '';
+    width: 6px;
+    height: 100%;
+    background: var(--color-primary);
+}
+aside .sidebar .sidebar-elements a.active span{
+    color: var(--color-primary);
+    margin-left: calc(1rem - 3px);
+}
+aside .sidebar .sidebar-elements a:hover{
+    color: var(--color-primary);
+}
+aside .sidebar .sidebar-elements a:hover span{
+    margin-left: 1rem;
+}
+aside .sidebar .sidebar-elements .sub-item{
+    margin-left: 1.4rem;
+    padding-left: 2.7rem;
+    display: none;
+    transition: max-height 300ms ease;
+    overflow: hidden; 
+}
+
+/* ====================MAIN================ */
+main{
+    margin-top: 1.4rem;
+    margin-bottom: 2.5rem;
+}
+main .top{
+    display: flex;
+    justify-content: end;
+    gap: 2rem;
+}
+main .top button#menu-btn{
+    display: none;
+}
+main .top .profile{
+    display: flex;
+    text-align: right;
+    gap: 2rem;
+}
+
+/* search-box */
+ #search-box{
+    background: var(--color-white);
+    border-radius: var(--border-radius-2);
+    
+}
+#search-box #search-text{
+    border: none;
+    outline: none;
+    background: none;
+    font-size: 1.2rem;
+    padding: 0;
+    width: 0;
+    transition: all 0.25s ease-in-out;
+}
+#search-box:hover #search-text, #search-box #search-text:valid{
+    width: 300px;
+    padding: 10px 0 10px 15px;
+}
+#search-box #btnSearch{
+    background: var(--color-white);
+    border: none;
+    
+    cursor: pointer;
+    border-radius: 50%;
+    font-size: 1.2rem;
+    width: 2.8rem;
+    height: 2.8rem;
+} 
+
+/* main wrapper-box */
+.container__wrapper-box{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
+.wrapper-box .btn{
+    padding: 8px 16px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    display: inline-block;
+    cursor: pointer;
+}
+.wrapper-box .btn:hover{
+    opacity: 0.8;
+}
+
+.wrapper-box .btn-green{
+    color: white;
+    background-color: var(--color-success);
+}
+.wrapper-box .btn-red{
+    color: white;
+    background-color: #f14739;
+}
+.wrapper-box .btn + .btn{
+    margin-left: 16px;
+}
+.wrapper-box .table-style-1{
+    border-collapse: collapse;
+}
+.wrapper-box .table-style-1 td,.table-style-1 th{
+    padding: 12px 24px;
+    border: 1px solid #b1b1b1;
+}
+.wrapper-box .table-style-1 th{
+    color: var(--color-primary-variant);
+}
+.wrapper-box .table-style-1 td{
+    color: var(--color-dark-variant);
+}
+.wrapper-box{
+    border-radius: var(--border-radius-1);
+    width: fit-content;
+    padding: 32px;
+    box-shadow: var(--box-shadow);
+}

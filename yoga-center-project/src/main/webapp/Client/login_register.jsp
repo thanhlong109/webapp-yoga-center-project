@@ -277,6 +277,12 @@
                 color: red; 
                 font-size: 15px;
             }
+            .reset-password{
+                margin-top: 32px;
+            }
+            .reset-password a{
+                color: #333;
+            }
 
             @media screen and (max-width:739px){
                

@@ -38,7 +38,6 @@ public class BlogDetailController extends HttpServlet {
             int max =0;
             BlogRepository br = new BlogRepository();
             Account acc = (Account) request.getSession().getAttribute("account");
-            request.setAttribute("blogList", br.getAll());
             if(acc!=null){
                 request.setAttribute("recentBlogList", br.getRecentBlog(0,NUM_LOAD_EACH_TIME,acc.getId()));
                 max = br.getTotalBlog(acc.getId());  

@@ -20,7 +20,6 @@
         <link rel="stylesheet" href="Asset/css/clientHeader.css">
         <link rel="stylesheet" href="Asset/css/clientFooter.css">
         <link rel="stylesheet" href="Asset/css/common.css">
-    </head>
     <body>
         <jsp:include page="../Component/header.jsp"></jsp:include>
         <fmt:setLocale value="en_US" />
@@ -30,7 +29,7 @@
         <div class="container">
             <div class="left-container">
                 <c:forEach items="${blogList}" var="blog">
-                    <div class="blog-item">
+                    <div class="blog-item js-blog-${blog.id}">
                         <div class="blog-item-img">
                             <img src="Asset/img/blog/${blog.img}" alt="">
                         </div>
@@ -49,107 +48,12 @@
                         </div>
                     </div>
                 </c:forEach>
-
+                <%@include file="../Component/pagination.jsp" %>
             </div>
             <%@include file="../Component/rightBarBlog.jsp" %>
-
-
-            <div class="post-blog">
-                <div class="post-blog-container">
-                    <i class="fa-solid fa-x close-btn"></i>
-                    <h2><i class="fa-solid fa-star"></i> New Blog</h2>
-                    <form action="blogs" method="POST" enctype="multipart/form-data">
-                        <figure class="img-container">
-                            <img id="js-display-img" src="" alt="">
-                            <figcaption  id="js-name-img"></figcaption>
-                        </figure>
-                        <input id="jsuploadImg" type="file" name="blogImg" accept="image/*">
-                        <div class="img-label">
-                            <label>Img cover:</label>
-                            <label class="uploadImg" for="jsuploadImg"><i class="fa-solid fa-upload"></i> Choose A Photo</label>
-                        </div>
-
-                        <div class="box-input">
-                            <label>Titles: </label>
-                            <input name="txtBlogTitle" placeholder="Blog title" type="text">
-                        </div>
-                        <div class="box-input">
-                            <label>Content: </label>
-                            <textarea id="textEditor" name="txtBlogContent" placeholder="Blog content"></textarea>
-                        </div>
-                        <button name="action" value="postBlog" class="btn btn-light-green" type="submit">Post</button>
-                    </form>
-                </div>
-            </div>
-            <div class="post-blog-btn">
-                <div class="post-blog-btn-icon">
-                    <i class="fa-solid fa-plus"></i>
-                    <i class="fa-solid fa-pen"></i>
-                </div>
-                <div class="post-blog-btn-des">
-                    Write your blog?
-                </div>
-            </div>
+            <%@include file="../Component/postBlog.jsp" %>
         </div>
         <%@include file="../Component/toast.jsp" %>
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-        <script src="https://cdn.tiny.cloud/1/drz9q75t7w0e2yrsegy3qr29p30m6b0nb9zm476dryjq73bq/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
-        <script src="https://cdn.jsdelivr.net/npm/@tinymce/tinymce-jquery@1/dist/tinymce-jquery.min.js"></script>
-        <script defer>
-            const displayImg = document.getElementById("js-display-img");
-            const displayName = document.getElementById("js-name-img");
-            const btnImg = document.getElementById("jsuploadImg");
-
-            const btnCloseBlog = document.querySelector(".close-btn");
-            const postBlog = document.querySelector(".post-blog");
-            const btnPostBlog = document.querySelector(".post-blog-btn");
-
-            $('textarea#textEditor').tinymce({
-                height: 250,
-                menubar: false,
-                plugins: [
-                    'a11ychecker', 'advlist', 'advcode', 'advtable', 'autolink', 'checklist', 'export',
-                    'lists', 'link', 'image', 'charmap', 'preview', 'anchor', 'searchreplace', 'visualblocks',
-                    'powerpaste', 'fullscreen', 'formatpainter', 'insertdatetime', 'media', 'table', 'help', 'wordcount'
-                ],
-                toolbar: 'undo redo | a11ycheck casechange blocks | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist checklist outdent indent | removeformat | code table help'
-            });
-
-
-            //display img when upload
-            btnImg.onchange = () => {
-                let reader = new FileReader();
-                reader.readAsDataURL(btnImg.files[0]);
-                reader.onload = () => {
-                    displayImg.setAttribute("src", reader.result);
-                };
-                console.log(btnImg.files[0].name);
-                displayName.textContent = btnImg.files[0].name;
-            };
-            //off post blog on mobile view
-            btnCloseBlog.addEventListener("click", () => {
-                postBlog.classList.toggle("active");
-                $('.header-wrapper').slideDown();
-                $(window).on('mousewheel');
-            });
-            //show post blog on mobile view
-            btnPostBlog.addEventListener("click", () => {
-            <c:if test="${sessionScope.account!=null}">
-                postBlog.classList.toggle("active");
-                $('.header-wrapper').slideUp();
-                $(window).off('mousewheel');
-            </c:if>
-            <c:if test="${sessionScope.account==null}">
-                toast({
-                    title: "Opps!",
-                    msg: "Login to use this fuction!",
-                    type: 'error',
-                    duration: 5000
-                });
-            </c:if>
-
-            });
-        </script>
         <jsp:include page="../Component/footer.jsp"></jsp:include>
     </body>
 </html>

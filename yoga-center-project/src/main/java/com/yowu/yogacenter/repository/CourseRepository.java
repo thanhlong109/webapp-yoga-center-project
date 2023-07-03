@@ -6,6 +6,7 @@ package com.yowu.yogacenter.repository;
 
 import com.yowu.yogacenter.model.Course;
 import com.yowu.yogacenter.util.DBHelpler;
+import java.io.Serializable;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -15,13 +16,84 @@ import java.util.List;
  *
  * @author ACER
  */
-public class CourseRepository {
+public class CourseRepository implements Serializable{
 
     public List<Course> getAll() {
         String sql = "select * from tblCourse";
         List<Course> list = new ArrayList<>();
 
         try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
+            try ( ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    CategoryRepository cr = new CategoryRepository();
+                    Course c = new Course();
+                    c.setId(rs.getInt("course_id"));
+                    c.setCategory(cr.detail(rs.getInt("category_id")));
+                    c.setDetail(rs.getString("course_detail"));
+                    c.setDuration(rs.getInt("course_duration"));
+                    c.setImg(rs.getString("course_img"));
+                    c.setIsActive(rs.getBoolean("course_is_active"));
+                    c.setPrice(rs.getFloat("course_price"));
+                    c.setTitle(rs.getString("course_title"));
+                    AccountRepository ar = new AccountRepository();
+                    c.setAccount(ar.detail(rs.getInt("account_id")));
+                    list.add(c);
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return list;
+    }
+    public int countNumberCourseByInstructor(int accountID){
+        String sql = "select count(*) as num from tblCourse where course_is_active=1 and account_id=?";
+        int count = 0;
+        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
+            stmt.setInt(1, accountID);
+            try ( ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    count=rs.getInt("num");
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return count;
+    }
+    
+    public List<Course> getCourseByInstructor(int accountID){
+        String sql = "select * from tblCourse where course_is_active=1 and account_id=?";
+        List<Course> list = new ArrayList<>();
+        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
+            stmt.setInt(1, accountID);
+            try ( ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    CategoryRepository cr = new CategoryRepository();
+                    Course c = new Course();
+                    c.setId(rs.getInt("course_id"));
+                    c.setCategory(cr.detail(rs.getInt("category_id")));
+                    c.setDetail(rs.getString("course_detail"));
+                    c.setDuration(rs.getInt("course_duration"));
+                    c.setImg(rs.getString("course_img"));
+                    c.setIsActive(rs.getBoolean("course_is_active"));
+                    c.setPrice(rs.getFloat("course_price"));
+                    c.setTitle(rs.getString("course_title"));
+                    AccountRepository ar = new AccountRepository();
+                    c.setAccount(ar.detail(rs.getInt("account_id")));
+                    list.add(c);
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return list;
+    }
+    public List<Course> getPopularCourse(int offset, int next){
+        String sql = "select * from (select count(*) as num, rc.course_id from tblRegistrationCourse rc group by rc.course_id) rc join tblCourse c on rc.course_id = c.course_id  order by num desc OFFSET ? ROWS FETCH NEXT ? ROWS ONLY ";
+        List<Course> list = new ArrayList<>();
+        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
+            stmt.setInt(1, offset);
+            stmt.setInt(2, next);
             try ( ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
                     CategoryRepository cr = new CategoryRepository();
@@ -158,6 +230,6 @@ public class CourseRepository {
 
     public static void main(String[] args) {
         CourseRepository cr = new CourseRepository();
-        System.out.println(cr.getRandomNCourses(4).get(0).getTitle());
+        System.out.println(cr.countNumberCourseByInstructor(3));
     }
 }

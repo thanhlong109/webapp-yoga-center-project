@@ -55,15 +55,14 @@ public class UserProfileBooking extends HttpServlet {
             String action = request.getParameter("action");
             BillRepository br = new BillRepository();
             int billID = Integer.parseInt(request.getParameter("billid"));
-            Bill b = br.detail(billID);
             switch(action){
                 case "view":{
+                    Bill b = br.detail(billID);
                     out.print(getHtmlViewBill(b));
                     break;
                 }
                 case "cancel":{
-                    b.setStatus(Bill.BillStatus.CANCELLED.ordinal());
-                    br.update(b);
+                    br.updateStatus(billID, Bill.BillStatus.CANCELLED.ordinal());
                     break;
                 }
             }
@@ -91,7 +90,10 @@ public class UserProfileBooking extends HttpServlet {
 "                                </div>\n" +"<div>\n" +
 "                                    <label>Discount:</label><span>$"+b.getDiscount()
                 + "</span>\n" +
-"                                </div>"+
+"                                </div>"+"<div>\n" +
+"                                    <label>Payment Method:</label><span> "+b.getMethod()
+                + "</span>\n" +
+"                                </div>\n" +
 "                                <div>\n" +
 "                                    <label>Date:</label><span>"+b.getDate()
                 + "</span>\n" +

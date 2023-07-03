@@ -134,15 +134,15 @@
                color: white;
            }
            .status-completed{
-               background-color: #eabd53;
+               background-color: rgb(75, 192, 192);
                content: "Completed";
            }
            .status-pending{
-               background-color: #b3b3b3;
+               background-color: rgb(255, 205, 86);
                content: "Pending";
            }
            .status-cancelled{
-               background-color: #ea6553;
+               background-color: rgb(255, 99, 132);
                content:"Cancelled";
            }
            

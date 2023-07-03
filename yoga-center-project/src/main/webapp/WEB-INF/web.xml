@@ -120,6 +120,14 @@
         <servlet-name>UpdateCourseScheduleController</servlet-name>
         <servlet-class>com.yowu.yogacenter.controller.admin.UpdateCourseScheduleController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>MembershipController</servlet-name>
+        <servlet-class>com.yowu.yogacenter.controller.client.MembershipController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>HomeController</servlet-name>
+        <servlet-class>com.yowu.yogacenter.controller.client.HomeController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>UserProfileCourse</servlet-name>
         <url-pattern>/userprofile/course</url-pattern>
@@ -240,12 +248,20 @@
         <servlet-name>UpdateCourseScheduleController</servlet-name>
         <url-pattern>/admin/updateCourseScheduleController</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MembershipController</servlet-name>
+        <url-pattern>/Membership</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>HomeController</servlet-name>
+        <url-pattern>/home</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
         </session-timeout>
     </session-config>
     <welcome-file-list>
-        <welcome-file>Client/Home.jsp</welcome-file>
+        <welcome-file>Client/index.jsp</welcome-file>
     </welcome-file-list>
 </web-app>
