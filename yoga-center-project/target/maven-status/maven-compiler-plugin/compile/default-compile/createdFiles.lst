@@ -15,6 +15,7 @@ com\yowu\yogacenter\model\Comment.class
 com\yowu\yogacenter\model\GoogleUtils.class
 com\yowu\yogacenter\repository\CourseRepository.class
 com\yowu\yogacenter\repository\RatingCourseRepository.class
+com\yowu\yogacenter\controller\admin\AddCourseController.class
 com\yowu\yogacenter\model\RegistrationCourse.class
 com\yowu\yogacenter\controller\client\LoginController.class
 com\yowu\yogacenter\model\RatingCourse.class

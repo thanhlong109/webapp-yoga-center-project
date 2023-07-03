@@ -56,7 +56,6 @@ public class AddCourseController extends HttpServlet {
             AccountRepository _accountRepository = new AccountRepository();
             CourseRepository _courseRepository = new CourseRepository();
             Course course = new Course();
-
             course.setTitle(request.getParameter("txtTitle"));
             course.setDetail(request.getParameter("txtDetail"));
             course.setDuration(Integer.parseInt(request.getParameter("txtDuration")));
@@ -73,8 +72,9 @@ public class AddCourseController extends HttpServlet {
             course.setAccount(account);
             course.setPrice(Float.parseFloat(request.getParameter("txtPrice")));
             course.setIsActive(true);
-            _courseRepository.add(course);
-
+            boolean add = _courseRepository.add(course);
+            System.out.println("duration: " + Integer.parseInt(request.getParameter("txtDuration")));
+            System.out.println("add: " +add);
             course = _courseRepository.getLastAddCourse().get(0);
             String uploadDirectory = "/Asset/img/classes/";
             String imgName = "img-course-id-" + course.getId();
@@ -82,11 +82,9 @@ public class AddCourseController extends HttpServlet {
             course.setImg(fileName);
             boolean status = _courseRepository.update(course);
             Thread.sleep(2000);
-
+            System.out.println("status: " +status);
             if (status) {
                 response.sendRedirect(VIEW_COURSE_LIST_CONTROLLER);
-            }else{
-                
             }
         } catch (InterruptedException ex) {
             Logger.getLogger(AddCourseController.class.getName()).log(Level.SEVERE, null, ex);

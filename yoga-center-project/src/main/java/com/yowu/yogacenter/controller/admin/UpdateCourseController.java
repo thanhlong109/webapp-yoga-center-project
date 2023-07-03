@@ -32,7 +32,7 @@ import java.util.logging.Logger;
         maxRequestSize = 1024 * 1024 * 5 * 5)
 public class UpdateCourseController extends HttpServlet {
 
-    private final String EDIT_PAGE = "../Admin/EditCourse.jsp";
+    private final String EDIT_PAGE = "../Admin/EditCourse2.jsp";
     private final String VIEW_COURSE_LIST_CONTROLLER = "viewCourseListController";
 
     @Override
@@ -65,7 +65,7 @@ public class UpdateCourseController extends HttpServlet {
         String imgName = "img-course-id-" + id;
         String fileName = request.getParameter("originImg");
         Part part = request.getPart("courseImg");
-
+        System.out.println("filename: " + fileName);
         c.setId(id);
         c.setTitle(request.getParameter("txtTitle"));
         c.setDetail(request.getParameter("txtDetail"));
@@ -73,7 +73,8 @@ public class UpdateCourseController extends HttpServlet {
         if (part.getSize() != 0) {
             fileName = storeImgWithName(imgName, uploadDirectory, part);
         }
-        System.out.println("originImg - " + fileName);
+        System.out.println("originImg - " + fileName + " part size: " + part.getSize());
+        System.out.println("filename: " + fileName);
         c.setImg(fileName);
         Category category
                 = _categoryRepository.detail(
@@ -90,12 +91,7 @@ public class UpdateCourseController extends HttpServlet {
         c.setIsActive(true);
         boolean update = _courseRepository.update(c);
         if (update) {
-            try {
-                Thread.sleep(2000);
-                response.sendRedirect(VIEW_COURSE_LIST_CONTROLLER);
-            } catch (InterruptedException ex) {
-                Logger.getLogger(UpdateCourseController.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            response.sendRedirect(VIEW_COURSE_LIST_CONTROLLER);
         } else {
             c = _courseRepository.detail(id);
             request.setAttribute("COURSE", c);

@@ -134,19 +134,18 @@ public class CourseRepository {
     }
 
     public boolean add(Course c) {
-        String sql = "INSERT INTO tblCourse (course_id, category_id, course_detail, course_duration, course_img, course_is_active, course_price, course_title, account_id) "
-                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO tblCourse (category_id, course_detail, course_duration, course_img, course_is_active, course_price, course_title, account_id) "
+                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         int status = 0;
         try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
-            stmt.setInt(1, c.getId());
-            stmt.setInt(2, c.getCategory().getId());
-            stmt.setString(3, c.getDetail());
-            stmt.setInt(4, c.getDuration());
-            stmt.setString(5, c.getImg());
-            stmt.setBoolean(6, c.isIsActive());
-            stmt.setFloat(7, c.getPrice());
-            stmt.setString(8, c.getTitle());
-            stmt.setInt(9, c.getAccount().getId());
+            stmt.setInt(1, c.getCategory().getId());
+            stmt.setString(2, c.getDetail());
+            stmt.setInt(3, c.getDuration());
+            stmt.setString(4, c.getImg());
+            stmt.setBoolean(5, c.isIsActive());
+            stmt.setFloat(6, c.getPrice());
+            stmt.setString(7, c.getTitle());
+            stmt.setInt(8, c.getAccount().getId());
             status = stmt.executeUpdate();
             System.out.println("Add success");
 
