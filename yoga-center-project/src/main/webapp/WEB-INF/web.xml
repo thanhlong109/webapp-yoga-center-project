@@ -120,6 +120,18 @@
         <servlet-name>DeleteAccountController</servlet-name>
         <servlet-class>com.yowu.yogacenter.controller.admin.DeleteAccountController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AddMembershipController</servlet-name>
+        <servlet-class>com.yowu.yogacenter.controller.admin.AddMembershipController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateMembershipController</servlet-name>
+        <servlet-class>com.yowu.yogacenter.controller.admin.UpdateMembershipController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteMembershipController</servlet-name>
+        <servlet-class>com.yowu.yogacenter.controller.admin.DeleteMembershipController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>UserProfileCourse</servlet-name>
         <url-pattern>/userprofile/course</url-pattern>
@@ -239,6 +251,18 @@
     <servlet-mapping>
         <servlet-name>DeleteAccountController</servlet-name>
         <url-pattern>/admin/deleteAccountController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddMembershipController</servlet-name>
+        <url-pattern>/admin/addMembershipController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateMembershipController</servlet-name>
+        <url-pattern>/admin/updateMembershipController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteMembershipController</servlet-name>
+        <url-pattern>/admin/deleteMembershipController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

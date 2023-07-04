@@ -28,6 +28,7 @@ D:\#H?C ะส\SWP391\DO AN NE\DUNGVNT\yoga-center-project\src\main\java\com\yowu\yo
 D:\#H?C ะส\SWP391\DO AN NE\DUNGVNT\yoga-center-project\src\main\java\com\yowu\yogacenter\controller\client\UserProfileBooking.java
 D:\#H?C ะส\SWP391\DO AN NE\DUNGVNT\yoga-center-project\src\main\java\com\yowu\yogacenter\controller\client\CourseListController.java
 D:\#H?C ะส\SWP391\DO AN NE\DUNGVNT\yoga-center-project\src\main\java\com\yowu\yogacenter\model\GoogleUtils.java
+D:\#H?C ะส\SWP391\DO AN NE\DUNGVNT\yoga-center-project\src\main\java\com\yowu\yogacenter\controller\admin\DeleteMembershipController.java
 D:\#H?C ะส\SWP391\DO AN NE\DUNGVNT\yoga-center-project\src\main\java\com\yowu\yogacenter\controller\admin\ViewAccountListController.java
 D:\#H?C ะส\SWP391\DO AN NE\DUNGVNT\yoga-center-project\src\main\java\com\yowu\yogacenter\repository\RoleRepository.java
 D:\#H?C ะส\SWP391\DO AN NE\DUNGVNT\yoga-center-project\src\main\java\com\yowu\yogacenter\util\DBHelpler.java
@@ -54,11 +55,13 @@ D:\#H?C ะส\SWP391\DO AN NE\DUNGVNT\yoga-center-project\src\main\java\com\yowu\yo
 D:\#H?C ะส\SWP391\DO AN NE\DUNGVNT\yoga-center-project\src\main\java\com\yowu\yogacenter\controller\client\BlogHomeDetailController.java
 D:\#H?C ะส\SWP391\DO AN NE\DUNGVNT\yoga-center-project\src\main\java\com\yowu\yogacenter\controller\admin\ViewClassScheduleListController.java
 D:\#H?C ะส\SWP391\DO AN NE\DUNGVNT\yoga-center-project\src\main\java\com\yowu\yogacenter\controller\admin\ViewCourseListController.java
+D:\#H?C ะส\SWP391\DO AN NE\DUNGVNT\yoga-center-project\src\main\java\com\yowu\yogacenter\controller\admin\AddMembershipController.java
 D:\#H?C ะส\SWP391\DO AN NE\DUNGVNT\yoga-center-project\src\main\java\com\yowu\yogacenter\model\AccountError.java
 D:\#H?C ะส\SWP391\DO AN NE\DUNGVNT\yoga-center-project\src\main\java\com\yowu\yogacenter\model\Permission.java
 D:\#H?C ะส\SWP391\DO AN NE\DUNGVNT\yoga-center-project\src\main\java\com\yowu\yogacenter\controller\admin\ViewCategoryListController.java
 D:\#H?C ะส\SWP391\DO AN NE\DUNGVNT\yoga-center-project\src\main\java\com\yowu\yogacenter\model\CourseWishlist.java
 D:\#H?C ะส\SWP391\DO AN NE\DUNGVNT\yoga-center-project\src\main\java\com\yowu\yogacenter\model\Comment.java
+D:\#H?C ะส\SWP391\DO AN NE\DUNGVNT\yoga-center-project\src\main\java\com\yowu\yogacenter\controller\admin\UpdateMembershipController.java
 D:\#H?C ะส\SWP391\DO AN NE\DUNGVNT\yoga-center-project\src\main\java\com\yowu\yogacenter\repository\RatingCourseRepository.java
 D:\#H?C ะส\SWP391\DO AN NE\DUNGVNT\yoga-center-project\src\main\java\com\yowu\yogacenter\controller\admin\DeleteCourseController.java
 D:\#H?C ะส\SWP391\DO AN NE\DUNGVNT\yoga-center-project\src\main\java\com\yowu\yogacenter\repository\RegistrationCourseRepository.java

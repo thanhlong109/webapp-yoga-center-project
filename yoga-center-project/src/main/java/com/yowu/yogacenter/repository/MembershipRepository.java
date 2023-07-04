@@ -52,8 +52,8 @@ public class MembershipRepository {
                     c.setName(rs.getString("membership_name"));
                     c.setDuration(rs.getInt("membership_duration"));
                     c.setPrice(rs.getFloat("membership_price"));
-                    c.setDescription(rs.getString("membership_discription"));
-                    c.setDiscount(rs.getInt("membership_discount"));
+                    c.setDescription(rs.getString("membership_description"));
+                    c.setDiscount(rs.getInt("membership_discours"));
                     c.setIsActive(rs.getBoolean("membership_is_active"));
                     return c;
                 }
@@ -67,7 +67,7 @@ public class MembershipRepository {
     public boolean add(Membership c) {
     String sql = "INSERT INTO tblMembership (membership_name, "
             + "membership_duration, membership_price, membership_description, "
-            + "membership_discount, membership_is_active) "
+            + "membership_discours, membership_is_active) "
             + "VALUES (?, ?, ?, ?, ?, ?)";
     int status = 0;
     try (PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
@@ -100,7 +100,7 @@ public boolean delete(int id) {
 public boolean update(Membership c) {
     String sql = "UPDATE tblMembership SET membership_name = ?, "
             + "membership_duration = ?, membership_price = ?, "
-            + "membership_description = ?, membership_discount = ?, "
+            + "membership_description = ?, membership_discours = ?, "
             + "membership_is_active = ? WHERE membership_id = ?";
     int status = 0;
     try (PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {

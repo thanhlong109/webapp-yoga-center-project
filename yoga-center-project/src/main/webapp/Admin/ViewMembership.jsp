@@ -82,8 +82,10 @@
                                             ${membership.discount}
                                         </td>
                                         <td>
-                                            <a class="btn btn-red" href="#delete">Delete</a> 
-                                            <a class="btn btn-green" href="#Edit">Edit</a> 
+                                            <a class="btn btn-red" href="deleteMembershipController?id=${membership.id}">
+                                                Delete</a> 
+                                            <a class="btn btn-green" href="updateMembershipController?id=${membership.id}">
+                                                Edit</a> 
                                         </td>
                                     </tr>
                                 </c:if>

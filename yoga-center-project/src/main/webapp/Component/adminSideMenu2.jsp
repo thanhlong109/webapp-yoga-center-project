@@ -101,7 +101,7 @@
             <ul class="sub-item" id="subItem">
                 <li><a href="<c:url value="/admin/viewMembershipListController"/>">
                         View & Edit Membership</a></li>
-                <li><a href="#">
+                <li><a href="../Admin/AddMembership.jsp">
                         Add Membership</a></li>
             </ul>
         </div>
