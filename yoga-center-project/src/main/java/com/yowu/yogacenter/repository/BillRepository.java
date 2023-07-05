@@ -81,7 +81,7 @@ public class BillRepository {
         }
         return list;
     }
-    
+
     public Bill getCourseIdByOrdercode(String ordercode) {
         String sql = "select * from tblBill where order_code=? ";
         try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
@@ -303,14 +303,38 @@ public class BillRepository {
         }
         return status == 1;
     }
-//    public static void main(String[] args) {
-//        BillRepository b = new BillRepository();
-//        int billId = 1;
-//        Bill bill = b.update();
-//        
-//        if (bill != null) {
-//            System.out.println("Membership ID: " + bill.getId());
-//        }
-//        
-//    }
+
+
+    public List<Bill> searchId(int search) {
+        String sql = "select * from tblBill where bill_id=? ";
+        List<Bill> list = new ArrayList<>();
+        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
+            stmt.setInt(1, search);
+            try ( ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    AccountRepository acc = new AccountRepository();
+                    CourseRepository cr = new CourseRepository();
+                    Bill c = new Bill();
+                    c.setCourse(cr.detail(rs.getInt("course_id")));
+                    c.setAccount(acc.detail(rs.getInt("account_id")));
+                    c.setId(rs.getInt("bill_id"));
+                    c.setStatus(rs.getInt("bill_status"));
+                    c.setIsActive(rs.getBoolean("bill_is_active"));
+                    c.setValue(rs.getFloat("bill_value"));
+                    c.setDiscount(rs.getInt("bill_discount"));
+                    c.setDate(rs.getDate("bill_date"));
+                    list.add(c);
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return list;
+    }
+
+    public static void main(String[] args) {
+        BillRepository b = new BillRepository();
+
+    }
+
 }

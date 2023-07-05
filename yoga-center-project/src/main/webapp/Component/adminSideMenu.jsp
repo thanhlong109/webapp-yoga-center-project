@@ -38,7 +38,7 @@
                                 Add New Category</a></li>
                         <li><a href="<c:url value="/admin/viewCourseListController"/>">
                                 View All & Edit Course</a></li>
-                        <li><a href="#">
+                        <li><a href="<c:url value="/admin/addCourseController"/>">
                                 Add New Course</a></li>   
                         <li><a href="<c:url value="/admin/viewCourseTimeListController"/>">
                                 View All & Edit Course Time</a></li>
