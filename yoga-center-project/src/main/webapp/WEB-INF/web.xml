@@ -132,6 +132,26 @@
         <servlet-name>DeleteMembershipController</servlet-name>
         <servlet-class>com.yowu.yogacenter.controller.admin.DeleteMembershipController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>SearchCategoryController</servlet-name>
+        <servlet-class>com.yowu.yogacenter.controller.admin.SearchCategoryController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SearchCourseController</servlet-name>
+        <servlet-class>com.yowu.yogacenter.controller.admin.SearchCourseController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SearchMembershipController</servlet-name>
+        <servlet-class>com.yowu.yogacenter.controller.admin.SearchMembershipController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SearchAccountController</servlet-name>
+        <servlet-class>com.yowu.yogacenter.controller.admin.SearchAccountController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SearchBillController</servlet-name>
+        <servlet-class>com.yowu.yogacenter.controller.admin.SearchBillController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>UserProfileCourse</servlet-name>
         <url-pattern>/userprofile/course</url-pattern>
@@ -263,6 +283,26 @@
     <servlet-mapping>
         <servlet-name>DeleteMembershipController</servlet-name>
         <url-pattern>/admin/deleteMembershipController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchCategoryController</servlet-name>
+        <url-pattern>/admin/searchCategoryController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchCourseController</servlet-name>
+        <url-pattern>/admin/searchCourseController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchMembershipController</servlet-name>
+        <url-pattern>/admin/searchMembershipController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchAccountController</servlet-name>
+        <url-pattern>/admin/searchAccountController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchBillController</servlet-name>
+        <url-pattern>/admin/searchBillController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

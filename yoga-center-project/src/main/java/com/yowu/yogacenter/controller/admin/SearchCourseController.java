@@ -4,34 +4,40 @@
  */
 package com.yowu.yogacenter.controller.admin;
 
-import com.yowu.yogacenter.repository.AccountRepository;
+import com.yowu.yogacenter.model.Course;
+import com.yowu.yogacenter.repository.CourseRepository;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  *
  * @author DungVNT
  */
-public class ViewAccountListController extends HttpServlet {
+public class SearchCourseController extends HttpServlet {
 
-    private final String ACCOUNT_LIST_PAGE = "../Admin/ViewAccount.jsp";
-    
+    private final String COURSE_LIST_PAGE = "../Admin/ViewCourse.jsp";
+   
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        AccountRepository _accountRepository = new AccountRepository();
-        request.setAttribute("ACCOUNT_LIST", _accountRepository.getAll());
-        request.getRequestDispatcher(ACCOUNT_LIST_PAGE).forward(request, response);
+       String search = request.getParameter("txtSearch");
+       
+        CourseRepository _courseRepository = new CourseRepository();
+        List<Course> result = _courseRepository.searchName(search);
+        request.setAttribute("COURSE_LIST", result);
+        request.getRequestDispatcher(COURSE_LIST_PAGE).forward(request, response);
     }
 
+  
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+       
     }
 
     /**

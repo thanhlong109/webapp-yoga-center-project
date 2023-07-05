@@ -46,9 +46,9 @@
                         <button id="menu-btn">
                             <span class="material-symbols-sharp">menu</span>
                         </button>
-                        <form action="" id="search-box">
-                            <input type="text" id="search-text" placeholder="Search anything you want" required>
-                            <button id="btnSearch"><i class="fa-solid fa-magnifying-glass"></i></button>
+                        <form action="searchCourseController" id="search-box">
+                            <input type="text" name="txtSearch" id="search-text" placeholder="Search anything you want" required>
+                            <button type="submit" id="btnSearch"><i class="fa-solid fa-magnifying-glass"></i></button>
                         </form>
                         <div class="profile">
                             <div class="info">

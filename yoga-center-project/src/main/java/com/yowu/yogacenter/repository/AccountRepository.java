@@ -135,9 +135,6 @@ public class AccountRepository {
         return null;
     }
 
-
-
-
     public boolean update(Account c){
         int status = 0;
         try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(UPDATE_ACCOUNT)) {
@@ -223,10 +220,32 @@ public class AccountRepository {
     }
     return status;
 }
-
-    
-    
-
+public List<Account> searchName(String search) {
+        String sql = "select * from tblAccount where account_name Like ? ";
+        List<Account> list = new ArrayList<>();
+        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
+            stmt.setString(1, search);
+            try ( ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    RoleRepository cr = new RoleRepository();
+                    Account c = new Account();
+                    c.setId(rs.getInt("account_id"));
+                    c.setImg(rs.getString("account_img"));
+                    c.setName(rs.getString("account_name"));
+                    c.setPassword(rs.getString("account_password"));
+                    c.setEmail(rs.getString("account_email"));
+                    c.setPhone(rs.getString("account_phone"));
+                    c.setIsActive(rs.getBoolean("account_is_active"));
+                    c.setRole(cr.detail(rs.getInt("role_id")));
+                    c.setSocialID(rs.getString("social_id"));
+                    list.add(c);
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return list;
+    }
     public static void main(String[] args) {
     AccountRepository cr = new AccountRepository();
     boolean isCreated = cr.checkDuplicate("anmobieblog@gmail.com");

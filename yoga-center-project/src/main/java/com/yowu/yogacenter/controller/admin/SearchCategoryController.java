@@ -4,34 +4,39 @@
  */
 package com.yowu.yogacenter.controller.admin;
 
-import com.yowu.yogacenter.repository.AccountRepository;
+import com.yowu.yogacenter.model.Category;
+import com.yowu.yogacenter.repository.CategoryRepository;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  *
  * @author DungVNT
  */
-public class ViewAccountListController extends HttpServlet {
+public class SearchCategoryController extends HttpServlet {
 
-    private final String ACCOUNT_LIST_PAGE = "../Admin/ViewAccount.jsp";
-    
+  private final String CATEGORY_LIST_PAGE = "../Admin/ViewCategory.jsp";
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        AccountRepository _accountRepository = new AccountRepository();
-        request.setAttribute("ACCOUNT_LIST", _accountRepository.getAll());
-        request.getRequestDispatcher(ACCOUNT_LIST_PAGE).forward(request, response);
+        String search = request.getParameter("txtSearch");
+        
+        CategoryRepository _categoryRepository = new CategoryRepository();
+        List<Category> result = _categoryRepository.searchName(search);
+        request.setAttribute("CATEGORY_LIST", result);
+        request.getRequestDispatcher(CATEGORY_LIST_PAGE).forward(request, response);
     }
 
+   
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+        doGet(request, response);
     }
 
     /**

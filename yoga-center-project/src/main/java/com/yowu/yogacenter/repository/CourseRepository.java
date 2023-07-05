@@ -184,6 +184,34 @@ public class CourseRepository {
         return list;
     }
 
+    public List<Course> searchName(String search) {
+        String sql = "select * from tblCourse where course_title Like ? ";
+        List<Course> list = new ArrayList<>();
+        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
+            stmt.setString(1, search);
+            try ( ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    CategoryRepository cr = new CategoryRepository();
+                    Course c = new Course();
+                    c.setId(rs.getInt("course_id"));
+                    c.setCategory(cr.detail(rs.getInt("category_id")));
+                    c.setDetail(rs.getString("course_detail"));
+                    c.setDuration(rs.getInt("course_duration"));
+                    c.setImg(rs.getString("course_img"));
+                    c.setIsActive(rs.getBoolean("course_is_active"));
+                    c.setPrice(rs.getFloat("course_price"));
+                    c.setTitle(rs.getString("course_title"));
+                    AccountRepository ar = new AccountRepository();
+                    c.setAccount(ar.detail(rs.getInt("account_id")));
+                    list.add(c);
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return list;
+    }
+    
     public static void main(String[] args) {
         CourseRepository cr = new CourseRepository();
         Course c = cr.detail(1);
