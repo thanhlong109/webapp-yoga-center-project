@@ -10,6 +10,7 @@ import com.yowu.yogacenter.util.DBHelpler;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,6 +46,37 @@ public class RegistrationCourseRepository {
         }
         return list;
     }
+    
+    public int addRegis(RegistrationCourse registrationCourse) {
+    String sql = "INSERT INTO tblRegistrationCourse (account_id, course_id, "
+            + "registration_date, end_date, course_schedule_id, course_status, "
+            + "registration_status) "
+            + "VALUES (?, ?, ?, ?, ?, ?, ?)";
+    int status = 0;
+    int lastInsertId = -1;
+
+    try (PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+        stmt.setInt(1, registrationCourse.getAccount().getId());
+        stmt.setInt(2, registrationCourse.getCourse().getId());
+        stmt.setDate(3, registrationCourse.getRegistrationDate());
+        stmt.setDate(4, registrationCourse.getEndDate());
+        stmt.setInt(5, registrationCourse.getCourseSchedule().getId());
+        stmt.setInt(6, registrationCourse.getCourseStatus());
+        stmt.setBoolean(7, registrationCourse.getRegistrationtatus());
+        status = stmt.executeUpdate();
+
+        // Retrieve the generated keys
+        ResultSet generatedKeys = stmt.getGeneratedKeys();
+        if (generatedKeys.next()) {
+            lastInsertId = generatedKeys.getInt(1);
+        }
+    } catch (Exception e) {
+        System.out.println(e);
+    }
+
+    return lastInsertId;
+}
+
     
     public RegistrationCourse getRegisIdByCourseIdAndAccountID(int accountId, int courseId, boolean regisStatus) {
         String sql = "select * from tblRegistrationCourse "

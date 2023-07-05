@@ -82,6 +82,10 @@
                                         <span class="checkout-method">Studio</span>
                                     </li>
                                 </ul>
+                                
+                                <input id="duration" name="duration" value="" type="hidden">
+                                <input id="startTime" name="startTime" value="" type="hidden">
+                                
                                 <div class="element__checkout-button">
                                     <button type="submit" name="btnPlaceOrder">Place Order</button>
                                 </div>
@@ -140,11 +144,17 @@
         console.log(params);
         var id = params.get('id');
         var scheduleId = params.get('course_scheduleId');
+        var duration = params.get('duration');
+        var startTime = params.get('start_time');
+        
         console.log(id);
         console.log(scheduleId);
         
+        
         document.getElementById('course_id').value = id;
         document.getElementById('course_scheduleId').value = scheduleId;
+        document.getElementById('duration').value = duration;
+        document.getElementById('startTime').value = startTime;
     </script>
 
 </body>

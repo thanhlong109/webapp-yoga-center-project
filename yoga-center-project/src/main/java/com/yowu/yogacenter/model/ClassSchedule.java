@@ -19,17 +19,25 @@ public class ClassSchedule {
     private Time endTime;
     private int status;
     private RegistrationCourse registrationCourse;
+    private int regisId;
 
     public ClassSchedule() {
     }
 
-    public ClassSchedule(int id, Date date, Time startTime, Time endTime, int status, RegistrationCourse registrationCourse) {
-        this.id = id;
+    public ClassSchedule(Date date, Time startTime, Time endTime, int status, RegistrationCourse registrationCourse) {
         this.date = date;
         this.startTime = startTime;
         this.endTime = endTime;
         this.status = status;
         this.registrationCourse = registrationCourse;
+    }
+    
+    public ClassSchedule(Date date, Time startTime, Time endTime, int status, int regisId) {
+        this.date = date;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.status = status;
+        this.regisId = regisId;
     }
 
     public int getId() {
@@ -80,4 +88,19 @@ public class ClassSchedule {
         this.registrationCourse = registrationCourse;
     }
 
+    /**
+     * @return the regisId
+     */
+    public int getRegisId() {
+        return regisId;
+    }
+
+    /**
+     * @param regisId the regisId to set
+     */
+    public void setRegisId(int regisId) {
+        this.regisId = regisId;
+    }
+    
+    
 }

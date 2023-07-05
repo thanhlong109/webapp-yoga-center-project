@@ -441,6 +441,7 @@
                     <div class="right-box">
                         <div class="label">Duration</div>
                         <div class="label-value">${course.duration} slots</div> <!--replace duration here-->
+                        <input id="duration" value="${course.duration}" type="hidden">
                     </div>
                     <div class="right-box">
                         <div class="label">Price</div>
@@ -522,7 +523,9 @@
 
         <script>
             $('#datepicker').datepicker({
-                uiLibrary: 'bootstrap5'
+                uiLibrary: 'bootstrap5',
+                format: 'yyyy-mm-dd' ,
+                value: new Date()
             });
         </script>
         <script defer>
@@ -569,7 +572,11 @@
 
             function gotoCheckout(url) {
                 var course_scheduleId = $('#dateSD').val();
-                window.location.href = "${pageContext.request.contextPath}/" + url + "&course_scheduleId=" + course_scheduleId;
+                var duration = $('#duration').val();
+                var start_Time = $('#datepicker').val();
+                console.log(duration);
+                console.log(start_Time);
+                window.location.href = "${pageContext.request.contextPath}/" + url + "&course_scheduleId=" + course_scheduleId + "&duration=" + duration + "&start_time=" + start_Time;
             }
             
             $('.jsWishlist').click(() => {

@@ -6,11 +6,13 @@ package com.yowu.yogacenter.checkout;
 
 import com.yowu.yogacenter.model.Account;
 import com.yowu.yogacenter.model.Bill;
+import com.yowu.yogacenter.model.ClassSchedule;
 import com.yowu.yogacenter.model.Course;
 import com.yowu.yogacenter.model.CourseSchedule;
 import com.yowu.yogacenter.model.RegistrationCourse;
 import com.yowu.yogacenter.repository.AccountRepository;
 import com.yowu.yogacenter.repository.BillRepository;
+import com.yowu.yogacenter.repository.ClassScheduleRepository;
 import com.yowu.yogacenter.repository.CourseRepository;
 import com.yowu.yogacenter.repository.CourseScheduleRepository;
 import com.yowu.yogacenter.repository.RegistrationCourseRepository;
@@ -25,17 +27,22 @@ import jakarta.servlet.http.HttpSession;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.sql.Date;
+import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.TimeZone;
-
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.DayOfWeek;
+import java.util.Arrays;
 /**
  *
  * @author Chien Thang
@@ -85,8 +92,65 @@ public class CheckoutSendController extends HttpServlet {
             boolean regis_status = true;
             RegistrationCourse regis = new RegistrationCourse(acc, c, date, date, cs, course_status, regis_status);
             RegistrationCourseRepository regisRepo = new RegistrationCourseRepository();
-            regisRepo.addRegistration(regis);
-            System.out.println(regis);
+//            regisRepo.addRegistration(regis);
+            int lastInsertId = regisRepo.addRegis(regis);
+            String duration = request.getParameter("duration");
+            String startTime = request.getParameter("startTime");
+
+            System.out.println("asv"+lastInsertId);
+            System.out.println("asss"+regis);
+            
+            String schedule = cs.getDateOfWeek();
+            System.out.println(schedule);
+
+            String inputDayOfWeek = schedule; // Lấy từ FE hoặc DB => Day of week
+
+            String inputDateTime = startTime + " 00:00:00"; // Lấy từ FE hoặc DB => start date
+            
+            int inputDuration = Integer.parseInt(duration); // Lấy từ FE hoặc DB => duration
+
+            DayOfWeek[] allDateOfWeek = DayOfWeek.values();
+            System.out.println(Arrays.toString(allDateOfWeek));
+
+            String[] parts = inputDayOfWeek.split(",");
+
+            int[] numbers = new int[parts.length];
+
+            for (int i = 0; i < parts.length; i++) {
+                numbers[i] = Integer.parseInt(parts[i]);
+            }
+
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd' 'HH:mm:ss");
+
+            LocalDateTime dateTime = LocalDateTime.parse(inputDateTime, formatter);
+
+            LocalDate startDate = dateTime.toLocalDate();
+
+            int temp = 1;
+
+            while (temp <= inputDuration) {
+                DayOfWeek dayOfWeek = startDate.getDayOfWeek();
+                for (int number : numbers) {
+                    if (allDateOfWeek[number] == dayOfWeek) {
+                        System.out.println("Day: " + startDate);
+                        //Call repository save to DB:
+                        int regisId = lastInsertId;
+                        Time startTime1 = cs.getStartTime();
+                        Time endTime = cs.getEndTime();
+                        Date classDate = Date.valueOf(startDate);
+                        int statusClass = 1;
+                        ClassScheduleRepository scr = new ClassScheduleRepository();
+                        //public ClassSchedule(Date date, Time startTime, Time endTime, int status, int regisId)
+                        ClassSchedule cse = new ClassSchedule(classDate, startTime1, endTime, status, regisId);
+                        scr.addClassSchedule(cse);
+                        //.....
+                        //End.
+                        temp++;
+                    }
+                }
+                startDate = startDate.plusDays(1);
+            }
+            
 
 //            url = SUCCESS;
             if (method.equals("STUDIO")) {
