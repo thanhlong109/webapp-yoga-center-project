@@ -5,6 +5,7 @@
 package com.yowu.yogacenter.controller.client;
 
 import com.yowu.yogacenter.repository.AccountRepository;
+import com.yowu.yogacenter.repository.CategoryRepository;
 import com.yowu.yogacenter.repository.CourseRepository;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -24,11 +25,12 @@ public class HomeController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+        CategoryRepository categoryRepo = new CategoryRepository();
         CourseRepository cr = new CourseRepository();
         AccountRepository ar = new AccountRepository();
         request.setAttribute("popularList", cr.getPopularCourse(0,8));
         request.setAttribute("instructorList", ar.getIntructorList());
+        request.setAttribute("categoryList", categoryRepo.getAllActive());
         request.getRequestDispatcher(HOME_PAGE).forward(request, response);
     }
 

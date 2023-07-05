@@ -134,7 +134,7 @@
             $('.js-blog').addClass('active');
             break;
         }
-        case '/':
+        case '/home':
         {
             $('.js-home').addClass('active');
             break;

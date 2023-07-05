@@ -4,6 +4,7 @@
  */
 package com.yowu.yogacenter.controller.client;
 
+import com.yowu.yogacenter.repository.CategoryRepository;
 import com.yowu.yogacenter.repository.CourseRepository;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -20,8 +21,12 @@ public class CourseListController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        CategoryRepository categoryRepo = new CategoryRepository();
         CourseRepository cr = new CourseRepository();
-        request.setAttribute("courseList", cr.getAll());
+        request.setAttribute("courseList", cr.getActive());
+        request.setAttribute("categoryList", categoryRepo.getAllActive());
+        request.setAttribute("minPrice", cr.getMinCoursePrice());
+        request.setAttribute("maxPrice", cr.getMaxCoursePrice());
         request.getRequestDispatcher(COURSE_LIST_PAGE).forward(request, response);
     }  
     @Override

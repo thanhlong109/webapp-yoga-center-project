@@ -45,6 +45,119 @@ public class CourseRepository implements Serializable{
         }
         return list;
     }
+    public List<Course> getActive() {
+        String sql = "select * from tblCourse where course_is_active=1";
+        List<Course> list = new ArrayList<>();
+
+        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
+            try ( ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    CategoryRepository cr = new CategoryRepository();
+                    Course c = new Course();
+                    c.setId(rs.getInt("course_id"));
+                    c.setCategory(cr.detail(rs.getInt("category_id")));
+                    c.setDetail(rs.getString("course_detail"));
+                    c.setDuration(rs.getInt("course_duration"));
+                    c.setImg(rs.getString("course_img"));
+                    c.setIsActive(rs.getBoolean("course_is_active"));
+                    c.setPrice(rs.getFloat("course_price"));
+                    c.setTitle(rs.getString("course_title"));
+                    AccountRepository ar = new AccountRepository();
+                    c.setAccount(ar.detail(rs.getInt("account_id")));
+                    list.add(c);
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return list;
+    }
+    public List<Course> filterCourse(int categoryID,int minPrice,int maxPrice){
+        String sql ;
+        if(categoryID>=0){
+            sql = "select * from tblCourse where course_is_active=1 and category_id="+categoryID+" and course_price>="+minPrice+" and course_price<="+maxPrice;
+        }else{
+            sql = "select * from tblCourse where course_is_active=1 and course_price>="+minPrice+" and course_price<="+maxPrice;
+        }
+        List<Course> list = new ArrayList<>();
+        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
+            try ( ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    CategoryRepository cr = new CategoryRepository();
+                    Course c = new Course();
+                    c.setId(rs.getInt("course_id"));
+                    c.setCategory(cr.detail(rs.getInt("category_id")));
+                    c.setDetail(rs.getString("course_detail"));
+                    c.setDuration(rs.getInt("course_duration"));
+                    c.setImg(rs.getString("course_img"));
+                    c.setIsActive(rs.getBoolean("course_is_active"));
+                    c.setPrice(rs.getFloat("course_price"));
+                    c.setTitle(rs.getString("course_title"));
+                    AccountRepository ar = new AccountRepository();
+                    c.setAccount(ar.detail(rs.getInt("account_id")));
+                    list.add(c);
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return list;
+    }
+    public List<Course> getCourseByCategory(int categoryID){
+        String sql = "select * from tblCourse where course_is_active=1 and category_id=?";
+        List<Course> list = new ArrayList<>();
+        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
+            stmt.setInt(1, categoryID);
+            try ( ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    CategoryRepository cr = new CategoryRepository();
+                    Course c = new Course();
+                    c.setId(rs.getInt("course_id"));
+                    c.setCategory(cr.detail(rs.getInt("category_id")));
+                    c.setDetail(rs.getString("course_detail"));
+                    c.setDuration(rs.getInt("course_duration"));
+                    c.setImg(rs.getString("course_img"));
+                    c.setIsActive(rs.getBoolean("course_is_active"));
+                    c.setPrice(rs.getFloat("course_price"));
+                    c.setTitle(rs.getString("course_title"));
+                    AccountRepository ar = new AccountRepository();
+                    c.setAccount(ar.detail(rs.getInt("account_id")));
+                    list.add(c);
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return list;
+    }
+    public int getMinCoursePrice(){
+        String sql = "select top 1 course_price from tblCourse where course_is_active=1 order by course_price asc";
+        int price = 0;
+        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
+            try ( ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    price=rs.getInt("course_price");
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return price;
+    }
+    public int getMaxCoursePrice(){
+        String sql = "select top 1 course_price from tblCourse where course_is_active=1 order by course_price desc";
+        int price = 0;
+        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
+            try ( ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    price=rs.getInt("course_price");
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return price;
+    }
     public int countNumberCourseByInstructor(int accountID){
         String sql = "select count(*) as num from tblCourse where course_is_active=1 and account_id=?";
         int count = 0;
@@ -89,7 +202,7 @@ public class CourseRepository implements Serializable{
         return list;
     }
     public List<Course> getPopularCourse(int offset, int next){
-        String sql = "select * from (select count(*) as num, rc.course_id from tblRegistrationCourse rc group by rc.course_id) rc join tblCourse c on rc.course_id = c.course_id  order by num desc OFFSET ? ROWS FETCH NEXT ? ROWS ONLY ";
+        String sql = "select * from (select count(*) as num, rc.course_id from tblRegistrationCourse rc group by rc.course_id) rc join tblCourse c on ( rc.course_id = c.course_id and c.course_is_active=1 ) order by num desc OFFSET ? ROWS FETCH NEXT ? ROWS ONLY ";
         List<Course> list = new ArrayList<>();
         try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
             stmt.setInt(1, offset);
@@ -230,6 +343,6 @@ public class CourseRepository implements Serializable{
 
     public static void main(String[] args) {
         CourseRepository cr = new CourseRepository();
-        System.out.println(cr.countNumberCourseByInstructor(3));
+        System.out.println(cr.getMaxCoursePrice());
     }
 }

@@ -564,7 +564,7 @@
                 $('.right-container li.time-' + id).siblings().hide();
             }
             function goto(url) {
-                window.window.location.href = "${pageContext.request.contextPath}/" + url;
+                window.location.href = "${pageContext.request.contextPath}/" + url;
             }
 
             function gotoCheckout(url) {
