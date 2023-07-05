@@ -1,6 +1,8 @@
 com\yowu\yogacenter\controller\client\HomeController.class
 com\yowu\yogacenter\controller\client\ViewScheduleController.class
+com\yowu\yogacenter\controller\admin\DeleteAccountController.class
 com\yowu\yogacenter\controller\client\RegisterAccountController.class
+com\yowu\yogacenter\controller\admin\AddMembershipController.class
 com\yowu\yogacenter\controller\client\UserProfileWishlist.class
 com\yowu\yogacenter\controller\admin\AddCategoryController.class
 com\yowu\yogacenter\model\RegistrationCourse$CourseStatus.class
@@ -10,6 +12,7 @@ com\yowu\yogacenter\checkout\CheckoutSendController.class
 com\yowu\yogacenter\repository\CourseWishlistRepository.class
 com\yowu\yogacenter\controller\client\NewPassword.class
 com\yowu\yogacenter\controller\admin\UpdateCategoryController.class
+com\yowu\yogacenter\controller\admin\SearchMembershipController.class
 com\yowu\yogacenter\controller\client\UserProfileCourse$1.class
 com\yowu\yogacenter\controller\admin\DeleteCategoryController.class
 com\yowu\yogacenter\repository\MembershipRepository.class
@@ -20,9 +23,11 @@ com\yowu\yogacenter\repository\CourseRepository.class
 com\yowu\yogacenter\checkout\Config.class
 com\yowu\yogacenter\repository\RatingCourseRepository.class
 com\yowu\yogacenter\checkout\CheckoutResultController.class
+com\yowu\yogacenter\controller\admin\AddCourseController.class
 com\yowu\yogacenter\model\RegistrationCourse.class
 com\yowu\yogacenter\controller\client\LoginController.class
 com\yowu\yogacenter\model\RatingCourse.class
+com\yowu\yogacenter\controller\admin\SearchAccountController.class
 com\yowu\yogacenter\controller\admin\UpdateCourseScheduleController.class
 com\yowu\yogacenter\controller\client\BlogDetailController.class
 com\yowu\yogacenter\model\Permission.class
@@ -43,6 +48,7 @@ com\yowu\yogacenter\controller\client\UserProfileCourse.class
 com\yowu\yogacenter\repository\CourseScheduleRepository.class
 com\yowu\yogacenter\util\DBHelpler.class
 com\yowu\yogacenter\model\ClassSchedule.class
+com\yowu\yogacenter\controller\admin\UpdateMembershipController.class
 com\yowu\yogacenter\controller\admin\ViewBillListController.class
 com\yowu\yogacenter\controller\client\ValidateOtp.class
 com\yowu\yogacenter\controller\client\ForgotPassword$1.class
@@ -50,6 +56,7 @@ com\yowu\yogacenter\model\GoogleLogin.class
 com\yowu\yogacenter\model\Membership.class
 com\yowu\yogacenter\model\Bill$BillStatus.class
 com\yowu\yogacenter\repository\CommentRepository.class
+com\yowu\yogacenter\controller\admin\DeleteMembershipController.class
 com\yowu\yogacenter\util\MyTools.class
 com\yowu\yogacenter\repository\AccountRepository.class
 com\yowu\yogacenter\controller\admin\ViewClassScheduleListController.class
@@ -63,18 +70,22 @@ com\yowu\yogacenter\controller\client\CheckoutController.class
 com\yowu\yogacenter\repository\CategoryRepository.class
 com\yowu\yogacenter\controller\admin\ViewCourseListController.class
 com\yowu\yogacenter\repository\RoleHasPermissionRepository.class
+com\yowu\yogacenter\controller\admin\SearchCategoryController.class
 com\yowu\yogacenter\controller\client\ForgotPassword.class
 com\yowu\yogacenter\model\CourseSchedule.class
 com\yowu\yogacenter\model\AccountError.class
 com\yowu\yogacenter\model\Role$RoleList.class
 com\yowu\yogacenter\controller\client\CourseDetailController.class
+com\yowu\yogacenter\controller\admin\SearchBillController.class
 com\yowu\yogacenter\repository\RegistrationMembershipRepository.class
 com\yowu\yogacenter\controller\admin\DeleteCourseController.class
+com\yowu\yogacenter\controller\admin\AddAccountController.class
 com\yowu\yogacenter\repository\Constants.class
 com\yowu\yogacenter\model\Account.class
 com\yowu\yogacenter\controller\client\UserProfileBooking.class
 com\yowu\yogacenter\controller\admin\ViewCourseTimeListController.class
 com\yowu\yogacenter\controller\client\UserProfileSetting.class
+com\yowu\yogacenter\controller\admin\SearchCourseController.class
 com\yowu\yogacenter\model\CourseSchedule$DayOfWeek.class
 com\yowu\yogacenter\repository\PermissionRepository.class
 com\yowu\yogacenter\model\Blog.class
