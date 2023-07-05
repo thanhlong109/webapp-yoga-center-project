@@ -114,9 +114,6 @@ td{
     text-align: center;
     color: white;
 }
-td:first-child{
-    color: #949494;
-}
 .event:hover{
     opacity: 0.8;
     cursor: pointer;

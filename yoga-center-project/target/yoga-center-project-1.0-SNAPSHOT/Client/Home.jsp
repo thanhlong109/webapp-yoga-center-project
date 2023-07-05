@@ -32,10 +32,10 @@
                     <p>
                         We are the most popular yoga studio in town. Rated by more than 1000+ customers. Our instructers are well-know and certified
                     </p>
-                    <a href="#caroursel" class="btn btn-red-orange">
+                    <a href="#section2" class="btn btn-red-orange">
                         Browse Course
                     </a>
-                    <a href="#caroursel" class="arrow">
+                    <a href="#section2" class="arrow">
                         <i class="fa-solid fa-arrow-down"></i>
                     </a>
                 </div>
@@ -81,7 +81,7 @@
             <!-- End section 1 -->
 
             <!-- Start section 2 - popular online classes -->
-            <div class="section">
+            <div id="section2" class="section">
                 <h2 class="section-title">Popular Online Classes</h2>
                 <p class="section-des">A meditative means of discovering dysfunctional perception and cognition, as well as overcoming it to release any suffering, find inner peace and salvation.</p>
             </div>
@@ -111,6 +111,7 @@
                                     With ${course.account.name}
                                 </p>
                                 <a href="javascript:void(0);" onclick="gotoCourseDetail(${course.id});">${course.title}</a>
+                                <a href="course-detail?id=${course.id}" class="text-ellipsis">${course.title}</a>
                                 <h3><c:if test="${course.price>0}">$${course.price}</c:if><c:if test="${course.price<=0}">Free</c:if></h3>
                             </div>
                         </li>
@@ -172,22 +173,10 @@
                     <img src="Asset/img/icon/yoka-icon.png" alt="">
                     <h2 class="section-title">Inspired Articles</h2>
                     <p class="section-des">Modern postural yoga consists largely but not exclusively of the practice of asanas. There were very few standing asanas before 1900. By 2012, there were at least 19 widespread styles.</p>
-                    <div>
-                        <div>
-                            <a href="#"><i class="fa-solid fa-book"></i> Meditation</a>
-                            <a href="#"><i class="fa-solid fa-book"></i> Anatomy</a>
-                            <a href="#"><i class="fa-solid fa-book"></i> Yoga Poses</a>
-                            <a href="#"><i class="fa-solid fa-book"></i> Yin Poses</a>
-                            <a href="#"><i class="fa-solid fa-book"></i> Styles</a>
-                        </div>
-                        <div>
-                            <a href="#"><i class="fa-solid fa-book"></i> Yoga Therapy</a>
-                            <a href="#"><i class="fa-solid fa-book"></i> Pranayama</a>
-                            <a href="#"><i class="fa-solid fa-book"></i> Remedies</a>
-                            <a href="#"><i class="fa-solid fa-book"></i> Seasonal Tips</a>
-                            <a href="#"><i class="fa-solid fa-book"></i> Recipes</a>
-                        </div>
-
+                    <div class="category-list">
+                        <c:forEach items="${categoryList}" var="category">
+                            <a href="course-filter?categoryid=${category.id}"><i class="fa-solid fa-book"></i> ${category.name}</a>
+                        </c:forEach>
                     </div>
                 </div>
                 <div>

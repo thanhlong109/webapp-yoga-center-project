@@ -18,7 +18,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.sql.Date;
 import java.sql.Time;
 import java.time.LocalDate;
-import java.util.Calendar;
 import java.util.List;
 import java.time.temporal.TemporalAdjusters;
 import java.time.DayOfWeek;
@@ -61,10 +60,9 @@ public class ViewScheduleController extends HttpServlet {
             List<Category> categoryList = cr.getAllActive();
             //generate 2 demension array
             ClassSchedule[][] scheduleTable = new ClassSchedule[timeList.size()][7];
-            Calendar cal = Calendar.getInstance();
             for(ClassSchedule cs : scheduleList){
-                cal.setTime(cs.getDate());
-                int x = cal.get(Calendar.DAY_OF_WEEK)-1;
+                LocalDate scDate = cs.getDate().toLocalDate();
+                int x = scDate.getDayOfWeek().getValue()-1;
                 int y = timeList.indexOf(cs.getStartTime());
                 scheduleTable[y][x] = cs;
             }
