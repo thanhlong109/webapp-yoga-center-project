@@ -23,6 +23,15 @@
             color: #3dbca8;
             font-style: italic;
         }
+        
+        .element__checkout-method img{
+            height: 4vh;
+            width: 4vh;
+        }
+        .checkout-method{
+            margin-left: 15px;
+            margin-top: 2px;
+        }
     </style>
 </head>
 
@@ -37,8 +46,8 @@
                 <div class="container__elements">
                     <div class="container__element-form">
                         <form action="CheckoutSendController">
-                            <input type="hidden" name="id" value="3" >
-                            
+                            <input type="hidden" id="course_id" name="id" value="" >
+                            <input type="hidden" id="course_scheduleId" name="course_scheduleId" value="">
                             <!-- form-left -->
                             <div class="container__element-left">
                                 <div class="element__checkout-account-login ">
@@ -63,14 +72,20 @@
                                 </div>
                                 <ul class="element__checkout-method">
                                     <li class="element__checkout-method-paypal">
-                                        <input type="radio" name="payment-method" value="vnpay">
-                                        <img src="Asset/img/checkout/paypal-logo-preview.png" alt="">
+                                        <input type="radio" name="payment-method" value="VNPAY">
+                                        <img src="Asset/img/checkout/vnpay.png" alt="">
+                                        <span class="checkout-method">VnPay</span>
                                     </li>
                                     <li class="element__checkout-method-offline__payment">
-                                        <input type="radio" name="payment-method" value="studio">
+                                        <input type="radio" name="payment-method" value="STUDIO">
                                         <img src="Asset/img/checkout/pngwing.com.png" alt="">
+                                        <span class="checkout-method">Studio</span>
                                     </li>
                                 </ul>
+                                
+                                <input id="duration" name="duration" value="" type="hidden">
+                                <input id="startTime" name="startTime" value="" type="hidden">
+                                
                                 <div class="element__checkout-button">
                                     <button type="submit" name="btnPlaceOrder">Place Order</button>
                                 </div>
@@ -103,16 +118,16 @@
                                     <tbody>
                                         <tr class="table-detail">
                                             <td class="detail-content">Subtotal</td>
-                                            <td class="detail-price">${course.price - (course.price * (discount.discount) / 100)}</td>
+                                    
+                                            <td class="detail-price">$${course.price - (course.price * (discount.discount) / 100)}</td>
                                     <input type="hidden" id="subtotal" name="subtotal" value="${course.price - (course.price * (discount.discount) / 100)}">
                                     </tr>
                                     <tr class="table-total">
                                         <td class="total-title">Total</td>
-                                        <td class="total-price">${course.price - (course.price * (discount.discount) / 100)}</td>
+                                        <td class="total-price">$${course.price - (course.price * (discount.discount) / 100)}</td>
                                     <input type="hidden" id="total" name="total" value="${course.price - (course.price * (discount.discount) / 100)}">
                                     </tr>
                                     </tbody>
-
                                 </table>
                             </div>
 
@@ -124,21 +139,23 @@
         </div>
     </div>
     <jsp:include page="../Component/footer.jsp"></jsp:include>
-<!--    <script>
-        // Lấy giá trị subtotal và total từ các phần tử HTML
-        var subtotalValue = document.querySelector(".detail-price").textContent;
-        var totalValue = document.querySelector(".total-price").textContent;
-        var discountValue = document.querySelector(".title-price").textContent;
-        // Loại bỏ ký tự "$" từ giá trị subtotal
-        subtotalValue = subtotalValue.replace("$", "");
-
-// Loại bỏ ký tự "$" từ giá trị total
-        totalValue = totalValue.replace("$", "");
-        // Cập nhật giá trị của các trường ẩn
-        document.getElementById("subtotal").value = subtotalValue;
-        document.getElementById("total").value = totalValue;
-        document.getElementById("discount").value = discountValue;
-    </script>-->
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        console.log(params);
+        var id = params.get('id');
+        var scheduleId = params.get('course_scheduleId');
+        var duration = params.get('duration');
+        var startTime = params.get('start_time');
+        
+        console.log(id);
+        console.log(scheduleId);
+        
+        
+        document.getElementById('course_id').value = id;
+        document.getElementById('course_scheduleId').value = scheduleId;
+        document.getElementById('duration').value = duration;
+        document.getElementById('startTime').value = startTime;
+    </script>
 
 </body>
 

@@ -4,7 +4,11 @@
  */
 package com.yowu.yogacenter.checkout;
 
+import com.yowu.yogacenter.model.Account;
+import com.yowu.yogacenter.model.Bill;
+import com.yowu.yogacenter.model.RegistrationCourse;
 import com.yowu.yogacenter.repository.BillRepository;
+import com.yowu.yogacenter.repository.RegistrationCourseRepository;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -12,6 +16,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.text.ParseException;
 
 /**
  *
@@ -37,17 +42,32 @@ public class CheckoutResultController extends HttpServlet {
             String vnp_ResponseCode = request.getParameter("vnp_ResponseCode");
             String vnp_TxnRef = request.getParameter("vnp_TxnRef");
             PaymentDTO payment = new PaymentDTO(vnp_Amount, vnp_BankCode, vnp_BankTranNo, vnp_CardType, vnp_PayDate, vnp_OrderInfo, vnp_TransactionNo, vnp_ResponseCode, vnp_TxnRef);
-
             HttpSession session = request.getSession();
+            String orderCode = vnp_TxnRef; // Lấy orderCode từ vnp_OrderInfo hoặc từ đâu đó khác
+            session.setAttribute("orderCode", orderCode);
+//http://localhost:8080/yoga-center-project/CheckoutSendController?id=3&course_scheduleId=5&order__comment=&payment-method=studio&btnPlaceOrder=&discountTotal=&subtotal=54.0&total=54.0
+            
+            
+            Account acc = (Account) request.getSession().getAttribute("account");
+            String accountID = Integer.toString(acc.getId());
+            System.out.println(accountID);
             BillRepository bill = new BillRepository();
+            RegistrationCourseRepository regis = new RegistrationCourseRepository();
 
             if (vnp_ResponseCode.equals("00")) {
                 boolean check = bill.updateStatus(vnp_TxnRef, vnp_PayDate, 0);
+                Bill billR = bill.getCourseIdByOrdercode(vnp_TxnRef);
+                System.out.println(billR.getCourse().getId());
+                boolean updateRegis = regis.updateStatus(true, accountID, billR.getCourse().getId());
+                System.out.println(updateRegis);
+                Bill billL = bill.getAllByAccountIdAndCourseID(accountID, billR.getCourse().getId());
+                System.out.println(billL);
                 if (check) {
+                    session.setAttribute("billCourse", billL);
                     request.setAttribute("PAYMENT", payment);
                     url = SUCCESS_CHECKOUT;
                 }
-            }else if(vnp_ResponseCode.equals("24")){
+            } else if (vnp_ResponseCode.equals("24")) {
                 boolean check = bill.updateStatus(vnp_TxnRef, "", 1);
                 if (check) {
                     request.setAttribute("PAYMENT", payment);
@@ -56,7 +76,7 @@ public class CheckoutResultController extends HttpServlet {
             }
             System.out.println(vnp_PayDate);
 
-        } catch (Exception e) {
+        } catch (NumberFormatException | ParseException e) {
             log("Error at PaymentResultController: " + e.toString());
         } finally {
             request.getRequestDispatcher(url).forward(request, response);

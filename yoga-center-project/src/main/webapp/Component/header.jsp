@@ -8,67 +8,69 @@
 <%@taglib prefix="c" uri="jakarta.tags.core" %>
 <%@taglib prefix="fn" uri="jakarta.tags.functions" %>
 
-        <!-- Start Header -->
-        <div class="header-wrapper">
-            <div class="header">
-                <a href="${pageContext.request.contextPath}" class="logo">
-                    YOWU.
-                </a>
-                <div class="nav-wrapper">
-                <ul class="nav">
-                    <i class="fa-solid fa-x closebtn"></i>
-                    <li class="js-home"><a href="${pageContext.request.contextPath}">Home</a></li>
-                    <li class="js-about"><a href="#">About Us</a></li>
-                    <li class="js-course">
-                        <a href="${pageContext.request.contextPath}/courses">Course</a>
-                        <i class="fa-solid fa-chevron-right subnavbtn pc-hide"></i>
-                        <ul class="subnav">
-                            <i class="fa-solid fa-x closebtn"></i>
-                            <li><a href="#">About1</a></li>
-                            <li><a href="#">About2</a></li>
-                            <li><a href="#">About3</a></li>
-                            <li><a href="#">About4</a></li>
-                            <li><a href="#">About5</a></li>  
-                        </ul>
-                    </li>
-                    <li><a href="#">Pages</a></li>
-                    <li class="js-blog">
-                        <a href="${pageContext.request.contextPath}/blogs">Blog</a>
-                        <i class="fa-solid fa-chevron-right subnavbtn pc-hide"></i>
-                        <ul class="subnav">
-                            <i class="fa-solid fa-x closebtn"></i>
-                            <li class="active"><a href="#">About1</a></li>
-                            <li><a href="#">About2</a></li>
-                            <li><a href="#">About3</a></li>
-                            <li><a href="#">About4</a></li>
-                            <li><a href="#">About5</a></li>  
-                        </ul>
-                    </li>
-                    <li class="js-schedule"><a href="${pageContext.request.contextPath}/Timetable">Schedule</a></li>
-                </ul>
+<!-- Start Header -->
+<div class="header-wrapper">
+    <div class="header">
+        <a href="${pageContext.request.contextPath}" class="logo">
+            YOWU.
+        </a>
+        <div class="nav-wrapper">
+            <ul class="nav">
+                <i class="fa-solid fa-x closebtn"></i>
+                <li class="js-home"><a href="${pageContext.request.contextPath}">Home</a></li>
+                <li class="js-about"><a href="#">About Us</a></li>
+                <li class="js-course">
+                    <a href="${pageContext.request.contextPath}/courses">Course</a>
+                    <i class="fa-solid fa-chevron-right subnavbtn pc-hide"></i>
+                    <ul class="subnav">
+                        <i class="fa-solid fa-x closebtn"></i>
+                        <li><a href="#">About1</a></li>
+                        <li><a href="#">About2</a></li>
+                        <li><a href="#">About3</a></li>
+                        <li><a href="#">About4</a></li>
+                        <li><a href="#">About5</a></li>  
+                    </ul>
+                </li>
+                <li><a href="${pageContext.request.contextPath}/Membership">Membership</a></li>
+                <li class="js-blog">
+                    <a href="${pageContext.request.contextPath}/blogs">Blog</a>
+                    <i class="fa-solid fa-chevron-right subnavbtn pc-hide"></i>
+                    <ul class="subnav">
+                        <i class="fa-solid fa-x closebtn"></i>
+                        <li class="active"><a href="#">About1</a></li>
+                        <li><a href="#">About2</a></li>
+                        <li><a href="#">About3</a></li>
+                        <li><a href="#">About4</a></li>
+                        <li><a href="#">About5</a></li>  
+                    </ul>
+                </li>
+                <li class="js-schedule"><a href="${pageContext.request.contextPath}/Timetable">Schedule</a></li>
+            </ul>
 
-                <div class="user-btn">
-                    <c:if test="${sessionScope.account == null}">
-                        <a href="${pageContext.request.contextPath}/login">
-                            <i class="fa-solid fa-user"></i> Login/Register  <!-- display name user here, if user null display login/Register-->
-                        </a>
-                    </c:if>
-                    <c:if test="${sessionScope.account != null}">
-                        <a class="text-account" href="${pageContext.request.contextPath}/userprofile/course">
-                            <div class="img">
-                                <img id="img_account" src="${pageContext.request.contextPath}/Asset/img/avatar/${sessionScope.account.img}" />
-                            </div>   
-                        </a>
-                    </c:if>
-                </div>
-                <div class="menu-mobile">
-                    <i class="fa-solid fa-bars"></i>
-                </div>
+            <div class="user-btn">
+                <c:if test="${sessionScope.account == null}">
+                    <a href="${pageContext.request.contextPath}/login">
+                        <i class="fa-solid fa-user"></i> Login/Register  <!-- display name user here, if user null display login/Register-->
+                    </a>
+                </c:if>
+                <c:if test="${sessionScope.account != null}">
+                    <a class="text-account" href="${pageContext.request.contextPath}/userprofile/course">
+                        <div class="img">
+                            <img id="img_account" src="${pageContext.request.contextPath}/Asset/img/avatar/${sessionScope.account.img}" />
+                        </div>   
+                    </a>
+                </c:if>
+            </div>
+            <div class="menu-mobile">
+                <i class="fa-solid fa-bars"></i>
             </div>
         </div>
     </div>
-        <!-- End header -->
-        <script src="${pageContext.request.contextPath}/Asset/js/cdnjs.cloudflare.com_ajax_libs_jquery_3.7.0_jquery.min.js"></script>
+</div>
+<!-- End header -->
+<script src="${pageContext.request.contextPath}/Asset/js/cdnjs.cloudflare.com_ajax_libs_jquery_3.7.0_jquery.min.js"></script>
+
+
 <script defer>
     const menuBtn = document.querySelector(".menu-mobile");
     const nav = document.querySelector(".nav");
@@ -102,43 +104,47 @@
         });
     });
     var scrollvalue = 0;
-    $(window).bind('mousewheel', function(event) {
-        scrollvalue +=event.originalEvent.wheelDelta;
-        if ( scrollvalue >= 600) {
+    $(window).bind('mousewheel', function (event) {
+        scrollvalue += event.originalEvent.wheelDelta;
+        var currentPoint = window.pageYOffset;
+        if (scrollvalue >= 600) {
 //Scroll up
             $(".header-wrapper").slideDown(400);
-            scrollvalue=0;
-        }
-        else if(scrollvalue <=-600){
+            scrollvalue = 0;
+        } else if (scrollvalue <= -600 && currentPoint>200) {
             //Scroll down
             $(".header-wrapper").slideUp(400);
-            scrollvalue=0;
+            scrollvalue = 0;
         }
-    }); 
-    
+    });
+
     /* active nav auto*/
     let currentPath = window.location.pathname;
-    let currentPathName = currentPath.replace('${pageContext.request.contextPath}',"");
-    switch(currentPathName){
+    let currentPathName = currentPath.replace('${pageContext.request.contextPath}', "");
+    switch (currentPathName) {
         case '/course-detail':
-        case '/courses':{
-                $('.js-course').addClass('active');
-                break;
+        case '/courses':
+        {
+            $('.js-course').addClass('active');
+            break;
         }
         case '/blog-detail':
-        case '/blogs':{
-                $('.js-blog').addClass('active');
-                break;
+        case '/blogs':
+        {
+            $('.js-blog').addClass('active');
+            break;
         }
-        case '/':{
-                $('.js-home').addClass('active');
-                break;
+        case '/home':
+        {
+            $('.js-home').addClass('active');
+            break;
         }
-        case '/Timetable':{
-                $('.js-schedule').addClass('active');
-                break;
+        case '/Timetable':
+        {
+            $('.js-schedule').addClass('active');
+            break;
         }
-        
+
     }
 </script>
 

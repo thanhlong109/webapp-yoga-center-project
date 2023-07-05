@@ -1,4 +1,4 @@
-<%-- 
+f<%-- 
     Document   : blogHomeDetail
     Created on : Jun 17, 2023, 12:17:06 PM
     Author     : DatTGT
@@ -72,7 +72,7 @@
                 <%@include file="../Component/rightBarBlog.jsp" %>
             </div>
         <jsp:include page="../Component/footer.jsp"></jsp:include>
-        <%@include file="../Component/toast.jsp" %>
+        <jsp:include page="../Component/postBlog.jsp"/>
         <script>
             //this is comment progress
             $('.user-comment').on('submit',function (e){
@@ -88,11 +88,12 @@
                                 title:"Error!",
                                 msg:"Login to use this fuction!",
                                 type:'error',
-                                duration:5000   
+                                duration:5000
                             });
                         }else{
                             var tt = parseInt($('#total-cmt').text(),10) + 1;
                             $('#total-cmt').html(tt);
+                            $('.user-comment textarea').val('');
                             $('.load-comment').prepend(data);
                         }  
                     },error: function(msg) {

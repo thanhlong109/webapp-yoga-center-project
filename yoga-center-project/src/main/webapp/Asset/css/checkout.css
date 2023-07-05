@@ -181,6 +181,9 @@ a {
     color: #fff;
     border: none;
     font-weight: 200;
+    width: 100%;
+    cursor: pointer;
+    height: 100%;
 }
 .element__checkout-button:hover
 {

@@ -18,7 +18,7 @@ import jakarta.servlet.http.HttpServletResponse;
  */
 public class ViewAccountListController extends HttpServlet {
 
-private final String ACCOUNT_LIST_PAGE = "../Admin/ViewAccount.jsp";
+    private final String ACCOUNT_LIST_PAGE = "../Admin/ViewAccount.jsp";
     
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)

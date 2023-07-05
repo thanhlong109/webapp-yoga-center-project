@@ -128,61 +128,6 @@
     filter: brightness(120%);
 }
 
-/*right*/
-
-.box-section{
-    padding: 16px 0 32px 0;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-.box-container{
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-.load-more{
-    cursor: pointer;
-}
-.box-title{
-    font-size: 20px;
-    color: #383838;
-    margin-bottom: 32px;
-}
-.small-blog-item{
-    display: flex;
-    gap: 16px;
-}
-.small-blog-item a{
-    font-size: 16px;
-    color: #444444;
-    text-decoration: none;
-    font-weight: 600;
-}
-.small-blog-item-img{
-    overflow: hidden;
-    display: flex;
-    justify-content: center;
-    max-width: 75px;
-    max-height: 75px;
-    min-width: 75px;
-    min-height: 75px;
-    border: 1px solid #999;
-}
-.small-blog-item-img img{
-   height: 100%;
-   display: block;
-}
-.small-blog-item-info{
-    display: flex;
-    color: #a0a0a0;
-    font-size: 14px;
-    margin-top: 8px;
-    gap: 16px;
-}
-.btnShowRight{
-    display: none;
-}
 .noice-empty{
     display: flex;
     margin: auto;
@@ -220,44 +165,6 @@
         font-size: 14px;
         padding: 6px 18px;
         transform: translate(10%,-50%);
-    }
-
-    .post-blog-container{
-        max-width: 90%;
-        padding: 32px 10px;
-    }
-    .right-container{
-        position: fixed;
-        left: 100%;
-        top: 130px;
-        right: 0;
-        bottom: 0;
-        background-color: white;
-        padding: 0;
-        box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
-        overflow: hidden;
-        transition: all ease-in-out .4s;
-    }
-    .right-container.active{
-        padding: 20px;
-        left: 0;
-        overflow-y: scroll;
-    }
-    .btnShowRight{
-        position: fixed;
-        display: block;
-        top:30%;
-        right: 16px;
-        background-color: white;
-        width: 32px;
-        height: 32px;
-        border-radius: 50%;
-        color: black;
-        border: 1px solid #383838;
-        text-align: center;
-        line-height: 32px;
-        cursor: pointer;
-        transition: all ease-in-out .3s;
     }
     .user-comment-avata{
         max-width: 50px;

@@ -19,7 +19,7 @@ import jakarta.servlet.http.HttpServletResponse;
 public class UpdateCategoryController extends HttpServlet {
 
     private final String VIEW_CATEGORY_LIST_CONTROLLER = "categoryListController";
-    private final String EDIT_PAGE = "../Admin/EditCategory.jsp";
+    private final String EDIT_PAGE = "../Admin/EditCategory2.jsp";
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)

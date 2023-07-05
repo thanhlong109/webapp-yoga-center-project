@@ -85,6 +85,29 @@ public class CourseScheduleRepository {
         return null;
     }
     
+    public CourseSchedule detailByScheduleID(int id) {
+        String sql = "select * from tblCourseSchedule where course_schedule_id=? ";
+        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
+            stmt.setInt(1, id);
+            try ( ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    CourseSchedule c = new CourseSchedule();
+                    CourseRepository cr = new CourseRepository();
+                    c.setCourse(cr.detail(rs.getInt("course_id")));
+                    c.setId(rs.getInt("course_schedule_id"));
+                    c.setDateOfWeek(rs.getString("day_of_week"));
+                    c.setStartTime(rs.getTime("start_time"));
+                    c.setEndTime(rs.getTime("end_time"));
+                    c.setIsActive(rs.getBoolean("is_active"));
+                    return c;
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return null;
+    }
+    
     public boolean add(CourseSchedule c) {
         String sql = "INSERT INTO tblCourseSchedule (course_id, day_of_week, "
                 + "start_time, end_time, is_active) "

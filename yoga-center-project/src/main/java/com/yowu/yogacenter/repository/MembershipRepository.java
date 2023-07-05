@@ -143,23 +143,48 @@ public class MembershipRepository {
     }
 
     public static void main(String[] args) {
-    MembershipRepository repository = new MembershipRepository();
-    int membershipId = 1; // ID của đối tượng Membership cần lấy thông tin
+        MembershipRepository repository = new MembershipRepository();
+        int membershipId = 1; // ID của đối tượng Membership cần lấy thông tin
 
-    Membership membership = repository.detail(membershipId);
+        Membership membership = repository.detail(membershipId);
 
-    if (membership != null) {
-        // Hiển thị thông tin chi tiết của đối tượng Membership
-        System.out.println("Membership ID: " + membership.getId());
-        System.out.println("Membership Name: " + membership.getName());
-        System.out.println("Membership Duration: " + membership.getDuration());
-        System.out.println("Membership Price: " + membership.getPrice());
-        System.out.println("Membership Description: " + membership.getDescription());
-        System.out.println("Membership Discount: " + membership.getDiscount());
-        System.out.println("Membership Is Active: " + membership.isIsActive());
-    } else {
-        System.out.println("Membership not found!");
+        if (membership != null) {
+            // Hiển thị thông tin chi tiết của đối tượng Membership
+            System.out.println("Membership ID: " + membership.getId());
+            System.out.println("Membership Name: " + membership.getName());
+            System.out.println("Membership Duration: " + membership.getDuration());
+            System.out.println("Membership Price: " + membership.getPrice());
+            System.out.println("Membership Description: " + membership.getDescription());
+            System.out.println("Membership Discount: " + membership.getDiscount());
+            System.out.println("Membership Is Active: " + membership.isIsActive());
+        } else {
+            System.out.println("Membership not found!");
+        }
     }
-}
+
+    public List<Membership> searchName(String search) {
+        String sql = "select * from tblMembership where membership_name Like ? ";
+        List<Membership> list = new ArrayList<>();
+        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
+            stmt.setString(1, search);
+            try ( ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    Membership c = new Membership();
+                    c.setId(rs.getInt("membership_id"));
+                    c.setName(rs.getString("membership_name"));
+                    c.setDuration(rs.getInt("membership_duration"));
+                    c.setPrice(rs.getFloat("membership_price"));
+                    c.setDescription(rs.getString("membership_description"));
+                    c.setDiscount(rs.getInt("membership_discours"));
+                    c.setIsActive(rs.getBoolean("membership_is_active"));
+                    list.add(c);
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return list;
+    }
+
 
 }
