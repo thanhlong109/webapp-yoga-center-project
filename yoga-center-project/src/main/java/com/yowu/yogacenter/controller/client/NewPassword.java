@@ -16,7 +16,7 @@ import jakarta.servlet.http.HttpSession;
 public class NewPassword extends HttpServlet {
 
     private final String LOGIN_PAGE = "Client/login_register.jsp";
-    private final String NEW_PASSWORD_PAGE = "Client/newPassword.jsp";
+    private final String NEW_PASSWORD_PAGE = "Client/getNewPassword.jsp";
     private final String UPDATE_PASSWORD = "update tblAccount set "
             + "account_password = ? where account_email = ? ";
 

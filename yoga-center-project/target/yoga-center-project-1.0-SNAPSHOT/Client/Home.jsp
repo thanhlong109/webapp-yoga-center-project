@@ -96,6 +96,7 @@
                 <i id="left" class="fa-solid fa-arrow-left"></i>
                 <ul class="caroursel">
                     <c:forEach items="${popularList}" var="course">
+                        <div onclick="goto('course-detail?id=${course.id}')" class="course-card">
                         <li class="card card-zoom">
                             <div class="card-img">
                                 <img src="Asset/img/classes/${course.img}" alt="">
@@ -109,10 +110,11 @@
                                 <p>
                                     With ${course.account.name}
                                 </p>
-                                <a href="#">${course.title}</a>
+                                <a href="javascript:void(0);" onclick="gotoCourseDetail(${course.id});">${course.title}</a>
                                 <h3><c:if test="${course.price>0}">$${course.price}</c:if><c:if test="${course.price<=0}">Free</c:if></h3>
                             </div>
                         </li>
+                        </div>
                     </c:forEach>
                 </ul>
                 <i id="right" class="fa-solid fa-arrow-right"></i>
@@ -207,6 +209,13 @@
                 </div>
             </div>
         <jsp:include page="../Component/footer.jsp"></jsp:include>
+        
+        <script>
+            function goto(url){
+                window.window.location.href = "${pageContext.request.contextPath}/"+url;   
+            }
+        </script>
+        
         <!-- End section 6-->
         <script defer src="Asset/js/caroursel.js"></script>
     </body>

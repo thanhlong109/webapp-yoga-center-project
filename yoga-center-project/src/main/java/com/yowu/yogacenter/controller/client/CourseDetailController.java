@@ -5,8 +5,10 @@
 package com.yowu.yogacenter.controller.client;
 
 import com.yowu.yogacenter.model.Account;
+import com.yowu.yogacenter.model.Bill;
 import com.yowu.yogacenter.model.Course;
 import com.yowu.yogacenter.model.RegistrationCourse;
+import com.yowu.yogacenter.repository.BillRepository;
 import com.yowu.yogacenter.repository.CourseRepository;
 import com.yowu.yogacenter.repository.CourseScheduleRepository;
 import com.yowu.yogacenter.repository.CourseWishlistRepository;
@@ -41,12 +43,21 @@ public class CourseDetailController extends HttpServlet {
             RegistrationCourseRepository rcr = new RegistrationCourseRepository();
             boolean isInWishList = false;
             RegistrationCourse rc2 = null;
+            RegistrationCourse rc3 = null;
+            Bill billStatus = null;
+            BillRepository billRepo = new BillRepository();
             if(account != null){
                 isInWishList = cwr.isExist(id, account.getId());
-                rc2 = rcr.getRegisIdByCourseIdAndAccountID(account.getId(),id,true);
+                //rc2 = rcr.getRegisIdByCourseIdAndAccountID(account.getId(),id,true);
+                //rc3 = rcr.getRegisByCourseIdAndAccountID(account.getId(),id);
+                billStatus = billRepo.getAllByAccountIdAndCourseID(account.getId(), id);
+                System.out.println(billStatus);
             }
-            if(rc2!=null){
-                request.setAttribute("registrationCourse", rc2);
+            if(billStatus!=null){
+                int status = billStatus.getStatus();
+                
+                request.setAttribute("billStatus", status);
+                System.out.println(status);
             }
             
             request.setAttribute("regisID", rc2);

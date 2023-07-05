@@ -23,7 +23,7 @@
             color: #3dbca8;
             font-style: italic;
         }
-        
+
         .element__checkout-method img{
             height: 4vh;
             width: 4vh;
@@ -31,6 +31,11 @@
         .checkout-method{
             margin-left: 15px;
             margin-top: 2px;
+        }
+
+        .custom-alert {
+            color: #dc3545;
+
         }
     </style>
 </head>
@@ -82,10 +87,10 @@
                                         <span class="checkout-method">Studio</span>
                                     </li>
                                 </ul>
-                                
+
                                 <input id="duration" name="duration" value="" type="hidden">
                                 <input id="startTime" name="startTime" value="" type="hidden">
-                                
+
                                 <div class="element__checkout-button">
                                     <button type="submit" name="btnPlaceOrder">Place Order</button>
                                 </div>
@@ -110,15 +115,15 @@
                                             <th class="title-content">Membership card</th>
                                             <th class="title-price" >Voucher ${discount.discount}%</th>
                                     <input type="hidden" id="discount" name="discountTotal" value="${discount.discount}">
-                                        </tr>
-                                        <tr class="table-title">
-                                            <th class="title-content">${discount.description}</th>
-                                        </tr>
+                                    </tr>
+                                    <tr class="table-title">
+                                        <th class="title-content">${discount.description}</th>
+                                    </tr>
                                     </thead>
                                     <tbody>
                                         <tr class="table-detail">
                                             <td class="detail-content">Subtotal</td>
-                                    
+
                                             <td class="detail-price">$${course.price - (course.price * (discount.discount) / 100)}</td>
                                     <input type="hidden" id="subtotal" name="subtotal" value="${course.price - (course.price * (discount.discount) / 100)}">
                                     </tr>
@@ -146,15 +151,73 @@
         var scheduleId = params.get('course_scheduleId');
         var duration = params.get('duration');
         var startTime = params.get('start_time');
-        
+
         console.log(id);
         console.log(scheduleId);
-        
-        
+
+
         document.getElementById('course_id').value = id;
         document.getElementById('course_scheduleId').value = scheduleId;
         document.getElementById('duration').value = duration;
         document.getElementById('startTime').value = startTime;
+
+
+        document.addEventListener("DOMContentLoaded", function () {
+            // Lấy ra các radio button
+            var paymentMethods = document.getElementsByName("payment-method");
+
+            // Gắn sự kiện cho nút "Place Order"
+            var placeOrderButton = document.querySelector('button[name="btnPlaceOrder"]');
+            placeOrderButton.addEventListener("click", function (event) {
+                // Kiểm tra nếu không có radio button được chọn
+                var isSelected = false;
+                for (var i = 0; i < paymentMethods.length; i++) {
+                    if (paymentMethods[i].checked) {
+                        isSelected = true;
+                        break;
+                    }
+                }
+
+                // Nếu không có radio button nào được chọn, hiển thị thông báo
+                if (!isSelected) {
+                    event.preventDefault(); // Ngăn chặn gửi biểu mẫu
+
+                    
+                    var alertDiv = document.createElement("div");
+                    alertDiv.classList.add("alert", "alert-danger", "custom-alert");
+                    alertDiv.innerHTML = "Please choose a payment method!!!";
+
+                    
+                    var countdownSpan = document.createElement("span");
+                    countdownSpan.id = "countdownSpan";
+                    countdownSpan.style.marginLeft = "10px";
+                    countdownSpan.style.color = "red";
+                    countdownSpan.innerText = "5"; // Số giây đếm ngược ban đầu
+
+                    
+                    alertDiv.appendChild(countdownSpan);
+
+
+                   
+                    var checkoutButton = document.querySelector(".element__checkout-button");
+                    checkoutButton.parentNode.insertBefore(alertDiv, checkoutButton);
+
+                    
+                    var countdownValue = 5; 
+                    var countdownInterval = setInterval(function () {
+                        countdownValue--;
+                        countdownSpan.innerText = countdownValue.toString();
+
+                        if (countdownValue === 0) {
+                            alertDiv.remove(); // Xóa thông báo
+                            clearInterval(countdownInterval); // Dừng đếm ngược
+                        }
+                    }, 1000);
+                }
+            });
+        });
+
+
     </script>
 
 </body>

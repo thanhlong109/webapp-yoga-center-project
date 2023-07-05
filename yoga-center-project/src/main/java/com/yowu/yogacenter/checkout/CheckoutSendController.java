@@ -131,7 +131,7 @@ public class CheckoutSendController extends HttpServlet {
             while (temp <= inputDuration) {
                 DayOfWeek dayOfWeek = startDate.getDayOfWeek();
                 for (int number : numbers) {
-                    if (allDateOfWeek[number] == dayOfWeek) {
+                    if (allDateOfWeek[number] == dayOfWeek) {//fix
                         System.out.println("Day: " + startDate);
                         //Call repository save to DB:
                         int regisId = lastInsertId;
@@ -141,7 +141,7 @@ public class CheckoutSendController extends HttpServlet {
                         int statusClass = 1;
                         ClassScheduleRepository scr = new ClassScheduleRepository();
                         //public ClassSchedule(Date date, Time startTime, Time endTime, int status, int regisId)
-                        ClassSchedule cse = new ClassSchedule(classDate, startTime1, endTime, status, regisId);
+                        ClassSchedule cse = new ClassSchedule(classDate, startTime1, endTime, statusClass, regisId);
                         scr.addClassSchedule(cse);
                         //.....
                         //End.

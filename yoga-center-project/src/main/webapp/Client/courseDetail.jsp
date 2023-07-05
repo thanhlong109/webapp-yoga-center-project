@@ -221,13 +221,13 @@
                 font-size: 14px !important;
                 padding: 4px 8px;
                 border: 1px solid #333;
-                
+
             }
-            
+
             .time-value {
                 padding: 0px !important;
             }
-            
+
             .jstime{
                 list-style: none;
             }
@@ -330,11 +330,15 @@
                     font-size: 24px;
                 }
             }
-            
-            
+
+
             .book1 a{
                 text-decoration: none;
                 color: #fbc12d;
+            }
+
+            .choose{
+                color: #a4262c
             }
 
         </style>
@@ -431,9 +435,11 @@
                         <div class="label">Date</div>
                         <select id="dateSD" class="label-value jsdate" onchange="loadTime(this)"></select>
                     </div>
-
-                    <input id="datepicker" width="276" />
-
+                    <div class="right-box">
+                        <div class="label " >Choose start date</div>
+                        <input id="datepicker" type="text" width="276"/>
+                    </div>
+                    <div id="date-error-message" style="display: none;"></div>
                     <div class="right-box">
                         <div class="label">Time</div>
                         <ul class="label-value time-value jstime" style=" padding: 0px"></ul> <!--replace time here-->
@@ -441,7 +447,7 @@
                     <div class="right-box">
                         <div class="label">Duration</div>
                         <div class="label-value">${course.duration} slots</div> <!--replace duration here-->
-                        <input id="duration" value="${course.duration}" type="hidden">
+                        <input id="duration" value="${course.duration}" type="hidden" required>
                     </div>
                     <div class="right-box">
                         <div class="label">Price</div>
@@ -465,8 +471,7 @@
                                 </a>
                             </c:if>
                         </c:if>
-                        <c:if test="${sessionScope.account != null && registrationCourse==null}">
-
+                        <c:if test="${sessionScope.account != null && billStatus != 2}">
                             <c:if test="${course.price>0}">
                                 <a class="book-course" onclick="gotoCheckout('Checkout?id=${course.id}')" class="course-card">
                                     <p>Book now</p>
@@ -477,6 +482,9 @@
                                     <p>Errol</p> 
                                 </a>
                             </c:if>
+                        </c:if>
+                        <c:if test="${sessionScope.account != null && billStatus == 2}">
+                            <p>Waiting for payment...</p>
                         </c:if>
                         <c:if test="${sessionScope.account != null && registrationCourse!=null}">
                             <p>Erroled</p>
@@ -522,11 +530,14 @@
         <%@include file="../Component/toast.jsp" %>       
 
         <script>
+            var date = new Date();
+            var today = new Date(date.getFullYear(), date.getMonth(), date.getDate());
             $('#datepicker').datepicker({
                 uiLibrary: 'bootstrap5',
-                format: 'yyyy-mm-dd' ,
-                value: new Date()
+                format: 'yyyy-mm-dd',
+                minDate: today
             });
+            document.getElementById("datepicker").required = true;
         </script>
         <script defer>
             /*display star*/
@@ -574,11 +585,30 @@
                 var course_scheduleId = $('#dateSD').val();
                 var duration = $('#duration').val();
                 var start_Time = $('#datepicker').val();
-                console.log(duration);
-                console.log(start_Time);
+
+                if (!start_Time) {
+                    $('#date-error-message').text('Please choose a start date !!!');
+                    $('#date-error-message').css('color', 'red');
+                    $('#date-error-message').show();
+
+                    setTimeout(function () {
+                        $('#date-error-message').hide();
+                    }, 5000);
+
+                    return;
+                }
+
+                // Các mã khác trong hàm gotoCheckout...
+
+                // Xóa thông báo nếu đã chọn ngày
+                $('#date-error-message').text('');
+                $('#date-error-message').hide();
+
                 window.location.href = "${pageContext.request.contextPath}/" + url + "&course_scheduleId=" + course_scheduleId + "&duration=" + duration + "&start_time=" + start_Time;
             }
-            
+
+
+
             $('.jsWishlist').click(() => {
                 if ($('.jsWishlist').hasClass('added')) {
                     $.ajax({

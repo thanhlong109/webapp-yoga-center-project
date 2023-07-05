@@ -107,15 +107,25 @@
                             <p>See you again!</p>
                         </div>
                         <div class="payment-footer">
-                            <p><a href="${pageContext.request.contextPath}/">Back to home page</a></p>
+                            <div>Go to Home page after <span id="counter">15</span>s</div>
                             <p>Powered by <a href="#">VNPAY</a></p>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
+
         <jsp:include page="../Component/footer.jsp"></jsp:include>
+        <script>
+            setInterval(function () {
+                var div = document.querySelector("#counter");
+                var count = div.textContent * 1 - 1;
+                div.textContent = count;
+                if (count <= 0) {
+                    window.location.replace("${pageContext.request.contextPath}/");
+                }
+            }, 1000);
+        </script>
     </body>
 
 </html>
