@@ -46,7 +46,7 @@
                         Add New Course</a></li>
                 <li><a href="<c:url value="/admin/viewCourseTimeListController"/>">
                         View & Edit Course Time</a></li>
-                <li><a href="#">
+                <li><a href="<c:url value="/admin/addCourseScheduleController"/>">
                         Add Course Time</a></li>
             </ul>
         </div>
