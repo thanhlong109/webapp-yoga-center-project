@@ -37,6 +37,12 @@
             color: #dc3545;
 
         }
+        
+        .discript{
+            color: #a2a2a2;
+            text-align: left
+        }
+        
     </style>
 </head>
 
@@ -117,9 +123,16 @@
                                     <input type="hidden" id="discount" name="discountTotal" value="${discount.discount}">
                                     </tr>
                                     <tr class="table-title">
-                                        <th class="title-content">${discount.description}</th>
+                                        <th class="title-content discript">${discount.description}</th>
                                     </tr>
-                                    </thead>
+                                    <tr class="table-title">
+                                            <th class="title-content">Course start date</th>
+                                            <th class="title-price" >${startDate}</th>
+                                    </tr>
+                                    <tr class="table-title">
+                                        <th class="title-content discript">If the date you choose does not match the calendar.
+                                            The system will select the date closest to the date you selected.</th>
+                                    </tr>
                                     <tbody>
                                         <tr class="table-detail">
                                             <td class="detail-content">Subtotal</td>

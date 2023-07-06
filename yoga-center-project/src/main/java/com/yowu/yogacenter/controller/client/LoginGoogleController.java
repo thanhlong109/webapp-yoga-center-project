@@ -47,6 +47,8 @@ public class LoginGoogleController extends HttpServlet {
             GoogleLogin userGG = getUserInfo(accessToken);
             String googleID = userGG.getId();
             String emailGG = userGG.getEmail();
+            HttpSession session = request.getSession();
+            String current = (String) session.getAttribute("currentPage");
 
             Account loginUser = dao.checkLoginGoogle(emailGG, googleID);
 
@@ -57,25 +59,29 @@ public class LoginGoogleController extends HttpServlet {
                 //Account( String name, String password, String email, String phone, Role role, String socialID)
                 boolean checkInsert = dao.createAccount(user);
                 if (checkInsert) {
-                    HttpSession session = request.getSession();
                     session.setAttribute("account", userGG);
                     url = HOME_PAGE;
                 }
             } else {
-                HttpSession session = request.getSession();
                 session.setAttribute("account", loginUser);
                 Role role = loginUser.getRole();
                 if (Role.RoleList.ADMIN.ordinal() == role.getId()) {
                     url = ADMIN_PAGE;
                 } else if (Role.RoleList.TRAINEE.ordinal() == role.getId() || Role.RoleList.TRAINER.ordinal() == role.getId()) {
-                    url = HOME_PAGE;
+                    if (current != null && !current.isEmpty()) {
+                        url = current; // Quay lại trang trước đó
+                        session.removeAttribute("currentPage"); // Xóa thuộc tính currentPage khỏi session
+                    }else{
+                        url = HOME_PAGE;
+                        request.getRequestDispatcher(url).forward(request, response);
+                    }
                 }
             }
 
         } catch (IOException e) {
             log("Error at CreateController: " + e.toString());
         } finally {
-            request.getRequestDispatcher(url).forward(request, response);
+            response.sendRedirect(request.getContextPath() + url);
         }
     }
 

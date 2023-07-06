@@ -12,6 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.sql.Date;
 import java.util.List;
 
 /**
@@ -302,6 +303,24 @@ public class RegistrationCourseRepository {
             stmt.setInt(6, registrationCourse.getCourseStatus());
             stmt.setInt(7, registrationCourse.getId());
             stmt.setBoolean(8, registrationCourse.getRegistrationtatus());
+            status = stmt.executeUpdate();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+        return status == 1;
+    }
+    
+    public boolean updateDateRegisAndDateEnd(Date RegisDate, Date EndDate, int id) {
+        String sql = "UPDATE tblRegistrationCourse SET registration_date = ?, end_date = ? "
+                + "WHERE registration_id = ?";
+        int status = 0;
+
+        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
+            stmt.setDate(1, RegisDate);
+            stmt.setDate(2, EndDate);
+            stmt.setInt(3, id);
+            
             status = stmt.executeUpdate();
         } catch (Exception e) {
             System.out.println(e);

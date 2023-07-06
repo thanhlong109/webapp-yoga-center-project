@@ -14,12 +14,14 @@ import com.yowu.yogacenter.repository.CourseScheduleRepository;
 import com.yowu.yogacenter.repository.CourseWishlistRepository;
 import com.yowu.yogacenter.repository.RatingCourseRepository;
 import com.yowu.yogacenter.repository.RegistrationCourseRepository;
+import jakarta.mail.Session;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 /**
  *
@@ -34,6 +36,8 @@ public class CourseDetailController extends HttpServlet {
             throws ServletException, IOException {
         try{
             int id = Integer.parseInt(request.getParameter("id"));
+            HttpSession session = request.getSession();
+            session.setAttribute("currentPage", "/course-detail?id="+id);
             CourseRepository cr = new CourseRepository();
             CourseScheduleRepository sc = new CourseScheduleRepository();
             RatingCourseRepository  ratec = new RatingCourseRepository();
@@ -60,6 +64,7 @@ public class CourseDetailController extends HttpServlet {
                 System.out.println(status);
             }
             
+            System.out.println(request.getContextPath() +"/course-detail?id="+id);
             request.setAttribute("regisID", rc2);
             request.setAttribute("agvRating", ratec.getAvgCourseRating(c.getId()));
             request.setAttribute("course",c);

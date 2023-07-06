@@ -24,23 +24,23 @@
               href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
         <link rel="stylesheet" href="${pageContext.request.contextPath}/Asset/css/clientHeader.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/Asset/css/clientFooter.css">
-        
+        <style>
+            .banner{
+                margin-top: 80px
+            }
+            
+            
+        </style>
     </head>
     <body>
         <%@include file="../Component/header.jsp" %>
         <div class="banner-container">
             <div class="banner">
-                <div class="yoga-equipment">
-                    <img src="../img/membership/card-member_1281.png" alt="">
-                </div>
                 <div class="banner__content">
                     <h1>Membership</h1>
                     <span>upto</span>
                     <h3>50% OFF</h3>
                     <p>offer end after 5 days</p>
-                </div>
-                <div class="women">
-                    <img src="../img/membership/women_4.png" alt="">
                 </div>
             </div>
         </div>

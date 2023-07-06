@@ -35,11 +35,14 @@ public class CheckoutController extends HttpServlet {
     throws ServletException, IOException {
         CourseRepository cr = new CourseRepository();
         int id = Integer.parseInt(request.getParameter("id"));
+        String startdate = request.getParameter("start_time");
+        System.out.println("date checkout "+startdate);
         Account acc = (Account)request.getSession().getAttribute("account");
         AccountRepository ar = new AccountRepository();
         MembershipRepository msr = new MembershipRepository();
         RegistrationMembershipRepository rm = new RegistrationMembershipRepository();
         Course c = cr.detail(id);
+        request.setAttribute("startDate", startdate);
         request.setAttribute("account", ar.detail(acc.getId()));
         request.setAttribute("course", c);
         request.setAttribute("discount", msr.discountByAccountID(acc.getId()));

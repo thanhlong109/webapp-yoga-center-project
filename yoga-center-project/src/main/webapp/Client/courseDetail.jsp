@@ -461,12 +461,12 @@
                         <c:if test="${sessionScope.account == null}">
 
                             <c:if test="${course.price>0}">
-                                <a class="book-course" href="${pageContext.request.contextPath}/login">
+                                <a class="book-course" href='<c:url value="/login" />'>
                                     <p>Book now</p>
                                 </a>
                             </c:if>
                             <c:if test="${course.price<=0}">
-                                <a class="book-course" href="${pageContext.request.contextPath}/login">
+                                <a class="book-course" href='<c:url value="/login" />'>
                                     <p>Errol</p> 
                                 </a>
                             </c:if>
