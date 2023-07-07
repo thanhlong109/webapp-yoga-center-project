@@ -4,6 +4,7 @@
     Author     : Chien Thang
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <head>
@@ -37,12 +38,12 @@
             color: #dc3545;
 
         }
-        
+
         .discript{
             color: #a2a2a2;
             text-align: left
         }
-        
+
     </style>
 </head>
 
@@ -59,6 +60,8 @@
                         <form action="CheckoutSendController">
                             <input type="hidden" id="course_id" name="id" value="" >
                             <input type="hidden" id="course_scheduleId" name="course_scheduleId" value="">
+                            <input type="hidden" id="durationMem" name="durationMem" value="">
+
                             <!-- form-left -->
                             <div class="container__element-left">
                                 <div class="element__checkout-account-login ">
@@ -119,20 +122,23 @@
                                         </tr>
                                         <tr class="table-title">
                                             <th class="title-content">Membership card</th>
-                                            <th class="title-price" >Voucher ${discount.discount}%</th>
+                                                <c:if test="${discount.discount == null}">
+                                                <th class="title-price" >Voucher 0%</th>
+                                                </c:if>
+                                                <c:if test="${discount.discount != null}">
+                                                <th class="title-price" >Voucher ${discount.discount}%</th>
+                                            <tr class="table-title">
+                                                <th class="title-content discript">${discount.description}</th>
+                                            </tr>
+                                        </c:if>
                                     <input type="hidden" id="discount" name="discountTotal" value="${discount.discount}">
                                     </tr>
+
                                     <tr class="table-title">
-                                        <th class="title-content discript">${discount.description}</th>
+                                        <th class="title-content">Course start date</th>
+                                        <th class="title-price" >${startDate}</th>
                                     </tr>
-                                    <tr class="table-title">
-                                            <th class="title-content">Course start date</th>
-                                            <th class="title-price" >${startDate}</th>
-                                    </tr>
-                                    <tr class="table-title">
-                                        <th class="title-content discript">If the date you choose does not match the calendar.
-                                            The system will select the date closest to the date you selected.</th>
-                                    </tr>
+                                    
                                     <tbody>
                                         <tr class="table-detail">
                                             <td class="detail-content">Subtotal</td>
@@ -164,16 +170,16 @@
         var scheduleId = params.get('course_scheduleId');
         var duration = params.get('duration');
         var startTime = params.get('start_time');
-
+        var durationMem = params.get('durationMem');
         console.log(id);
         console.log(scheduleId);
-
+        console.log(durationMem);
 
         document.getElementById('course_id').value = id;
         document.getElementById('course_scheduleId').value = scheduleId;
         document.getElementById('duration').value = duration;
         document.getElementById('startTime').value = startTime;
-
+        document.getElementById('durationMem').value = durationMem;
 
         document.addEventListener("DOMContentLoaded", function () {
             // Lấy ra các radio button
@@ -195,28 +201,28 @@
                 if (!isSelected) {
                     event.preventDefault(); // Ngăn chặn gửi biểu mẫu
 
-                    
+
                     var alertDiv = document.createElement("div");
                     alertDiv.classList.add("alert", "alert-danger", "custom-alert");
                     alertDiv.innerHTML = "Please choose a payment method!!!";
 
-                    
+
                     var countdownSpan = document.createElement("span");
                     countdownSpan.id = "countdownSpan";
                     countdownSpan.style.marginLeft = "10px";
                     countdownSpan.style.color = "red";
                     countdownSpan.innerText = "5"; // Số giây đếm ngược ban đầu
 
-                    
+
                     alertDiv.appendChild(countdownSpan);
 
 
-                   
+
                     var checkoutButton = document.querySelector(".element__checkout-button");
                     checkoutButton.parentNode.insertBefore(alertDiv, checkoutButton);
 
-                    
-                    var countdownValue = 5; 
+
+                    var countdownValue = 5;
                     var countdownInterval = setInterval(function () {
                         countdownValue--;
                         countdownSpan.innerText = countdownValue.toString();

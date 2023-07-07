@@ -473,7 +473,7 @@
                         </c:if>
                         <c:if test="${sessionScope.account != null && billStatus != 2}">
                             <c:if test="${course.price>0}">
-                                <a class="book-course" onclick="gotoCheckout('Checkout?id=${course.id}')" class="course-card">
+                                <a class="book-course" onclick="gotoCheckout('Checkout?id=${course.id}&action=course')" class="course-card">
                                     <p>Book now</p>
                                 </a>
                             </c:if>   
@@ -528,156 +528,176 @@
             </div>
         </div>
         <%@include file="../Component/toast.jsp" %>       
+    </script>
+    <script>
+        var dateSelect = [];
+        var date = new Date();
+        var today = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+        $('#datepicker').datepicker({
+            uiLibrary: 'bootstrap5',
+            format: 'yyyy-mm-dd',
+            minDate: today,
+            disableDates: function (date) {
+                const dayOfWeek = date.getDay();
+                return dateSelect.includes(dayOfWeek);
+            }
+        });
 
-        <script>
-            var date = new Date();
-            var today = new Date(date.getFullYear(), date.getMonth(), date.getDate());
-            $('#datepicker').datepicker({
-                uiLibrary: 'bootstrap5',
-                format: 'yyyy-mm-dd',
-                minDate: today
-            });
-            document.getElementById("datepicker").required = true;
-        </script>
-        <script defer>
-            /*display star*/
-            const starsParents = document.querySelectorAll(".stars");
-            starsParents.forEach(sp => {
-                let stars = sp.querySelectorAll(".stars i");
-                var avg = $(sp).data('avg');
-                stars.forEach(star => {
-                    if (avg > 0) {
-                        star.classList.add("fa-solid");
-                        if (avg < 1) {
-                            star.classList.add("fa-star-half-stroke");
-                        } else {
-                            star.classList.add("fa-star");
-                        }
+        document.getElementById("datepicker").required = true;
+    </script>
+    <script defer>
+        /*display star*/
+        const starsParents = document.querySelectorAll(".stars");
+        starsParents.forEach(sp => {
+            let stars = sp.querySelectorAll(".stars i");
+            var avg = $(sp).data('avg');
+            stars.forEach(star => {
+                if (avg > 0) {
+                    star.classList.add("fa-solid");
+                    if (avg < 1) {
+                        star.classList.add("fa-star-half-stroke");
                     } else {
-                        star.classList.add("fa-regular");
                         star.classList.add("fa-star");
                     }
-                    avg -= 1;
-                });
-            });
-            /*display date text*/
-            const displayDate = document.querySelector(".jsdate");
-            const displayTime = document.querySelector(".jstime");
-            var dateData = "";
-            var timeData = "";
-            <c:forEach items="${courseScheduleList}" var="i">
-            dateData += "<option value='${i.id}' > ${i.dateToString()} </option>";
-            timeData += "<li class='time-${i.id}' > ${i.startTime} - ${i.endTime}</li>";
-            </c:forEach>
-            displayDate.innerHTML = dateData;
-            displayTime.innerHTML = timeData;
-            loadTime($('.jsdate'));
-            function loadTime(select) {
-                var id = $(select).val();
-                $('.right-container li.time-' + id).show();
-                $('.right-container li.time-' + id).siblings().hide();
-            }
-            function goto(url) {
-                window.location.href = "${pageContext.request.contextPath}/" + url;
-            }
-
-            function gotoCheckout(url) {
-                var course_scheduleId = $('#dateSD').val();
-                var duration = $('#duration').val();
-                var start_Time = $('#datepicker').val();
-
-                if (!start_Time) {
-                    $('#date-error-message').text('Please choose a start date !!!');
-                    $('#date-error-message').css('color', 'red');
-                    $('#date-error-message').show();
-
-                    setTimeout(function () {
-                        $('#date-error-message').hide();
-                    }, 5000);
-
-                    return;
+                } else {
+                    star.classList.add("fa-regular");
+                    star.classList.add("fa-star");
                 }
+                avg -= 1;
+            });
+        });
+        /*display date text*/
+        const displayDate = document.querySelector(".jsdate");
+        const displayTime = document.querySelector(".jstime");
+        var dateData = "";
+        var timeData = "";
+        <c:forEach items="${courseScheduleList}" var="i">
+        dateData += "<option data-cId='${i.dateOfWeek}' value='${i.id}' > ${i.dateToString()} </option>";
+        timeData += "<li class='time-${i.id}' > ${i.startTime} - ${i.endTime}</li>";
+        </c:forEach>
+        displayDate.innerHTML = dateData;
+        displayTime.innerHTML = timeData;
+        loadTime($('.jsdate'));
+        function loadTime(select) {
+            var id = $(select).val();
+            var datePick = $('.jsdate').find(':selected').attr('data-cId');
+            var parseDate = datePick.split(",");
+            dateSelect = [];
+            parseDate.forEach(i =>{
+                var j = parseInt(i);
+                if (j < 6) {
+                    j = j + 1;
+                } else{
+                    j = 0;
+                }
+                dateSelect.push(j);
+            });
+            
+            console.log(dateSelect);
+            $('.right-container li.time-' + id).show();
+            $('.right-container li.time-' + id).siblings().hide();
+        }
+        function goto(url) {
+            window.location.href = "${pageContext.request.contextPath}/" + url;
+        }
 
-                // Các mã khác trong hàm gotoCheckout...
+        function gotoCheckout(url) {
+            var course_scheduleId = $('#dateSD').val();
+            var duration = $('#duration').val();
+            var start_Time = $('#datepicker').val();
 
-                // Xóa thông báo nếu đã chọn ngày
-                $('#date-error-message').text('');
-                $('#date-error-message').hide();
+            if (!start_Time) {
+                $('#date-error-message').text('Please choose a start date !!!');
+                $('#date-error-message').css('color', 'red');
+                $('#date-error-message').show();
 
-                window.location.href = "${pageContext.request.contextPath}/" + url + "&course_scheduleId=" + course_scheduleId + "&duration=" + duration + "&start_time=" + start_Time;
+                setTimeout(function () {
+                    $('#date-error-message').hide();
+                }, 5000);
+
+                return;
             }
 
+            // Các mã khác trong hàm gotoCheckout...
+
+            // Xóa thông báo nếu đã chọn ngày
+            $('#date-error-message').text('');
+            $('#date-error-message').hide();
+
+            window.location.href = "${pageContext.request.contextPath}/" + url + "&course_scheduleId=" + course_scheduleId + "&duration=" + duration + "&start_time=" + start_Time;
+        }
 
 
-            $('.jsWishlist').click(() => {
-                if ($('.jsWishlist').hasClass('added')) {
-                    $.ajax({
-                        url: "course-detail?courseid=" +${course.id} + "&action=remove",
-                        type: "post",
-                        success: function (data) {
-                            if (data == "account-failed") {
-                                toast({
-                                    title: "Opps!",
-                                    msg: "Login to use this fuction!",
-                                    type: 'error',
-                                    duration: 5000
-                                });
-                            } else {
-                                toast({
-                                    title: "Success!",
-                                    msg: "Remove success!",
-                                    type: 'success',
-                                    duration: 5000
-                                });
-                                $('.jsWishlist').removeClass('added');
-                                $('.jsWishlist').html('<i class="fa-regular fa-bookmark"></i> Add To WishList');
-                            }
-                        },
-                        error: function (msg) {
+
+        $('.jsWishlist').click(() => {
+            if ($('.jsWishlist').hasClass('added')) {
+                $.ajax({
+                    url: "course-detail?courseid=" +${course.id} + "&action=remove",
+                    type: "post",
+                    success: function (data) {
+                        if (data == "account-failed") {
                             toast({
                                 title: "Opps!",
                                 msg: "Login to use this fuction!",
                                 type: 'error',
                                 duration: 5000
                             });
+                        } else {
+                            toast({
+                                title: "Success!",
+                                msg: "Remove success!",
+                                type: 'success',
+                                duration: 5000
+                            });
+                            $('.jsWishlist').removeClass('added');
+                            $('.jsWishlist').html('<i class="fa-regular fa-bookmark"></i> Add To WishList');
                         }
-                    });
-                } else {
+                    },
+                    error: function (msg) {
+                        toast({
+                            title: "Opps!",
+                            msg: "Login to use this fuction!",
+                            type: 'error',
+                            duration: 5000
+                        });
+                    }
+                });
+            } else {
 
-                    $.ajax({
-                        url: "course-detail?courseid=" +${course.id} + "&action=add",
-                        type: "post",
-                        success: function (data) {
-                            if (data == "account-failed") {
-                                toast({
-                                    title: "Opps!",
-                                    msg: "Login to use this fuction!",
-                                    type: 'error',
-                                    duration: 5000
-                                });
-                            } else {
-                                $('.jsWishlist').addClass('added');
-                                $('.jsWishlist').html('<i class="fa fa-times" aria-hidden="true"></i> Remove From WishList');
-                                toast({
-                                    title: "Success!",
-                                    msg: "Add success!",
-                                    type: 'success',
-                                    duration: 5000
-                                });
-                            }
-                        },
-                        error: function (msg) {
+                $.ajax({
+                    url: "course-detail?courseid=" +${course.id} + "&action=add",
+                    type: "post",
+                    success: function (data) {
+                        if (data == "account-failed") {
                             toast({
                                 title: "Opps!",
-                                msg: "Login to add wishlist!",
+                                msg: "Login to use this fuction!",
                                 type: 'error',
                                 duration: 5000
                             });
+                        } else {
+                            $('.jsWishlist').addClass('added');
+                            $('.jsWishlist').html('<i class="fa fa-times" aria-hidden="true"></i> Remove From WishList');
+                            toast({
+                                title: "Success!",
+                                msg: "Add success!",
+                                type: 'success',
+                                duration: 5000
+                            });
                         }
-                    });
-                }
-            });
-        </script>
-        <%@include file="../Component/footer.jsp" %> 
-    </body>
+                    },
+                    error: function (msg) {
+                        toast({
+                            title: "Opps!",
+                            msg: "Login to add wishlist!",
+                            type: 'error',
+                            duration: 5000
+                        });
+                    }
+                });
+            }
+        });
+    </script>
+    <%@include file="../Component/footer.jsp" %> 
+</body>
 </html>

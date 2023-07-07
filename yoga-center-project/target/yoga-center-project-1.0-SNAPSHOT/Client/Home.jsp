@@ -110,7 +110,6 @@
                                 <p>
                                     With ${course.account.name}
                                 </p>
-                                <a href="javascript:void(0);" onclick="gotoCourseDetail(${course.id});">${course.title}</a>
                                 <a href="course-detail?id=${course.id}" class="text-ellipsis">${course.title}</a>
                                 <h3><c:if test="${course.price>0}">$${course.price}</c:if><c:if test="${course.price<=0}">Free</c:if></h3>
                             </div>

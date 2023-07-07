@@ -26,7 +26,7 @@ import jakarta.servlet.http.HttpSession;
 public class LoginGoogleController extends HttpServlet {
 
     private final String LOGIN_PAGE = "Client/login_register.jsp";
-    private final String HOME_PAGE = "Client/Home.jsp";
+    private final String HOME_PAGE = "home";
     private final String ADMIN_PAGE = "";
 
     @Override
@@ -61,16 +61,19 @@ public class LoginGoogleController extends HttpServlet {
                 if (checkInsert) {
                     session.setAttribute("account", userGG);
                     url = HOME_PAGE;
+                    request.getRequestDispatcher(url).forward(request, response);
                 }
             } else {
                 session.setAttribute("account", loginUser);
                 Role role = loginUser.getRole();
                 if (Role.RoleList.ADMIN.ordinal() == role.getId()) {
                     url = ADMIN_PAGE;
+                    request.getRequestDispatcher(url).forward(request, response);
                 } else if (Role.RoleList.TRAINEE.ordinal() == role.getId() || Role.RoleList.TRAINER.ordinal() == role.getId()) {
                     if (current != null && !current.isEmpty()) {
                         url = current; // Quay lại trang trước đó
                         session.removeAttribute("currentPage"); // Xóa thuộc tính currentPage khỏi session
+                        response.sendRedirect(request.getContextPath() + url);
                     }else{
                         url = HOME_PAGE;
                         request.getRequestDispatcher(url).forward(request, response);
@@ -81,7 +84,7 @@ public class LoginGoogleController extends HttpServlet {
         } catch (IOException e) {
             log("Error at CreateController: " + e.toString());
         } finally {
-            response.sendRedirect(request.getContextPath() + url);
+            
         }
     }
 

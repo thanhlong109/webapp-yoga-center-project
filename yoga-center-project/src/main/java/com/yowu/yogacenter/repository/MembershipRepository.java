@@ -40,6 +40,29 @@ public class MembershipRepository {
         }
         return list;
     }
+    
+    public List<Membership> getAllMembershipIsActive() {
+        String sql = "select * from tblMembership where membership_is_active = 1";
+        List<Membership> list = new ArrayList<>();
+
+        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
+            try ( ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    Membership c = new Membership();
+                    c.setId(rs.getInt("membership_id"));
+                    c.setName(rs.getString("membership_name"));
+                    c.setDuration(rs.getInt("membership_duration"));
+                    c.setPrice(rs.getFloat("membership_price"));
+                    c.setDescription(rs.getString("membership_description"));
+                    c.setDiscount(rs.getInt("membership_discours"));
+                    list.add(c);
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return list;
+    }
 
     public Membership detail(int id) {
         String sql = "select * from tblMembership where membership_id=? ";

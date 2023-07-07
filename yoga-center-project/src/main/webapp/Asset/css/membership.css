@@ -10,10 +10,77 @@ body {
     width: 100vw;
     height: 100vh;
     /* background-color: #87b7b1; */
-    
+
     overflow-x: hidden;
 }
 
+/* .banner-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+} */
+
+/* .banner-container .banner {
+    background: linear-gradient(-55deg, #bae397 29%, #6ad88f 29.1%, #6ad88f 68%, #bae397 68.1%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    box-shadow: 0 5px 10px #0005;
+    overflow: hidden;
+    width: 100%;
+} */
+
+/* .banner-container .banner .yoga-equipment {
+    flex: 1 1 250px;
+    padding: 15px;
+    text-align: center;
+}
+
+.banner-container .banner .yoga-equipment img {
+    width: 70%;
+    height: 70%;
+}
+
+.banner-container .banner .banner__content {
+    flex: 1 1 250px;
+    text-align: center;
+    text-transform: uppercase;
+    padding: 10px;
+}
+
+.banner-container .banner .banner__content span {
+    color: #eee;
+    font-style: 25px;
+}
+
+.banner-container .banner .banner__content h3, h1 {
+    color: #fff;
+    font-style: 40px;
+}
+
+.banner-container .banner .banner__content p {
+    color: #fff;
+    font-style: 20px;
+    padding: 10px 0;
+}
+
+.banner-container .banner .women {
+    position: relative;
+    bottom: -33px;
+    padding: 10px;
+    flex: 1 1 250px;
+}
+
+.banner-container .banner .women img {
+    width: 100%;
+}
+
+@media (max-width:768px) {
+    .banner-container .banner .women {
+        display: none;
+    }
+} */
 .banner{
     padding: 10% 0;
     width: 100%;
@@ -45,7 +112,7 @@ body {
     border-radius: 15px;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     margin: 10px;
-    
+
     padding: 20px;
     padding-top: 50px;
     letter-spacing: 1px;
@@ -81,7 +148,7 @@ body {
     transform: translateX(40%);
 }
 .box .btn-silver{
-    margin-top: 130px;
+    margin-top: 150px;
 }
 .box .btn-gold{
     margin-top: 55px;
@@ -125,6 +192,42 @@ body {
     background: rgb(242, 243, 244);
     background: linear-gradient(160deg, rgb(242, 243, 244) 0%, rgba(236, 112, 99, 1) 67%, rgba(23, 32, 42, 1) 100%);
 }
+
+.box:nth-child(4)::after {
+    background: rgb(224, 238, 224);
+    background: linear-gradient(160deg, rgb(242, 243, 244) 0%, rgba( 233, 150, 122, 1 ) 67%, rgba(23, 32, 42, 1) 100%);
+}
+
+.box:nth-child(5)::after {
+    background: rgb(242, 243, 244);
+    background: linear-gradient(160deg, rgb(242, 243, 244) 0%, rgba(236, 112, 99, 1) 67%, rgba(23, 32, 42, 1) 100%);
+}
+
+.box:nth-child(6)::after {
+    background: rgb(242, 243, 244);
+    background: linear-gradient(160deg, rgb(242, 243, 244) 0%, rgba(236, 112, 99, 1) 67%, rgba(23, 32, 42, 1) 100%);
+}
+
+.box:nth-child(7)::after {
+    background: rgb(242, 243, 244);
+    background: linear-gradient(160deg, rgb(242, 243, 244) 0%, rgba(236, 112, 99, 1) 67%, rgba(23, 32, 42, 1) 100%);
+}
+
+.box:nth-child(8)::after {
+    background: rgb(242, 243, 244);
+    background: linear-gradient(160deg, rgb(242, 243, 244) 0%, rgba(236, 112, 99, 1) 67%, rgba(23, 32, 42, 1) 100%);
+}
+
+.box:nth-child(9)::after {
+    background: rgb(242, 243, 244);
+    background: linear-gradient(160deg, rgb(242, 243, 244) 0%, rgba(236, 112, 99, 1) 67%, rgba(23, 32, 42, 1) 100%);
+}
+
+.box:nth-child(10)::after {
+    background: rgb(242, 243, 244);
+    background: linear-gradient(160deg, rgb(242, 243, 244) 0%, rgba(236, 112, 99, 1) 67%, rgba(23, 32, 42, 1) 100%);
+}
+
 .box:hover::after{
     clip-path: circle(100%);
 }
