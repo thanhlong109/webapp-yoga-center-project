@@ -43,6 +43,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.DayOfWeek;
 import java.util.Arrays;
+
 /**
  *
  * @author Chien Thang
@@ -75,7 +76,7 @@ public class CheckoutSendController extends HttpServlet {
             boolean isActive = true;
             long millis = System.currentTimeMillis();
             java.sql.Date date = new java.sql.Date(millis);
-            System.out.println(date);
+            System.out.println("date" + date);
             Bill order = new Bill(c, acc, status, isActive, total, discount, date, orderCode, method);
             BillRepository billRepo = new BillRepository();
             billRepo.add(order);
@@ -97,20 +98,20 @@ public class CheckoutSendController extends HttpServlet {
             String duration = request.getParameter("duration");
             String startTime = request.getParameter("startTime");
 
-            System.out.println("asv"+lastInsertId);
-            System.out.println("asss"+regis);
-            
+            System.out.println("asv" + lastInsertId);
+            System.out.println("asss" + regis);
+
             String schedule = cs.getDateOfWeek();
-            System.out.println(schedule);
+            System.out.println("schedule" + schedule);
 
             String inputDayOfWeek = schedule; // Lấy từ FE hoặc DB => Day of week
 
             String inputDateTime = startTime + " 00:00:00"; // Lấy từ FE hoặc DB => start date
-            
+
             int inputDuration = Integer.parseInt(duration); // Lấy từ FE hoặc DB => duration
 
             DayOfWeek[] allDateOfWeek = DayOfWeek.values();
-            System.out.println(Arrays.toString(allDateOfWeek));
+            System.out.println("range day" + Arrays.toString(allDateOfWeek));
 
             String[] parts = inputDayOfWeek.split(",");
 
@@ -127,11 +128,13 @@ public class CheckoutSendController extends HttpServlet {
             LocalDate startDate = dateTime.toLocalDate();
 
             int temp = 1;
-
+            LocalDate firstDate = null;
+            LocalDate lastDate = startDate;
+            boolean firstDateFound = false;
             while (temp <= inputDuration) {
                 DayOfWeek dayOfWeek = startDate.getDayOfWeek();
                 for (int number : numbers) {
-                    if (allDateOfWeek[number] == dayOfWeek) {
+                    if (allDateOfWeek[number] == dayOfWeek) {//fix
                         System.out.println("Day: " + startDate);
                         //Call repository save to DB:
                         int regisId = lastInsertId;
@@ -141,17 +144,29 @@ public class CheckoutSendController extends HttpServlet {
                         int statusClass = 1;
                         ClassScheduleRepository scr = new ClassScheduleRepository();
                         //public ClassSchedule(Date date, Time startTime, Time endTime, int status, int regisId)
-                        ClassSchedule cse = new ClassSchedule(classDate, startTime1, endTime, status, regisId);
+                        ClassSchedule cse = new ClassSchedule(classDate, startTime1, endTime, statusClass, regisId);
                         scr.addClassSchedule(cse);
                         //.....
                         //End.
                         temp++;
+                        if (!firstDateFound) {
+                            firstDate = startDate;
+                            firstDateFound = true;
+                        }
                     }
                 }
+//                startDate = startDate.plusDays(1);
+//                lastDate = startDate; // Cập nhật ngày cuối cùng trong vòng lặp
+//                startDate = startDate.plusDays(1);
+                lastDate = startDate; // Cập nhật ngày cuối cùng trong vòng lặp
                 startDate = startDate.plusDays(1);
             }
-            
-
+            int regisId = lastInsertId;
+            Date firstDateSql = Date.valueOf(firstDate);
+            Date lastDateSql = Date.valueOf(lastDate);
+            System.out.println(firstDateSql);
+            System.out.println(lastDateSql);
+            regisRepo.updateDateRegisAndDateEnd(firstDateSql, lastDateSql, regisId);
 //            url = SUCCESS;
             if (method.equals("STUDIO")) {
                 url = PENDING_CHECKOUT;

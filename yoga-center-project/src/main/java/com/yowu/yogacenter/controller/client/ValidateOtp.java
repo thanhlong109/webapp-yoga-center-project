@@ -17,7 +17,7 @@ import jakarta.servlet.http.HttpSession;
 public class ValidateOtp extends HttpServlet {
 
     //private static final long serialVersionUID = 1L;
-    private final String NEW_PASSWORD_PAGE = "Client/newPassword.jsp";
+    private final String NEW_PASSWORD_PAGE = "Client/getNewPassword.jsp";
     private final String GET_OTP_PAGE = "Client/EnterOtp.jsp";
   
     @Override

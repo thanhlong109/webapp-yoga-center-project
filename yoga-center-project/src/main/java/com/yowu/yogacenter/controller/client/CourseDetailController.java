@@ -5,19 +5,23 @@
 package com.yowu.yogacenter.controller.client;
 
 import com.yowu.yogacenter.model.Account;
+import com.yowu.yogacenter.model.Bill;
 import com.yowu.yogacenter.model.Course;
 import com.yowu.yogacenter.model.RegistrationCourse;
+import com.yowu.yogacenter.repository.BillRepository;
 import com.yowu.yogacenter.repository.CourseRepository;
 import com.yowu.yogacenter.repository.CourseScheduleRepository;
 import com.yowu.yogacenter.repository.CourseWishlistRepository;
 import com.yowu.yogacenter.repository.RatingCourseRepository;
 import com.yowu.yogacenter.repository.RegistrationCourseRepository;
+import jakarta.mail.Session;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 /**
  *
@@ -32,6 +36,8 @@ public class CourseDetailController extends HttpServlet {
             throws ServletException, IOException {
         try{
             int id = Integer.parseInt(request.getParameter("id"));
+            HttpSession session = request.getSession();
+            session.setAttribute("currentPage", "/course-detail?id="+id);
             CourseRepository cr = new CourseRepository();
             CourseScheduleRepository sc = new CourseScheduleRepository();
             RatingCourseRepository  ratec = new RatingCourseRepository();
@@ -41,14 +47,24 @@ public class CourseDetailController extends HttpServlet {
             RegistrationCourseRepository rcr = new RegistrationCourseRepository();
             boolean isInWishList = false;
             RegistrationCourse rc2 = null;
+            RegistrationCourse rc3 = null;
+            Bill billStatus = null;
+            BillRepository billRepo = new BillRepository();
             if(account != null){
                 isInWishList = cwr.isExist(id, account.getId());
-                rc2 = rcr.getRegisIdByCourseIdAndAccountID(account.getId(),id,true);
+                //rc2 = rcr.getRegisIdByCourseIdAndAccountID(account.getId(),id,true);
+                //rc3 = rcr.getRegisByCourseIdAndAccountID(account.getId(),id);
+                billStatus = billRepo.getAllByAccountIdAndCourseID(account.getId(), id);
+                System.out.println(billStatus);
             }
-            if(rc2!=null){
-                request.setAttribute("registrationCourse", rc2);
+            if(billStatus!=null){
+                int status = billStatus.getStatus();
+                
+                request.setAttribute("billStatus", status);
+                System.out.println(status);
             }
             
+            System.out.println(request.getContextPath() +"/course-detail?id="+id);
             request.setAttribute("regisID", rc2);
             request.setAttribute("agvRating", ratec.getAvgCourseRating(c.getId()));
             request.setAttribute("course",c);

@@ -270,7 +270,10 @@
                         <ul class="filter-course">
                             <li data-filterid="general" class="active">General</li>
                             <li data-filterid="avatar">Avatar</li>
-                            <li data-filterid="password">Password</li>
+                            <c:if test='${notloginwithGg}'>
+                                <li data-filterid="password">Password </li>
+                            </c:if>
+                            
                         </ul>
                         <c:if test="${sessionScope.account!=null}">
                             <div class="display-content">
@@ -306,7 +309,9 @@
                                     </form>
                                 </div>
                                 <!-- password section -->
-                                <div class="password" style="display: none;">
+                                
+                                    
+                                        <div class="password" style="display: none;">
                                     <form class="password-form" action="setting">
                                         <div class="box-input">
                                             <label>Current Password:</label>
@@ -329,6 +334,7 @@
                                                 <i class="fa-sharp fa-solid fa-eye"></i>
                                             </div>
                                             <button id="btnPass" type="submit">Save</button>
+                                            <a href="${pageContext.request.contextPath}/Client/forgetPassword.jsp">Forgotten password</a>
                                         </div>
                                         <h4 class="noice"></h4>
                                     </form>

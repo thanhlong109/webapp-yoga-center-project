@@ -1,6 +1,6 @@
 <%-- 
     Document   : membership
-    Created on : Jul 1, 2023, 9:59:48 PM
+    Created on : Jul 6, 2023, 10:19:43 PM
     Author     : Chien Thang
 --%>
 
@@ -20,101 +20,47 @@
               rel="stylesheet">
         <!-- Google icon -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <link rel="stylesheet"
               href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
         <link rel="stylesheet" href="${pageContext.request.contextPath}/Asset/css/clientHeader.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/Asset/css/clientFooter.css">
-        
     </head>
     <body>
         <%@include file="../Component/header.jsp" %>
-        <div class="banner-container">
-            <div class="banner">
-                <div class="yoga-equipment">
-                    <img src="../img/membership/card-member_1281.png" alt="">
-                </div>
-                <div class="banner__content">
-                    <h1>Membership</h1>
-                    <span>upto</span>
-                    <h3>50% OFF</h3>
-                    <p>offer end after 5 days</p>
-                </div>
-                <div class="women">
-                    <img src="../img/membership/women_4.png" alt="">
-                </div>
-            </div>
+        <div class="banner">
+            <h2>Membership</h2>
         </div>
+
         <div class="container">
-            <!-- silver -->
-            <div class="box">
-                <h3>Silver card</h3>
-                <p class="price">$2.46 <small class="text-mute">/Month</small></p>
-                <div class="box__content">
-                    <span class="material-symbols-sharp">verified</span>
-                    <p>Using the most advanced equipment</p>
+            <c:forEach items="${membershipList}" var="memList">
+                <div class="box">
+                    <h3>${memList.name} Yowu Member</h3>
+                    <p class="price">$${memList.price} <small class="text-mute">/Month</small></p>
+                    <div class="box__content">
+                        <span class="material-symbols-sharp">verified</span>
+                        <p>Membership period lasts up to ${memList.duration} days</p>
+                        <input id="durationMem" value="${memList.duration}" type="hidden">
+                    </div>
+                    <div class="box__content">
+                        <span class="material-symbols-sharp">verified</span>
+                        <p>${memList.description}</p>
+                    </div>
+                    <a onclick="gotoCheckoutForMem('Checkout?memId=${memList.id}&action=membership', ${memList.duration})"><button class="btn-silver">Buy Now</button></a>
+                    <span class="type">${memList.name}</span>
                 </div>
-                <div class="box__content">
-                    <span class="material-symbols-sharp">verified</span>
-                    <p>Course with 15% off</p>
-                </div>
-                <div class="box__content">
-                    <span class="material-symbols-sharp">verified</span>
-                    <p>Free drinking water</p>
-                </div>
-                <a href=""><button class="btn-silver">Buy Now</button></a>
-                <span class="type">Silver</span>
-            </div>
-            <!-- gold -->
-            <div class="box">
-                <h3>Gold card</h3>
-                <p  class="price">$5.5 <small class="text-mute">/Month</small></p>
-                <div class="box__content">
-                    <span class="material-symbols-sharp">verified</span>
-                    <p>Using the most advanced equipment</p>
-                </div>
-                <div class="box__content">
-                    <span class="material-symbols-sharp">verified</span>
-                    <p>Course with basic 20% off</p>
-                </div>
-                <div class="box__content">
-                    <span class="material-symbols-sharp">verified</span>
-                    <p>Free drinking water</p>
-                </div>
-                <div class="box__content">
-                    <span class="material-symbols-sharp">verified</span>
-                    <p>Course with advanced 10% off</p>
-                </div>
-                <a href=""><button class="btn-gold">Buy Now</button></a>
-                <span class="type">Gold</span>
-            </div>
-            <!-- ruby -->
-            <div class="box">
-                <h3>Ruby card</h3>
-                <p  class="price">$12.6 <small class="text-mute">/Month</small></p>
-                <div class="box__content">
-                    <span class="material-symbols-sharp">verified</span>
-                    <p>Using the most advanced equipment</p>
-                </div>
-                <div class="box__content">
-                    <span class="material-symbols-sharp">verified</span>
-                    <p>Course with basic 25% off</p>
-                </div>
-                <div class="box__content">
-                    <span class="material-symbols-sharp">verified</span>
-                    <p>Course with advanced 15% off</p>
-                </div>
-                <div class="box__content">
-                    <span class="material-symbols-sharp">verified</span>
-                    <p>Free drinking water</p>
-                </div>
-                <div class="box__content">
-                    <span class="material-symbols-sharp">verified</span>
-                    <p>1 on 1 with trainer </p>
-                </div>
-                <a href=""><button>Buy Now</button></a>
-                <span class="type">Ruby</span>
-            </div>
+            </c:forEach>
         </div>
-         <%@include file="../Component/footer.jsp" %> 
-    </body>
+    </div>
+</body>
+
+<script>
+    
+    function gotoCheckoutForMem(url, durationMem) {
+    window.location.href = "${pageContext.request.contextPath}/" + url + "&durationMem=" + durationMem;
+}
+
+</script>
+
+<%@include file="../Component/footer.jsp" %> 
 </html>

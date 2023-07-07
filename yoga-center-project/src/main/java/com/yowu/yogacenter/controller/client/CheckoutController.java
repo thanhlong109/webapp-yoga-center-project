@@ -2,7 +2,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-
 package com.yowu.yogacenter.controller.client;
 
 import com.paypal.base.rest.PayPalRESTException;
@@ -26,30 +25,43 @@ import jakarta.servlet.http.HttpServletResponse;
  * @author Chien Thang
  */
 public class CheckoutController extends HttpServlet {
-   
+
     private final String CHECKOUT_PAGE = "Client/checkout.jsp";
     private static final long serialVersionUID = 1L;
- 
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
-        CourseRepository cr = new CourseRepository();
-        int id = Integer.parseInt(request.getParameter("id"));
-        Account acc = (Account)request.getSession().getAttribute("account");
-        AccountRepository ar = new AccountRepository();
-        MembershipRepository msr = new MembershipRepository();
-        RegistrationMembershipRepository rm = new RegistrationMembershipRepository();
-        Course c = cr.detail(id);
-        request.setAttribute("account", ar.detail(acc.getId()));
-        request.setAttribute("course", c);
-        request.setAttribute("discount", msr.discountByAccountID(acc.getId()));
-        request.getRequestDispatcher(CHECKOUT_PAGE).forward(request, response);
-    } 
+            throws ServletException, IOException {
+        String action = request.getParameter("action");
+        if (action.equals("course")) {
+            CourseRepository cr = new CourseRepository();
+            int id = Integer.parseInt(request.getParameter("id"));
+            String startdate = request.getParameter("start_time");
+            System.out.println("date checkout " + startdate);
+            Account acc = (Account) request.getSession().getAttribute("account");
+            AccountRepository ar = new AccountRepository();
+            MembershipRepository msr = new MembershipRepository();
+            Course c = cr.detail(id);
+
+            request.setAttribute("startDate", startdate);
+            request.setAttribute("account", ar.detail(acc.getId()));
+            request.setAttribute("course", c);
+            request.setAttribute("discount", msr.discountByAccountID(acc.getId()));
+            request.getRequestDispatcher(CHECKOUT_PAGE).forward(request, response);
+        }
+        if (action.equals("membership")) {
+            int memberId = Integer.parseInt(request.getParameter("memId"));
+            MembershipRepository mbr = new MembershipRepository();
+            Membership mb = mbr.detail(memberId);
+            request.setAttribute("member", mb);
+        }
+
+    }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
-        
+            throws ServletException, IOException {
+
     }
 
     @Override
