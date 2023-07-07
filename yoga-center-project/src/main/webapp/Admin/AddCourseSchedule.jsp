@@ -5,11 +5,12 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Edit Course Schedule</title>
+        <title>Add Course Schedule</title>
         <!-- Fontawesome -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
               integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
               crossorigin="anonymous" referrerpolicy="no-referrer" />
+
         <!-- Google font -->
         <link href="https://fonts.googleapis.com/css2?family=Jost:wght@200;300;400;500;600;700;800&display=swap"
               rel="stylesheet">
@@ -20,6 +21,7 @@
         <!-- Link CSS  -->
         <link rel="stylesheet" href="../Asset/css/dashboard_2.css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+
         <script src="../js/cdnjs.cloudflare.com_ajax_libs_Chart.js_2.4.0_Chart.min.js"></script>
     </head>
     <body>
@@ -36,7 +38,7 @@
                         </form>
                         <div class="profile">
                             <div class="info">
-                                <p>Hey, <b>Admin</b></p>
+                                <p>Hey, <b>An</b></p>
                                 <small class="text-muted">Admin</small>
                             </div>
                             <div class="profile-photo">
@@ -44,30 +46,41 @@
                             </div>
                         </div>
                     </div>
-                    <h1>Edit Course Schedule</h1>
+                    <h1>Add Account</h1>
                     <div id="wrapper">
-                        <form action="updateCourseScheduleController" method="post">
-                            <h3>Edit Course Schedule</h3>
-                        <div class="input__group">     
-                            <input type="hidden" name="txtId" value="${courseSchedule.id}">
-                            <input type="text" name="txtDateOfWeek" value="${courseSchedule.dateOfWeek}">
+                        <form action="../admin/addCourseScheduleController" method="POST">
+                            <h3>Add Course Schedule</h3>
+                            <div class="input__group filter">
+                                <select class="input-filter" name="courseList" id="course">
+                                <c:forEach items="${LIST_COURSE}" var="courseList">
+                                    <c:if test="${courseList.isActive == true }">
+                                        <option value="${courseList.id}"> 
+                                            ${courseList.title} 
+                                        </option>                              
+                                    </c:if>
+                                </c:forEach>
+                            </select>
+                            <label for="">Course Title</label>
+                        </div>
+                        <div class="input__group">
+                            <input type="text" name="txtDateOfWeek" required">
                             <label for="">Date Of Week</label>
                         </div>
                         <div class="input__group">
-                            <input type="text" name="txtStartDate" value="${courseSchedule.startTime}">
+                            <input type="text" name="txtStartDate" required">
                             <label for="">Start Time</label>
                         </div>
                         <div class="input__group">
-                            <input type="text" name="txtEndDate" value="${courseSchedule.endTime}">
+                            <input type="text" name="txtEndDate" required">
                             <label for="">End Time</label>
                         </div>
                         <div class="input__button">
-                            <button type="submit" value="Add" id="btn__Add">Update</button>
+                            <button type="submit" value="Add" id="btn__Add">Add</button>
                             <button type="reset" value="Reset" id="btn__Reset">Refresh</button>
                         </div>
                     </form>
                 </div>
             </main>
-        </div>       
+        </div>
     </body>
 </html>
