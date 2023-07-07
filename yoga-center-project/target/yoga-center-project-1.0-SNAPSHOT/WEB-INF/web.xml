@@ -160,6 +160,10 @@
         <servlet-name>DeleteCourseScheduleController</servlet-name>
         <servlet-class>com.yowu.yogacenter.controller.admin.DeleteCourseScheduleController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>SearchCourseScheduleController</servlet-name>
+        <servlet-class>com.yowu.yogacenter.controller.admin.SearchCourseScheduleController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>UserProfileCourse</servlet-name>
         <url-pattern>/userprofile/course</url-pattern>
@@ -319,6 +323,10 @@
     <servlet-mapping>
         <servlet-name>DeleteCourseScheduleController</servlet-name>
         <url-pattern>/admin/deleteCourseScheduleController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchCourseScheduleController</servlet-name>
+        <url-pattern>/admin/searchCourseScheduleController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

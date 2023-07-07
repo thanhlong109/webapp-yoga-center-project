@@ -190,6 +190,31 @@ public class CourseScheduleRepository {
         return status == 1;
     }
 
+    public List<CourseSchedule> searchCourseSchedule(int search) {
+        String sql = "SELECT * FROM tblCourseSchedule WHERE course_id Like ? ";
+        List<CourseSchedule> list = new ArrayList<>();
+
+        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
+            stmt.setInt(1, search);
+            try ( ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    CourseRepository cr = new CourseRepository();
+                    CourseSchedule c = new CourseSchedule();
+                    c.setCourse(cr.detail(rs.getInt("course_id")));
+                    c.setId(rs.getInt("course_schedule_id"));
+                    c.setDateOfWeek(rs.getString("day_of_week"));
+                    c.setStartTime(rs.getTime("start_time"));
+                    c.setEndTime(rs.getTime("end_time"));
+                    c.setIsActive(rs.getBoolean("is_active"));
+                    list.add(c);
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return list;
+    }
+    
     public static void main(String[] args) {
         CourseScheduleRepository cs = new CourseScheduleRepository();
         System.out.println(cs.getScheduleByCourse(2).get(0).dateToString());
