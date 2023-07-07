@@ -102,6 +102,25 @@ public class ClassScheduleRepository {
 
         return status == 1;
     }
+    
+    public boolean update2(ClassSchedule classSchedule) {
+        String sql = "UPDATE tblClassSchedule SET class_date = ?, slot_start_time = ?, slot_end_time = ?, class_status = ? WHERE class_schedule_id = ?";
+        int status = 0;
+
+        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
+            stmt.setDate(1, classSchedule.getDate());
+            stmt.setTime(2, classSchedule.getStartTime());
+            stmt.setTime(3, classSchedule.getEndTime());
+            stmt.setInt(4, classSchedule.getStatus());
+            stmt.setInt(5, classSchedule.getId());
+
+            status = stmt.executeUpdate();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+        return status == 1;
+    }
 
     public boolean delete(int id) {
         String sql = "UPDATE tblClassSchedule SET class_status = 0 WHERE class_schedule_id = ?";
