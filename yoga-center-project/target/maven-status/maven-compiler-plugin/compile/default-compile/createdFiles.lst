@@ -65,6 +65,7 @@ com\yowu\yogacenter\repository\BlogRepository.class
 com\yowu\yogacenter\controller\client\LoginGoogleController.class
 com\yowu\yogacenter\controller\admin\ViewAccountListController.class
 com\yowu\yogacenter\model\CourseWishlist.class
+com\yowu\yogacenter\filter\AuthenticationFilter.class
 com\yowu\yogacenter\controller\admin\UpdateCourseController.class
 com\yowu\yogacenter\controller\client\CheckoutController.class
 com\yowu\yogacenter\repository\CategoryRepository.class
