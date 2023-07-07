@@ -38,58 +38,62 @@ public class AuthenticationFilter implements Filter {
         String contextPath = req.getContextPath();
         String urlName = uri.replace(contextPath, "");
         //System.out.println(urlName);
-        switch(urlName){
-            //user Login
-            case "/Timetable":
-            case "/userprofile/course":
-            case "/userprofile/wishlist":
-            case "/userprofile/booking":
-            case "/userprofile/setting":
-            case "/Checkout":
-            case "/CheckoutResult":{
-                if(acc!=null){
-                    chain.doFilter(request, response);
-                }else{
-                    res.sendRedirect(contextPath+"/login");
-                }
-                break;
-            }
-            // admin Login
-            case "/admin/categoryListController":
-            case "/admin/viewCourseListController":
-            case "/admin/viewBillListController":
-            case "/admin/viewAccountListController":
-            case "/admin/viewCourseTimeListController":
-            case "/admin/viewClassScheduleListController":
-            case "/admin/viewMembershipListController":
-            case "/admin/updateCategoryController":
-            case "/admin/deleteCategoryController":
-            case "/admin/addCategoryController":
-            case "/admin/updateCourseController":
-            case "/admin/deleteCourseController":
-            case "/admin/updateCourseScheduleController":
-            case "/admin/addCourseController":
-            case "/admin/addAccountController":
-            case "/admin/deleteAccountController":
-            case "/admin/addMembershipController":
-            case "/admin/updateMembershipController":
-            case "/admin/deleteMembershipController":
-            case "/admin/searchCategoryController":
-            case "/admin/searchCourseController":
-            case "/admin/searchMembershipController":
-            case "/admin/searchAccountController":
-            case "/admin/searchBillController":{
-                if(acc!=null && acc.getRole().getId()==3){
-                    chain.doFilter(request, response);
-                }else{
-                    res.sendRedirect(contextPath+"/login");
-                }
-                break;
-            }
-            // guest && get Asset
-            default:{
-               chain.doFilter(request, response);
+        if(urlName.endsWith(".jsp")){
+            res.sendRedirect(contextPath+"/home");
+        }else{
+            switch(urlName){
+                //user Login
+                case "/Timetable":
+                case "/userprofile/course":
+                case "/userprofile/wishlist":
+                case "/userprofile/booking":
+                case "/userprofile/setting":
+                case "/Checkout":
+                case "/CheckoutResult":{
+                    if(acc!=null){
+                        chain.doFilter(request, response);
+                    }else{
+                        res.sendRedirect(contextPath+"/login");
+                    }
                     break;
+                }
+                // admin Login
+                case "/admin/categoryListController":
+                case "/admin/viewCourseListController":
+                case "/admin/viewBillListController":
+                case "/admin/viewAccountListController":
+                case "/admin/viewCourseTimeListController":
+                case "/admin/viewClassScheduleListController":
+                case "/admin/viewMembershipListController":
+                case "/admin/updateCategoryController":
+                case "/admin/deleteCategoryController":
+                case "/admin/addCategoryController":
+                case "/admin/updateCourseController":
+                case "/admin/deleteCourseController":
+                case "/admin/updateCourseScheduleController":
+                case "/admin/addCourseController":
+                case "/admin/addAccountController":
+                case "/admin/deleteAccountController":
+                case "/admin/addMembershipController":
+                case "/admin/updateMembershipController":
+                case "/admin/deleteMembershipController":
+                case "/admin/searchCategoryController":
+                case "/admin/searchCourseController":
+                case "/admin/searchMembershipController":
+                case "/admin/searchAccountController":
+                case "/admin/searchBillController":{
+                    if(acc!=null && acc.getRole().getId()==3){
+                        chain.doFilter(request, response);
+                    }else{
+                        res.sendRedirect(contextPath+"/login");
+                    }
+                    break;
+                }
+                // guest && get Asset
+                default:{
+                   chain.doFilter(request, response);
+                        break;
+                }
             }
         }
         
