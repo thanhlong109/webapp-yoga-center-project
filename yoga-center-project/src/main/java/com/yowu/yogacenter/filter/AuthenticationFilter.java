@@ -31,12 +31,16 @@ public class AuthenticationFilter implements Filter {
             throws IOException, ServletException {
          HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse res = (HttpServletResponse) response;
-        
         HttpSession ss = req.getSession();
         Account acc = (Account) ss.getAttribute("account");
         String uri = req.getRequestURI();
         String contextPath = req.getContextPath();
         String urlName = uri.replace(contextPath, "");
+        String queryString = req.getQueryString();
+        String urlQuery = urlName;
+        if(queryString!=null){
+            urlQuery += '?'+queryString;
+        }
         //System.out.println(urlName);
         if(urlName.endsWith(".jsp")){
             res.sendRedirect(contextPath+"/home");
@@ -53,6 +57,7 @@ public class AuthenticationFilter implements Filter {
                     if(acc!=null){
                         chain.doFilter(request, response);
                     }else{
+                        ss.setAttribute("currentPage", urlQuery);
                         res.sendRedirect(contextPath+"/login");
                     }
                     break;
@@ -85,6 +90,7 @@ public class AuthenticationFilter implements Filter {
                     if(acc!=null && acc.getRole().getId()==3){
                         chain.doFilter(request, response);
                     }else{
+                        ss.setAttribute("currentPage", urlQuery);
                         res.sendRedirect(contextPath+"/login");
                     }
                     break;

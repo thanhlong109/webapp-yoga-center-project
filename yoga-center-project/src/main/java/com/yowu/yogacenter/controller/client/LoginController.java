@@ -35,7 +35,6 @@ public class LoginController extends HttpServlet {
         String url = LOGIN_PAGE;
         HttpSession session = request.getSession();
         String current = (String) session.getAttribute("currentPage");
-        System.out.println("abc" + current);
         try {
             String accountemail = request.getParameter("username");
             String password = request.getParameter("password");

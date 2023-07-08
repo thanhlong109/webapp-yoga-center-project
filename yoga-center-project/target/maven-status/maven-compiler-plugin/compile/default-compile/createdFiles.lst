@@ -1,4 +1,5 @@
 com\yowu\yogacenter\controller\client\HomeController.class
+com\yowu\yogacenter\controller\admin\AddCourseScheduleController.class
 com\yowu\yogacenter\controller\client\ViewScheduleController.class
 com\yowu\yogacenter\controller\admin\DeleteAccountController.class
 com\yowu\yogacenter\controller\client\RegisterAccountController.class
@@ -16,6 +17,7 @@ com\yowu\yogacenter\controller\admin\SearchMembershipController.class
 com\yowu\yogacenter\controller\client\UserProfileCourse$1.class
 com\yowu\yogacenter\controller\admin\DeleteCategoryController.class
 com\yowu\yogacenter\repository\MembershipRepository.class
+com\yowu\yogacenter\controller\admin\DeleteCourseScheduleController.class
 com\yowu\yogacenter\repository\ClassScheduleRepository.class
 com\yowu\yogacenter\model\Comment.class
 com\yowu\yogacenter\model\GoogleUtils.class
@@ -80,6 +82,7 @@ com\yowu\yogacenter\controller\client\CourseDetailController.class
 com\yowu\yogacenter\controller\admin\SearchBillController.class
 com\yowu\yogacenter\repository\RegistrationMembershipRepository.class
 com\yowu\yogacenter\controller\admin\DeleteCourseController.class
+com\yowu\yogacenter\controller\admin\SearchCourseScheduleController.class
 com\yowu\yogacenter\controller\admin\AddAccountController.class
 com\yowu\yogacenter\repository\Constants.class
 com\yowu\yogacenter\model\Account.class

@@ -102,7 +102,8 @@ public class CourseScheduleRepository {
                     c.setEndTime(rs.getTime("end_time"));
                     c.setIsActive(rs.getBoolean("is_active"));
                     return c;
-                }
+                }                    CourseSchedule c = new CourseSchedule();
+
             }
         } catch (Exception e) {
             System.out.println(e);
