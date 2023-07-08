@@ -79,10 +79,14 @@
                     <div class="col-md-12 payment-details">
                         <table>
                             <tbody>
-                                
                                 <tr>
                                     <th>Payment product:</th>
-                                    <td>${sessionScope.billCourse.course.title}</td>
+                                    <c:if test="${sessionScope.billCourse.course != null}">
+                                        <td>${sessionScope.billCourse.course.title}</td>
+                                    </c:if>
+                                    <c:if test="${sessionScope.billCourse.course == null}">
+                                        <td>Yowu member level ${sessionScope.RegistrationMembership.membership.name}</td>
+                                    </c:if>
                                 </tr>
                                 <tr>
                                     <th>Bank Transaction Number:</td>
@@ -114,7 +118,12 @@
                 </div>
             </div>
         </div>
-
+        <% 
+            session.removeAttribute("billCourse");
+            session.removeAttribute("PAYMENT");
+            session.removeAttribute("RegistrationMembership");
+            session.removeAttribute("bill");
+        %>
         <jsp:include page="../Component/footer.jsp"></jsp:include>
         <script>
             setInterval(function () {

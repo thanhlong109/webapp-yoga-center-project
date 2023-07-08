@@ -66,7 +66,7 @@
             .img-container{
                 padding: 0 32px;
                 width: 80%;
-                margin: 0 auto; 
+                margin: 0 auto;
             }
             .img-container img{
                 max-width:100%;
@@ -176,10 +176,10 @@
                 .post-blog-container {
                     width: 100%;
                 }
-               .post-blog-container{
+                .post-blog-container{
                     max-width: 90%;
                     padding: 32px 10px;
-                } 
+                }
                 .box-input label{
                     display: none;
                 }
@@ -189,8 +189,8 @@
             }
         </style>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-        <script src="https://cdn.tiny.cloud/1/drz9q75t7w0e2yrsegy3qr29p30m6b0nb9zm476dryjq73bq/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
         <script src="https://cdn.jsdelivr.net/npm/@tinymce/tinymce-jquery@1/dist/tinymce-jquery.min.js"></script>
+        <script src="https://cdn.tiny.cloud/1/1s7x4ztd070ccdogzie8bm66asiexw62k8r0y1rk89kbdo56/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
     </head>
     <body>
         <div class="post-blog">
@@ -235,57 +235,58 @@
             const displayName = document.getElementById("js-name-img");
             const btnImg = document.getElementById("jsuploadImg");
 
-            $('textarea#textEditor').tinymce({
-                height: 250,
-                menubar: false,
-                plugins: [
-                    'a11ychecker', 'advlist', 'advcode', 'advtable', 'autolink', 'checklist', 'export',
-                    'lists', 'link', 'image', 'charmap', 'preview', 'anchor', 'searchreplace', 'visualblocks',
-                    'powerpaste', 'fullscreen', 'formatpainter', 'insertdatetime', 'media', 'table', 'help', 'wordcount'
-                ],
-                toolbar: 'undo redo | a11ycheck casechange blocks | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist checklist outdent indent | removeformat | code table help'
+            tinymce.init({
+                selector: 'textarea',
+                plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed linkchecker a11ychecker tinymcespellchecker permanentpen powerpaste advtable advcode editimage tinycomments tableofcontents footnotes mergetags autocorrect typography inlinecss',
+                toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
+                tinycomments_mode: 'embedded',
+                tinycomments_author: 'Author name',
+                mergetags_list: [
+                    {value: 'First.Name', title: 'First Name'},
+                    {value: 'Email', title: 'Email'},
+                ]
             });
-            
+
             /*check validation*/
-           $('#postBlog').on('submit',function (e){
-               var maxLengthTitle = 50;
-               var maxLengthContent = 3000;
-               var minLengthContent = 100;
-               if($(this).children('#jsuploadImg').attr("data-id")!= 1 && $(this).children('#jsuploadImg').get(0).files.length === 0){
-                   toast({
+            $('#postBlog').on('submit', function (e) {
+                var maxLengthTitle = 50;
+                var maxLengthContent = 3000;
+                var minLengthContent = 100;
+                if ($(this).children('#jsuploadImg').attr("data-id") != 1 && $(this).children('#jsuploadImg').get(0).files.length === 0) {
+                    toast({
                         title: "Opps!",
                         msg: "Need to upload an image!",
                         type: 'warning',
                         duration: 3000
                     });
                     e.preventDefault();
-               }else if($('#postTile').val().length > maxLengthTitle){
+                } else if ($('#postTile').val().length > maxLengthTitle) {
                     toast({
                         title: "Opps!",
-                        msg: "Post title maximun "+maxLengthTitle+" charactors!",
+                        msg: "Post title maximun " + maxLengthTitle + " charactors!",
                         type: 'warning',
                         duration: 3000
                     });
                     e.preventDefault();
-               }else if($('#textEditor').val().length > maxLengthContent){
-                   toast({
+                } else if ($('#textEditor').val().length > maxLengthContent) {
+                    toast({
                         title: "Opps!",
-                        msg: "Post content maximun "+maxLengthContent+" charactors!",
+                        msg: "Post content maximun " + maxLengthContent + " charactors!",
                         type: 'warning',
                         duration: 3000
                     });
                     e.preventDefault();
-               }else if($('#textEditor').val().length < minLengthContent){
-                   toast({
+                } else if ($('#textEditor').val().length < minLengthContent) {
+                    toast({
                         title: "Opps!",
-                        msg: "Post content minimum "+minLengthContent+" charactors!",
+                        msg: "Post content minimum " + minLengthContent + " charactors!",
                         type: 'warning',
                         duration: 3000
                     });
                     e.preventDefault();
-               }
-               
-           });
+                }
+
+            });
 
             //display img when upload
             btnImg.onchange = () => {
@@ -297,36 +298,36 @@
                 displayName.textContent = btnImg.files[0].name;
             };
             //off post blog 
-            function closePostBlog(){
+            function closePostBlog() {
                 $('.post-blog').toggleClass("active");
                 $('.header-wrapper').slideDown();
                 $(window).on('mousewheel');
                 $('body').removeClass('modal-open');
             }
-            
-            function postBlog(){
+
+            function postBlog() {
                 $('.btnSave').hide();
                 $('.btnPost').show();
                 openPostBlog();
             }
-            
+
             //show post blog 
-            function openPostBlog(){
-                <c:if test="${sessionScope.account!=null}">
-                    $('.post-blog').toggleClass('active');
-                    $('.header-wrapper').slideUp();
-                    $('body').addClass('modal-open');
-                </c:if>
-                <c:if test="${sessionScope.account==null}">
-                    toast({
-                        title: "Opps!",
-                        msg: "Login to use this fuction!",
-                        type: 'error',
-                        duration: 5000
-                    });
-                </c:if>
+            function openPostBlog() {
+            <c:if test="${sessionScope.account!=null}">
+                $('.post-blog').toggleClass('active');
+                $('.header-wrapper').slideUp();
+                $('body').addClass('modal-open');
+            </c:if>
+            <c:if test="${sessionScope.account==null}">
+                toast({
+                    title: "Opps!",
+                    msg: "Login to use this fuction!",
+                    type: 'error',
+                    duration: 5000
+                });
+            </c:if>
             }
-            
+
         </script>
     </body>
 </html>
