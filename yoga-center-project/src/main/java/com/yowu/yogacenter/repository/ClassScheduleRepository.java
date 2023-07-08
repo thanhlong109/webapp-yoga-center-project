@@ -6,6 +6,7 @@ package com.yowu.yogacenter.repository;
 
 import com.yowu.yogacenter.model.ClassSchedule;
 import com.yowu.yogacenter.util.DBHelpler;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -135,5 +136,30 @@ public class ClassScheduleRepository {
         }
 
         return status == 1;
+    }
+    
+    public List<ClassSchedule> searchClassScheduleByRegistrationID(Date search) {
+        String sql = "SELECT * FROM tblClassSchedule WHERE class_date LIKE ? ";
+        List<ClassSchedule> list = new ArrayList<>();
+
+        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
+            stmt.setDate(1, search);
+            try ( ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    RegistrationCourseRepository cr = new RegistrationCourseRepository();
+                    ClassSchedule c = new ClassSchedule();
+                    c.setId(rs.getInt("class_schedule_id"));
+                    c.setRegistrationCourse(cr.detail(rs.getInt("registration_id")));
+                    c.setDate(rs.getDate("class_date"));
+                    c.setStartTime(rs.getTime("slot_start_time"));
+                    c.setEndTime(rs.getTime("slot_end_time"));
+                    c.setStatus(rs.getInt("class_status"));
+                    list.add(c);
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return list;
     }
 }
