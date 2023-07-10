@@ -28,6 +28,7 @@ com\yowu\yogacenter\repository\RoleHasPermission.class
 com\yowu\yogacenter\model\Role.class
 com\yowu\yogacenter\model\RoleHasPermission.class
 com\yowu\yogacenter\repository\Membership.class
+com\yowu\yogacenter\controller\client\UserProfileCourse.class
 com\yowu\yogacenter\util\DBHelpler.class
 com\yowu\yogacenter\model\ClassSchedule.class
 com\yowu\yogacenter\repository\CourseInstructor.class
