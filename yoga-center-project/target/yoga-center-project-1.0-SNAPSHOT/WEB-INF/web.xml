@@ -196,6 +196,10 @@
         <servlet-name>SearchCourseScheduleController</servlet-name>
         <servlet-class>com.yowu.yogacenter.controller.admin.SearchCourseScheduleController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>DashBoardController</servlet-name>
+        <servlet-class>com.yowu.yogacenter.controller.admin.DashBoardController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>UserProfileCourse</servlet-name>
         <url-pattern>/userprofile/course</url-pattern>
@@ -383,6 +387,10 @@
     <servlet-mapping>
         <servlet-name>SearchCourseScheduleController</servlet-name>
         <url-pattern>/admin/searchCourseScheduleController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DashBoardController</servlet-name>
+        <url-pattern>/admin/dashboard</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

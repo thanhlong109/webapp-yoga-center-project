@@ -13,7 +13,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 
 /**
@@ -51,7 +51,26 @@ public class BillRepository {
         }
         return list;
     }
-
+    
+    public List<List<Object>> getBillData(){
+        String sql = "select bill_date, SUM(bill_value)as bill_value from tblBill where bill_status="+Bill.BillStatus.COMPLETED.ordinal()+" group by  bill_date order by bill_date asc";
+        List<List<Object>> list = new ArrayList();
+        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
+            try ( ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    List<Object> row = new ArrayList<>();
+                    long date = rs.getDate("bill_date").getTime();
+                    row.add(date);
+                    row.add(rs.getFloat("bill_value"));
+                    list.add(row);
+                }
+            }
+        }catch (Exception e) {
+            System.out.println(e);
+        }
+        return list;
+    }
+        
     public List<Bill> getByAccountID(int accountId) {
         String sql = "select * from tblBill where account_id=?";
         List<Bill> list = new ArrayList<>();
@@ -334,7 +353,10 @@ public class BillRepository {
 
     public static void main(String[] args) {
         BillRepository b = new BillRepository();
-
+        List<List<Object>> list = b.getBillData();
+        for(int i=0;i<list.size();i++){
+            System.out.println("d:"+list.get(i).get(0)+", b:"+list.get(i).get(1));
+        }
     }
 
 }

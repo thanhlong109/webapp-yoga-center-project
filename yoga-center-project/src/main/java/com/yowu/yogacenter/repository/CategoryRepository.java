@@ -53,7 +53,24 @@ public class CategoryRepository {
         }
         return list;
     }
-    
+    public List<List<Object>> getCategoryData(){
+        String sql = "select ct.category_name,COUNT(cs.category_id) as num from (select * from tblCourse  where course_is_active=1 ) cs join (select * from tblCategory where category_is_active=1) ct on cs.category_id=ct.category_id group by ct.category_name";
+        List<List<Object>> list = new ArrayList<>();
+        try(PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)){
+            try(ResultSet rs = stmt.executeQuery()){
+                while(rs.next()){
+                    List<Object> ls = new ArrayList<>();
+                    ls.add(rs.getString("category_name"));
+                    ls.add(rs.getString("num"));
+                    list.add(ls);
+                }
+            }
+        }catch(Exception e){
+            System.out.println(e);
+        }
+        return list;
+    }
+            
     public Category detail(int id) {
 
         String sql = "select * from tblCategory where category_id=? ";
