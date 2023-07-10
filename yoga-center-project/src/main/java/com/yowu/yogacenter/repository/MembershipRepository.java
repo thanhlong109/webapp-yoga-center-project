@@ -167,7 +167,7 @@ public class MembershipRepository {
 
     public static void main(String[] args) {
         MembershipRepository repository = new MembershipRepository();
-        int membershipId = 1; // ID của đối tượng Membership cần lấy thông tin
+        int membershipId = 4; // ID của đối tượng Membership cần lấy thông tin
 
         Membership membership = repository.detail(membershipId);
 
@@ -208,6 +208,8 @@ public class MembershipRepository {
         }
         return list;
     }
+    
+   
 
 
 }

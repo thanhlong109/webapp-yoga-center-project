@@ -19,6 +19,9 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import java.sql.Date;
+import java.time.LocalDate;
 
 /**
  *
@@ -47,15 +50,22 @@ public class CheckoutController extends HttpServlet {
             request.setAttribute("account", ar.detail(acc.getId()));
             request.setAttribute("course", c);
             request.setAttribute("discount", msr.discountByAccountID(acc.getId()));
-            request.getRequestDispatcher(CHECKOUT_PAGE).forward(request, response);
+            
         }
         if (action.equals("membership")) {
             int memberId = Integer.parseInt(request.getParameter("memId"));
             MembershipRepository mbr = new MembershipRepository();
             Membership mb = mbr.detail(memberId);
             request.setAttribute("member", mb);
+            LocalDate current = LocalDate.now();
+            LocalDate enddate = current.plusDays(mb.getDuration());
+            request.setAttribute("startdate", current);
+            request.setAttribute("enddate", enddate);
+            HttpSession session = request.getSession();
+            Account account = (Account)session.getAttribute("account");
+            session.setAttribute("RegistrationMembership", new RegistrationMembership(mb, account, Date.valueOf(current), Date.valueOf(enddate)));
         }
-
+        request.getRequestDispatcher(CHECKOUT_PAGE).forward(request, response);
     }
 
     @Override

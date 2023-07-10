@@ -9,12 +9,15 @@ import com.yowu.yogacenter.model.Bill;
 import com.yowu.yogacenter.model.ClassSchedule;
 import com.yowu.yogacenter.model.Course;
 import com.yowu.yogacenter.model.CourseSchedule;
+import com.yowu.yogacenter.model.Membership;
 import com.yowu.yogacenter.model.RegistrationCourse;
+import com.yowu.yogacenter.model.RegistrationMembership;
 import com.yowu.yogacenter.repository.AccountRepository;
 import com.yowu.yogacenter.repository.BillRepository;
 import com.yowu.yogacenter.repository.ClassScheduleRepository;
 import com.yowu.yogacenter.repository.CourseRepository;
 import com.yowu.yogacenter.repository.CourseScheduleRepository;
+import com.yowu.yogacenter.repository.MembershipRepository;
 import com.yowu.yogacenter.repository.RegistrationCourseRepository;
 import jakarta.mail.Session;
 import java.io.IOException;
@@ -57,116 +60,145 @@ public class CheckoutSendController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = CHECKOUT_PAGE;
+        String method = request.getParameter("payment-method");
+        String orderCode = Config.getRandomNumber(6);
+        float total = 0;
+        Bill order = null;
+        long millis = System.currentTimeMillis();
+        java.sql.Date date = new java.sql.Date(millis);
+        Account acc = (Account) request.getSession().getAttribute("account");
+
         try {
-            int courseId = Integer.parseInt(request.getParameter("id"));
-            CourseRepository cr = new CourseRepository();
-            Course c = cr.detail(courseId);
-            String orderCode = Config.getRandomNumber(6);
-            Account acc = (Account) request.getSession().getAttribute("account");
-            String accountID = Integer.toString(acc.getId());
-            float total = Float.parseFloat(request.getParameter("total"));
-            int discount = 0;
-            String sDiscount = request.getParameter("discountTotal");
-            if (!sDiscount.isEmpty()) {
-                discount = Integer.parseInt(sDiscount);
-            }
-            String method = request.getParameter("payment-method");
+            RegistrationMembership regisMember = (RegistrationMembership) request.getSession().getAttribute("RegistrationMembership");
 
-            int status = 2;
-            boolean isActive = true;
-            long millis = System.currentTimeMillis();
-            java.sql.Date date = new java.sql.Date(millis);
-            System.out.println("date" + date);
-            Bill order = new Bill(c, acc, status, isActive, total, discount, date, orderCode, method);
-            BillRepository billRepo = new BillRepository();
-            billRepo.add(order);
+            if (regisMember != null) {
+                MembershipRepository msr = new MembershipRepository();
+                Membership accountMembership = msr.discountByAccountID(acc.getId());
+                int status = 1;
+                total = regisMember.getMembership().getPrice();
+                order = new Bill();
+                order.setMethod(method);
+                order.setPaymentDate(date);
+                int discount = 0;
+                if (accountMembership != null) {
+                    discount = accountMembership.getDiscount();
+                }
+                order.setDiscount(discount);
+                order.setOrdercode(orderCode);
+                order.setValue(total);
+                order.setStatus(status);
+                order.setAccount(acc);
+                HttpSession session = request.getSession();
+                session.setAttribute("billCourse", order);
+                System.out.println("By member ship");
+            } else {
+                int courseId = Integer.parseInt(request.getParameter("id"));
+                CourseRepository cr = new CourseRepository();
+                Course c = cr.detail(courseId);
 
-            //Bill bill = billRepo.getCourseIdByOrdercode(orderCode);
+                total = Float.parseFloat(request.getParameter("total"));
+                int discount = 0;
+                String sDiscount = request.getParameter("discountTotal");
+                if (!sDiscount.isEmpty()) {
+                    discount = Integer.parseInt(sDiscount);
+                }
+
+                int status = 2;
+                boolean isActive = true;
+
+                System.out.println("date" + date);
+                order = new Bill(c, acc, status, isActive, total, discount, date, orderCode, method);
+                BillRepository billRepo = new BillRepository();
+                billRepo.add(order);
+
+                //Bill bill = billRepo.getCourseIdByOrdercode(orderCode);
 //            System.out.println(billRepo);
-            int courseScheduleID = Integer.parseInt(request.getParameter("course_scheduleId"));
+                int courseScheduleID = Integer.parseInt(request.getParameter("course_scheduleId"));
 //            System.out.println(courseId);
-            CourseScheduleRepository csr = new CourseScheduleRepository();
-            //           System.out.println(csr);
-            CourseSchedule cs = csr.detailByScheduleID(courseScheduleID);
+                CourseScheduleRepository csr = new CourseScheduleRepository();
+                //           System.out.println(csr);
+                CourseSchedule cs = csr.detailByScheduleID(courseScheduleID);
 //            System.out.println(cs);
-            int course_status = 0;
-            boolean regis_status = true;
-            RegistrationCourse regis = new RegistrationCourse(acc, c, date, date, cs, course_status, regis_status);
-            RegistrationCourseRepository regisRepo = new RegistrationCourseRepository();
+                int course_status = 0;
+                boolean regis_status = true;
+                RegistrationCourse regis = new RegistrationCourse(acc, c, date, date, cs, course_status, regis_status);
+                RegistrationCourseRepository regisRepo = new RegistrationCourseRepository();
 //            regisRepo.addRegistration(regis);
-            int lastInsertId = regisRepo.addRegis(regis);
-            String duration = request.getParameter("duration");
-            String startTime = request.getParameter("startTime");
+                int lastInsertId = regisRepo.addRegis(regis);
+                String duration = request.getParameter("duration");
+                String startTime = request.getParameter("startTime");
 
-            System.out.println("asv" + lastInsertId);
-            System.out.println("asss" + regis);
+                System.out.println("asv" + lastInsertId);
+                System.out.println("asss" + regis);
 
-            String schedule = cs.getDateOfWeek();
-            System.out.println("schedule" + schedule);
+                String schedule = cs.getDateOfWeek();
+                System.out.println("schedule" + schedule);
 
-            String inputDayOfWeek = schedule; // Lấy từ FE hoặc DB => Day of week
+                String inputDayOfWeek = schedule; // Lấy từ FE hoặc DB => Day of week
 
-            String inputDateTime = startTime + " 00:00:00"; // Lấy từ FE hoặc DB => start date
+                String inputDateTime = startTime + " 00:00:00"; // Lấy từ FE hoặc DB => start date
 
-            int inputDuration = Integer.parseInt(duration); // Lấy từ FE hoặc DB => duration
+                int inputDuration = Integer.parseInt(duration); // Lấy từ FE hoặc DB => duration
 
-            DayOfWeek[] allDateOfWeek = DayOfWeek.values();
-            System.out.println("range day" + Arrays.toString(allDateOfWeek));
+                DayOfWeek[] allDateOfWeek = DayOfWeek.values();
+                System.out.println("range day" + Arrays.toString(allDateOfWeek));
 
-            String[] parts = inputDayOfWeek.split(",");
+                String[] parts = inputDayOfWeek.split(",");
 
-            int[] numbers = new int[parts.length];
+                int[] numbers = new int[parts.length];
 
-            for (int i = 0; i < parts.length; i++) {
-                numbers[i] = Integer.parseInt(parts[i]);
-            }
+                for (int i = 0; i < parts.length; i++) {
+                    numbers[i] = Integer.parseInt(parts[i]);
+                }
 
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd' 'HH:mm:ss");
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd' 'HH:mm:ss");
 
-            LocalDateTime dateTime = LocalDateTime.parse(inputDateTime, formatter);
+                LocalDateTime dateTime = LocalDateTime.parse(inputDateTime, formatter);
 
-            LocalDate startDate = dateTime.toLocalDate();
+                LocalDate startDate = dateTime.toLocalDate();
 
-            int temp = 1;
-            LocalDate firstDate = null;
-            LocalDate lastDate = startDate;
-            boolean firstDateFound = false;
-            while (temp <= inputDuration) {
-                DayOfWeek dayOfWeek = startDate.getDayOfWeek();
-                for (int number : numbers) {
-                    if (allDateOfWeek[number] == dayOfWeek) {//fix
-                        System.out.println("Day: " + startDate);
-                        //Call repository save to DB:
-                        int regisId = lastInsertId;
-                        Time startTime1 = cs.getStartTime();
-                        Time endTime = cs.getEndTime();
-                        Date classDate = Date.valueOf(startDate);
-                        int statusClass = 1;
-                        ClassScheduleRepository scr = new ClassScheduleRepository();
-                        //public ClassSchedule(Date date, Time startTime, Time endTime, int status, int regisId)
-                        ClassSchedule cse = new ClassSchedule(classDate, startTime1, endTime, statusClass, regisId);
-                        scr.addClassSchedule(cse);
-                        //.....
-                        //End.
-                        temp++;
-                        if (!firstDateFound) {
-                            firstDate = startDate;
-                            firstDateFound = true;
+                int temp = 1;
+                LocalDate firstDate = null;
+                LocalDate lastDate = startDate;
+                boolean firstDateFound = false;
+                while (temp <= inputDuration) {
+                    DayOfWeek dayOfWeek = startDate.getDayOfWeek();
+                    for (int number : numbers) {
+                        if (allDateOfWeek[number] == dayOfWeek) {//fix
+                            System.out.println("Day: " + startDate);
+                            //Call repository save to DB:
+                            int regisId = lastInsertId;
+                            Time startTime1 = cs.getStartTime();
+                            Time endTime = cs.getEndTime();
+                            Date classDate = Date.valueOf(startDate);
+                            int statusClass = 1;
+                            ClassScheduleRepository scr = new ClassScheduleRepository();
+                            //public ClassSchedule(Date date, Time startTime, Time endTime, int status, int regisId)
+                            ClassSchedule cse = new ClassSchedule(classDate, startTime1, endTime, statusClass, regisId);
+                            scr.addClassSchedule(cse);
+                            //.....
+                            //End.
+                            temp++;
+                            if (!firstDateFound) {
+                                firstDate = startDate;
+                                firstDateFound = true;
+                            }
                         }
                     }
-                }
 //                startDate = startDate.plusDays(1);
 //                lastDate = startDate; // Cập nhật ngày cuối cùng trong vòng lặp
 //                startDate = startDate.plusDays(1);
-                lastDate = startDate; // Cập nhật ngày cuối cùng trong vòng lặp
-                startDate = startDate.plusDays(1);
+                    lastDate = startDate; // Cập nhật ngày cuối cùng trong vòng lặp
+                    startDate = startDate.plusDays(1);
+                }
+                int regisId = lastInsertId;
+                Date firstDateSql = Date.valueOf(firstDate);
+                Date lastDateSql = Date.valueOf(lastDate);
+                System.out.println(firstDateSql);
+                System.out.println(lastDateSql);
+                regisRepo.updateDateRegisAndDateEnd(firstDateSql, lastDateSql, regisId);
             }
-            int regisId = lastInsertId;
-            Date firstDateSql = Date.valueOf(firstDate);
-            Date lastDateSql = Date.valueOf(lastDate);
-            System.out.println(firstDateSql);
-            System.out.println(lastDateSql);
-            regisRepo.updateDateRegisAndDateEnd(firstDateSql, lastDateSql, regisId);
+
 //            url = SUCCESS;
             if (method.equals("STUDIO")) {
                 url = PENDING_CHECKOUT;

@@ -60,8 +60,9 @@
                         <form action="CheckoutSendController">
                             <input type="hidden" id="course_id" name="id" value="" >
                             <input type="hidden" id="course_scheduleId" name="course_scheduleId" value="">
+                            <input type="hidden" id="memId" name="memId" value="">
                             <input type="hidden" id="durationMem" name="durationMem" value="">
-
+                            
                             <!-- form-left -->
                             <div class="container__element-left">
                                 <div class="element__checkout-account-login ">
@@ -110,52 +111,97 @@
                                 <a href="">Term Conditions</a>
                             </p>
                         </div>
-                        <!-- form-right -->
-                        <div class="container__element-right">
-                            <h4>Your Order</h4>
-                            <div class="element__right-table">
-                                <table>
-                                    <thead>
-                                        <tr class="table-title">
-                                            <th class="title-content">${course.title}</th>
-                                            <th class="title-price">$${course.price}</th>
-                                        </tr>
-                                        <tr class="table-title">
-                                            <th class="title-content">Membership card</th>
-                                                <c:if test="${discount.discount == null}">
-                                                <th class="title-price" >Voucher 0%</th>
-                                                </c:if>
-                                                <c:if test="${discount.discount != null}">
-                                                <th class="title-price" >Voucher ${discount.discount}%</th>
+                        <c:if test="${course != null}" >
+                            <!-- form-checkout with course -->
+                            <div class="container__element-right">
+                                <h4>Your Order</h4>
+                                <div class="element__right-table">
+                                    <table>
+                                        <thead>
                                             <tr class="table-title">
-                                                <th class="title-content discript">${discount.description}</th>
+                                                <th class="title-content">${course.title}</th>
+                                                <th class="title-price">$${course.price}</th>
                                             </tr>
-                                        </c:if>
-                                    <input type="hidden" id="discount" name="discountTotal" value="${discount.discount}">
-                                    </tr>
+                                            <tr class="table-title">
+                                                <th class="title-content">Membership card</th>
+                                                    <c:if test="${discount.discount == null}">
+                                                    <th class="title-price" >Voucher 0%</th>
+                                                    </c:if>
+                                                    <c:if test="${discount.discount != null}">
+                                                    <th class="title-price" >Voucher ${discount.discount}%</th>
+                                                <tr class="table-title">
+                                                    <th class="title-content discript">${discount.description}</th>
+                                                </tr>
+                                            </c:if>
+                                        <input type="hidden" id="discount" name="discountTotal" value="${discount.discount}">
+                                        </tr>
 
-                                    <tr class="table-title">
-                                        <th class="title-content">Course start date</th>
-                                        <th class="title-price" >${startDate}</th>
-                                    </tr>
-                                    
-                                    <tbody>
-                                        <tr class="table-detail">
-                                            <td class="detail-content">Subtotal</td>
+                                        <tr class="table-title">
+                                            <th class="title-content">Course start date</th>
+                                            <th class="title-price" >${startDate}</th>
+                                        </tr>
 
-                                            <td class="detail-price">$${course.price - (course.price * (discount.discount) / 100)}</td>
-                                    <input type="hidden" id="subtotal" name="subtotal" value="${course.price - (course.price * (discount.discount) / 100)}">
-                                    </tr>
-                                    <tr class="table-total">
-                                        <td class="total-title">Total</td>
-                                        <td class="total-price">$${course.price - (course.price * (discount.discount) / 100)}</td>
-                                    <input type="hidden" id="total" name="total" value="${course.price - (course.price * (discount.discount) / 100)}">
-                                    </tr>
-                                    </tbody>
-                                </table>
+                                        <tbody>
+                                            <tr class="table-detail">
+                                                <td class="detail-content">Subtotal</td>
+
+                                                <td class="detail-price">$${course.price - (course.price * (discount.discount) / 100)}</td>
+                                        <input type="hidden" id="subtotal" name="subtotal" value="${course.price - (course.price * (discount.discount) / 100)}">
+                                        </tr>
+                                        <tr class="table-total">
+                                            <td class="total-title">Total</td>
+                                            <td class="total-price">$${course.price - (course.price * (discount.discount) / 100)}</td>
+                                        <input type="hidden" id="total" name="total" value="${course.price - (course.price * (discount.discount) / 100)}">
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
+                        </c:if>
 
-                        </div>
+                        <c:if test="${member != null}">
+                            <!-- form-checkout with membership -->
+                            <div class="container__element-right">
+                                <h4>Your Order</h4>
+                                <div class="element__right-table">
+                                    <table>
+                                        <thead>
+                                            <tr class="table-title">
+                                                <th class="title-content">Yowu Member level: ${member.name}</th>
+                                                <th class="title-price">$${member.price}</th>
+                                            </tr>
+                                            </tr>
+
+                                            <tr class="table-title">
+                                                <th class="title-content">Start date</th>
+                                                <th class="title-price" >${startdate} </th>
+                                            </tr>
+                                            
+                                            <tr class="table-title">
+                                                <th class="title-content">End date</th>
+                                                <th class="title-price" >${enddate}</th>
+                                            </tr>
+                                            
+                                            <tr class="table-title">
+                                                <th class="title-price" style="color: #a2a2a2">${member.description}</th>
+                                            </tr>
+                                        <tbody>
+                                            <tr class="table-detail">
+                                                <td class="detail-content">Subtotal</td>
+                                                <td class="detail-price">$${member.price}</td>
+                                        <input type="hidden" id="subtotal" name="subtotal" value="${member.price}">
+                                        </tr>
+                                        <tr class="table-total">
+                                            <td class="total-title">Total</td>
+                                            <td class="total-price">$${member.price}</td>
+                                        <input type="hidden" id="total" name="total" value="${member.price}">
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </c:if>
+
                     </form>
                 </div>
             </div>
@@ -170,15 +216,20 @@
         var scheduleId = params.get('course_scheduleId');
         var duration = params.get('duration');
         var startTime = params.get('start_time');
+
+        var memId = params.get('memId');
         var durationMem = params.get('durationMem');
         console.log(id);
         console.log(scheduleId);
+        console.log(memId);
         console.log(durationMem);
 
         document.getElementById('course_id').value = id;
         document.getElementById('course_scheduleId').value = scheduleId;
         document.getElementById('duration').value = duration;
         document.getElementById('startTime').value = startTime;
+
+        document.getElementById('memId').value = memId;
         document.getElementById('durationMem').value = durationMem;
 
         document.addEventListener("DOMContentLoaded", function () {
