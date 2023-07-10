@@ -9,6 +9,8 @@ package com.yowu.yogacenter.model;
  * @author DungVNT
  */
 public class Account {
+    
+    public static String DEFAULT_IMG = "hinh-avatar-1.png";
 
     private int id;
     private String img;
@@ -18,19 +20,20 @@ public class Account {
     private String phone;
     private boolean isActive;
     private Role role;
+    private String socialID;
 
     public Account() {
     }
 
-    public Account(int id, String img, String name, String password, String email, String phone, boolean isActive, Role role) {
-        this.id = id;
-        this.img = img;
+    public Account( String name, String password, String email, String phone, Role role, String socialID) {
+        this.img = DEFAULT_IMG;
         this.name = name;
         this.password = password;
         this.email = email;
         this.phone = phone;
-        this.isActive = isActive;
+        this.isActive = true;
         this.role = role;
+        this.socialID = socialID;
     }
 
     public int getId() {
@@ -95,6 +98,16 @@ public class Account {
 
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    
+    public String getSocialID() {
+        return socialID;
+    }
+
+    
+    public void setSocialID(String socialID) {
+        this.socialID = socialID;
     }
 
 }

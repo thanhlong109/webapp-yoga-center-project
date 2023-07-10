@@ -11,13 +11,14 @@ import java.sql.Time;
  * @author ACER
  */
 public class CourseSchedule {
-
+    public static enum DayOfWeek{SUNDAY,MONDAY,TUESDAY,WEDNESDAY,THURSDAY,FRIDAY,SATURDAY};
     private int id;
     private String dateOfWeek;
     private boolean isActive;
     private Time startTime, endTime;
     private Course course;
-
+    
+    
     public CourseSchedule() {
     }
 
@@ -29,7 +30,24 @@ public class CourseSchedule {
         this.endTime = endTime;
         this.course = course;
     }
-
+    
+    public static DayOfWeek getDayIndex(int i){
+        DayOfWeek[] arr = DayOfWeek.values();
+        if(i>=0&&i<arr.length){
+            return arr[i];
+        }
+        return null;
+    } 
+    
+    public String dateToString(){
+        String[] days = dateOfWeek.split(",");
+        String daysTxt = "";
+        for(String day : days){
+            daysTxt+=DayOfWeek.values()[Integer.parseInt(day)].name().toLowerCase()+", ";
+        }
+        return daysTxt;
+    }
+    
     public int getId() {
         return id;
     }
@@ -77,5 +95,5 @@ public class CourseSchedule {
     public void setCourse(Course course) {
         this.course = course;
     }
-
+    
 }

@@ -1,0 +1,235 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : Jun 20, 2023, 8:15:37 PM
+    Author     : DungVNT
+*/
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+html{
+    scroll-behavior: smooth; 
+}
+
+body{
+    font-family: 'Jost', sans-serif;
+    /* display: flex;
+    flex-direction: column; */
+    overflow-x: hidden;
+    
+    
+}
+.btn{
+    padding: 8px 16px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    display: inline-block;
+    cursor: pointer;
+}
+.btn:hover{
+    opacity: 0.8;
+}
+
+.btn-green{
+    color: white;
+    background-color: #1bc888;
+}
+.btn-red{
+    color: white;
+    background-color: #f14739;
+}
+.btn + .btn{
+    margin-left: 16px;
+}
+.table-style-1{
+    border-collapse: collapse;
+}
+.table-style-1 td,.table-style-1 th{
+    padding: 12px 24px;
+    border: 1px solid #b1b1b1;
+}
+.table-style-1 th{
+    color: #575757;
+}
+.wrapper-box{
+    border-radius: 8px;
+    width: fit-content;
+    padding: 32px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.25);
+}
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 100%;
+    min-height: 700px;
+    position: relative;
+}
+
+/* Search */
+.search-wrapper {
+    position: absolute;
+   
+    top: 18%;
+    left: 30%;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.25);
+    border-radius: 8px;
+}
+.search-wrapper .input-holder {    
+    height: 50px;
+    width:50px;
+    overflow: hidden;
+    background: rgba(255,255,255,0);
+    border-radius:6px;
+    position: relative;
+    transition: all 0.3s ease-in-out;
+}
+.search-wrapper.active .input-holder {
+    width:300px;
+    border-radius: 50px;
+    background: rgba(255,255,255,0.5);
+    transition: all .5s cubic-bezier(0.000, 0.105, 0.035, 1.570);
+}
+.search-wrapper .input-holder .search-input {
+    width:100%;
+    height: 30px;
+    padding:0px 70px 0 20px;
+    opacity: 0;
+    position: absolute;
+    top:0px;
+    left:0px;
+    background: transparent;
+    box-sizing: border-box;
+    border:none;
+    outline:none;
+    
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 20px;
+    color:#333;
+    transform: translate(0, 60px);
+    transition: all .3s cubic-bezier(0.000, 0.105, 0.035, 1.570);
+    transition-delay: 0.3s;
+}
+.search-wrapper.active .input-holder .search-input {
+    opacity: 1;
+    transform: translate(0, 10px);
+}
+.search-wrapper .input-holder .search-icon {
+    width:50px;
+    height:50px;
+    border:none;
+    border-radius:6px;
+    
+    background: #fff;
+    padding:0px;
+    outline:none;
+    position: relative;
+    z-index: 2;
+    float:right;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+.search-wrapper.active .input-holder .search-icon {
+    width: 30px;
+    height:30px;
+    margin: 10px;
+    border-radius: 30px;
+}
+.search-wrapper .input-holder .search-icon span {
+    width:22px;
+    height:22px;
+    display: inline-block;
+    vertical-align: middle;
+    position:relative;
+    transform: rotate(45deg);
+    transition: all .4s cubic-bezier(0.650, -0.600, 0.240, 1.650);
+}
+.search-wrapper.active .input-holder .search-icon span {
+    transform: rotate(-45deg);
+}
+.search-wrapper .input-holder .search-icon span::before, .search-wrapper .input-holder .search-icon span::after {
+    position: absolute; 
+    content:'';
+}
+.search-wrapper .input-holder .search-icon span::before {
+    width: 4px;
+    height: 11px;
+    left: 9px;
+    top: 18px;
+    border-radius: 2px;
+    background: #FE5F55;
+}
+.search-wrapper .input-holder .search-icon span::after {
+    width: 14px;
+    height: 14px;
+    left: 0px;
+    top: 0px;
+    border-radius: 16px;
+    border: 4px solid #FE5F55;
+}
+.search-wrapper .close {
+    position: absolute;
+    z-index: 1;
+    top:15px;
+    right:20px;
+    width:25px;
+    height:25px;
+    cursor: pointer;
+    transform: rotate(-180deg);
+    transition: all .3s cubic-bezier(0.285, -0.450, 0.935, 0.110);
+    transition-delay: 0.2s;
+}
+.search-wrapper.active .close {
+    right:-50px;
+    transform: rotate(45deg);
+    transition: all .6s cubic-bezier(0.000, 0.105, 0.035, 1.570);
+    transition-delay: 0.5s;
+}
+.search-wrapper .close::before, .search-wrapper .close::after {
+    position:absolute;
+    content:'';
+    background: #FE5F55;
+    border-radius: 2px;
+}
+.search-wrapper .close::before {
+    width: 5px;
+    height: 25px;
+    left: 10px;
+    top: 0px;
+}
+.search-wrapper .close::after {
+    width: 25px;
+    height: 5px;
+    left: 0px;
+    top: 10px;
+}
+
+/* filter */
+.container__navigation-element {
+    padding-left: 20px;
+    padding-right: 20px;
+    text-align: left;
+    position: absolute;
+    top: 20%;
+    right: 28.5%;
+}
+
+.navigation__element-select {
+    width: 200px;
+    border: 0;
+    background: none;
+    border-bottom-width: 2px;
+    border-bottom-style: solid;
+    padding-bottom: 10px;
+    font-size: 15px;
+    font-weight: 700;
+    color: #4e4e4e;
+    margin-bottom: 30px
+}

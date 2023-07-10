@@ -9,6 +9,8 @@ package com.yowu.yogacenter.model;
  * @author DungVNT
  */
 public class Role {
+    
+    public static enum RoleList {VIEWER ,TRAINEE, TRAINER, ADMIN, CASHER};
 
     private int id;
     private String name;
@@ -35,6 +37,14 @@ public class Role {
 
     public void setName(String name) {
         this.name = name;
+    }
+    
+    public RoleList getRoleListIndex(int i){
+        RoleList[] list = RoleList.values();
+        if (i>=0&&i<list.length) {
+            return list[i];
+        }
+        return null;
     }
 
 }

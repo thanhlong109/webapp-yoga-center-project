@@ -11,6 +11,8 @@ import java.sql.Date;
  * @author DungVNT
  */
 public class RegistrationCourse {
+    
+    public static enum CourseStatus {INPROGRESS,FINISH,ALL};
 
     private int id;
     private Date registrationDate;

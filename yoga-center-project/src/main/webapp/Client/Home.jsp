@@ -11,7 +11,7 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Document</title>
+        <title>Yowu Yoga Center</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <link href="Asset/css/font/css/all.css" rel="stylesheet">
         <link rel="stylesheet" href="Asset/css/common.css">
@@ -24,10 +24,10 @@
         <jsp:include page="../Component/header.jsp"></jsp:include>
             <div class="banner">
                 <div class="banner-content">
-                    <h3>Online</h3>
+                    <h3>Yowu</h3>
                     <h2>Yoga Class</h2>
                     <p>
-                        Yoga Center is the most popular online yoga classes, trusted by 100,000+ customers. Our instructers are well-know and certified
+                        We are the most popular yoga studio in town. Rated by more than 1000+ customers. Our instructers are well-know and certified
                     </p>
                     <a href="#caroursel" class="btn btn-red-orange">
                         Browse Course

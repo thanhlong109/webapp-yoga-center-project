@@ -15,11 +15,12 @@ public class Course {
     private Category category;
     private boolean isActive;
     private float price;
+    private Account account;
 
     public Course() {
     }
 
-    public Course(int id, int duration, String title, String img, String detail, Category category, boolean isActive, float price) {
+    public Course(int id, int duration, String title, String img, String detail, Category category, boolean isActive, float price, Account account) {
         this.id = id;
         this.duration = duration;
         this.title = title;
@@ -28,8 +29,16 @@ public class Course {
         this.category = category;
         this.isActive = isActive;
         this.price = price;
+        this.account = account;
     }
 
+    public Account getAccount() {
+        return account;
+
+    }
+    public void setAccount(Account account) {
+        this.account = account;
+    }
     public int getId() {
         return id;
     }
