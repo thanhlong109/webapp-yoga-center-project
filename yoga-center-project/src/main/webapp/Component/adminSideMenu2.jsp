@@ -90,7 +90,8 @@
             <ul class="sub-item" id="subItem">
                 <li><a href="<c:url value="/admin/viewClassScheduleListController"/>">
                         View & Edit Schedule</a></li>
-                <li><a href="#">Add Schedule</a></li>
+                <li><a href="<c:url value="/admin/addClassScheduleController"/>">
+                        Add Schedule</a></li>
             </ul>
         </div>
         <div class="sidebar-elements">

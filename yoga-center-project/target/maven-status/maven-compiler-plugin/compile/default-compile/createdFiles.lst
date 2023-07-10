@@ -19,6 +19,7 @@ com\yowu\yogacenter\controller\client\CourseFilterController.class
 com\yowu\yogacenter\repository\RegistrationCourseRepository.class
 com\yowu\yogacenter\controller\admin\ViewCategoryListController.class
 com\yowu\yogacenter\controller\client\LogoutController.class
+com\yowu\yogacenter\controller\admin\UpdateClassScheduleController.class
 com\yowu\yogacenter\controller\admin\DashBoardController.class
 com\yowu\yogacenter\controller\client\UserProfileCourse.class
 com\yowu\yogacenter\repository\CourseScheduleRepository.class
@@ -63,10 +64,12 @@ com\yowu\yogacenter\repository\ClassScheduleRepository.class
 com\yowu\yogacenter\model\Comment.class
 com\yowu\yogacenter\repository\CourseRepository.class
 com\yowu\yogacenter\checkout\CheckoutResultController.class
+com\yowu\yogacenter\controller\admin\DeleteClassScheduleController.class
 com\yowu\yogacenter\controller\client\LoginController.class
 com\yowu\yogacenter\controller\admin\SearchAccountController.class
 com\yowu\yogacenter\controller\admin\UpdateCourseScheduleController.class
 com\yowu\yogacenter\model\Permission.class
+com\yowu\yogacenter\controller\admin\AddClassScheduleController.class
 com\yowu\yogacenter\model\Bill.class
 com\yowu\yogacenter\checkout\PaymentDTO.class
 com\yowu\yogacenter\model\RegistrationMembership.class
@@ -82,6 +85,7 @@ com\yowu\yogacenter\model\Membership.class
 com\yowu\yogacenter\model\Course.class
 com\yowu\yogacenter\repository\RoleHasPermissionRepository.class
 com\yowu\yogacenter\controller\admin\SearchCategoryController.class
+com\yowu\yogacenter\controller\admin\SearchClassScheduleController.class
 com\yowu\yogacenter\controller\client\ForgotPassword.class
 com\yowu\yogacenter\model\CourseSchedule.class
 com\yowu\yogacenter\model\Role$RoleList.class

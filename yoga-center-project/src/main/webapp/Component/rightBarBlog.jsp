@@ -185,6 +185,7 @@
                     $('.post-blog').find('#blg-id').val(blog.id);
                     $('.post-blog').find('#postTile').val(blog.title);
                     $('.post-blog').find('#textEditor').val(blog.detail);
+                    tinymce.activeEditor.setContent(blog.detail);
                     openPostBlog();
                 },
                 error: function(){   
