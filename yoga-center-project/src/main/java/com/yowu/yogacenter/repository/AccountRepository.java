@@ -4,12 +4,14 @@
  */
 package com.yowu.yogacenter.repository;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.yowu.yogacenter.model.Account;
 import com.yowu.yogacenter.model.Role;
 import com.yowu.yogacenter.util.DBHelpler;
 import java.io.Serializable;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,6 +54,7 @@ public class AccountRepository {
                     c.setIsActive(rs.getBoolean("account_is_active"));
                     c.setRole(cr.detail(rs.getInt("role_id")));
                     c.setSocialID(rs.getString("social_id"));
+                    c.setCreateDate(rs.getDate("create_date"));
                     list.add(c);
                 }
             }
@@ -78,6 +81,7 @@ public class AccountRepository {
                     c.setIsActive(rs.getBoolean("account_is_active"));
                     c.setRole(cr.detail(rs.getInt("role_id")));
                     c.setSocialID(rs.getString("social_id"));
+                    c.setCreateDate(rs.getDate("create_date"));
                     list.add(c);
                 }
             }
@@ -293,6 +297,7 @@ public List<Account> searchName(String search) {
                     c.setIsActive(rs.getBoolean("account_is_active"));
                     c.setRole(cr.detail(rs.getInt("role_id")));
                     c.setSocialID(rs.getString("social_id"));
+                    c.setCreateDate(rs.getDate("create_date"));
                     list.add(c);
                 }
             }
@@ -302,10 +307,54 @@ public List<Account> searchName(String search) {
         return list;
     }
 
+public String getAccountDateJson(int year){
+    String sql = "SELECT DATEPART(MONTH, create_date) AS [Month], COUNT(account_id) AS [total] FROM tblAccount where role_id=? and YEAR(create_date)=? GROUP BY DATEPART(MONTH, [create_date]) ORDER BY [Month]";
+    String data="";
+    try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
+            stmt.setInt(1, Role.RoleList.TRAINEE.ordinal());
+            stmt.setInt(2, year);
+             try ( ResultSet rs = stmt.executeQuery()) {
+                 int[] array;// at index 0 defind maximum month to display
+                 LocalDate now = LocalDate.now();
+                 if(now.getYear()==year){
+                     int month = now.getMonthValue();
+                     array = new int[month];
+                 }else{
+                     array = new int[12];
+                 }
+                 while(rs.next()){
+                     array[rs.getInt("Month")-1]=rs.getInt("total");
+                 }
+                 ObjectMapper objMapper = new ObjectMapper();
+                 data = objMapper.writeValueAsString(array);
+             }
+     }catch (Exception e) {
+        System.out.println(e);
+    }
+     return data;
+}
+
+
+public List<Integer> getYearList(){
+    String sql = "select YEAR(create_date) as year from tblAccount where role_id=? group by YEAR(create_date) order by YEAR(create_date) desc";
+    List<Integer> list = new ArrayList<>();
+     try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
+            stmt.setInt(1, Role.RoleList.TRAINEE.ordinal());
+             try ( ResultSet rs = stmt.executeQuery()) {
+                 while(rs.next()){
+                     list.add(rs.getInt("year"));
+                 }
+             }
+     }catch (Exception e) {
+        System.out.println(e);
+    }
+    
+     
+     return list;
+}
+
     public static void main(String[] args) {
         AccountRepository accountRepository = new AccountRepository();
-
-        System.out.println(accountRepository.getIntructorList().get(0).getName());
         
 
     }

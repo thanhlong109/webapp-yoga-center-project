@@ -86,7 +86,8 @@ public class AuthenticationFilter implements Filter {
                 case "/admin/searchCourseController":
                 case "/admin/searchMembershipController":
                 case "/admin/searchAccountController":
-                case "/admin/searchBillController":{
+                case "/admin/searchBillController":
+                case "/admin/dashboard":{
                     if(acc!=null && acc.getRole().getId()==3){
                         chain.doFilter(request, response);
                     }else{

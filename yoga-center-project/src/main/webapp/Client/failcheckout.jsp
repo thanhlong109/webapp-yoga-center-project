@@ -32,26 +32,33 @@
 
         <jsp:include page="../Component/header.jsp"></jsp:include>
 
-        <div class="outline">
-            <div class="container payment-body">
-                <div class="row payment-container">
-                    <div class="col-md-12 pay-header">
-                        <h5>PAYMENT INFORMATION</h5>
-                    </div>
-                    <div class="col-md-12 pay-img">
-                        <img src="Asset/img/checkout/failure-icon.png" alt="" width="100px">
-                        <h4>Payment failure</h4>
-                    </div>
-                    <div class="col-md-12 payment-in4">
-                        <table>
-                            <tbody>
-                                <tr>
-                                    <th>Customer:</th>
-                                    <td>${sessionScope.account.name}</td>
+            <div class="outline">
+                <div class="container payment-body">
+                    <div class="row payment-container">
+                        <div class="col-md-12 pay-header">
+                            <h5>PAYMENT INFORMATION</h5>
+                        </div>
+                        <div class="col-md-12 pay-img">
+                            <img src="Asset/img/checkout/failure-icon.png" alt="" width="100px">
+                            <h4>Payment failure</h4>
+                        </div>
+                        <div class="col-md-12 payment-in4">
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <th>Customer:</th>
+                                        <td>${sessionScope.account.name}</td>
                                 </tr>
                                 <tr>
                                     <th>Email:</th>
                                     <td>${sessionScope.account.email}</td>
+                                </tr>
+                                <tr>
+                                    <th>Payment method:</td>
+                                        <c:if test="${sessionScope.billCourseC != null}">
+                                        <td>${sessionScope.billCourseC.method}</td>
+                                    </c:if>
+
                                 </tr>
                                 <tr>
                                     <th>Order code:</th>
@@ -59,9 +66,9 @@
                                 </tr>
                                 <tr>
                                     <th>Amount paid:</th>
-                                    <td class="amout">$${sessionScope.billCourse.value}</td>
+                                    <td class="amout">$${sessionScope.billCourseC.value}</td>
                                 </tr>
-                                
+
                             </tbody>
                         </table>
                     </div>
@@ -75,7 +82,10 @@
                             <tbody>
                                 <tr>
                                     <th>Payment product:</th>
-                                    <td>${sessionScope.billCourse.course.title}</td>
+                                        <c:if test="${sessionScope.billCourseC.course != null}">
+                                        <td>${sessionScope.billCourseC.course.title}</td>
+                                    </c:if>
+
                                 </tr>
                                 <tr>
                                     <th>Bank code:</td>
@@ -87,12 +97,12 @@
                                 </tr>
                                 <tr>
                                     <th>Payment date:</td>
-                                    <td>${sessionScope.billCourse.paymentDate}</td>
+                                    <td>${sessionScope.billCourseC.paymentDate}</td>
                                 </tr>
                             </tbody>
                         </table>
                         <div class="thanks">
-                            <p>Thank you for chossing us.</p>
+                            <p>Thank you for choosing us.</p>
                             <p>See you again!</p>
                         </div>
                         <div class="payment-footer">
@@ -103,20 +113,25 @@
                 </div>
             </div>
         </div>
-
+        <% 
+            session.removeAttribute("billCourse");
+            session.removeAttribute("PAYMENT");
+            session.removeAttribute("RegistrationMembership");
+            session.removeAttribute("bill");
+        %>
         <jsp:include page="../Component/footer.jsp"></jsp:include>
-        <script>
-            setInterval(function () {
-                var div = document.querySelector("#counter");
-                var count = div.textContent * 1 - 1;
-                div.textContent = count;
-                if (count <= 0) {
-                    window.location.replace("${pageContext.request.contextPath}/");
-                }
-            }, 1000);
+            <script>
+                setInterval(function () {
+                    var div = document.querySelector("#counter");
+                    var count = div.textContent * 1 - 1;
+                    div.textContent = count;
+                    if (count <= 0) {
+                        window.location.replace("${pageContext.request.contextPath}/");
+                    }
+                }, 1000);
         </script>
 
-    
+
     </body>
 
 </html>

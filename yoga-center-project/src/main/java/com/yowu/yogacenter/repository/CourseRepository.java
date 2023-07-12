@@ -202,7 +202,7 @@ public class CourseRepository implements Serializable{
         return list;
     }
     public List<Course> getPopularCourse(int offset, int next){
-        String sql = "select * from (select count(*) as num, rc.course_id from tblRegistrationCourse rc group by rc.course_id) rc join tblCourse c on ( rc.course_id = c.course_id and c.course_is_active=1 ) order by num desc OFFSET ? ROWS FETCH NEXT ? ROWS ONLY ";
+        String sql = "select * from  tblCourse c  left join (select count(course_id) as num, rc.course_id from tblRegistrationCourse rc group by rc.course_id) rc on ( rc.course_id = c.course_id and c.course_is_active=1 ) order by num desc OFFSET ? ROWS FETCH NEXT ? ROWS ONLY ";
         List<Course> list = new ArrayList<>();
         try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
             stmt.setInt(1, offset);

@@ -21,7 +21,13 @@
         <link rel="stylesheet" href="Asset/css/clientHome.css">
         <link rel="stylesheet" href="Asset/css/clientHeader.css"/>
         <link rel="stylesheet" href="Asset/css/clientFooter.css"/>
-
+        <style>
+            .card2{
+                max-height: 300px;
+                border: 1px solid #ccc;
+            }
+            
+        </style>
     </head>
     <body>
         <jsp:include page="../Component/header.jsp"></jsp:include>
@@ -152,7 +158,7 @@
                 <ul class="caroursel">
                     <c:forEach items="${instructorList}" var="acc">
                         <li class="card">
-                            <div class="card-img">
+                            <div class="card-img card2">
                                 <img src="Asset/img/avatar/${acc.img}" alt="">
                             </div>
                             <div class="card2-body">

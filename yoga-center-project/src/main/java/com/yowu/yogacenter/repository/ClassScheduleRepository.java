@@ -4,6 +4,7 @@
  */
 package com.yowu.yogacenter.repository;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.yowu.yogacenter.model.ClassSchedule;
 import com.yowu.yogacenter.util.DBHelpler;
 import java.sql.Date;
@@ -43,6 +44,24 @@ public class ClassScheduleRepository {
             System.out.println(e);
         }
         return list;
+    }
+    
+    public String getStudentDateJson(){
+        String sql = "SELECT DATEPART(weekday, class_date) AS Weekday, Count(class_schedule_id) AS TotalStudent FROM tblClassSchedule GROUP BY DATEPART(weekday, class_date)";
+        String data="";
+        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
+            try ( ResultSet rs = stmt.executeQuery()) {
+                int[] arr = new int[7];
+                while(rs.next()){
+                   arr[rs.getInt("Weekday")-1] = rs.getInt("TotalStudent");
+                }
+                ObjectMapper mapper = new ObjectMapper();
+                data = mapper.writeValueAsString(arr);
+            }
+        }catch (Exception e) {
+            System.out.println(e);
+        }
+        return data;
     }
     
     public List<ClassSchedule> getScheduleBetweenDateByAccount(Date startDate,Date endDate, int accountId) {

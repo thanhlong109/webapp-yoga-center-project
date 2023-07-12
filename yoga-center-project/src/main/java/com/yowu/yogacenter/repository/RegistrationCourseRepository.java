@@ -4,6 +4,7 @@
  */
 package com.yowu.yogacenter.repository;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.yowu.yogacenter.model.CourseSchedule;
 import com.yowu.yogacenter.model.RegistrationCourse;
 import com.yowu.yogacenter.util.DBHelpler;
@@ -13,6 +14,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -47,38 +49,64 @@ public class RegistrationCourseRepository {
         }
         return list;
     }
-    
+
     public int addRegis(RegistrationCourse registrationCourse) {
-    String sql = "INSERT INTO tblRegistrationCourse (account_id, course_id, "
-            + "registration_date, end_date, course_schedule_id, course_status, "
-            + "registration_status) "
-            + "VALUES (?, ?, ?, ?, ?, ?, ?)";
-    int status = 0;
-    int lastInsertId = -1;
+        String sql = "INSERT INTO tblRegistrationCourse (account_id, course_id, "
+                + "registration_date, end_date, course_schedule_id, course_status, "
+                + "registration_status) "
+                + "VALUES (?, ?, ?, ?, ?, ?, ?)";
+        int status = 0;
+        int lastInsertId = -1;
 
-    try (PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-        stmt.setInt(1, registrationCourse.getAccount().getId());
-        stmt.setInt(2, registrationCourse.getCourse().getId());
-        stmt.setDate(3, registrationCourse.getRegistrationDate());
-        stmt.setDate(4, registrationCourse.getEndDate());
-        stmt.setInt(5, registrationCourse.getCourseSchedule().getId());
-        stmt.setInt(6, registrationCourse.getCourseStatus());
-        stmt.setBoolean(7, registrationCourse.getRegistrationtatus());
-        status = stmt.executeUpdate();
+        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+            stmt.setInt(1, registrationCourse.getAccount().getId());
+            stmt.setInt(2, registrationCourse.getCourse().getId());
+            stmt.setDate(3, registrationCourse.getRegistrationDate());
+            stmt.setDate(4, registrationCourse.getEndDate());
+            stmt.setInt(5, registrationCourse.getCourseSchedule().getId());
+            stmt.setInt(6, registrationCourse.getCourseStatus());
+            stmt.setBoolean(7, registrationCourse.getRegistrationtatus());
+            status = stmt.executeUpdate();
 
-        // Retrieve the generated keys
-        ResultSet generatedKeys = stmt.getGeneratedKeys();
-        if (generatedKeys.next()) {
-            lastInsertId = generatedKeys.getInt(1);
+            // Retrieve the generated keys
+            ResultSet generatedKeys = stmt.getGeneratedKeys();
+            if (generatedKeys.next()) {
+                lastInsertId = generatedKeys.getInt(1);
+            }
+        } catch (Exception e) {
+            System.out.println(e);
         }
-    } catch (Exception e) {
-        System.out.println(e);
+
+        return lastInsertId;
     }
 
-    return lastInsertId;
-}
+    public String getRegistrationDateJson(int year) {
+        String sql = "SELECT DATEPART(MONTH, registration_date) AS [Month], COUNT(account_id) AS [total] FROM tblRegistrationCourse where registration_status=1 and YEAR(registration_date)=? GROUP BY DATEPART(MONTH, registration_date) ORDER BY [Month]";
+        String data = "";
+        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
+            stmt.setInt(1, year);
+            try ( ResultSet rs = stmt.executeQuery()) {
+                int[] array;// at index 0 defind maximum month to display
+                LocalDate now = LocalDate.now();
+                if (now.getYear() == year) {
+                    int month = now.getMonthValue();
+                    array = new int[month];
+                } else {
+                    array = new int[12];
+                }
+                while (rs.next()) {
+                    array[rs.getInt("Month")-1] = rs.getInt("total");
+                }
+                ObjectMapper mapper = new ObjectMapper();
+                data =mapper.writeValueAsString(array);
 
-    
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return data;
+    }
+
     public RegistrationCourse getRegisIdByCourseIdAndAccountID(int accountId, int courseId, boolean regisStatus) {
         String sql = "select * from tblRegistrationCourse "
                 + "WHERE account_id = ? AND course_id = ? AND registration_status = ? ";
@@ -108,7 +136,7 @@ public class RegistrationCourseRepository {
         }
         return null;
     }
-    
+
     public RegistrationCourse getRegisByCourseIdAndAccountID(int accountId, int courseId) {
         String sql = "select * from tblRegistrationCourse "
                 + "WHERE account_id = ? AND course_id = ? ";
@@ -137,8 +165,8 @@ public class RegistrationCourseRepository {
         }
         return null;
     }
-    
-    public List<RegistrationCourse> getCoursesByAccountIDAndStatus(int accountId,int status){
+
+    public List<RegistrationCourse> getCoursesByAccountIDAndStatus(int accountId, int status) {
         String sql = "select * from tblRegistrationCourse where account_id=? and course_status=? and registration_status=1";
         List<RegistrationCourse> list = new ArrayList<>();
         try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
@@ -167,9 +195,7 @@ public class RegistrationCourseRepository {
         return list;
     }
 
-    
-
-    public int getStudentEnrolled(int courseId){
+    public int getStudentEnrolled(int courseId) {
         String sql = "select count(*) as num from tblRegistrationCourse where course_id=? and registration_status=1";
         int num = 0;
         try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
@@ -187,7 +213,7 @@ public class RegistrationCourseRepository {
         return num;
     }
 
-    public List<RegistrationCourse> getCoursesByAccountID(int accountId){
+    public List<RegistrationCourse> getCoursesByAccountID(int accountId) {
         String sql = "select * from tblRegistrationCourse where account_id=? and registration_status=1";
         List<RegistrationCourse> list = new ArrayList<>();
         try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
@@ -310,7 +336,7 @@ public class RegistrationCourseRepository {
 
         return status == 1;
     }
-    
+
     public boolean updateDateRegisAndDateEnd(Date RegisDate, Date EndDate, int id) {
         String sql = "UPDATE tblRegistrationCourse SET registration_date = ?, end_date = ? "
                 + "WHERE registration_id = ?";
@@ -320,7 +346,7 @@ public class RegistrationCourseRepository {
             stmt.setDate(1, RegisDate);
             stmt.setDate(2, EndDate);
             stmt.setInt(3, id);
-            
+
             status = stmt.executeUpdate();
         } catch (Exception e) {
             System.out.println(e);
@@ -360,6 +386,11 @@ public class RegistrationCourseRepository {
         }
 
         return status == 1;
+    }
+    
+    public static void main(String[] args) {
+        RegistrationCourseRepository rcr = new RegistrationCourseRepository();
+        System.out.println(rcr.getRegistrationDateJson(2023));
     }
 
 }

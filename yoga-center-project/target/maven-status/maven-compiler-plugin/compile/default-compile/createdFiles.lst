@@ -70,6 +70,7 @@ com\yowu\yogacenter\controller\admin\SearchAccountController.class
 com\yowu\yogacenter\controller\admin\UpdateCourseScheduleController.class
 com\yowu\yogacenter\model\Permission.class
 com\yowu\yogacenter\controller\admin\AddClassScheduleController.class
+com\yowu\yogacenter\controller\client\AboutController.class
 com\yowu\yogacenter\model\Bill.class
 com\yowu\yogacenter\checkout\PaymentDTO.class
 com\yowu\yogacenter\model\RegistrationMembership.class

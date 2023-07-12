@@ -82,7 +82,7 @@ public class RatingCourseRepository {
     }
 
 
-
+    
     public boolean add(RatingCourse ratingCourse) {
         String sql = "INSERT INTO tblRatingCourse (registration_id, feedback, rating_star) "
                 + "VALUES (?, ?, ?)";

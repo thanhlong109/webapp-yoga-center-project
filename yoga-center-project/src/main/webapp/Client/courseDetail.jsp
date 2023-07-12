@@ -168,7 +168,7 @@
             }
 
             .surgest-course-card{
-                width: calc(100% / 4);
+                width: calc(90% / 4);
                 transition: all ease-in-out .3s;
                 box-shadow: 0 0 15px rgba(0,0,0,0.15);
                 min-width: 250px;
@@ -334,11 +334,12 @@
 
             .book1 a{
                 text-decoration: none;
-                color: #fbc12d;
+                
             }
 
             .choose{
                 color: #a4262c
+                
             }
 
         </style>

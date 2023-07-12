@@ -11,7 +11,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        
+
         <title>Payment | YowuYoga</title>
         <!-- Google font -->
         <!-- <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'> -->
@@ -33,23 +33,23 @@
         <jsp:include page="../Component/header.jsp"></jsp:include>
 
 
-        <div class="outline">
-            <div class="container payment-body">
-                <div class="row payment-container">
-                    <div class="col-md-12 pay-header">
-                        <h5>PAYMENT INFORMATION</h5>
-                    </div>
+            <div class="outline">
+                <div class="container payment-body">
+                    <div class="row payment-container">
+                        <div class="col-md-12 pay-header">
+                            <h5>PAYMENT INFORMATION</h5>
+                        </div>
 
-                    <div class="col-md-12 pay-img">
-                        <img src="Asset/img/checkout/success-icon.png" alt="" width="100px">
-                        <h4>Payment success</h4>
-                    </div>
-                    <div class="col-md-12 payment-in4">
-                        <table>
-                            <tbody>
-                                <tr>
-                                    <th>Customer:</th>
-                                    <td>${sessionScope.account.name}</td>
+                        <div class="col-md-12 pay-img">
+                            <img src="Asset/img/checkout/success-icon.png" alt="" width="100px">
+                            <h4>Payment success</h4>
+                        </div>
+                        <div class="col-md-12 payment-in4">
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <th>Customer:</th>
+                                        <td>${sessionScope.account.name}</td>
                                 </tr>
                                 <tr>
                                     <th>Email:</th>
@@ -57,7 +57,10 @@
                                 </tr>
                                 <tr>
                                     <th>Payment method:</td>
-                                    <td>${sessionScope.billCourse.method}</td>
+                                        <c:if test="${sessionScope.billCourseC != null}">
+                                        <td>${sessionScope.billCourseC.method}</td>
+                                    </c:if>
+
                                 </tr>
                                 <tr>
                                     <th>Order code:</th>
@@ -65,9 +68,9 @@
                                 </tr>
                                 <tr>
                                     <th>Amount paid:</th>
-                                    <td class="amout">$${sessionScope.billCourse.value}</td>
+                                    <td class="amout">$${sessionScope.billCourseC.value}</td>
                                 </tr>
-                                
+
                             </tbody>
                         </table>
                     </div>
@@ -81,11 +84,8 @@
                             <tbody>
                                 <tr>
                                     <th>Payment product:</th>
-                                    <c:if test="${sessionScope.billCourse.course != null}">
-                                        <td>${sessionScope.billCourse.course.title}</td>
-                                    </c:if>
-                                    <c:if test="${sessionScope.billCourse.course == null}">
-                                        <td>Yowu member level ${sessionScope.RegistrationMembership.membership.name}</td>
+                                        <c:if test="${sessionScope.billCourseC.course != null}">
+                                        <td>${sessionScope.billCourseC.course.title}</td>
                                     </c:if>
                                 </tr>
                                 <tr>
@@ -102,7 +102,7 @@
                                 </tr>
                                 <tr>
                                     <th>Payment date:</td>
-                                    <td>${sessionScope.billCourse.paymentDate}</td>
+                                    <td>${sessionScope.billCourseC.paymentDate}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -125,15 +125,15 @@
             session.removeAttribute("bill");
         %>
         <jsp:include page="../Component/footer.jsp"></jsp:include>
-        <script>
-            setInterval(function () {
-                var div = document.querySelector("#counter");
-                var count = div.textContent * 1 - 1;
-                div.textContent = count;
-                if (count <= 0) {
-                    window.location.replace("${pageContext.request.contextPath}/");
-                }
-            }, 1000);
+            <script>
+                setInterval(function () {
+                    var div = document.querySelector("#counter");
+                    var count = div.textContent * 1 - 1;
+                    div.textContent = count;
+                    if (count <= 0) {
+                        window.location.replace("${pageContext.request.contextPath}/");
+                    }
+                }, 1000);
         </script>
     </body>
 

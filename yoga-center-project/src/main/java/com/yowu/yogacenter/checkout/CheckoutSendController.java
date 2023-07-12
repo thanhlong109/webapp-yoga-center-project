@@ -202,6 +202,18 @@ public class CheckoutSendController extends HttpServlet {
 //            url = SUCCESS;
             if (method.equals("STUDIO")) {
                 url = PENDING_CHECKOUT;
+                int courseId = Integer.parseInt(request.getParameter("id"));
+                CourseRepository cr = new CourseRepository();
+                Course c = cr.detail(courseId);
+                int status = 2;
+                boolean isActive = true;
+                total = Float.parseFloat(request.getParameter("total"));
+                int discount = 0;
+                String sDiscount = request.getParameter("discountTotal");
+                if (!sDiscount.isEmpty()) {
+                    discount = Integer.parseInt(sDiscount);
+                }
+                order = new Bill(c, acc, status, isActive, total, discount, date, orderCode, method);
                 HttpSession session = request.getSession();
                 session.setAttribute("bill", order);
                 request.getRequestDispatcher(url).forward(request, response);

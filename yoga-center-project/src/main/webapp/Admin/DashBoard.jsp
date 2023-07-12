@@ -29,21 +29,27 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
         <script src="${pageContext.request.contextPath}/Asset/js/cdnjs.cloudflare.com_ajax_libs_Chart.js_2.4.0_Chart.min.js"></script>
         <style>
+            .h-320{
+                height: 320px;
+            }
+            .h-380{
+                height: 380px;
+            }
             .row{
                 display: flex;
                 width: 100%;
                 justify-content: space-between;
-                height: 380px;
+                margin-bottom: 3rem;
             }
-            .w-42{
-                width: 42%;
+            .w-34{
+                width: 34%;
             }
             
               #sell-chart{
                 position: relative;
                 background: #000524;
                 border: 1px solid #000;
-                width: 50%;
+                width: 60%;
                 padding: 1rem;
                 border-radius: 2 rem;
               }
@@ -62,16 +68,35 @@
                 text-decoration: none;
                 font-family: Helvetica, Arial;
               }
+              .chart-border{
+                  padding: 1rem;
+                  box-shadow: 0 1rem 3rem rgba(132, 139, 200, 0.48);
+              }
               #chart-2{
-                  padding: 2rem 2rem 1rem;
-                  box-shadow: 0 1rem 4rem rgba(132, 139, 200, 0.18);
                   height: 100%;
               }
-              aside{
-                  height: 100%;
-                  box-shadow: 2rem 0 2rem rgba(132, 139, 200, 0.18);
+              #chart-3{
+                height: 100%;
               }
-              
+              .chart-3{
+                  width: 60%;
+                  position: relative;
+              }
+             
+              #chart3-year{
+                  position: absolute;
+                  top: calc(1rem + 4px);
+                  left: 50%;
+                  transform: translateX(-50%);
+                  z-index: 10;
+                  
+              }
+              #chart3-year select{
+                  padding: 4px 8px;
+                  border-bottom: 2px solid #7d8da1;
+                  background: #f6f6f9;
+                  cursor: pointer;
+              }
         </style>
     </head>
     <body>
@@ -99,19 +124,35 @@
                     </div>
                 </div>
                 <div id="wrapper">
-                    <div class="row">
+                    <div class="row h-320">
+                        <div class="chart-border chart-3">
+                            <form id="chart3-year" action="dashboard" method="post">
+                                <select id="chart3-year-select" name="chart3Year">
+                                    <c:forEach items="${accountYearList}" var="i">
+                                        <option value="${i}">${i}</option>
+                                    </c:forEach>
+                                </select>
+                            </form>
+                            <div id="chart-3">
+                            </div>
+                        </div>
+                        <div class="w-34">
+                            <div id="chart-2" class="chart-border"></div>
+                        </div>
+                    </div>
+                    <div class="row h-380">
                         <div id="sell-chart">
                             <div id="chart-area">
                             </div>
                             <div id="chart-bar">
                             </div>
                         </div>
-                        <div class="w-42">
-                            <div id="chart-2"></div>
+                        <div class="chart-border chart-4 w-34">
+                            <div id="chart-4">
+                            </div>
                         </div>
+                        
                     </div>
-                    
-                    
                 </div>
             </main>
         </div>
@@ -119,17 +160,7 @@
         <script defer >
             chartAreaInit();
             function chartAreaInit(){
-                var data = [
-                    <c:forEach items="${billData}" var="i">
-                            [
-                        <c:set var="u" value="1"/>
-                        <c:forEach items="${i}" var="j">
-                            <c:if test="${u % 2 ==0}">${j}</c:if>
-                            <c:if test="${u % 2 !=0}">${j},</c:if>
-                        </c:forEach>
-                            ],
-                    </c:forEach>
-                ];
+                var data = ${billData};
                  var d = new Date();
                 if(data[data.length-1][0]!=d.getTime()){
                     data.push([d.getTime(),0]);
@@ -138,12 +169,29 @@
                 chart: {
                   id: "chart2",
                   type: "area",
-                  height: 230,
+                  height: "75%",
                   foreColor: "#ccc",
                   toolbar: {
                     autoSelected: "pan",
-                    show: false
-                  }
+                    show: true
+                  },
+                   export: {
+                    csv: {
+                      filename: "course_sale_chart",
+                      columnDelimiter: ',',
+                      headerCategory: 'Date',
+                      headerValue: 'Sale',
+                      dateFormatter(timestamp) {
+                        return new Date(timestamp).toDateString()
+                      }
+                    },
+                    svg: {
+                      filename: "course_sale_chart",
+                    },
+                    png: {
+                      filename: "course_sale_chart",
+                    }
+                  },
                 },
                 colors: ["#00BAEC"],
                 stroke: {
@@ -211,7 +259,7 @@
               var options2 = {
                 chart: {
                   id: "chart1",
-                  height: 130,
+                  height: "40%",
                   type: "bar",
                   foreColor: "#ccc",
                   brush: {
@@ -240,7 +288,10 @@
                   width: 2
                 },
                 grid: {
-                  borderColor: "#444"
+                  borderColor: "#444",
+                   padding:{
+                       top:16 
+                   }
                 },
                 markers: {
                   size: 0
@@ -261,21 +312,33 @@
 
               chart2.render();
             }
-            char2Init();
-            function char2Init(){
+            chart2Init();
+            function chart2Init(){
+                const categoryData = ${categoryData};
                 options = {
                     chart: {
-                        type: 'donut'
+                        type: 'donut',
+                        height:"300px",
+                        width:"100%",
+                        
+                        toolbar: {
+                            show: true
+                          },csv: {
+                        filename: "course_category_chart",
+                        columnDelimiter: ',',
+                        headerCategory: 'CourseCategory',
+                        headerValue: 'Quantity',
+                        
+                      },
+                      svg: {
+                        filename: "course_category_chart",
+                      },
+                      png: {
+                        filename: "course_category_chart",
+                      }
                     },
-                    <c:set var="cs" value="${categoryData.size()-1}"/>
-                    series: [<c:forEach begin="0"  end="${cs}" var="i">
-                        <c:if test="${cs==i}">${categoryData.get(i).get(1)} </c:if>
-                        <c:if test="${cs!=i}">${categoryData.get(i).get(1)}, </c:if>
-                    </c:forEach>],
-                    labels: [<c:forEach begin="0"  end="${cs}" var="i">
-                        <c:if test="${cs==i}">'${categoryData.get(i).get(0)}' </c:if>
-                        <c:if test="${cs!=i}">'${categoryData.get(i).get(0)}', </c:if>
-                    </c:forEach>],
+                    series: categoryData.categoryNum,
+                    labels: categoryData.categoryName,
                     dataLabels: {
                         enabled: true,
                         formatter: function (val) {
@@ -283,7 +346,7 @@
                         }
                     }, plotOptions: {
                         pie: {
-                          customScale: 1,
+                          customScale: 1.2,
                           donut: {
                             size: '45%',
                             labels:{
@@ -291,17 +354,20 @@
                                 total:{
                                     show:true,
                                     showAlways:true,
-                                    fontWeight:600
+                                    fontWeight:600,
+                                    fontSize: '10px'
+                                    
                                 }
                             }
                           }
                         }
-                    },legend:{
+                    }
+                    ,legend:{
                         show: true,
                         position: 'left',
                         horizontalAlign: 'center',
                         fontSize: '15px',
-                        offsetY:20,
+                        offsetY:50,
                         labels:{
                             useSeriesColors:true
                         },
@@ -320,17 +386,241 @@
                         offsetY: 0,
                         floating: false,
                         style: {
-                          fontSize:  '16px',
+                          fontSize:  '14px',
                           fontWeight:  'bold',
-                          color:  '#263238',
+                          color:  '#7d8da1',
                         },
+                    },grid:{
+                        padding:{
+                            top:50 
+                        }
                     }
                 };
                 var chart = new ApexCharts(document.querySelector("#chart-2"), options);
 
                 chart.render();
             }
+            function getMonthName(monthNumber) {
+                const date = new Date();
+                date.setMonth(monthNumber - 1);
 
+                return date.toLocaleString('en-US', { month: 'long' });
+              }
+            chart3Init();
+            var char3;
+            function chart3Init(){
+                var customerData=${accountDateData} ;
+                var courseRegistrationData = ${registrationDateData};
+                var categoriesData = getArrToMonth(customerData.length);
+                
+                function getArrToMonth(nmonth){
+                    let arrData = [];
+                    for(let cindex = 1; cindex <= nmonth; cindex++){
+                        arrData.push(getMonthName(cindex));
+                    }   
+                    return arrData;
+                }
+                var options = {
+                    chart: {
+                      height: "100%",
+                      width:"100%",
+                      type: "line",
+                      stacked: false
+                    },
+                    dataLabels: {
+                      enabled: false
+                    },
+                    colors: ["#FF1654", "#247BA0"],
+                    series: [
+                      {
+                        name: "Customer",
+                        data: customerData
+                      },
+                      {
+                        name: "Course registered",
+                        data: courseRegistrationData
+                      }
+                    ],
+                    stroke: {
+                      width: [4, 4]
+                    },
+                    plotOptions: {
+                      bar: {
+                        columnWidth: "20%"
+                      }
+                    },
+                    xaxis: {
+                        categories:categoriesData
+                    },
+                    yaxis: [
+                      {
+                        axisTicks: {
+                          show: true
+                        },
+                        axisBorder: {
+                          show: true,
+                          color: "#FF1654"
+                        },
+                        labels: {
+                          style: {
+                            colors: "#FF1654"
+                          }
+                        },
+                        title: {
+                          text: "Customer",
+                          style: {
+                            color: "#FF1654"
+                          }
+                        }
+                      },
+                      {
+                        opposite: true,
+                        axisTicks: {
+                          show: true
+                        },
+                        axisBorder: {
+                          show: true,
+                          color: "#247BA0"
+                        },
+                        labels: {
+                          style: {
+                            colors: "#247BA0"
+                          }
+                        },
+                        title: {
+                          text: "Course registered",
+                          style: {
+                            color: "#247BA0"
+                          }
+                        }
+                      }
+                    ],
+                    tooltip: {
+                      shared: false,
+                      intersect: false,
+                      x: {
+                        show: true
+                      }
+                    },
+                    legend: {
+                      horizontalAlign: "left",
+                      offsetX: 40
+                    },title: {
+                        text: "CUSTOMER CHART",
+                        align: 'left',
+                        margin: 10,
+                        offsetX: 0,
+                        offsetY: 0,
+                        floating: false,
+                        style: {
+                          fontSize:  '16px',
+                          fontWeight:  'bold',
+                          color:  '#7d8da1'
+                        },
+                    }
+                  };
+                  var char3 = new ApexCharts(document.querySelector("#chart-3"), options);
+                  char3.render();
+                  $('#chart3-year-select').change(function(){
+                     $.ajax({
+                        type     : "POST",
+                        cache    : false,
+                        url      : "dashboard",
+                        data     : "action=updateChart3&chart3Year="+$(this).find(":selected").val(),
+                        success  : function(data) {
+                            var chartData = JSON.parse(data);
+                            const accArrData = JSON.parse(chartData.accountDateData);
+                            const registrationData = JSON.parse(chartData.registrationDateData);
+                            const arrMonth = getArrToMonth(accArrData.length);
+                            char3.updateOptions({
+                                    series:[{
+                                            name: 'Customer',
+                                            data: accArrData
+                                          },{
+                                            name: 'Course registered',
+                                            data: registrationData
+                                          }],
+                                    xaxis:{
+                                        categories: arrMonth
+                                    }
+                                  });
+
+                        },error: function(xhr, textStatus, errorThrown) {
+
+                        }
+                    }); 
+                  });
+            }
+            
+            chart4Init();
+            function chart4Init(){
+                 var options = {
+                    series: ${studentDateData},
+                    chart: {
+                        height: '100%',
+                        type: 'pie',
+                        toolbar: {
+                            show: true
+                        },csv: {
+                            filename: "Student_chart",
+                            columnDelimiter: ',',
+                            headerCategory: 'DayOfWeek',
+                            headerValue: 'StudentNumber',
+
+                        },
+                        svg: {
+                            filename: "course_category_chart",
+                          },
+                        png: {
+                            filename: "course_category_chart",
+                          }
+                    },
+                  labels: ["Sunday","Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+                  theme: {
+                    monochrome: {
+                      enabled: true
+                    }
+                  },grid:{
+                        padding:{
+                            top:20
+                        }
+                    },
+                  plotOptions: {
+                    pie: {
+                       customScale: 1,
+                      dataLabels: {
+                        offset: -5
+                      }
+                    }
+                  },
+                  title: {
+                    text: "STUDENT CHART",
+                        align: 'left',
+                        margin: 10,
+                        offsetX: 0,
+                        offsetY: 0,
+                        floating: false,
+                        style: {
+                          fontSize:  '14px',
+                          fontWeight:  'bold',
+                          color:  '#7d8da1',
+                        },
+                  },
+                  dataLabels: {
+                    formatter(val, opts) {
+                      const name = opts.w.globals.labels[opts.seriesIndex]
+                      return [name, val.toFixed(1) + '%']
+                    }
+                  },
+                  legend: {
+                    show: false
+                  }
+                  };
+
+                  var chart = new ApexCharts(document.querySelector("#chart-4"), options);
+                  chart.render();   
+                
+            }
         </script>
     </body>
 </html>

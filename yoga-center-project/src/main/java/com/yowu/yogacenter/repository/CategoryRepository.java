@@ -4,11 +4,13 @@
  */
 package com.yowu.yogacenter.repository;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.yowu.yogacenter.model.Category;
 import com.yowu.yogacenter.util.DBHelpler;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -53,22 +55,27 @@ public class CategoryRepository {
         }
         return list;
     }
-    public List<List<Object>> getCategoryData(){
+    public String getCategoryJson(){
         String sql = "select ct.category_name,COUNT(cs.category_id) as num from (select * from tblCourse  where course_is_active=1 ) cs join (select * from tblCategory where category_is_active=1) ct on cs.category_id=ct.category_id group by ct.category_name";
-        List<List<Object>> list = new ArrayList<>();
+        String data="";
         try(PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)){
             try(ResultSet rs = stmt.executeQuery()){
+                List<String> lst1 = new ArrayList<>();
+                List<Integer> lst2 = new ArrayList<>();
                 while(rs.next()){
-                    List<Object> ls = new ArrayList<>();
-                    ls.add(rs.getString("category_name"));
-                    ls.add(rs.getString("num"));
-                    list.add(ls);
+                    lst1.add(rs.getString("category_name"));
+                    lst2.add(rs.getInt("num"));
                 }
+                HashMap<String,Object> dataMap = new HashMap<>();
+                ObjectMapper mapper = new ObjectMapper();
+                dataMap.put("categoryName", lst1);
+                dataMap.put("categoryNum", lst2);
+                data=mapper.writeValueAsString(dataMap);
             }
         }catch(Exception e){
             System.out.println(e);
         }
-        return list;
+        return data;
     }
             
     public Category detail(int id) {

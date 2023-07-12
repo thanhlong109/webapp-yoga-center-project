@@ -43,11 +43,6 @@
                             <h4>Payment Pending</h4>
                         </div>
                         <div class="col-md-12 payment-in4">
-                        <c:if test="${sessionScope.bill == null}">
-                            <h2>Opps.</h2>
-                            <p>We'are sorry, but somthing went wrong.</p>
-                            <a href="${pageContext.request.contextPath}/">Go back to home page.</a>    
-                        </c:if>
                             <table>
                                 <tbody>
                                     <tr>
@@ -59,12 +54,12 @@
                                     <td>${sessionScope.account.email}</td>
                                 </tr>
                                 <tr>
-                                    <th>Order code:</th>
-                                    <td>${bill.ordercode}</td>
+                                    <th>Payment method:</td>
+                                    <td>${bill.method}</td>                                   
                                 </tr>
                                 <tr>
-                                    <th>Discount:</td>
-                                    <td>${bill.discount}%</td>
+                                    <th>Order code:</th>
+                                    <td>${bill.ordercode}</td>
                                 </tr>
                                 <tr>
                                     <th>Amount paid:</th>
@@ -83,17 +78,12 @@
                         <table>
                             <tbody>
                                 <tr>
-                                    <th>Payment product:</td>
+                                    <th>Payment product:</th>
                                     <td>${bill.course.title}</td>
                                 </tr>
-                                <tr>
-                                    <th>Payment type:</td>
-                                    <td>In Studio</td>
-                                </tr>
-                                <tr>
-                                    <th>Payment date:</th>
-                                    <td>${bill.date}</td>
-                                </tr>
+                            <th>Payment date:</td>
+                            <td>${bill.date}</td>
+                            </tr>
                             </tbody>
                         </table>
                         <div class="thanks">
@@ -109,17 +99,22 @@
                 </div>
             </div>
         </div>
-
+        <% 
+            session.removeAttribute("billCourse");
+            session.removeAttribute("PAYMENT");
+            session.removeAttribute("RegistrationMembership");
+            session.removeAttribute("bill");
+        %>
         <jsp:include page="../Component/footer.jsp"></jsp:include>
-        <script>
-            setInterval(function () {
-                var div = document.querySelector("#counter");
-                var count = div.textContent * 1 - 1;
-                div.textContent = count;
-                if (count <= 0) {
-                    window.location.replace("${pageContext.request.contextPath}/");
-                }
-            }, 1000);
+            <script>
+                setInterval(function () {
+                    var div = document.querySelector("#counter");
+                    var count = div.textContent * 1 - 1;
+                    div.textContent = count;
+                    if (count <= 0) {
+                        window.location.replace("${pageContext.request.contextPath}/");
+                    }
+                }, 1000);
         </script>
     </body>
 

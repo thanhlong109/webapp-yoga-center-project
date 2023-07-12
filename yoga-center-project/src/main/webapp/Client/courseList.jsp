@@ -431,7 +431,7 @@
             }
             .text-ellipsis {
                 display: -webkit-box;
-                -webkit-line-clamp: 4; /* Limit the text to 1 lines */
+                -webkit-line-clamp: 3; /* Limit the text to 1 lines */
                 -webkit-box-orient: vertical;
                 overflow: hidden;
                 text-overflow: ellipsis; /* Add "..." at the end of the 1 line */

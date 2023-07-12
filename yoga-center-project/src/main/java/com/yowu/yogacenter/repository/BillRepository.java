@@ -4,6 +4,7 @@
  */
 package com.yowu.yogacenter.repository;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.yowu.yogacenter.model.Bill;
 import com.yowu.yogacenter.util.DBHelpler;
 import java.sql.PreparedStatement;
@@ -52,9 +53,10 @@ public class BillRepository {
         return list;
     }
     
-    public List<List<Object>> getBillData(){
+    public String getBillJson(){
         String sql = "select bill_date, SUM(bill_value)as bill_value from tblBill where bill_status="+Bill.BillStatus.COMPLETED.ordinal()+" group by  bill_date order by bill_date asc";
         List<List<Object>> list = new ArrayList();
+        String data = "";
         try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
             try ( ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
@@ -64,11 +66,13 @@ public class BillRepository {
                     row.add(rs.getFloat("bill_value"));
                     list.add(row);
                 }
+                ObjectMapper mapper = new ObjectMapper();
+                data = mapper.writeValueAsString(list);
             }
         }catch (Exception e) {
             System.out.println(e);
         }
-        return list;
+        return data;
     }
         
     public List<Bill> getByAccountID(int accountId) {
@@ -353,10 +357,7 @@ public class BillRepository {
 
     public static void main(String[] args) {
         BillRepository b = new BillRepository();
-        List<List<Object>> list = b.getBillData();
-        for(int i=0;i<list.size();i++){
-            System.out.println("d:"+list.get(i).get(0)+", b:"+list.get(i).get(1));
-        }
+        
     }
 
 }

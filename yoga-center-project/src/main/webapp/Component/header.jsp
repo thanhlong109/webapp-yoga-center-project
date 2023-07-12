@@ -7,6 +7,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="jakarta.tags.core" %>
 <%@taglib prefix="fn" uri="jakarta.tags.functions" %>
+<%@page import="com.yowu.yogacenter.model.Role" %>
 
 <!-- Start Header -->
 <div class="header-wrapper">
@@ -18,33 +19,18 @@
             <ul class="nav">
                 <i class="fa-solid fa-x closebtn"></i>
                 <li class="js-home"><a href="${pageContext.request.contextPath}">Home</a></li>
-                <li class="js-about"><a href="#">About Us</a></li>
+                <li class="js-about"><a href="${pageContext.request.contextPath}/about">About Us</a></li>
                 <li class="js-course">
                     <a href="${pageContext.request.contextPath}/courses">Course</a>
-                    <i class="fa-solid fa-chevron-right subnavbtn pc-hide"></i>
-                    <ul class="subnav">
-                        <i class="fa-solid fa-x closebtn"></i>
-                        <li><a href="#">About1</a></li>
-                        <li><a href="#">About2</a></li>
-                        <li><a href="#">About3</a></li>
-                        <li><a href="#">About4</a></li>
-                        <li><a href="#">About5</a></li>  
-                    </ul>
                 </li>
                 <li class="js-membership"><a href="${pageContext.request.contextPath}/Membership">Membership</a></li>
                 <li class="js-blog">
                     <a href="${pageContext.request.contextPath}/blogs">Blog</a>
-                    <i class="fa-solid fa-chevron-right subnavbtn pc-hide"></i>
-                    <ul class="subnav">
-                        <i class="fa-solid fa-x closebtn"></i>
-                        <li class="active"><a href="#">About1</a></li>
-                        <li><a href="#">About2</a></li>
-                        <li><a href="#">About3</a></li>
-                        <li><a href="#">About4</a></li>
-                        <li><a href="#">About5</a></li>  
-                    </ul>
                 </li>
                 <li class="js-schedule"><a href="${pageContext.request.contextPath}/Timetable">Schedule</a></li>
+                <c:if test="${sessionScope.account != null && sessionScope.account.id==3}">
+                    <li><a href="${pageContext.request.contextPath}/admin/dashboard">Dashboard</a></li>
+                </c:if>
             </ul>
 
             <div class="user-btn">
@@ -146,6 +132,10 @@
         }
         case '/Membership':{
             $('.js-membership').addClass('active');
+            break;
+        }
+        case '/about':{
+            $('.js-about').addClass('active');
             break;
         }
 

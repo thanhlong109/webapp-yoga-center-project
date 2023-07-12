@@ -132,6 +132,7 @@
                font-weight: 600;
                font-size: 14px;
                color: white;
+               text-transform: capitalize;
            }
            .status-completed{
                background-color: rgb(75, 192, 192);
@@ -285,7 +286,7 @@
                                     </tr>
                                     <c:forEach items="${billList}" var="bill">
                                         <tr>
-                                            <c:set var="status" value="${Bill.getEnumIndex(bill.status).name().toLowerCase()}" />
+                                            <c:set var="status"  value="${Bill.getEnumIndex(bill.status).name().toLowerCase()}" />
                                             <td>${bill.id}</td>
                                             <td>$${bill.value}</td>
                                             <td><span class="status status-${status}">${status}</span></td>

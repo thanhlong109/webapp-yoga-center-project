@@ -27,7 +27,7 @@ public class LoginGoogleController extends HttpServlet {
 
     private final String LOGIN_PAGE = "Client/login_register.jsp";
     private final String HOME_PAGE = "home";
-    private final String ADMIN_PAGE = "";
+    private final String ADMIN_PAGE = "admin/dashboard";
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -67,8 +67,14 @@ public class LoginGoogleController extends HttpServlet {
                 session.setAttribute("account", loginUser);
                 Role role = loginUser.getRole();
                 if (Role.RoleList.ADMIN.ordinal() == role.getId()) {
-                    url = ADMIN_PAGE;
-                    request.getRequestDispatcher(url).forward(request, response);
+                    if (current != null && !current.isEmpty()) {
+                        url = current; // Quay lại trang trước đó
+                        session.removeAttribute("currentPage"); // Xóa thuộc tính currentPage khỏi session
+                        response.sendRedirect(request.getContextPath() + url);
+                    }else{
+                        response.sendRedirect(ADMIN_PAGE);
+                    }
+                    
                 } else if (Role.RoleList.TRAINEE.ordinal() == role.getId() || Role.RoleList.TRAINER.ordinal() == role.getId()) {
                     if (current != null && !current.isEmpty()) {
                         url = current; // Quay lại trang trước đó
