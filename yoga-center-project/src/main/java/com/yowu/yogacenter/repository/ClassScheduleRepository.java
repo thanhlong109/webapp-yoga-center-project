@@ -46,7 +46,7 @@ public class ClassScheduleRepository {
     }
     
     public List<ClassSchedule> getScheduleBetweenDateByAccount(Date startDate,Date endDate, int accountId) {
-        String sql = "select * from (select * from tblClassSchedule where class_date between ? and ?) cs join (select registration_id from tblRegistrationCourse where account_id=? ) rc on cs.registration_id=rc.registration_id order by class_date asc , slot_start_time asc ";
+        String sql = "select * from (select * from tblClassSchedule where class_date between ? and ?) cs join (select registration_id from tblRegistrationCourse where account_id=? and registration_status=1 ) rc on cs.registration_id=rc.registration_id order by class_date asc , slot_start_time asc ";
         List<ClassSchedule> list = new ArrayList<>();
         try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
             stmt.setDate(1, startDate);

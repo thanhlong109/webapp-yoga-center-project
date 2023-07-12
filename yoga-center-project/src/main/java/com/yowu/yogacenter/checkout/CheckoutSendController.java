@@ -6,6 +6,7 @@ package com.yowu.yogacenter.checkout;
 
 import com.yowu.yogacenter.model.Account;
 import com.yowu.yogacenter.model.Bill;
+import com.yowu.yogacenter.model.BillMembership;
 import com.yowu.yogacenter.model.ClassSchedule;
 import com.yowu.yogacenter.model.Course;
 import com.yowu.yogacenter.model.CourseSchedule;
@@ -13,6 +14,7 @@ import com.yowu.yogacenter.model.Membership;
 import com.yowu.yogacenter.model.RegistrationCourse;
 import com.yowu.yogacenter.model.RegistrationMembership;
 import com.yowu.yogacenter.repository.AccountRepository;
+import com.yowu.yogacenter.repository.BillMembershipRepository;
 import com.yowu.yogacenter.repository.BillRepository;
 import com.yowu.yogacenter.repository.ClassScheduleRepository;
 import com.yowu.yogacenter.repository.CourseRepository;
@@ -64,6 +66,7 @@ public class CheckoutSendController extends HttpServlet {
         String orderCode = Config.getRandomNumber(6);
         float total = 0;
         Bill order = null;
+        BillMembership orderMem = null;
         long millis = System.currentTimeMillis();
         java.sql.Date date = new java.sql.Date(millis);
         Account acc = (Account) request.getSession().getAttribute("account");
@@ -72,25 +75,36 @@ public class CheckoutSendController extends HttpServlet {
             RegistrationMembership regisMember = (RegistrationMembership) request.getSession().getAttribute("RegistrationMembership");
 
             if (regisMember != null) {
+                int memId = Integer.parseInt(request.getParameter("memId"));
+                
                 MembershipRepository msr = new MembershipRepository();
                 Membership accountMembership = msr.discountByAccountID(acc.getId());
-                int status = 1;
-                total = regisMember.getMembership().getPrice();
-                order = new Bill();
-                order.setMethod(method);
-                order.setPaymentDate(date);
+                Membership mb = msr.detail(memId);
+                int status = 2;
+                boolean isActive = false;
+                total = Float.parseFloat(request.getParameter("total"));
                 int discount = 0;
-                if (accountMembership != null) {
-                    discount = accountMembership.getDiscount();
-                }
-                order.setDiscount(discount);
-                order.setOrdercode(orderCode);
-                order.setValue(total);
-                order.setStatus(status);
-                order.setAccount(acc);
-                HttpSession session = request.getSession();
-                session.setAttribute("billCourse", order);
-                System.out.println("By member ship");
+                //(Membership membership, Account account, int status, boolean isActive, float value, int discount, Date date, String ordercode, String method, Date paymentDate)
+                orderMem = new BillMembership(mb, acc, status, isActive, total, discount, date, orderCode, method);
+                BillMembershipRepository billMemRepo = new BillMembershipRepository();
+                billMemRepo.add(orderMem);
+//                int status = 1;
+//                total = regisMember.getMembership().getPrice();
+//                order = new Bill();
+//                order.setMethod(method);
+//                order.setPaymentDate(date);
+//                int discount = 0;
+//                if (accountMembership != null) {
+//                    discount = accountMembership.getDiscount();
+//                }
+//                order.setDiscount(discount);
+//                order.setOrdercode(orderCode);
+//                order.setValue(total);
+//                order.setStatus(status);
+//                order.setAccount(acc);
+//                HttpSession session = request.getSession();
+//                session.setAttribute("billCourse", order);
+//                System.out.println("By member ship");
             } else {
                 int courseId = Integer.parseInt(request.getParameter("id"));
                 CourseRepository cr = new CourseRepository();
@@ -202,6 +216,18 @@ public class CheckoutSendController extends HttpServlet {
 //            url = SUCCESS;
             if (method.equals("STUDIO")) {
                 url = PENDING_CHECKOUT;
+                int courseId = Integer.parseInt(request.getParameter("id"));
+                CourseRepository cr = new CourseRepository();
+                Course c = cr.detail(courseId);
+                int status = 2;
+                boolean isActive = true;
+                total = Float.parseFloat(request.getParameter("total"));
+                int discount = 0;
+                String sDiscount = request.getParameter("discountTotal");
+                if (!sDiscount.isEmpty()) {
+                    discount = Integer.parseInt(sDiscount);
+                }
+                order = new Bill(c, acc, status, isActive, total, discount, date, orderCode, method);
                 HttpSession session = request.getSession();
                 session.setAttribute("bill", order);
                 request.getRequestDispatcher(url).forward(request, response);

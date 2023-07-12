@@ -34,53 +34,58 @@
                         <button id="menu-btn">
                             <span class="material-symbols-sharp">menu</span>
                         </button>
-                        <form action="" id="search-box">
-                            <input type="text" id="search-text" placeholder="Search anything you want" required>
-                            <button id="btnSearch"><i class="fa-solid fa-magnifying-glass"></i></button>
-                        </form>
-                        <div class="profile">
-                            <div class="info">
-                                <p>Hey, <b>Admin</b></p>
-                                <small class="text-muted">Admin</small>
-                            </div>
-                            <div class="profile-photo">
-                                <img src="../Asset/img/avatar/hinh-avatar-1.png" alt="">
-                            </div>
+                        <form action="searchCourseScheduleController" id="search-box">
+                            <input type="text" name="txtSearch" id="search-text" placeholder="Search by Course ID" required>
+                        <button type="submit" id="btnSearch">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </button>
+                    </form>
+                    <div class="profile">
+                        <div class="info">
+                            <p>Hey, <b>Admin</b></p>
+                            <small class="text-muted">Admin</small>
+                        </div>
+                        <div class="profile-photo">
+                            <img src="../Asset/img/avatar/hinh-avatar-1.png" alt="">
                         </div>
                     </div>
-                    <div class="container__wrapper-box">
-                        <div class="wrapper-box">
-                            <table class="table-style-1">
-                                <tr>
-                                    <th>Course Schedule ID</th>
-                                    <th>Course ID</th>
-                                    <th>Date of Week</th>
-                                    <th>Start Time</th>
-                                    <th>End Time</th>
-                                    <th>Actions</th>
-                                </tr>
+                </div>
+                <div class="container__wrapper-box">
+                    <div class="wrapper-box">
+                        <table class="table-style-1">
+                            <tr>
+                                <th>Course Schedule ID</th>
+                                <th>Course ID</th>
+                                <th>Date of Week</th>
+                                <th>Start Time</th>
+                                <th>End Time</th>
+                                <th>Actions</th>
+                            </tr>
                             <c:forEach items="${COURSE_TIME_LIST}" var="courseTime">
                                 <c:if test="${courseTime.isActive == true}">
                                     <tr>
                                         <td>
-                                            ${courseTime.id}
+                                            <c:out value="${courseTime.id}"/>
                                         </td>
                                         <td>
-                                            ${courseTime.course.id}
+                                            <c:out value="${courseTime.course.id}"/>
+                                        </td>
+                                        <td>                                           
+                                            <c:out value="${courseTime.dateToString()}"/>
+                                        </td>
+                                        <td>                                           
+                                            <c:out value="${courseTime.startTime}"/>
                                         </td>
                                         <td>
-                                            ${courseTime.dateToString()}
-                                        </td>
-                                        <td>
-                                            ${courseTime.startTime}
-                                        </td>
-                                        <td>
-                                            ${courseTime.endTime}
+                                            <c:out value="${courseTime.endTime}"/>                                           
                                         </td>                                                 
                                         <td>
-                                            <a class="btn btn-red" href="#delete">Delete</a> 
-                                            <a class="btn btn-green" href="updateCourseTimeController?id=${courseTime.id}">
-                                                Edit</a> 
+                                            <a class="btn btn-red" href="deleteCourseScheduleController?id=${courseTime.id}">
+                                                Delete
+                                            </a> 
+                                            <a class="btn btn-green" href="updateCourseScheduleController?id=${courseTime.id}">
+                                                Edit
+                                            </a> 
                                         </td>
                                     </tr>
                                 </c:if>

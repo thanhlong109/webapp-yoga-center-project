@@ -54,12 +54,19 @@
                                     <td>${sessionScope.account.email}</td>
                                 </tr>
                                 <tr>
+                                    <th>Payment method:</td>
+                                        <c:if test="${sessionScope.billCourseC != null}">
+                                            <td>${sessionScope.billCourseC.method}</td>
+                                        </c:if>
+                                    
+                                </tr>
+                                <tr>
                                     <th>Order code:</th>
                                     <td>${PAYMENT.vnp_TxnRef}</td>
                                 </tr>
                                 <tr>
                                     <th>Amount paid:</th>
-                                    <td class="amout">$${sessionScope.billCourse.value}</td>
+                                    <td class="amout">$${sessionScope.billCourseC.value}</td>
                                 </tr>
                                 
                             </tbody>
@@ -75,7 +82,10 @@
                             <tbody>
                                 <tr>
                                     <th>Payment product:</th>
-                                    <td>${sessionScope.billCourse.course.title}</td>
+                                    <c:if test="${sessionScope.billCourseC.course != null}">
+                                        <td>${sessionScope.billCourseC.course.title}</td>
+                                    </c:if>
+                                    
                                 </tr>
                                 <tr>
                                     <th>Bank code:</td>
@@ -87,12 +97,12 @@
                                 </tr>
                                 <tr>
                                     <th>Payment date:</td>
-                                    <td>${sessionScope.billCourse.paymentDate}</td>
+                                    <td>${sessionScope.billCourseC.paymentDate}</td>
                                 </tr>
                             </tbody>
                         </table>
                         <div class="thanks">
-                            <p>Thank you for chossing us.</p>
+                            <p>Thank you for choosing us.</p>
                             <p>See you again!</p>
                         </div>
                         <div class="payment-footer">
@@ -103,7 +113,12 @@
                 </div>
             </div>
         </div>
-
+        <% 
+            session.removeAttribute("billCourse");
+            session.removeAttribute("PAYMENT");
+            session.removeAttribute("RegistrationMembership");
+            session.removeAttribute("bill");
+        %>
         <jsp:include page="../Component/footer.jsp"></jsp:include>
         <script>
             setInterval(function () {

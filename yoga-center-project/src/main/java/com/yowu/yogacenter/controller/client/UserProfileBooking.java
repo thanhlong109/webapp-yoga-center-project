@@ -95,6 +95,10 @@ public class UserProfileBooking extends HttpServlet {
                 + "</span>\n" +
 "                                </div>\n" +
 "                                <div>\n" +
+"                                    <label>Order code:</label><span>"+b.getOrdercode()
+                + "</span>\n" +
+"                                </div>\n" +
+"                                <div>\n" +
 "                                    <label>Date:</label><span>"+b.getDate()
                 + "</span>\n" +
 "                                </div> <div onclick=\"backf()\" class=\"backbtn\"><i class=\"fa fa-caret-left\" aria-hidden=\"true\"></i> <span>Back</span></div>";

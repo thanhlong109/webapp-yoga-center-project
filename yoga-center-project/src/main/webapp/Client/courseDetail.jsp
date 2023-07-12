@@ -457,29 +457,15 @@
                             </div> <!--replace price here-->
                         </div>
                         <div  class="course-card book1">
-
-                        <c:if test="${sessionScope.account == null}">
-
-                            <c:if test="${course.price>0}">
-                                <a class="book-course" href='<c:url value="/login" />'>
-                                    <p>Book now</p>
-                                </a>
-                            </c:if>
-                            <c:if test="${course.price<=0}">
-                                <a class="book-course" href='<c:url value="/login" />'>
-                                    <p>Errol</p> 
-                                </a>
-                            </c:if>
-                        </c:if>
-                        <c:if test="${sessionScope.account != null && billStatus != 2}">
+                        <c:if test="${billStatus != 2}">
                             <c:if test="${course.price>0}">
                                 <a class="book-course" onclick="gotoCheckout('Checkout?id=${course.id}&action=course')" class="course-card">
                                     <p>Book now</p>
                                 </a>
                             </c:if>   
                             <c:if test="${course.price<=0}">
-                                <a class="book-course" href="">
-                                    <p>Errol</p> 
+                                <a class="book-course" onclick="gotoCheckout('Checkout?id=${course.id}&action=course')" class="course-card">
+                                    <p>Errol</p>
                                 </a>
                             </c:if>
                         </c:if>

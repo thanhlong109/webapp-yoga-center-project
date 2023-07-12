@@ -57,6 +57,10 @@ public class CourseFilterController extends HttpServlet {
         request.setAttribute("categoryList", categoryRepo.getAllActive());
         request.setAttribute("courseList", courseList);  
         request.setAttribute("categorySelected", categoryID);
+        int itemPerPage = 4;
+        int numpage = (int) Math.ceil(courseList.size() / (double) itemPerPage);
+        request.setAttribute("numpage", numpage);
+        request.setAttribute("itemPerPage", itemPerPage);
         request.getRequestDispatcher(COURSE_LIST_PAGE).forward(request, response);
     }
 

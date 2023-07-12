@@ -62,7 +62,7 @@
                             <input type="hidden" id="course_scheduleId" name="course_scheduleId" value="">
                             <input type="hidden" id="memId" name="memId" value="">
                             <input type="hidden" id="durationMem" name="durationMem" value="">
-                            
+
                             <!-- form-left -->
                             <div class="container__element-left">
                                 <div class="element__checkout-account-login ">
@@ -76,42 +76,66 @@
                                 <textarea name="order__comment" id="order__comment" rows="3"
                                           placeholder="Note to administrator" spellcheck="false"></textarea>
                             </div>
-                            <div class="element__checkout-payment">
-                                <div class="checkout__payment-title">
-                                    <h4>Payment</h4>
-                                    <span>
-                                        <!-- Nhúng icon ổ khóa -->
-                                        <i class="fas fa-lock"></i>
-                                        Secure Connection
-                                    </span>
-                                </div>
-                                <ul class="element__checkout-method">
-                                    <li class="element__checkout-method-paypal">
-                                        <input type="radio" name="payment-method" value="VNPAY">
-                                        <img src="Asset/img/checkout/vnpay.png" alt="">
-                                        <span class="checkout-method">VnPay</span>
-                                    </li>
-                                    <li class="element__checkout-method-offline__payment">
-                                        <input type="radio" name="payment-method" value="STUDIO">
-                                        <img src="Asset/img/checkout/pngwing.com.png" alt="">
-                                        <span class="checkout-method">Studio</span>
-                                    </li>
-                                </ul>
+                            <c:if test="${course.price != 0}">
+                                <div class="element__checkout-payment">
+                                    <div class="checkout__payment-title">
+                                        <h4>Payment</h4>
+                                        <span>
+                                            <!-- Nhúng icon ổ khóa -->
+                                            <i class="fas fa-lock"></i>
+                                            Secure Connection
+                                        </span>
+                                    </div>
+                                    <ul class="element__checkout-method">
+                                        <li class="element__checkout-method-paypal">
+                                            <input type="radio" name="payment-method" value="VNPAY">
+                                            <img src="Asset/img/checkout/vnpay.png" alt="">
+                                            <span class="checkout-method">VnPay</span>
+                                        </li>
+                                        <li class="element__checkout-method-offline__payment">
+                                            <input type="radio" name="payment-method" value="STUDIO">
+                                            <img src="Asset/img/checkout/pngwing.com.png" alt="">
+                                            <span class="checkout-method">Studio</span>
+                                        </li>
+                                    </ul>
 
-                                <input id="duration" name="duration" value="" type="hidden">
-                                <input id="startTime" name="startTime" value="" type="hidden">
+                                    <input id="duration" name="duration" value="" type="hidden">
+                                    <input id="startTime" name="startTime" value="" type="hidden">
 
-                                <div class="element__checkout-button">
-                                    <button type="submit" name="btnPlaceOrder">Place Order</button>
+                                    <div class="element__checkout-button">
+                                        <button type="submit" name="btnPlaceOrder">Place Order</button>
+                                    </div>
                                 </div>
-                            </div>
+                            </c:if>
+                            
+                            <c:if test="${course.price == 0}">
+                                <div class="element__checkout-payment">
+                                    <div class="checkout__payment-title">
+                                        <h4>Welcome to yowu</h4>
+                                        <span>
+                                            <!-- Nhúng icon ổ khóa -->
+                                            <i class="fas fa-lock"></i>
+                                            Secure Connection
+                                        </span>
+                                    </div>
+
+                                    <input id="duration" name="duration" value="" type="hidden">
+                                    <input id="startTime" name="startTime" value="" type="hidden">
+
+                                    <div class="element__checkout-button">
+                                        <button type="submit" name="btnPlaceOrder">Enroll course</button>
+                                        <input type="hidden" name="payment-method" value="Free">
+                                    </div>
+                                </div>
+                            </c:if>
+
                             <p class="checkout__element-condition">
 
                                 By completing your purchase you agree to those
                                 <a href="">Term Conditions</a>
                             </p>
                         </div>
-                        <c:if test="${course != null}" >
+                        <c:if test="${course != null }" >
                             <!-- form-checkout with course -->
                             <div class="container__element-right">
                                 <h4>Your Order</h4>
@@ -176,12 +200,12 @@
                                                 <th class="title-content">Start date</th>
                                                 <th class="title-price" >${startdate} </th>
                                             </tr>
-                                            
+
                                             <tr class="table-title">
                                                 <th class="title-content">End date</th>
                                                 <th class="title-price" >${enddate}</th>
                                             </tr>
-                                            
+
                                             <tr class="table-title">
                                                 <th class="title-price" style="color: #a2a2a2">${member.description}</th>
                                             </tr>

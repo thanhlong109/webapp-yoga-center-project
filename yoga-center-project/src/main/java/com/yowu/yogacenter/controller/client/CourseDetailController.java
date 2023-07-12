@@ -36,8 +36,6 @@ public class CourseDetailController extends HttpServlet {
             throws ServletException, IOException {
         try{
             int id = Integer.parseInt(request.getParameter("id"));
-            HttpSession session = request.getSession();
-            session.setAttribute("currentPage", "/course-detail?id="+id);
             CourseRepository cr = new CourseRepository();
             CourseScheduleRepository sc = new CourseScheduleRepository();
             RatingCourseRepository  ratec = new RatingCourseRepository();
@@ -59,7 +57,6 @@ public class CourseDetailController extends HttpServlet {
             }
             if(billStatus!=null){
                 int status = billStatus.getStatus();
-                
                 request.setAttribute("billStatus", status);
                 System.out.println(status);
             }

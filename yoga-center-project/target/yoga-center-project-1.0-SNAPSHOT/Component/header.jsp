@@ -31,7 +31,7 @@
                         <li><a href="#">About5</a></li>  
                     </ul>
                 </li>
-                <li><a href="${pageContext.request.contextPath}/Membership">Membership</a></li>
+                <li class="js-membership"><a href="${pageContext.request.contextPath}/Membership">Membership</a></li>
                 <li class="js-blog">
                     <a href="${pageContext.request.contextPath}/blogs">Blog</a>
                     <i class="fa-solid fa-chevron-right subnavbtn pc-hide"></i>
@@ -142,6 +142,10 @@
         case '/Timetable':
         {
             $('.js-schedule').addClass('active');
+            break;
+        }
+        case '/Membership':{
+            $('.js-membership').addClass('active');
             break;
         }
 

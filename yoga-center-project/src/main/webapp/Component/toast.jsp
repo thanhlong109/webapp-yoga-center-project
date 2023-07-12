@@ -22,7 +22,7 @@
                 z-index: 99999;
             }
 
-            .toast{
+            .toast2{
                 display: flex;
                 align-items: center;
                 border-radius: 2px;
@@ -34,7 +34,7 @@
                 transition: all ease .3s;
                 background-color: #fff;
             }
-            .toast + .toast{
+            .toast2 + .toast2{
                 margin-top: 8px;
             }
             .toast__icon{
@@ -119,7 +119,7 @@
                     right: 10px;
                     
                 }
-                .toast{
+                .toast2{
                     min-width: 100px;
                     max-width: 350px;
                     padding: 0;
@@ -162,7 +162,7 @@
                 //get icon by type
                 const icon = icons[type];
                 const delay = (duration/1000).toFixed(2);// set time display toast
-                toast.classList.add('toast');
+                toast.classList.add('toast2');
                 toast.classList.add("toast--"+type);
                 toast.style.animation = "slideIn cubic-bezier(0.47, 0, 0.745, 0.715) 0.65s, fadeOut linear 1s "+delay+"s forwards";
                 toast.innerHTML = `
