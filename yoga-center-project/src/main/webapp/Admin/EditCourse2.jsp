@@ -25,6 +25,30 @@
         <link rel="stylesheet" href="../Asset/css/dashboard_2.css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
         <script src="../js/cdnjs.cloudflare.com_ajax_libs_Chart.js_2.4.0_Chart.min.js"></script>
+        <style>
+            .alert {
+                padding: 20px;
+                background-color: #f44336;
+                color: white;
+                opacity: 1;
+                transition: opacity 0.6s; /* 600ms to fade out */
+            }
+
+            .closebtn {
+                margin-left: 15px;
+                color: white;
+                font-weight: bold;
+                float: right;
+                font-size: 22px;
+                line-height: 20px;
+                cursor: pointer;
+                transition: 0.3s;
+            }
+
+            .closebtn:hover {
+                color: black;
+            }
+        </style>
     </head>
     <body>
         <div class="container">
@@ -100,6 +124,34 @@
                             <input type="text" name="txtPrice" value="${COURSE.price}">
                             <label for="">Price</label>
                         </div>
+                        <c:if test="${UPDATE_COURSE_ERROR != null}">
+                            <c:choose>
+                                <c:when test="${UPDATE_COURSE_ERROR.courseTitleLengthError != null}">
+                                    <div class="alert">
+                                        <span class="closebtn" onclick="this.parentElement.style.display = 'none';">&times;</span> 
+                                        <strong>Warning!</strong> ${UPDATE_COURSE_ERROR.courseTitleLengthError}
+                                    </div>
+                                </c:when>
+                                <c:when test="${UPDATE_COURSE_ERROR.courseDurationError != null}">
+                                    <div class="alert">
+                                        <span class="closebtn" onclick="this.parentElement.style.display = 'none';">&times;</span> 
+                                        <strong>Warning!</strong> ${UPDATE_COURSE_ERROR.courseDurationError}
+                                    </div>
+                                </c:when>
+                                <c:when test="${UPDATE_COURSE_ERROR.coursePriceError != null}">
+                                    <div class="alert">
+                                        <span class="closebtn" onclick="this.parentElement.style.display = 'none';">&times;</span> 
+                                        <strong>Warning!</strong> ${UPDATE_COURSE_ERROR.coursePriceError}
+                                    </div>
+                                </c:when>
+                                <c:when test="${UPDATE_COURSE_ERROR.error != null}">
+                                    <div class="alert">
+                                        <span class="closebtn" onclick="this.parentElement.style.display = 'none';">&times;</span> 
+                                        <strong>Warning!</strong> ${UPDATE_COURSE_ERROR.error}
+                                    </div>
+                                </c:when>
+                            </c:choose>
+                        </c:if>
                         <div class="input__button">
                             <button type="submit" value="Add" id="btn__Add">Update</button>
                             <button type="reset" value="Reset" id="btn__Reset" onclick="loadDefault()">Refresh</button>
@@ -128,6 +180,18 @@
             var loadDefault = function () {
                 document.getElementById("output").setAttribute("src", "../Asset/img/classes/${COURSE.img}");
             };
+            var close = document.getElementsByClassName("closebtn");
+            var i;
+
+            for (i = 0; i < close.length; i++) {
+                close[i].onclick = function () {
+                    var div = this.parentElement;
+                    div.style.opacity = "0";
+                    setTimeout(function () {
+                        div.style.display = "none";
+                    }, 600);
+                };
+            }
         </script>
     </body>
 </html>
