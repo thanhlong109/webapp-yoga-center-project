@@ -56,7 +56,7 @@ body {
     margin: 0 auto;
     gap: 1.8rem;
     /*chỉ định kích thước giữa các hàng và cột*/
-    grid-template-columns: 18rem auto;
+    grid-template-columns: 20rem auto;
     /*định nghĩa số column trên 1 row của 
     grid-layout ---Với TH này left_side_bar = 20rem
                                main = auto */
@@ -133,8 +133,24 @@ p {
 /* aside */
 aside {
     height: 100vh;
-    
+    position: relative;
+   
 }
+aside > span{
+    height: 2.4rem;
+    width: 2.4rem;
+    padding: 0.3rem;
+    border-radius: 50%;
+    background: var(--color-primary);
+    color: var(--color-white);
+    position: absolute;
+    top: 2.5%;
+    right: -10px;
+}
+/* .sidebar__wrapper.close{
+    grid-template-columns: 1fr;
+    
+} */
 
 aside .top {
     
@@ -161,9 +177,10 @@ aside .sidebar {
     
     display: flex;
     flex-direction: column;
-    height: 96vh;
+    height: 100vh;
     position: relative;
     top: 3rem;
+    
 }
 aside h3 {
     font-weight: 500;
@@ -229,7 +246,7 @@ main{
 main .top{
     display: flex;
     justify-content: end;
-    gap: 2rem;
+    gap: 10rem;
 }
 main .top button#menu-btn{
     display: none;
@@ -244,25 +261,27 @@ main .top .profile{
  #search-box{
     background: var(--color-white);
     border-radius: var(--border-radius-2);
-    
+    position: relative;
 }
 #search-box #search-text{
     border: none;
     outline: none;
     background: none;
     font-size: 1.2rem;
-    padding: 0;
-    width: 0;
+    padding: 10px 0px 10px 15px;
+    width: 700px;
     transition: all 0.25s ease-in-out;
 }
-#search-box:hover #search-text, #search-box #search-text:valid{
+/* #search-box:hover #search-text, #search-box #search-text:valid{
     width: 300px;
     padding: 10px 0 10px 15px;
-}
+} */
 #search-box #btnSearch{
     background: var(--color-white);
     border: none;
-    
+    position: absolute;
+    top: 0;
+    right: 0;
     cursor: pointer;
     border-radius: 50%;
     font-size: 1.2rem;

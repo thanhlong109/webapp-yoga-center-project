@@ -28,100 +28,104 @@
     <div class="container">
         <!-- LEFT SIDE-BAR -->
         <aside>
-            <div class="top">
-                <div class="logo">
-                    <a href="#">YOWU.</a>
+            <!-- <span class="material-symbols-sharp">page_info </span> -->
+            <div class="sidebar__wrapper">
+                <div class="top">
+                    <div class="logo">
+                        <a href="#">YOWU.</a>
+                    </div>
+                    <div class="close" id="close-btn">
+                        <span class="material-symbols-sharp">
+                            close
+                        </span>
+                    </div>
                 </div>
-                <div class="close" id="close-btn">
-                    <span class="material-symbols-sharp">
-                        close
-                    </span>
+                <div class="sidebar">
+                    <div class="sidebar-elements">
+                        <a href="#">
+                            <span class="material-symbols-sharp"> home</span>
+                            <h3>Home</h3>
+                        </a>
+                    </div>
+                    <div class="sidebar-elements">
+                        <a href="#" class="active">
+                            <span class="material-symbols-sharp">grid_view </span>
+                            <h3>Dashboard</h3>
+                        </a>
+                    </div>
+                    <div class="sidebar-elements">
+                        <a href="#" class="course-btn">
+                            <span class="material-symbols-sharp">menu_book </span>
+                            <h3>Course</h3>
+                        </a>
+                        <ul class="sub-item" id="subItem">
+                            <li><a href="#">Add Category Course</a></li>
+                            <li><a href="#">Edit Category Course</a></li>
+                            <li><a href="#">Add New Course</a></li>
+                            <li><a href="#">Edit Course</a></li>
+                            <li><a href="#">Add course time</a></li>
+                            <li><a href="#">Edit Course time</a></li>
+                        </ul>
+                    </div>
+                    <div class="sidebar-elements">
+                        <a href="#">
+                            <span class="material-symbols-sharp">payments</span>
+                            <h3>Bill</h3>
+                        </a>
+                        <ul class="sub-item" id="subItem">
+                            <li><a href="#">Bill Analytics</a></li>
+                            <li><a href="#">View Bill Details</a></li>
+                        </ul>
+                    </div>
+                    <div class="sidebar-elements">
+                        <a href="#">
+                            <span class="material-symbols-sharp">newspaper</span>
+                            <h3>Blog</h3>
+                        </a>
+                        <ul class="sub-item" id="subItem">
+                            <li><a href="#">Blog Analytics</a></li>
+                        </ul>
+                    </div>
+                    <div class="sidebar-elements">
+                        <a href="#">
+                            <span class="material-symbols-sharp">person</span>
+                            <h3>Account</h3>
+                        </a>
+                        <ul class="sub-item" id="subItem">
+                            <li><a href="#">Account Analytics</a></li>
+                            <li><a href="#">Add New Account</a></li>
+                            <li><a href="#">Edit Account</a></li>
+                        </ul>
+                    </div>
+                    <div class="sidebar-elements">
+                        <a href="#">
+                            <span class="material-symbols-sharp">calendar_today</span>
+                            <h3>Schedule</h3>
+                        </a>
+                        <ul class="sub-item" id="subItem">
+                            <li><a href="#">View Schedule</a></li>
+                            <li><a href="#">Edit Schedule</a></li>
+                        </ul>
+                    </div>
+                    <div class="sidebar-elements">
+                        <a href="#">
+                            <span class="material-symbols-sharp">card_membership</span>
+                            <h3>Membership</h3>
+                        </a>
+                        <ul class="sub-item" id="subItem">
+                            <li><a href="#">View Membership</a></li>
+                            <li><a href="#">Edit Membership</a></li>
+                        </ul>
+                    </div>
+                    <div class="sidebar-elements">
+                        <a href="#">
+                            <span class="material-symbols-sharp">logout</span>
+                            <h3>Logout</h3>
+                        </a>
+                    </div>
                 </div>
             </div>
-            <div class="sidebar">
-                <div class="sidebar-elements">
-                    <a href="#">
-                        <span class="material-symbols-sharp"> home</span>
-                        <h3>Home</h3>
-                    </a>
-                </div>
-                <div class="sidebar-elements">
-                    <a href="#" class="active">
-                        <span class="material-symbols-sharp">grid_view </span>
-                        <h3>Dashboard</h3>
-                    </a>
-                </div>
-                <div class="sidebar-elements">
-                    <a href="#" class="course-btn">
-                        <span class="material-symbols-sharp">menu_book </span>
-                        <h3>Course</h3>
-                    </a>
-                    <ul class="sub-item" id="subItem">
-                        <li><a href="#">Add Category Course</a></li>
-                        <li><a href="#">Edit Category Course</a></li>
-                        <li><a href="#">Add New Course</a></li>
-                        <li><a href="#">Edit Course</a></li>
-                        <li><a href="#">Add course time</a></li>
-                        <li><a href="#">Edit Course time</a></li>
-                    </ul>
-                </div>
-                <div class="sidebar-elements">
-                    <a href="#">
-                        <span class="material-symbols-sharp">payments</span>
-                        <h3>Bill</h3>
-                    </a>
-                    <ul class="sub-item" id="subItem">
-                        <li><a href="#">Bill Analytics</a></li>
-                        <li><a href="#">View Bill Details</a></li>
-                    </ul>
-                </div>
-                <div class="sidebar-elements">
-                    <a href="#">
-                        <span class="material-symbols-sharp">newspaper</span>
-                        <h3>Blog</h3>
-                    </a>
-                    <ul class="sub-item" id="subItem">
-                        <li><a href="#">Blog Analytics</a></li>
-                    </ul>
-                </div>
-                <div class="sidebar-elements">
-                    <a href="#">
-                        <span class="material-symbols-sharp">person</span>
-                        <h3>Account</h3>
-                    </a>
-                    <ul class="sub-item" id="subItem">
-                        <li><a href="#">Account Analytics</a></li>
-                        <li><a href="#">Add New Account</a></li>
-                        <li><a href="#">Edit Account</a></li>
-                    </ul>
-                </div>
-                <div class="sidebar-elements">
-                    <a href="#">
-                        <span class="material-symbols-sharp">calendar_today</span>
-                        <h3>Schedule</h3>
-                    </a>
-                    <ul class="sub-item" id="subItem">
-                        <li><a href="#">View Schedule</a></li>
-                        <li><a href="#">Edit Schedule</a></li>
-                    </ul>
-                </div>
-                <div class="sidebar-elements">
-                    <a href="#">
-                        <span class="material-symbols-sharp">card_membership</span>
-                        <h3>Membership</h3>
-                    </a>
-                    <ul class="sub-item" id="subItem">
-                        <li><a href="#">View Membership</a></li>
-                        <li><a href="#">Edit Membership</a></li>
-                    </ul>
-                </div>
-                <div class="sidebar-elements">
-                    <a href="#">
-                        <span class="material-symbols-sharp">logout</span>
-                        <h3>Logout</h3>
-                    </a>
-                </div>
-            </div>
+           
         </aside>
         <!-- ====================== MAIN ==================== -->
         <main>
@@ -195,6 +199,7 @@
     </div>
 
     <script>
+        // hàm hiện menu chi tiết xuống
         var sidebarElements = document.querySelectorAll(".sidebar-elements");
         sidebarElements.forEach(btn => {
             $(btn).click(function () {
@@ -232,6 +237,8 @@
 
 
         // })
+
+        // hàm load ảnh
         var loadFile = function (event) {
                 let reader = new FileReader();
                 reader.readAsDataURL(event.files[0]);
@@ -240,7 +247,12 @@
                 };
                 console.log(event.files[0].name);
             };
-
+        /* open close left side bar*/
+        const menuBtn = document.querySelector(".material-symbols-sharp");
+        const leftBar = document.querySelector(".sidebar__wrapper");
+        menuBtn.addEventListener("click",()=>{
+            leftBar.classList.toggle("close");
+        })
     </script>
 
 </body>
