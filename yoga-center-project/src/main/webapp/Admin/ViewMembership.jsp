@@ -48,6 +48,7 @@
                             </div>
                         </div>
                     </div>
+                    <h1>Membership List</h1>
                     <div class="container__wrapper-box">
                         <div class="wrapper-box">
                             <table class="table-style-1">
