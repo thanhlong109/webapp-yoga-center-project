@@ -5,6 +5,7 @@
 package com.yowu.yogacenter.controller.admin;
 
 import com.yowu.yogacenter.model.Category;
+import com.yowu.yogacenter.model.CategoryError;
 import com.yowu.yogacenter.repository.CategoryRepository;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
@@ -35,18 +36,35 @@ public class UpdateCategoryController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String name = request.getParameter("txtName");
-        int id = Integer.parseInt(request.getParameter("txtId"));
+
+        CategoryError categoryError = new CategoryError();
         CategoryRepository _categoryRepository = new CategoryRepository();
-        boolean update = _categoryRepository.update(id, name);
-        if (update) {
-            response.sendRedirect(VIEW_CATEGORY_LIST_CONTROLLER);
-        } else {
-            Category c = _categoryRepository.detail(id);
-            request.setAttribute("CATEGORY", c);
-            request.setAttribute("UPDATE_STATUS", "Update Fail !!!!");
-            request.getRequestDispatcher(EDIT_PAGE).forward(request, response);
+        boolean result = false;
+        try {
+            String name = request.getParameter("txtName");
+            int id = Integer.parseInt(request.getParameter("txtId"));
+            categoryError = checkInput(name);
+
+            if (categoryError == null) {
+                result = _categoryRepository.update(id, name);
+                System.out.println("result = true");
+            } else {
+                Category c = _categoryRepository.detail(id);
+                request.setAttribute("CATEGORY", c);
+                request.setAttribute("UPDATE_CATEGORY_ERROR", categoryError);
+                System.out.println("categoryError != null");
+
+            }
+        } catch (Exception e) {
+            log("Error at UpdateCategoryController" + e.toString());
+        } finally {
+            if (result) {
+                response.sendRedirect(VIEW_CATEGORY_LIST_CONTROLLER);
+            } else {
+                request.getRequestDispatcher(EDIT_PAGE).forward(request, response);
+            }
         }
+
     }
 
     /**
@@ -59,4 +77,13 @@ public class UpdateCategoryController extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
+    private CategoryError checkInput(String name) {
+
+        CategoryError categoryError = null;
+        if (name.length() < 5 || name.length() > 20) {
+            categoryError = new CategoryError();
+            categoryError.setCategoryNameError("Category's name must be 5 - 20 characters");
+        }
+        return categoryError;
+    }
 }

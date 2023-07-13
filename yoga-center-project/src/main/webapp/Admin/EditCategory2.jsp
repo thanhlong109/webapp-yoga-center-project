@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="jakarta.tags.core" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -25,6 +26,28 @@
         <link rel="stylesheet" href="../Asset/css/dashboard_2.css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
         <script src="../js/cdnjs.cloudflare.com_ajax_libs_Chart.js_2.4.0_Chart.min.js"></script>
+        <style>
+            .alert {
+                padding: 20px;
+                background-color: #f44336;
+                color: white;
+            }
+
+            .closebtn {
+                margin-left: 15px;
+                color: white;
+                font-weight: bold;
+                float: right;
+                font-size: 22px;
+                line-height: 20px;
+                cursor: pointer;
+                transition: 0.3s;
+            }
+
+            .closebtn:hover {
+                color: black;
+            }
+        </style>
     </head>
     <body>
         <div class="container">
@@ -40,7 +63,7 @@
                         </form>
                         <div class="profile">
                             <div class="info">
-                                <p>Hey, <b>An</b></p>
+                                <p>Hey, <b>Admin</b></p>
                                 <small class="text-muted">Admin</small>
                             </div>
                             <div class="profile-photo">
@@ -51,19 +74,25 @@
                     <h1>Update Category</h1>
                     <div id="wrapper">
                         <form action="updateCategoryController" method="post">
-                            <h3>Update Category</h3>
+                            <h3>Update Category</h3>    
                             <div class="input__group">
                                 <input type="hidden" name="txtId" value="${CATEGORY.id}">
                             <input type="text" name="txtName" value="${CATEGORY.name}">
                             <label for="">Name</label>
-                        </div>
-                        <div class="input__button">
-                            <button type="submit" value="Add" id="btn__Add">Update</button>
-                            <button type="reset" value="Reset" id="btn__Reset">Refresh</button>
-                        </div>
-                    </form>
-                </div>
-            </main>
+                            </div>
+                            <c:if test="${UPDATE_CATEGORY_ERROR != null}">
+                                <div class="alert">
+                                    <span class="closebtn" onclick="this.parentElement.style.display = 'none';">&times;</span> 
+                                    <strong>Warning!</strong> ${UPDATE_CATEGORY_ERROR.categoryNameError}
+                                </div>
+                            </c:if>
+                            <div class="input__button">
+                                <button type="submit" value="Add" id="btn__Add">Update</button>
+                                <button type="reset" value="Reset" id="btn__Reset">Refresh</button>
+                            </div>
+                        </form>
+                    </div>
+                </main>
         </div>
     </body>
 </html>
