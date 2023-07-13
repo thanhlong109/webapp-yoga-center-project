@@ -9,6 +9,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.sql.Date;
 import java.sql.Time;
+import java.time.LocalTime;
 
 public class UpdateClassScheduleController extends HttpServlet {
 
@@ -34,8 +35,8 @@ public class UpdateClassScheduleController extends HttpServlet {
             int id = Integer.parseInt(request.getParameter("txtId"));
             cs.setId(id);
             cs.setDate(Date.valueOf(request.getParameter("txtDate")));
-            cs.setStartTime(Time.valueOf(request.getParameter("txtStartDate")));
-            cs.setEndTime(Time.valueOf(request.getParameter("txtEndDate")));
+            cs.setStartTime(Time.valueOf(LocalTime.parse(request.getParameter("txtStartDate"))));
+            cs.setEndTime(Time.valueOf(LocalTime.parse(request.getParameter("txtEndDate"))));  
             cs.setStatus(1);
             boolean update = csr.update2(cs);
             if (update) {

@@ -31,10 +31,6 @@
                         <button id="menu-btn">
                             <span class="material-symbols-sharp">menu</span>
                         </button>
-                        <form action="" id="search-box">
-                            <input type="text" id="search-text" placeholder="Search anything you want" required>
-                            <button id="btnSearch"><i class="fa-solid fa-magnifying-glass"></i></button>
-                        </form>
                         <div class="profile">
                             <div class="info">
                                 <p>Hey, <b>An</b></p>
@@ -64,11 +60,11 @@
                             <label for="">Class Date</label>
                         </div>
                         <div class="input__group">
-                            <input type="text" name="txtStartDate" required">
+                            <input type="time" name="txtStartDate" required">
                             <label for="">Start Time</label>
                         </div>
                         <div class="input__group">
-                            <input type="text" name="txtEndDate" required">
+                            <input type="time" name="txtEndDate" required">
                             <label for="">End Time</label>
                         </div>
                         <div class="input__button">

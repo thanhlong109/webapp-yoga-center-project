@@ -54,11 +54,11 @@
                             <label for="">Class Date</label>
                         </div>
                         <div class="input__group">
-                            <input type="text" name="txtStartDate" value="${classSchedule.startTime}">
+                            <input type="time" name="txtStartDate" value="${classSchedule.startTime}">
                             <label for="">Start Time</label>
                         </div>
                         <div class="input__group">
-                            <input type="text" name="txtEndDate" value="${classSchedule.endTime}">
+                            <input type="time" name="txtEndDate" value="${classSchedule.endTime}">
                             <label for="">End Time</label>
                         </div>
                         <div class="input__button">

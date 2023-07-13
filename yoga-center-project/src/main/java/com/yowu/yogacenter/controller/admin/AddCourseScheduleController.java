@@ -15,6 +15,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.sql.Time;
+import java.time.LocalTime;
 
 /**
  *
@@ -43,8 +44,8 @@ public class AddCourseScheduleController extends HttpServlet {
             Course course = cr.detail(Integer.parseInt(request.getParameter("courseList")));
             cs.setCourse(course);
             cs.setDateOfWeek(request.getParameter("txtDateOfWeek"));
-            cs.setStartTime(Time.valueOf(request.getParameter("txtStartDate")));
-            cs.setEndTime(Time.valueOf(request.getParameter("txtEndDate")));
+            cs.setStartTime(Time.valueOf(LocalTime.parse(request.getParameter("txtStartDate"))));
+            cs.setEndTime(Time.valueOf(LocalTime.parse(request.getParameter("txtEndDate"))));           
             cs.setIsActive(true);
                                                          
             boolean add = csr.add(cs);
