@@ -465,8 +465,8 @@
                                 </a>
                             </c:if>   
                             <c:if test="${course.price<=0}">
-                                <a class="book-course" href="">
-                                    <p>Errol</p> 
+                                <a class="book-course" onclick="gotoCheckout('Checkout?id=${course.id}&action=course')" class="course-card">
+                                    <p>Errol</p>
                                 </a>
                             </c:if>
                         </c:if>

@@ -56,9 +56,8 @@
                                 <tr>
                                     <th>Payment method:</td>
                                         <c:if test="${sessionScope.billCourseC != null}">
-                                        <td>${sessionScope.billCourseC.method}</td>
-                                    </c:if>
-
+                                            <td>${sessionScope.billCourseC.method}</td>
+                                        </c:if>
                                 </tr>
                                 <tr>
                                     <th>Order code:</th>
@@ -82,10 +81,9 @@
                             <tbody>
                                 <tr>
                                     <th>Payment product:</th>
-                                        <c:if test="${sessionScope.billCourseC.course != null}">
+                                    <c:if test="${sessionScope.billCourseC.course != null}">
                                         <td>${sessionScope.billCourseC.course.title}</td>
                                     </c:if>
-
                                 </tr>
                                 <tr>
                                     <th>Bank code:</td>

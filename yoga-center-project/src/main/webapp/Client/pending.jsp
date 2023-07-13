@@ -43,11 +43,11 @@
                             <h4>Payment Pending</h4>
                         </div>
                         <div class="col-md-12 payment-in4">
-                            <table>
-                                <tbody>
-                                    <tr>
-                                        <th>Customer:</th>
-                                        <td>${sessionScope.account.name}</td>
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <th>Customer:</th>
+                                    <td>${sessionScope.account.name}</td>
                                 </tr>
                                 <tr>
                                     <th>Email:</th>
@@ -55,7 +55,7 @@
                                 </tr>
                                 <tr>
                                     <th>Payment method:</td>
-                                    <td>${bill.method}</td>                                   
+                                        <td>${bill.method}</td>                                  
                                 </tr>
                                 <tr>
                                     <th>Order code:</th>
@@ -65,7 +65,7 @@
                                     <th>Amount paid:</th>
                                     <td class="amout">$${bill.value}</td>
                                 </tr>
-
+                                
                             </tbody>
                         </table>
                     </div>
@@ -79,11 +79,11 @@
                             <tbody>
                                 <tr>
                                     <th>Payment product:</th>
-                                    <td>${bill.course.title}</td>
+                                        <td>${bill.course.title}</td>
                                 </tr>
-                            <th>Payment date:</td>
-                            <td>${bill.date}</td>
-                            </tr>
+                                    <th>Payment date:</td>
+                                    <td>${bill.date}</td>
+                                </tr>
                             </tbody>
                         </table>
                         <div class="thanks">

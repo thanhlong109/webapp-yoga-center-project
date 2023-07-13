@@ -57,7 +57,6 @@ public class CourseDetailController extends HttpServlet {
             }
             if(billStatus!=null){
                 int status = billStatus.getStatus();
-                
                 request.setAttribute("billStatus", status);
                 System.out.println(status);
             }
