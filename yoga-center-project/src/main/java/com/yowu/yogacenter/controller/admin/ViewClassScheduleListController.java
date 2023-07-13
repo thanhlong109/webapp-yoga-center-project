@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
+
 package com.yowu.yogacenter.controller.admin;
 
 import com.yowu.yogacenter.repository.ClassScheduleRepository;
@@ -11,10 +8,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-/**
- *
- * @author DungVNT
- */
+
 public class ViewClassScheduleListController extends HttpServlet {
 
     private final String CLASS_SCHEDULE_LIST_PAGE = "../Admin/ViewClassSchedule.jsp";
@@ -33,11 +27,6 @@ public class ViewClassScheduleListController extends HttpServlet {
 
     }
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
     @Override
     public String getServletInfo() {
         return "Short description";

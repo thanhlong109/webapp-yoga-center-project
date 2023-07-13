@@ -16,8 +16,8 @@ import java.util.logging.Logger;
 public class LoginController extends HttpServlet {
 
     private final String LOGIN_PAGE = "Client/login_register.jsp";
-
-    private final String ADMIN_PAGE = "";
+    private final String CASHIER_PAGE = "Cashier/ViewBill.jsp";
+    private final String ADMIN_PAGE = "Admin/ViewCourse.jsp";
     private final String HOME_PAGE = "Client/Home.jsp";
 
     @Override
@@ -51,6 +51,9 @@ public class LoginController extends HttpServlet {
                     url = ADMIN_PAGE;
                 } else if (Role.RoleList.TRAINEE.ordinal() == role.getId() || Role.RoleList.TRAINER.ordinal() == role.getId()) {
                     url = HOME_PAGE;
+                } else if(Role.RoleList.CASHER.ordinal() == role.getId()){
+                    url = CASHIER_PAGE;
+                    System.out.println("1111");
                 }
             }
         } catch (Exception e) {

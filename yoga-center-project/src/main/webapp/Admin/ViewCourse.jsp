@@ -24,6 +24,7 @@
         <link rel="stylesheet"
               href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
         <!-- Link CSS  -->
+        
         <!--<link rel="stylesheet" href="../Asset/css/adminCommon.css">-->
         <link rel="stylesheet" href="../Asset/css/dashboard_2.css">     
         <link rel="stylesheet" href="../Asset/css/adminEditCategory_2.css">

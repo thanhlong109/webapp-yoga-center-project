@@ -152,6 +152,38 @@
         <servlet-name>SearchBillController</servlet-name>
         <servlet-class>com.yowu.yogacenter.controller.admin.SearchBillController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AddCourseScheduleController</servlet-name>
+        <servlet-class>com.yowu.yogacenter.controller.admin.AddCourseScheduleController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteCourseScheduleController</servlet-name>
+        <servlet-class>com.yowu.yogacenter.controller.admin.DeleteCourseScheduleController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SearchCourseScheduleController</servlet-name>
+        <servlet-class>com.yowu.yogacenter.controller.admin.SearchCourseScheduleController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateClassScheduleController</servlet-name>
+        <servlet-class>com.yowu.yogacenter.controller.admin.UpdateClassScheduleController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteClassScheduleController</servlet-name>
+        <servlet-class>com.yowu.yogacenter.controller.admin.DeleteClassScheduleController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddClassScheduleController</servlet-name>
+        <servlet-class>com.yowu.yogacenter.controller.admin.AddClassScheduleController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SearchClassScheduleController</servlet-name>
+        <servlet-class>com.yowu.yogacenter.controller.admin.SearchClassScheduleController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ViewBillController</servlet-name>
+        <servlet-class>com.yowu.yogacenter.controller.cashier.ViewBillController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>UserProfileCourse</servlet-name>
         <url-pattern>/userprofile/course</url-pattern>
@@ -303,6 +335,38 @@
     <servlet-mapping>
         <servlet-name>SearchBillController</servlet-name>
         <url-pattern>/admin/searchBillController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddCourseScheduleController</servlet-name>
+        <url-pattern>/admin/addCourseScheduleController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteCourseScheduleController</servlet-name>
+        <url-pattern>/admin/deleteCourseScheduleController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchCourseScheduleController</servlet-name>
+        <url-pattern>/admin/searchCourseScheduleController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateClassScheduleController</servlet-name>
+        <url-pattern>/admin/updateClassScheduleController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteClassScheduleController</servlet-name>
+        <url-pattern>/admin/deleteClassScheduleController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddClassScheduleController</servlet-name>
+        <url-pattern>/admin/addClassScheduleController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchClassScheduleController</servlet-name>
+        <url-pattern>/admin/searchClassScheduleController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewBillController</servlet-name>
+        <url-pattern>/cashier/viewBillController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

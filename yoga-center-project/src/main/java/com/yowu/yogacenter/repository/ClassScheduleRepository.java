@@ -6,6 +6,7 @@ package com.yowu.yogacenter.repository;
 
 import com.yowu.yogacenter.model.ClassSchedule;
 import com.yowu.yogacenter.util.DBHelpler;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -102,6 +103,25 @@ public class ClassScheduleRepository {
 
         return status == 1;
     }
+    
+    public boolean update2(ClassSchedule classSchedule) {
+        String sql = "UPDATE tblClassSchedule SET class_date = ?, slot_start_time = ?, slot_end_time = ?, class_status = ? WHERE class_schedule_id = ?";
+        int status = 0;
+
+        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
+            stmt.setDate(1, classSchedule.getDate());
+            stmt.setTime(2, classSchedule.getStartTime());
+            stmt.setTime(3, classSchedule.getEndTime());
+            stmt.setInt(4, classSchedule.getStatus());
+            stmt.setInt(5, classSchedule.getId());
+
+            status = stmt.executeUpdate();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+        return status == 1;
+    }
 
     public boolean delete(int id) {
         String sql = "UPDATE tblClassSchedule SET class_status = 0 WHERE class_schedule_id = ?";
@@ -116,5 +136,30 @@ public class ClassScheduleRepository {
         }
 
         return status == 1;
+    }
+    
+    public List<ClassSchedule> searchClassScheduleByRegistrationID(Date search) {
+        String sql = "SELECT * FROM tblClassSchedule WHERE class_date LIKE ? ";
+        List<ClassSchedule> list = new ArrayList<>();
+
+        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
+            stmt.setDate(1, search);
+            try ( ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    RegistrationCourseRepository cr = new RegistrationCourseRepository();
+                    ClassSchedule c = new ClassSchedule();
+                    c.setId(rs.getInt("class_schedule_id"));
+                    c.setRegistrationCourse(cr.detail(rs.getInt("registration_id")));
+                    c.setDate(rs.getDate("class_date"));
+                    c.setStartTime(rs.getTime("slot_start_time"));
+                    c.setEndTime(rs.getTime("slot_end_time"));
+                    c.setStatus(rs.getInt("class_status"));
+                    list.add(c);
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return list;
     }
 }

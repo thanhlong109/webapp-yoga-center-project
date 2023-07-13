@@ -1,11 +1,7 @@
-<%-- 
-    Document   : ViewClassSchedule
-    Created on : Jun 23, 2023, 9:59:09 AM
-    Author     : DungVNT
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="jakarta.tags.core" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<fmt:setLocale value="en" />
 <!DOCTYPE html>
 <html>
     <head>
@@ -34,9 +30,11 @@
                         <button id="menu-btn">
                             <span class="material-symbols-sharp">menu</span>
                         </button>
-                        <form action="" id="search-box">
-                            <input type="text" id="search-text" placeholder="Search anything you want" required>
-                            <button id="btnSearch"><i class="fa-solid fa-magnifying-glass"></i></button>
+                        <form action="searchClassScheduleController" id="search-box">
+                            <input type="date" name="txtSearch" id="search-text" placeholder="Search by registration ID" required>
+                            <button type="submit" id="btnSearch">
+                                <i class="fa-solid fa-magnifying-glass"></i>
+                            </button>
                         </form>
                         <div class="profile">
                             <div class="info">
@@ -57,34 +55,36 @@
                                     <th>Class Date</th>
                                     <th>Slot Start Time</th>
                                     <th>Slot End Time</th>
-                                    <th>Class Status</th>
                                     <th>Actions</th>
                                 </tr>
                             <c:forEach items="${CLASS_SCHEDULE_LIST}" var="classSchedule">
-                                <tr>
-                                    <td>
-                                        ${classSchedule.id}
-                                    </td>
-                                    <td>
-                                        ${classSchedule.registrationCourse.id}
-                                    </td>
-                                    <td>
-                                        ${classSchedule.date}
-                                    </td>
-                                    <td>
-                                        ${classSchedule.startTime}
-                                    </td>
-                                    <td>
-                                        ${classSchedule.endTime}
-                                    </td>    
-                                    <td>
-                                        ${classSchedule.status}
-                                    </td> 
-                                    <td>
-                                        <a class="btn btn-red" href="#delete">Delete</a> 
-                                        <a class="btn btn-green" href="#Edit">Edit</a> 
-                                    </td>
-                                </tr>
+                                <c:if test="${classSchedule.status == 1}">                                
+                                    <tr>
+                                        <td>
+                                            <c:out value="${classSchedule.id}"/>
+                                        </td>
+                                        <td>
+                                            <c:out value="${classSchedule.registrationCourse.id}"/>
+                                        </td>
+                                        <td>
+                                            <fmt:formatDate value="${classSchedule.date}" pattern="dd/MM/yyyy"/>
+                                        </td>
+                                        <td>
+                                            <c:out value="${classSchedule.startTime}"/>
+                                        </td>
+                                        <td>
+                                            <c:out value="${classSchedule.endTime}"/>
+                                        </td>    
+                                        <td>
+                                            <a class="btn btn-red" href="deleteClassScheduleController?id=${classSchedule.id}">
+                                                Delete
+                                            </a> 
+                                            <a class="btn btn-green" href="updateClassScheduleController?id=${classSchedule.id}">
+                                                Edit
+                                            </a> 
+                                        </td>
+                                    </tr>
+                                </c:if>
                             </c:forEach>
                         </table>
                     </div>

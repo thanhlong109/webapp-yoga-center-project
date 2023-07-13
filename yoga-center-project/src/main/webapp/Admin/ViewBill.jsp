@@ -66,35 +66,35 @@
                                 </tr>
                             <c:forEach items="${BILL_LIST}" var="bill">
                                 <c:if test="${bill.isActive == true}"> 
-                            <tr>
-                                <td>
-                                    ${bill.id}
-                                </td>
-                                <td>
-                                    ${bill.course.title}
-                                </td>
-                                <td>
-                                    ${bill.account.name}
-                                </td>
-                                <td>
-                                    ${bill.status}
-                                </td>
-                                <td>
-                                    ${bill.value}
-                                </td>
-                                <td>
-                                    ${bill.discount}
-                                </td>
-                                <td>
-                                    ${bill.date}
-                                </td>
-                                <td>
-                                    <a class="btn btn-red" href="#delete">Delete</a> 
-                                    <a class="btn btn-green" href="#Edit">Edit</a> 
-                                </td>
-                            </tr>
-                            </c:if>
-                        </c:forEach>
+                                    <tr>
+                                        <td>
+                                            ${bill.id}
+                                        </td>
+                                        <td>
+                                            ${bill.course.title}
+                                        </td>
+                                        <td>
+                                            ${bill.account.name}
+                                        </td>
+                                        <td>
+                                            ${bill.status}
+                                        </td>
+                                        <td>
+                                            ${bill.value}
+                                        </td>
+                                        <td>
+                                            ${bill.discount}
+                                        </td>
+                                        <td>
+                                            ${bill.date}
+                                        </td>
+                                        <td>
+                                            <a class="btn btn-red" href="#delete">Delete</a> 
+                                            <a class="btn btn-green" href="#Edit">Edit</a> 
+                                        </td>
+                                    </tr>
+                                </c:if>
+                            </c:forEach>
 
                         </table>
                     </div>

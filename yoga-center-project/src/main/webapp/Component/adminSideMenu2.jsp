@@ -46,7 +46,7 @@
                         Add New Course</a></li>
                 <li><a href="<c:url value="/admin/viewCourseTimeListController"/>">
                         View & Edit Course Time</a></li>
-                <li><a href="#">
+                <li><a href="<c:url value="/admin/addCourseScheduleController"/>">
                         Add Course Time</a></li>
             </ul>
         </div>
@@ -90,7 +90,8 @@
             <ul class="sub-item" id="subItem">
                 <li><a href="<c:url value="/admin/viewClassScheduleListController"/>">
                         View & Edit Schedule</a></li>
-                <li><a href="#">Add Schedule</a></li>
+                <li><a href="<c:url value="/admin/addClassScheduleController"/>">
+                        Add Schedule</a></li>
             </ul>
         </div>
         <div class="sidebar-elements">
