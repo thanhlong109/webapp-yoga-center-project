@@ -22,7 +22,8 @@ body::-webkit-scrollbar{
     display: flex;
 }
 .left-side-bar-wrapper{
-    position: relative;
+    /* position: relative; */
+    position: absolute;
     z-index: 80;
     background-color: #fff;
 }
