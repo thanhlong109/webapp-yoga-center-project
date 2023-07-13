@@ -47,8 +47,6 @@
             
               #sell-chart{
                 position: relative;
-                background: #000524;
-                border: 1px solid #000;
                 width: 60%;
                 padding: 1rem;
                 border-radius: 2 rem;
@@ -86,8 +84,7 @@
               #chart3-year{
                   position: absolute;
                   top: calc(1rem + 4px);
-                  left: 50%;
-                  transform: translateX(-50%);
+                  right: 200px;
                   z-index: 10;
                   
               }
@@ -141,7 +138,7 @@
                         </div>
                     </div>
                     <div class="row h-380">
-                        <div id="sell-chart">
+                        <div id="sell-chart" class="chart-border">
                             <div id="chart-area">
                             </div>
                             <div id="chart-bar">
@@ -170,7 +167,7 @@
                   id: "chart2",
                   type: "area",
                   height: "75%",
-                  foreColor: "#ccc",
+                  foreColor: "#247ba0",
                   toolbar: {
                     autoSelected: "pan",
                     show: true
@@ -193,7 +190,7 @@
                     }
                   },
                 },
-                colors: ["#00BAEC"],
+                colors: ["#008ffb"],
                 stroke: {
                   width: 3
                 },
@@ -218,8 +215,8 @@
                 },
                 markers: {
                   size: 5,
-                  colors: ["#000524"],
-                  strokeColor: "#00BAEC",
+                  colors: ["#008ffb"],
+                  strokeColor: "#008ffb",
                   strokeWidth: 3
                 },
                 series: [
@@ -238,14 +235,14 @@
                   min: 0,
                   tickAmount: 4
                 },title: {
-                        text: "COURSE SALE CHART",
+                        text: "COURSE REVENUE CHART",
                         align: 'left',
                         margin: 10,
                         offsetX: 0,
                         offsetY: 0,
                         floating: false,
                         style: {
-                          fontSize:  '16px',
+                          fontSize:  '14px',
                           fontWeight:  'bold',
                           color:  '#00baec'
                         },
@@ -261,7 +258,7 @@
                   id: "chart1",
                   height: "40%",
                   type: "bar",
-                  foreColor: "#ccc",
+                  foreColor: "#ff1654",
                   brush: {
                     target: "chart2",
                     enabled: true
@@ -269,8 +266,11 @@
                   selection: {
                     enabled: true,
                     fill: {
-                      color: "#fff",
-                      opacity: 0.4
+                      type: 'gradient',
+                        gradient: {
+                          opacityFrom: 0.91,
+                          opacityTo: 0.1,
+                        }
                     },
                     xaxis: {
                       min: data[0][0],
@@ -324,17 +324,17 @@
                         toolbar: {
                             show: true
                           },csv: {
-                        filename: "course_category_chart",
+                        filename: "courseTipeChart",
                         columnDelimiter: ',',
                         headerCategory: 'CourseCategory',
                         headerValue: 'Quantity',
                         
                       },
                       svg: {
-                        filename: "course_category_chart",
+                        filename: "courseTipeChart",
                       },
                       png: {
-                        filename: "course_category_chart",
+                        filename: "courseTipeChart",
                       }
                     },
                     series: categoryData.categoryNum,
@@ -379,7 +379,7 @@
                         }
                     },
                     title: {
-                        text: "COURSE TYPE CHART",
+                        text: "COURSE TYPE DISTRIBUTION CHART",
                         align: 'left',
                         margin: 10,
                         offsetX: 0,
@@ -488,7 +488,7 @@
                           }
                         },
                         title: {
-                          text: "Course registered",
+                          text: "Course Enrollment",
                           style: {
                             color: "#247BA0"
                           }
@@ -506,14 +506,14 @@
                       horizontalAlign: "left",
                       offsetX: 40
                     },title: {
-                        text: "CUSTOMER CHART",
+                        text: "MONTHLY CUSTOMER & COURSE ENROLLMENT CHART",
                         align: 'left',
                         margin: 10,
                         offsetX: 0,
                         offsetY: 0,
                         floating: false,
                         style: {
-                          fontSize:  '16px',
+                          fontSize:  '14px',
                           fontWeight:  'bold',
                           color:  '#7d8da1'
                         },
@@ -562,17 +562,17 @@
                         toolbar: {
                             show: true
                         },csv: {
-                            filename: "Student_chart",
+                            filename: "StudentsWeeklyChart",
                             columnDelimiter: ',',
                             headerCategory: 'DayOfWeek',
                             headerValue: 'StudentNumber',
 
                         },
                         svg: {
-                            filename: "course_category_chart",
+                            filename: "StudentsWeeklyChart",
                           },
                         png: {
-                            filename: "course_category_chart",
+                            filename: "StudentsWeeklyChart",
                           }
                     },
                   labels: ["Sunday","Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
@@ -594,7 +594,7 @@
                     }
                   },
                   title: {
-                    text: "STUDENT CHART",
+                    text: "STUDENTS' WEEKLY DISTRIBUTION CHART",
                         align: 'left',
                         margin: 10,
                         offsetX: 0,
