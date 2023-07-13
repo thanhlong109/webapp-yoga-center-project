@@ -28,6 +28,14 @@
         <!-- Library JS -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
         <script src="../js/cdnjs.cloudflare.com_ajax_libs_Chart.js_2.4.0_Chart.min.js"></script>
+        <style>
+            .image {
+                max-width: 90%;
+                z-index: 1;
+                overflow: hidden;
+                position: relative;
+            }
+        </style>
     </head>
     <body>
         <div class="container">
@@ -62,40 +70,47 @@
                                     <th>Bill Status</th>
                                     <th>Bill Value</th>
                                     <th>Bill Discount</th>
-                                    <th>Bill Date</th>
-                                    <th>Actions</th>
+                                    <th>Bill Date</th> 
+                                    <th>Order Code</th> 
+                                    <th>Payment Method</th> 
+                                    <th>Payment Date</th> 
                                 </tr>
                             <c:forEach items="${BILL_LIST}" var="bill">
                                 <c:if test="${bill.isActive == true}"> 
-                            <tr>
-                                <td>
-                                    ${bill.id}
-                                </td>
-                                <td>
-                                    ${bill.course.title}
-                                </td>
-                                <td>
-                                    ${bill.account.name}
-                                </td>
-                                <td>
-                                    ${bill.status}
-                                </td>
-                                <td>
-                                    ${bill.value}
-                                </td>
-                                <td>
-                                    ${bill.discount}
-                                </td>
-                                <td>
-                                    ${bill.date}
-                                </td>
-                                <td>
-                                    <a class="btn btn-red" href="#delete">Delete</a> 
-                                    <a class="btn btn-green" href="#Edit">Edit</a> 
-                                </td>
-                            </tr>
-                            </c:if>
-                        </c:forEach>
+                                    <tr>
+                                        <td>
+                                            ${bill.id}
+                                        </td>
+                                        <td>
+                                            ${bill.course.title}
+                                        </td>
+                                        <td>
+                                            ${bill.account.name}
+                                        </td>
+                                        <td>
+                                            ${bill.getEnumIndex(status)}
+                                        </td>
+                                        <td>
+                                            ${bill.value}
+                                        </td>
+                                        <td>
+                                            ${bill.discount}
+                                        </td>
+                                        <td>
+                                            ${bill.date}
+                                        </td>   
+                                        <td>
+                                            ${bill.orderCode}
+                                        </td> 
+                                        <td>
+                                            ${bill.paymentMethod}
+                                        </td> 
+                                        <td>
+                                            ${bill.paymentDate}
+                                        </td> 
+                                    </tr>
+                                </c:if>
+                            </c:forEach>
 
                         </table>
                     </div>

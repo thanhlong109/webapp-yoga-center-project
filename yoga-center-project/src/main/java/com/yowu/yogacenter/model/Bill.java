@@ -11,8 +11,10 @@ import java.sql.Date;
  * @author DungVNT
  */
 public class Bill {
-    
-    public static enum BillStatus{COMPLETED,CANCELLED,PENDING};
+
+    public static enum BillStatus {
+        COMPLETED, CANCELLED, PENDING
+    };
 
     private Course course;
     private Account account;
@@ -22,11 +24,14 @@ public class Bill {
     private float value;
     private int discount;
     private Date date;
+    private String orderCode;
+    private String paymentMethod;
+    private Date paymentDate;
 
     public Bill() {
     }
-    
-    public Bill(Course course, Account account, int id, int status, boolean isActive, float value, int discount, Date date) {
+
+    public Bill(Course course, Account account, int id, int status, boolean isActive, float value, int discount, Date date, String orderCode, String paymentMethod, Date paymentDate) {
         this.course = course;
         this.account = account;
         this.id = id;
@@ -35,6 +40,9 @@ public class Bill {
         this.value = value;
         this.discount = discount;
         this.date = date;
+        this.orderCode = orderCode;
+        this.paymentMethod = paymentMethod;
+        this.paymentDate = paymentDate;
     }
 
     public Course getCourse() {
@@ -100,9 +108,34 @@ public class Bill {
     public void setDate(Date date) {
         this.date = date;
     }
-    public static BillStatus getEnumIndex(int i){
+
+    public String getOrderCode() {
+        return orderCode;
+    }
+
+    public void setOrderCode(String orderCode) {
+        this.orderCode = orderCode;
+    }
+
+    public String getPaymentMethod() {
+        return paymentMethod;
+    }
+
+    public void setPaymentMethod(String paymentMethod) {
+        this.paymentMethod = paymentMethod;
+    }
+
+    public Date getPaymentDate() {
+        return paymentDate;
+    }
+
+    public void setPaymentDate(Date paymentDate) {
+        this.paymentDate = paymentDate;
+    }
+
+    public static BillStatus getEnumIndex(int i) {
         BillStatus[] arr = BillStatus.values();
-        if(i>=0&&i<arr.length){
+        if (i >= 0 && i < arr.length) {
             return arr[i];
         }
         return null;

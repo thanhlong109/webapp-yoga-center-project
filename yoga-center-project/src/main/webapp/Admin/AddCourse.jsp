@@ -93,7 +93,7 @@
                                 <c:forEach items="${ACCOUNT_ADD_OPTIONS}" var="accountList">
                                     <c:if test="${accountList.isActive == true }">
                                         <c:if test="${accountList.role.id == 2}">
-                                        <option value="${accountList.id}"> ${accountList.name} </option>  
+                                            <option value="${accountList.id}"> ${accountList.name} </option>  
                                         </c:if>
                                     </c:if>
                                 </c:forEach>
@@ -104,6 +104,40 @@
                             <input type="text" name="txtPrice" required>
                             <label for="">Price</label>
                         </div>
+                        <c:if test="${ADD_COURSE_ERROR != null}">
+                            <c:choose>
+                                <c:when test="${ADD_COURSE_ERROR.courseTitleLengthError != null}">
+                                    <div class="alert">
+                                        <span class="closebtn" onclick="this.parentElement.style.display = 'none';">&times;</span> 
+                                        <strong>Warning!</strong> ${ADD_COURSE_ERROR.courseTitleLengthError}
+                                    </div>
+                                </c:when>
+                                <c:when test="${ADD_COURSE_ERROR.error != null}">
+                                    <div class="alert">
+                                        <span class="closebtn" onclick="this.parentElement.style.display = 'none';">&times;</span> 
+                                        <strong>Warning!</strong> ${ADD_COURSE_ERROR.error}
+                                    </div>
+                                </c:when>
+                                <c:when test="${ADD_COURSE_ERROR.courseDurationError != null}">
+                                    <div class="alert">
+                                        <span class="closebtn" onclick="this.parentElement.style.display = 'none';">&times;</span> 
+                                        <strong>Warning!</strong> ${ADD_COURSE_ERROR.courseDurationError}
+                                    </div>
+                                </c:when>
+                                <c:when test="${ADD_COURSE_ERROR.coursePriceError != null}">
+                                    <div class="alert">
+                                        <span class="closebtn" onclick="this.parentElement.style.display = 'none';">&times;</span> 
+                                        <strong>Warning!</strong> ${ADD_COURSE_ERROR.coursePriceError}
+                                    </div>
+                                </c:when>
+                                <c:when test="${ADD_COURSE_ERROR.error != null}">
+                                    <div class="alert">
+                                        <span class="closebtn" onclick="this.parentElement.style.display = 'none';">&times;</span> 
+                                        <strong>Warning!</strong> ${ADD_COURSE_ERROR.error}
+                                    </div>
+                                </c:when>
+                            </c:choose>
+                        </c:if>
                         <div class="input__button">
                             <button type="submit" value="Add" id="btn__Add">Add</button>
                             <button type="reset" value="Reset" id="btn__Reset">Refresh</button>
@@ -128,6 +162,18 @@
                 };
                 console.log(event.files[0].name);
             };
+            var close = document.getElementsByClassName("closebtn");
+            var i;
+
+            for (i = 0; i < close.length; i++) {
+                close[i].onclick = function () {
+                    var div = this.parentElement;
+                    div.style.opacity = "0";
+                    setTimeout(function () {
+                        div.style.display = "none";
+                    }, 600);
+                };
+            }
         </script>
     </body>
 </html>

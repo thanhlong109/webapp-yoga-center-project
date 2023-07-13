@@ -23,32 +23,9 @@
               href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
         <!-- Link CSS  -->
         <link rel="stylesheet" href="../Asset/css/dashboard_2.css">
+        <link rel="stylesheet" href="../Asset/css/alertBoxAdmin.css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
         <script src="../js/cdnjs.cloudflare.com_ajax_libs_Chart.js_2.4.0_Chart.min.js"></script>
-        <style>
-            .alert {
-                padding: 20px;
-                background-color: #f44336;
-                color: white;
-                opacity: 1;
-                transition: opacity 0.6s; /* 600ms to fade out */
-            }
-
-            .closebtn {
-                margin-left: 15px;
-                color: white;
-                font-weight: bold;
-                float: right;
-                font-size: 22px;
-                line-height: 20px;
-                cursor: pointer;
-                transition: 0.3s;
-            }
-
-            .closebtn:hover {
-                color: black;
-            }
-        </style>
     </head>
     <body>
         <div class="container">

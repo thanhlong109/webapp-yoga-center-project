@@ -35,6 +35,9 @@ public class BillRepository {
                     c.setValue(rs.getFloat("bill_value"));
                     c.setDiscount(rs.getInt("bill_discount"));
                     c.setDate(rs.getDate("bill_date"));
+                    c.setOrderCode(rs.getString("order_code"));
+                    c.setPaymentMethod(rs.getString("payment_method"));
+                    c.setPaymentDate(rs.getDate("payment_date"));
                     list.add(c);
                 }
             }
@@ -192,6 +195,9 @@ public class BillRepository {
                     c.setValue(rs.getFloat("bill_value"));
                     c.setDiscount(rs.getInt("bill_discount"));
                     c.setDate(rs.getDate("bill_date"));
+                    c.setOrderCode(rs.getString("order_code"));
+                    c.setPaymentMethod(rs.getString("payment_method"));
+                    c.setPaymentDate(rs.getDate("payment_date"));
                     list.add(c);
                 }
             }
