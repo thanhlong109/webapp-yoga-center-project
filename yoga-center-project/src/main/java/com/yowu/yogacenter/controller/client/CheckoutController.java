@@ -46,9 +46,9 @@ public class CheckoutController extends HttpServlet {
             HttpSession session = request.getSession();
             Account accountID = (Account) session.getAttribute("account");
             RegistrationCourseRepository regis = new RegistrationCourseRepository();
-//            if (regis.checkRegis(accountID.getId(), cs.getId()) != null) {
-//                response.sendRedirect(COURSE_DETAIL + id);
-//            } else {
+           if (regis.checkRegis(accountID.getId(), cs.getId()) != null) {
+                response.sendRedirect(COURSE_DETAIL + id);
+            } else {
                 String startdate = request.getParameter("start_time");
                 System.out.println("date checkout " + startdate);
                 Account acc = (Account) request.getSession().getAttribute("account");
@@ -60,8 +60,8 @@ public class CheckoutController extends HttpServlet {
                 request.setAttribute("account", ar.detail(acc.getId()));
                 request.setAttribute("course", c);
                 request.setAttribute("discount", msr.discountByAccountID(acc.getId()));
-                //request.getRequestDispatcher(CHECKOUT_PAGE).forward(request, response);
-            //}
+                request.getRequestDispatcher(CHECKOUT_PAGE).forward(request, response);
+            }
 
         }
         if (action.equals("membership")) {
@@ -70,9 +70,9 @@ public class CheckoutController extends HttpServlet {
             MembershipRepository mbr = new MembershipRepository();
             HttpSession session = request.getSession();
             Account account = (Account) session.getAttribute("account");
-//            if (rmsr.detail(account.getId()) != null) {
-//                response.sendRedirect(MEMBERSHIP);
-//            } else {
+           if (rmsr.detail(account.getId()) != null) {
+               response.sendRedirect(MEMBERSHIP);
+            } else {
                 Membership mb = mbr.detail(memberId);
                 request.setAttribute("member", mb);
                 LocalDate current = LocalDate.now();
@@ -80,11 +80,11 @@ public class CheckoutController extends HttpServlet {
                 request.setAttribute("startdate", current);
                 request.setAttribute("enddate", enddate);
                 session.setAttribute("RegistrationMembership", new RegistrationMembership(mb, account, Date.valueOf(current), Date.valueOf(enddate)));
-                //request.getRequestDispatcher(CHECKOUT_PAGE).forward(request, response);
-            //}
+                request.getRequestDispatcher(CHECKOUT_PAGE).forward(request, response);
+            }
             
         }
-        request.getRequestDispatcher(CHECKOUT_PAGE).forward(request, response);
+        //request.getRequestDispatcher(CHECKOUT_PAGE).forward(request, response);
     }
 
     @Override

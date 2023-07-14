@@ -71,6 +71,7 @@ public class CheckoutSendController extends HttpServlet {
         long millis = System.currentTimeMillis();
         java.sql.Date date = new java.sql.Date(millis);
         Account acc = (Account) request.getSession().getAttribute("account");
+                        RegistrationMembership rm = new RegistrationMembership();
 
         try {
             RegistrationMembership regisMember = (RegistrationMembership) request.getSession().getAttribute("RegistrationMembership");
@@ -79,9 +80,7 @@ public class CheckoutSendController extends HttpServlet {
                 int memId = Integer.parseInt(request.getParameter("memId"));
                 
                 MembershipRepository msr = new MembershipRepository();
-                Membership accountMembership = msr.discountByAccountID(acc.getId());
                 RegistrationMembershipRepository regis = new RegistrationMembershipRepository();
-                RegistrationMembership rm = new RegistrationMembership();
                 
                 Membership mb = msr.detail(memId);
                 int status = 2;
@@ -215,6 +214,12 @@ public class CheckoutSendController extends HttpServlet {
 
 //            url = SUCCESS;
             if (method.equals("STUDIO")) {
+                regisMember = (RegistrationMembership) request.getSession().getAttribute("RegistrationMembership");
+
+                if (regisMember != null) {
+                    int memId = Integer.parseInt(request.getParameter("memId"));
+                    
+                }
                 url = PENDING_CHECKOUT;
                 int courseId = Integer.parseInt(request.getParameter("id"));
                 CourseRepository cr = new CourseRepository();
