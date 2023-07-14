@@ -90,12 +90,12 @@
                                         <li class="element__checkout-method-paypal">
                                             <input type="radio" name="payment-method" value="VNPAY">
                                             <img src="Asset/img/checkout/vnpay.png" alt="">
-                                            <span class="checkout-method">VI EN PAY</span>
+                                            <span class="checkout-method">VNPAY</span>
                                         </li>
                                         <li class="element__checkout-method-offline__payment">
                                             <input type="radio" name="payment-method" value="STUDIO">
                                             <img src="Asset/img/checkout/pngwing.com.png" alt="">
-                                            <span class="checkout-method">Studio</span>
+                                            <span class="checkout-method">Payment in Studio</span>
                                         </li>
                                     </ul>
 
