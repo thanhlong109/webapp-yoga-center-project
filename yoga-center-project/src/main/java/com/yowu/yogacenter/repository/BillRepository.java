@@ -193,6 +193,36 @@ public class BillRepository {
         }
         return null;
     }
+    
+    public Bill getBillRecentByAccountIdAndCourseID(int accountId, int courseId ) {
+        String sql = "select * from tblBill WHERE account_id = ? AND course_id = ? order by bill_id DESC";
+        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
+            stmt.setInt(1, accountId);
+            stmt.setInt(2, courseId);
+            try ( ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    AccountRepository acc = new AccountRepository();
+                    CourseRepository cr = new CourseRepository();
+                    Bill c = new Bill();
+                    c.setCourse(cr.detail(rs.getInt("course_id")));
+                    c.setAccount(acc.detail(rs.getInt("account_id")));
+                    c.setId(rs.getInt("bill_id"));
+                    c.setStatus(rs.getInt("bill_status"));
+                    c.setIsActive(rs.getBoolean("bill_is_active"));
+                    c.setValue(rs.getFloat("bill_value"));
+                    c.setDiscount(rs.getInt("bill_discount"));
+                    c.setDate(rs.getDate("bill_date"));
+                    c.setOrdercode(rs.getString("order_code"));
+                    c.setMethod(rs.getString("payment_method"));
+                    c.setPaymentDate(rs.getDate("payment_date"));
+                    return c;
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return null;
+    }
 
     public boolean updateStatus(String ordercode, String date, int status) throws ParseException {
         boolean check = false;
@@ -358,6 +388,7 @@ public class BillRepository {
     public static void main(String[] args) {
         BillRepository b = new BillRepository();
         
+        System.out.println(b.getBillRecentByAccountIdAndCourseID(2, 1).getId());
     }
 
 }

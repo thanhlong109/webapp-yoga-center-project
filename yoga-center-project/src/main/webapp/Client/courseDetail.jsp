@@ -507,7 +507,7 @@
                             <c:if test="${course.price<=0}">Free</c:if>
                         </div> <!--replace price here-->
                    </div>
-                    <c:if test="${sessionScope.account == null && billStatus != 1}">
+                    <c:if test="${sessionScope.account == null}">
                         <c:if test="${course.price>0}">
                             <a class="book-btn" onclick="gotoCheckout('Checkout?id=${course.id}&action=course')" >
                                 Purchase
@@ -520,7 +520,7 @@
                         </c:if>
                     </c:if>
 
-                    <c:if test="${sessionScope.account != null && billStatus != 2 && denyBook != 1}">
+                    <c:if test="${sessionScope.account != null && allowBook}">
                         <c:if test="${course.price>0}">
                             <a class="book-btn" onclick="gotoCheckout('Checkout?id=${course.id}&action=course')" >
                                 Book now
@@ -533,15 +533,11 @@
                         </c:if>
 
                     </c:if>
-
-
-                    <c:if test="${sessionScope.account != null && billStatus != 2 && denyBook == 1}">
+                    <c:if test="${sessionScope.account != null  && !allowBook}">
                             <p class="msg-green">You have joined the course</p> 
                     </c:if>
 
-                    <c:if test="${sessionScope.account != null && billStatus == 2}">
-                        <p class="msg-yellow" >Waiting for payment</p>
-                    </c:if>
+
                 </div>
             </div>
 
