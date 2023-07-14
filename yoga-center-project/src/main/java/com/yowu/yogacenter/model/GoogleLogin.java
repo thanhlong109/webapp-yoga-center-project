@@ -4,11 +4,13 @@
  */
 package com.yowu.yogacenter.model;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Chien Thang
  */
-public class GoogleLogin {
+public class GoogleLogin implements Serializable{
 
     public static String DEFAULT_IMG = "hinh-avatar-1.png";
     
