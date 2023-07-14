@@ -219,7 +219,7 @@ main{
 main .top{
     display: flex;
     justify-content: end;
-    gap: 2rem;
+    gap: 10rem;
 }
 main .top button#menu-btn{
     display: none;
@@ -234,25 +234,28 @@ main .top .profile{
  #search-box{
     background: var(--color-white);
     border-radius: var(--border-radius-2);
-    
+    position: relative;
 }
 #search-box #search-text{
     border: none;
     outline: none;
     background: none;
     font-size: 1.2rem;
-    padding: 0;
-    width: 0;
+    padding: 10px 0 10px 15px;
+    width: 700px;
     transition: all 0.25s ease-in-out;
+
 }
-#search-box:hover #search-text, #search-box #search-text:valid{
+/* #search-box:hover #search-text, #search-box #search-text:valid{
     width: 300px;
     padding: 10px 0 10px 15px;
-}
+} */
 #search-box #btnSearch{
     background: var(--color-white);
     border: none;
-    
+    position: absolute;
+    top: 0;
+    right: 0;
     cursor: pointer;
     border-radius: 50%;
     font-size: 1.2rem;
@@ -286,9 +289,11 @@ main h1{
 }
 .wrapper-box .table-style-1 th{
     color: var(--color-primary-variant);
+/*    width: 300px;*/
 }
 .wrapper-box .table-style-1 td{
     color: var(--color-dark-variant);
+    
 }
 .wrapper-box{
     border-radius: var(--border-radius-1);
@@ -297,13 +302,14 @@ main h1{
     box-shadow: var(--box-shadow);
 }
 .wrapper-box .btn{
-    padding: 8px 16px;
+    padding: 8px 10px;
     border-radius: 4px;
     text-decoration: none;
     font-size: 14px;
     font-weight: 600;
     display: inline-block;
     cursor: pointer;
+    
 }
 .wrapper-box .btn:hover{
     opacity: 0.8;
@@ -312,11 +318,17 @@ main h1{
 .wrapper-box .btn-green{
     color: white;
     background-color: var(--color-success);
+   
 }
 .wrapper-box .btn-red{
     color: white;
     background-color: #f14739;
+    
 }
 .wrapper-box .btn + .btn{
     margin-left: 16px;
+}
+.button{
+    display: flex;
+    
 }
