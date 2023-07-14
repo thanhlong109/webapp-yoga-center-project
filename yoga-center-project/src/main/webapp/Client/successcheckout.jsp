@@ -58,9 +58,8 @@
                                 <tr>
                                     <th>Payment method:</td>
                                         <c:if test="${sessionScope.billCourseC != null}">
-                                        <td>${sessionScope.billCourseC.method}</td>
-                                    </c:if>
-
+                                            <td>${sessionScope.billCourseC.method}</td>
+                                        </c:if>
                                 </tr>
                                 <tr>
                                     <th>Order code:</th>
@@ -111,7 +110,7 @@
                             <p>See you again!</p>
                         </div>
                         <div class="payment-footer">
-                            <div>Go to Home page after <span id="counter">15</span>s</div>
+                            <div>Go to Home page after <span id="counter">30</span>s</div>
                             <p>Powered by <a href="#">VNPAY</a></p>
                         </div>
                     </div>

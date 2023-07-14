@@ -1,6 +1,6 @@
 <%-- 
-    Document   : pending
-    Created on : Jun 27, 2023, 10:46:39 PM
+    Document   : successmembership
+    Created on : Jul 13, 2023, 9:00:16 PM
     Author     : Chien Thang
 --%>
 
@@ -13,6 +13,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
         <title>Payment | YowuYoga</title>
+        <!-- Google font -->
+        <!-- <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'> -->
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@100;200;300;400&display=swap"
@@ -39,15 +41,15 @@
                         </div>
 
                         <div class="col-md-12 pay-img">
-                            <img src="Asset/img/checkout/icons8-pending-100.png" alt="" width="100px">
-                            <h4>Payment Pending</h4>
+                            <img src="Asset/img/checkout/success-icon.png" alt="" width="100px">
+                            <h4>Payment success</h4>
                         </div>
                         <div class="col-md-12 payment-in4">
-                        <table>
-                            <tbody>
-                                <tr>
-                                    <th>Customer:</th>
-                                    <td>${sessionScope.account.name}</td>
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <th>Customer:</th>
+                                        <td>${sessionScope.account.name}</td>
                                 </tr>
                                 <tr>
                                     <th>Email:</th>
@@ -55,17 +57,17 @@
                                 </tr>
                                 <tr>
                                     <th>Payment method:</td>
-                                        <td>${bill.method}</td>                                  
+                                        <td>${requestScope.billMem.method}</td>
                                 </tr>
                                 <tr>
                                     <th>Order code:</th>
-                                    <td>${bill.ordercode}</td>
+                                    <td>${PAYMENT.vnp_TxnRef}</td>
                                 </tr>
                                 <tr>
                                     <th>Amount paid:</th>
-                                    <td class="amout">$${bill.value}</td>
+                                    <td class="amout">$${requestScope.billMem.value}</td>
                                 </tr>
-                                
+
                             </tbody>
                         </table>
                     </div>
@@ -77,22 +79,34 @@
                     <div class="col-md-12 payment-details">
                         <table>
                             <tbody>
-                                <tr>
-                                    <th>Payment product:</th>
-                                        <td>${bill.course.title}</td>
-                                </tr>
-                                    <th>Payment date:</td>
-                                    <td>${bill.date}</td>
-                                </tr>
+                                    <tr>
+                                        <th>Payment product:</th>
+                                        <td>Yowu Member level: ${requestScope.billMem.membership.name}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Bank Transaction Number:</td>
+                                        <td>${PAYMENT.vnp_BankTranNo}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Bank code:</td>
+                                        <td>${PAYMENT.vnp_BankCode}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Payment type:</td>
+                                        <td>${PAYMENT.vnp_CardType}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Payment date:</td>
+                                        <td>${requestScope.billMem.paymentDate}</td>
+                                    </tr>
                             </tbody>
                         </table>
                         <div class="thanks">
-                            <p>Please pay within 48 hours ...</p>
                             <p>Thank you for choosing us.</p>
                             <p>See you again!</p>
                         </div>
                         <div class="payment-footer">
-                            <div>Go to Home page after <span id="counter">30</span>s</div>
+                            <div>Go to Home page after s</div>
                             <p>Powered by <a href="#">VNPAY</a></p>
                         </div>
                     </div>

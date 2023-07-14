@@ -34,31 +34,77 @@
 
         <div class="container">
             <c:forEach items="${membershipList}" var="memList">
-                <div class="box">
-                    <h3>${memList.name} Yowu Member</h3>
-                    <p class="price">$${memList.price} <small class="text-mute">/Month</small></p>
-                    <div class="box__content">
-                        <span class="material-symbols-sharp">verified</span>
-                        <p>Membership period lasts up to ${memList.duration} days</p>
-                        <input id="durationMem" value="${memList.duration}" type="hidden">
-                    </div>
-                    <div class="box__content">
-                        <span class="material-symbols-sharp">verified</span>
-                        <p>${memList.description}</p>
-                    </div>
-                    <a onclick="gotoCheckoutForMem('Checkout?memId=${memList.id}&action=membership', ${memList.duration})"><button class="btn-silver">Buy Now</button></a>
-                    <span class="type">${memList.name}</span>
-                </div>
+                <c:if test="${sessionScope.account == null}">
+                    <div class="box">
+                        <h3>${memList.name} Yowu Member</h3>
+                        <p class="price">$${memList.price} <small class="text-mute">/Month</small></p>
+                        <div class="box__content">
+                            <span class="material-symbols-sharp">verified</span>
+                            <p>Membership period lasts up to ${memList.duration} days</p>
+                            <input id="durationMem" value="${memList.duration}" type="hidden">
+                        </div>
+                        <div class="box__content">
+                            <span class="material-symbols-sharp">verified</span>
+                            <p>${memList.description}</p>
+                        </div>
+                        <a onclick="gotoCheckoutForMem('Checkout?memId=${memList.id}&action=membership', ${memList.duration})"><button class="btn-silver">Buy Now</button></a>
+                        <span class="type">${memList.name}</span>
+                    </div> 
+                </c:if>
+                <c:if test="${sessionScope.account != null }">
+                    <c:if test="${ExistMem == null}">
+                        <div class="box">
+                            <h3>${memList.name} Yowu Member</h3>
+                            <p class="price">$${memList.price} <small class="text-mute">/Month</small></p>
+                            <div class="box__content">
+                                <span class="material-symbols-sharp">verified</span>
+                                <p>Membership period lasts up to ${memList.duration} days</p>
+                                <input id="durationMem" value="${memList.duration}" type="hidden">
+                            </div>
+                            <div class="box__content">
+                                <span class="material-symbols-sharp">verified</span>
+                                <p>${memList.description}</p>
+                            </div>
+                            <a onclick="gotoCheckoutForMem('Checkout?memId=${memList.id}&action=membership', ${memList.duration})"><button class="btn-silver">Buy Now</button></a>
+                            <span class="type">${memList.name}</span>
+                        </div> 
+                    </c:if>
+                    <c:if test="${ExistMem != null}">
+                        <div class="box">
+                            <h3>${memList.name} Yowu Member</h3>
+                            <p class="price">$${memList.price} <small class="text-mute">/Month</small></p>
+                            <div class="box__content">
+                                <span class="material-symbols-sharp">verified</span>
+                                <p>Membership period lasts up to ${memList.duration} days</p>
+                                <input id="durationMem" value="${memList.duration}" type="hidden">
+                            </div>
+                            <div class="box__content">
+                                <span class="material-symbols-sharp">verified</span>
+                                <p>${memList.description}</p>
+                            </div>
+                            <c:if test="${ExistMem != null &&  memList.id == ExistMem.membership.id}">
+                                <a> <button class="btn-silver">You already here</button></a>
+                            </c:if>
+                            <c:if test="${ExistMem != null &&  memList.id != ExistMem.membership.id && ExistMem.membership.price < memList.price}">
+                                <a onclick="gotoCheckoutForMem('Checkout?memId=${memList.id}&action=membership', ${memList.duration})"><button class="btn-silver">Update now</button></a>
+                            </c:if>
+                            <c:if test="${ExistMem != null &&  memList.id != ExistMem.membership.id && ExistMem.membership.price > memList.price}">
+                                <a><button class="btn-silver">You can't update membership</button></a>
+                            </c:if>
+                            <span class="type">${memList.name}</span>
+                        </div> 
+                    </c:if>
+                </c:if>
             </c:forEach>
         </div>
     </div>
 </body>
 
 <script>
-    
+
     function gotoCheckoutForMem(url, durationMem) {
-    window.location.href = "${pageContext.request.contextPath}/" + url + "&durationMem=" + durationMem;
-}
+        window.location.href = "${pageContext.request.contextPath}/" + url + "&durationMem=" + durationMem;
+    }
 
 </script>
 

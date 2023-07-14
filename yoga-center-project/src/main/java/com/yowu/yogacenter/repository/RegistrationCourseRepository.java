@@ -267,6 +267,34 @@ public class RegistrationCourseRepository {
         }
         return null;
     }
+    
+    public RegistrationCourse checkRegis(int accID, int courseID) {
+        String sql = "select * from tblRegistrationCourse where account_id=? and course_id=? ";
+        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
+            stmt.setInt(1, accID);
+            stmt.setInt(2, courseID);
+            try ( ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    AccountRepository acc = new AccountRepository();
+                    CourseRepository cr = new CourseRepository();
+                    CourseScheduleRepository csr = new CourseScheduleRepository();
+                    RegistrationCourse c = new RegistrationCourse();
+                    c.setId(rs.getInt("registration_id"));
+                    c.setAccount(acc.detail(rs.getInt("account_id")));
+                    c.setCourse(cr.detail(rs.getInt("course_id")));
+                    c.setRegistrationDate(rs.getDate("registration_date"));
+                    c.setCourseSchedule(csr.detail(rs.getInt("course_schedule_id")));
+                    c.setEndDate(rs.getDate("end_date"));
+                    c.setCourseStatus(rs.getInt("course_status"));
+                    c.setRegistrationtatus(rs.getBoolean("registration_status"));
+                    return c;
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return null;
+    }
 
     public boolean add(RegistrationCourse registrationCourse) {
         String sql = "INSERT INTO tblRegistrationCourse (account_id, course_id, "

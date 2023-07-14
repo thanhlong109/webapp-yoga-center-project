@@ -104,7 +104,7 @@
                             <p>See you again!</p>
                         </div>
                         <div class="payment-footer">
-                            <div>Go to Home page after <span id="counter">15</span>s</div>
+                            <div>Go to Home page after <span id="counter">30</span>s</div>
                             <p>Powered by <a href="#">VNPAY</a></p>
                         </div>
                     </div>

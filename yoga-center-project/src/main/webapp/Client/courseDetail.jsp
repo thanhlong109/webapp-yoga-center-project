@@ -480,7 +480,20 @@
                             </div> <!--replace price here-->
                         </div>
                         <div  class="course-card book1">
-                        <c:if test="${billStatus != 2}">
+                        <c:if test="${sessionScope.account == null && billStatus != 1}">
+                            <c:if test="${course.price>0}">
+                                <a class="book-course" onclick="gotoCheckout('Checkout?id=${course.id}&action=course')" class="course-card">
+                                    <p>Purchase</p>
+                                </a>
+                            </c:if>   
+                            <c:if test="${course.price<=0}">
+                                <a class="book-course" onclick="gotoCheckout('Checkout?id=${course.id}&action=course')" class="course-card">
+                                    <p>Errol</p>
+                                </a>
+                            </c:if>
+                        </c:if>
+                            
+                        <c:if test="${sessionScope.account != null && billStatus != 2 && denyBook != 1}">
                             <c:if test="${course.price>0}">
                                 <a class="book-course" onclick="gotoCheckout('Checkout?id=${course.id}&action=course')" class="course-card">
                                     <p>Book now</p>
@@ -491,12 +504,26 @@
                                     <p>Errol</p>
                                 </a>
                             </c:if>
+                            
                         </c:if>
+
+
+                        <c:if test="${sessionScope.account != null && billStatus != 2 && denyBook == 1}">
+                            <c:if test="${course.price>0}">
+                                <a class="book-course" class="course-card">
+                                    <p>You have joined the course</p>
+                                </a>
+                            </c:if>   
+                            <c:if test="${course.price<=0}">
+                                <a class="book-course" class="course-card">
+                                    <p>You have joined the course</p>
+                                </a>
+                            </c:if>
+                            
+                        </c:if>
+
                         <c:if test="${sessionScope.account != null && billStatus == 2}">
                             <p>Waiting for payment...</p>
-                        </c:if>
-                        <c:if test="${sessionScope.account != null && registrationCourse!=null}">
-                            <p>Erroled</p>
                         </c:if>
                     </div>
                 </div>
@@ -592,16 +619,16 @@
             var datePick = $('.jsdate').find(':selected').attr('data-cId');
             var parseDate = datePick.split(",");
             dateSelect = [];
-            parseDate.forEach(i =>{
+            parseDate.forEach(i => {
                 var j = parseInt(i);
                 if (j < 6) {
                     j = j + 1;
-                } else{
+                } else {
                     j = 0;
                 }
                 dateSelect.push(j);
             });
-            
+
             console.log(dateSelect);
             $('.right-container li.time-' + id).show();
             $('.right-container li.time-' + id).siblings().hide();

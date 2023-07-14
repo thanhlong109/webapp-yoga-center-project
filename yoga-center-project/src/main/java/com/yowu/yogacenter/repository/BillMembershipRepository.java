@@ -109,6 +109,35 @@ public class BillMembershipRepository {
         return null;
     }
     
+    public BillMembership getMembershipIdByAccountID(int accountID) {
+        String sql = "select * from tblBillMembership where account_id=? ";
+        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
+            stmt.setInt(1, accountID);
+            try ( ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    AccountRepository acc = new AccountRepository();
+                    BillMembership c = new BillMembership();
+                    MembershipRepository mb = new MembershipRepository();
+                    c.setMembership(mb.detail(rs.getInt("membership_id")));
+                    c.setAccount(acc.detail(rs.getInt("account_id")));
+                    c.setId(rs.getInt("bill_mem_id"));
+                    c.setStatus(rs.getInt("bill_status"));
+                    c.setIsActive(rs.getBoolean("bill_is_active"));
+                    c.setValue(rs.getFloat("bill_value"));
+                    c.setDiscount(rs.getInt("bill_discount"));
+                    c.setDate(rs.getDate("bill_date"));
+                    c.setOrdercode(rs.getString("order_code"));
+                    c.setMethod(rs.getString("payment_method"));
+                    c.setPaymentDate(rs.getDate("payment_date"));
+                    return c;
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return null;
+    }
+    
     public BillMembership getAllByAccountIdAndCourseID(String accountId, int memId ) {
         String sql = "select * from tblBillMembership WHERE account_id = ? AND course_id = ? ";
         try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
