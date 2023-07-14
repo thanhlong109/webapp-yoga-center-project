@@ -237,6 +237,23 @@
                 }
 
             }
+            .btn-forget{
+                padding: 10px 24px;
+                text-decoration: none;
+                width: fit-content;
+                margin-top: 12px;
+                background-color: #3dbca8;
+                border: none;
+                border-radius: 4px;
+                color: white;
+                cursor: pointer;
+                font-size: 14px;
+                font-style: normal;
+            }
+            .btn-forget:hover{
+                opacity: 0.8;
+            }
+            
         </style>
     </head>
     <body>
@@ -329,8 +346,10 @@
                                                 <input  class="jsCheckPass" id="newPass2" required type="password" placeholder="Confirm New Password">
                                                 <i class="fa-sharp fa-solid fa-eye"></i>
                                             </div>
-                                            <button id="btnPass" type="submit">Save</button>
-                                            <a href="${pageContext.request.contextPath}/Client/forgetPassword.jsp">Forgotten password</a>
+                                            <div>
+                                                <button id="btnPass" type="submit">Save</button>
+                                                <a class="btn-forget" href="${pageContext.request.contextPath}/Client/forgetPassword.jsp">Forgotten password</a>
+                                            </div>
                                         </div>
                                         <h4 class="noice"></h4>
                                     </form>

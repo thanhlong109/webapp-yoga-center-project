@@ -78,9 +78,10 @@
                 display: flex;
                 gap: 16px;
             }
-            .teacher img{
+            .teacher-img{
                 height: 45px;
                 width: 45px;
+                max-width: 45px;
                 border-radius: 50%;
             }
             .yellow-stars{
@@ -317,7 +318,46 @@
                 text-overflow: ellipsis; /* Add "..." at the end of the third line */
                 white-space: normal;
              }
-            
+             .book-btn{
+                text-decoration: none;
+                font-size: 16px;
+                padding: 12px 24px;
+                border: 2px solid #3dbca8;
+                color: #3dbca8;
+                text-transform: uppercase;
+                display: block;
+                text-align: center;
+                transition: all ease-in-out .3s;
+                cursor: pointer;
+                text-align: center;
+            }
+            .book-btn:hover{
+                background-color: #3dbca8;
+                color: white;
+                border-radius: 24px;
+            }
+            .msg-green{
+                padding: 12px 24px;
+                background-color: white;
+                border-radius: 24px;
+                color: #3dbca8;
+                text-transform:capitalize;
+                display: block;
+                font-weight: 600;
+                border: 2px solid #3dbca8;
+                text-align: center;
+            }
+            .msg-yellow{
+                padding: 12px 24px;
+                background-color: white;
+                border-radius: 24px;
+                color: rgb(255, 205, 86);
+                text-transform:capitalize;
+                display: block;
+                font-weight: 600;
+                border: 2px solid rgb(255, 205, 86);
+                text-align: center;
+            }
 
             @media screen and (max-width:740px) {
                 .wrapper-container{
@@ -352,18 +392,6 @@
                 }
             }
 
-
-            .book1 a{
-                text-decoration: none;
-                
-            }
-
-            .choose{
-                color: #a4262c
-                
-            }
-            
-
         </style>
 
     </head>
@@ -378,18 +406,18 @@
         </div>
         <div class="wrapper-container">
             <div class="row1">
-                <div onclick='goto("teacher?id=1")'  class="teacher hover-poiter">
-                    <div class="teacher-img">
+                <div onclick='goto("instructor?id=${course.account.id}")'  class="teacher hover-poiter">
+                    <div class="img-square-container teacher-img">
                         <img src="${pageContext.request.contextPath}/Asset/img/avatar/${course.account.img}" alt="#"> <!--replace Teacher img here-->
                     </div>
                     <div>
                         <h4>Teacher</h4>
-                        <a href="#" class="text-style-light-green">${course.account.name}</a> <!--replace teacher name here-->
+                        <a class="text-style-light-green">${course.account.name}</a> <!--replace teacher name here-->
                     </div>
                 </div>
                 <div class="category">
                     <h4>Category</h4>
-                    <a href="#" class="text-style-light-green">${course.category.name}</a> <!--replace category here-->
+                    <a href="course-filter?categoryid=${course.category.id}" class="text-style-light-green">${course.category.name}</a> <!--replace category here-->
                 </div>
                 <div>
                     <h4>Review</h4>
@@ -477,55 +505,43 @@
                         <div class="label-value">
                             <c:if test="${course.price>0}">$${course.price}</c:if>
                             <c:if test="${course.price<=0}">Free</c:if>
-                            </div> <!--replace price here-->
-                        </div>
-                        <div  class="course-card book1">
-                        <c:if test="${sessionScope.account == null && billStatus != 1}">
-                            <c:if test="${course.price>0}">
-                                <a class="book-course" onclick="gotoCheckout('Checkout?id=${course.id}&action=course')" class="course-card">
-                                    <p>Purchase</p>
-                                </a>
-                            </c:if>   
-                            <c:if test="${course.price<=0}">
-                                <a class="book-course" onclick="gotoCheckout('Checkout?id=${course.id}&action=course')" class="course-card">
-                                    <p>Errol</p>
-                                </a>
-                            </c:if>
+                        </div> <!--replace price here-->
+                   </div>
+                    <c:if test="${sessionScope.account == null && billStatus != 1}">
+                        <c:if test="${course.price>0}">
+                            <a class="book-btn" onclick="gotoCheckout('Checkout?id=${course.id}&action=course')" >
+                                Purchase
+                            </a>
+                        </c:if>   
+                        <c:if test="${course.price<=0}">
+                            <a class="book-btn" onclick="gotoCheckout('Checkout?id=${course.id}&action=course')" >
+                                Errol
+                            </a>
                         </c:if>
-                            
-                        <c:if test="${sessionScope.account != null && billStatus != 2 && denyBook != 1}">
-                            <c:if test="${course.price>0}">
-                                <a class="book-course" onclick="gotoCheckout('Checkout?id=${course.id}&action=course')" class="course-card">
-                                    <p>Book now</p>
-                                </a>
-                            </c:if>   
-                            <c:if test="${course.price<=0}">
-                                <a class="book-course" onclick="gotoCheckout('Checkout?id=${course.id}&action=course')" class="course-card">
-                                    <p>Errol</p>
-                                </a>
-                            </c:if>
-                            
+                    </c:if>
+
+                    <c:if test="${sessionScope.account != null && billStatus != 2 && denyBook != 1}">
+                        <c:if test="${course.price>0}">
+                            <a class="book-btn" onclick="gotoCheckout('Checkout?id=${course.id}&action=course')" >
+                                Book now
+                            </a>
+                        </c:if>   
+                        <c:if test="${course.price<=0}">
+                            <a class="book-btn" onclick="gotoCheckout('Checkout?id=${course.id}&action=course')" >
+                                Errol
+                            </a>
                         </c:if>
 
+                    </c:if>
 
-                        <c:if test="${sessionScope.account != null && billStatus != 2 && denyBook == 1}">
-                            <c:if test="${course.price>0}">
-                                <a class="book-course" class="course-card">
-                                    <p>You have joined the course</p>
-                                </a>
-                            </c:if>   
-                            <c:if test="${course.price<=0}">
-                                <a class="book-course" class="course-card">
-                                    <p>You have joined the course</p>
-                                </a>
-                            </c:if>
-                            
-                        </c:if>
 
-                        <c:if test="${sessionScope.account != null && billStatus == 2}">
-                            <p>Waiting for payment...</p>
-                        </c:if>
-                    </div>
+                    <c:if test="${sessionScope.account != null && billStatus != 2 && denyBook == 1}">
+                            <p class="msg-green">You have joined the course</p> 
+                    </c:if>
+
+                    <c:if test="${sessionScope.account != null && billStatus == 2}">
+                        <p class="msg-yellow" >Waiting for payment</p>
+                    </c:if>
                 </div>
             </div>
 

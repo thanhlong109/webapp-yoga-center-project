@@ -157,6 +157,7 @@ public class AccountRepository {
                     c.setIsActive(rs.getBoolean("account_is_active"));
                     c.setRole(cr.detail(rs.getInt("role_id")));
                     c.setSocialID(rs.getString("social_id"));
+                    c.setCreateDate(rs.getDate("create_date"));
                     return c;
                 }
             }

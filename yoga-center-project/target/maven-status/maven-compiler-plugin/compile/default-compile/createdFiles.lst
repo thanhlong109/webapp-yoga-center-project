@@ -57,6 +57,7 @@ com\yowu\yogacenter\controller\client\RegisterAccountController.class
 com\yowu\yogacenter\controller\admin\AddCategoryController.class
 com\yowu\yogacenter\model\RegistrationCourse$CourseStatus.class
 com\yowu\yogacenter\controller\admin\ViewMembershipListController.class
+com\yowu\yogacenter\controller\client\InstructorProfileController.class
 com\yowu\yogacenter\checkout\CheckoutSendController.class
 com\yowu\yogacenter\repository\CourseWishlistRepository.class
 com\yowu\yogacenter\controller\admin\UpdateCategoryController.class

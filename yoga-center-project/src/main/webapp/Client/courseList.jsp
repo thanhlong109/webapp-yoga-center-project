@@ -587,13 +587,13 @@
                                 </div>
                             </div>
                             <div class="card-detail text-ellipsis">${course.detail}</div>
-                            <div class="card-teacher">
+                            <div onclick="goto('instructor?id=${course.account.id}')" class="card-teacher">
                                 <div class="card-teacher-img img-square-container">
                                     <img src="Asset/img/avatar/${course.account.img}" alt="">
                                 </div>
                                 <div>
                                     <p>Teacher</p>
-                                    <a href="#">${course.account.name}</a>
+                                    <a>${course.account.name}</a>
                                 </div>
                             </div>
                         </div>
