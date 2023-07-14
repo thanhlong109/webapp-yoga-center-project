@@ -6,7 +6,9 @@
 }
 .banner h2{
     color: #227179;
-    font-size: 3.3vw;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 .container{
     display: grid;

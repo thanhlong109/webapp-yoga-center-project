@@ -53,10 +53,7 @@
               border: 1px solid #4444;
               margin-right: 24px;
            }
-           .user-img img{
-               width: 100%;
-               max-height: 150px ;
-           }
+
            .user-container{
                margin-top: 64px;
                display: flex;
@@ -200,7 +197,7 @@
 
             <c:if test="${sessionScope.account!=null}">
                 <div class="user2">
-                    <div class="user-img"><img src="../Asset/img/avatar/${sessionScope.account.img}" alt=""></div>
+                    <div class="user-img img-square-container"><img src="../Asset/img/avatar/${sessionScope.account.img}" alt=""></div>
                     <h2>${sessionScope.account.name}</h2>
                 </div>
             </c:if>
@@ -280,6 +277,7 @@
                });
 
             });
+            
         </script>
     </body>
 </html>

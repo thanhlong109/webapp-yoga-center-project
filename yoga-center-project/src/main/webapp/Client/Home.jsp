@@ -8,6 +8,7 @@
 <%@taglib prefix="c" uri="jakarta.tags.core" %>
 <%@page import="com.yowu.yogacenter.repository.RegistrationCourseRepository" %>
 <%@page import="com.yowu.yogacenter.repository.CourseRepository" %>
+<%@page import="com.yowu.yogacenter.repository.RatingCourseRepository" %>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -25,6 +26,85 @@
             .card2{
                 max-height: 300px;
                 border: 1px solid #ccc;
+            }
+            .caroursel{
+                padding: 32px 0;
+                padding-left: 32px;
+            }
+            .surgest-course-section{
+                margin-top: 64px;
+            }
+            .surgest-course-section h2{
+                font-size: 29px;
+                color: #227179;
+                margin-bottom: 32px;
+            }
+            .surgest-list{
+                display: flex;
+                flex-wrap: wrap;
+                gap: 24px;
+            }
+
+            .surgest-course-card{
+                width: calc(90% / 4);
+                transition: all ease-in-out .3s;
+                box-shadow: 0 0 15px rgba(0,0,0,0.15);
+                min-width: 250px;
+                cursor: pointer;
+            }
+            .surgest-course-card:hover{
+                transform: translateY(-10px);
+                box-shadow: 0 0 25px rgba(0,0,0,0.35);
+            }
+            
+            .surgest-card-img{
+                height: 160px;
+                max-height: 160px;
+                min-height: 160px;
+                overflow: hidden;
+                display: flex;
+                align-items: center;
+            }
+                
+            
+            .surgest-card-img img{
+                max-width: 100%;
+            }
+
+            .surgest-card-body{
+                padding: 12px 20px;
+                min-height: 140px;
+            }
+            .surgest-card-body>div:first-child{
+                display: flex;
+                justify-content: space-between;
+            }
+            .surgest-card-body>div:first-child p{
+                color: #3dbca8;
+            }
+            .green-stars{
+                font-size: 12px;
+                color: #3dbca8;
+            }
+            .surgest-card-body a{
+                font-size: 20px;
+                color: #545454;
+                margin: 8px 0;
+                text-decoration: none;
+                font-weight: 600;
+            }
+            .surgest-card-footer{
+                padding: 20px;
+                border-top: 1px solid #e6e6e6;
+            }
+            .surgest-card-price{
+                font-size: 20px;
+                color: #5e5e5e;
+                margin-bottom: 8px;
+            }
+            .surgest-card-student{
+                color: #a2a2a2;
+                font-size: 14px;
             }
             
         </style>
@@ -98,29 +178,35 @@
                 request.setAttribute("rcRepo",new RegistrationCourseRepository());
                 request.setAttribute("courseRepo",new CourseRepository());
             %>
+            <c:set var="ratingRepo" value="<%= new RatingCourseRepository()%>"/> 
             <div id="caroursel"  class="wrapper-caroursel">
                 <i id="left" class="fa-solid fa-arrow-left"></i>
                 <ul class="caroursel">
-                    <c:forEach items="${popularList}" var="course">
-                        <div onclick="goto('course-detail?id=${course.id}')" class="course-card">
-                        <li class="card card-zoom">
-                            <div class="card-img">
-                                <img src="Asset/img/classes/${course.img}" alt="">
-                                <div class="card-hide">
-                                    <p><i class="fa-solid fa-book"></i> ${course.duration} Slot</p>
-                                    <p><i class="fa-solid fa-user-group"></i> ${rcRepo.getStudentEnrolled(course.id)} Student Enrolled</p>
-                                    <p><i class="fa-regular fa-lightbulb"></i> ${course.category.name}</p>
+                    <c:forEach items="${popularList}" var="c">
+                        <li class="card-course">
+                            <div onclick="goto('course-detail?id=${c.id}')" class="surgest-course-card">
+                                <div class="surgest-card-img">
+                                    <img src="${pageContext.request.contextPath}/Asset/img/classes/${c.img}" alt="">
+                                </div>
+                                <div class="surgest-card-body">
+                                    <div>
+                                        <p>${c.category.name}</p> <!--replace category for surgest card -->
+                                        <div data-avg="${ratingRepo.getAvgCourseRating(c.id)}" class="green-stars stars">
+                                            <i class=""></i>
+                                            <i class=""></i>
+                                            <i class=""></i>
+                                            <i class=""></i>
+                                            <i class=""></i>
+                                        </div>
+                                    </div>
+                                        <a class="text-ellipsis">${c.title}</a><!--replace title for surgest card-->
+                                </div>
+                                <div class="surgest-card-footer">
+                                    <p class="surgest-card-price"><c:if test="${c.price>0}">$${c.price}</c:if><c:if test="${c.price<=0}">Free</c:if></p>
+                                    <p class="surgest-card-student"><i class="fa fa-users" aria-hidden="true"></i> ${rcRepo.getStudentEnrolled(c.id)} Student Enrolled </p>
                                 </div>
                             </div>
-                            <div class="card-body">
-                                <p>
-                                    With ${course.account.name}
-                                </p>
-                                <a href="course-detail?id=${course.id}" class="text-ellipsis">${course.title}</a>
-                                <h3><c:if test="${course.price>0}">$${course.price}</c:if><c:if test="${course.price<=0}">Free</c:if></h3>
-                            </div>
                         </li>
-                        </div>
                     </c:forEach>
                 </ul>
                 <i id="right" class="fa-solid fa-arrow-right"></i>
@@ -137,8 +223,8 @@
                     <h2>Modern Yoga</h2>
                     <p>Modern postural yoga consists largely but not exclusively of the practice of asanas. There were very few standing asanas before 1900. By 2012, there were at least 19 widespread styles from Ashtanga Yoga to Viniyoga. These emphasise different aspects including aerobic exercise, precision in the asanas, and spirituality in the Haṭha yoga tradition. For example, Bikram Yoga has an aerobic exercise style with rooms heated to 105 °F</p>
                     <div>
-                        <a href="#" class="btn btn-white-boder-green">Learn More</a>
-                        <a href="#" class="btn btn-light-green">Our Story</a>
+                        <a href="about" class="btn btn-white-boder-green">Learn More</a>
+                        <a href="about" class="btn btn-light-green">Our Story</a>
                     </div>
                 </div>
             </div>
@@ -208,9 +294,43 @@
             function goto(url){
                 window.window.location.href = "${pageContext.request.contextPath}/"+url;   
             }
+            /*display star*/
+            const starsParents = document.querySelectorAll(".stars");
+            starsParents.forEach(sp => {
+                let stars = sp.querySelectorAll(".stars i");
+                var avg = $(sp).data('avg');
+                stars.forEach(star => {
+                    if (avg > 0) {
+                        star.classList.add("fa-solid");
+                        if (avg < 1) {
+                            star.classList.add("fa-star-half-stroke");
+                        } else {
+                            star.classList.add("fa-star");
+                        }
+                    } else {
+                        star.classList.add("fa-regular");
+                        star.classList.add("fa-star");
+                    }
+                    avg -= 1;
+                });
+            });
+            
+            const carouselsWrapper  = document.querySelectorAll(".wrapper-caroursel");
+
+            carouselsWrapper.forEach(carouselWrapper =>{
+                let caroursel = carouselWrapper.querySelector(".caroursel");
+                let firstCardWidth = carouselWrapper.querySelector(".card,.card-course").offsetWidth;
+                let arrowBtns = carouselWrapper.querySelectorAll("i");
+
+                arrowBtns.forEach(btn =>{
+                    btn.addEventListener("click",()=>{
+                        caroursel.scrollLeft += btn.id === "left" ? -firstCardWidth : firstCardWidth;
+                    });
+                });
+            });
         </script>
         
         <!-- End section 6-->
-        <script defer src="Asset/js/caroursel.js"></script>
+        
     </body>
 </html>

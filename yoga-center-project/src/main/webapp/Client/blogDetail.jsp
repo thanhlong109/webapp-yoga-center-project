@@ -48,7 +48,7 @@ f<%--
                     <div class="load-comment">
                         <c:forEach items="${commentList}" var="comment">
                             <div class="user-comment-item">
-                                <div class="user-comment-avata">
+                                <div class="user-comment-avata img-square-container">
                                     <img src="Asset/img/avatar/${comment.account.img}" alt="">
                                 </div>
                                 <div class="comment-info">

@@ -1,6 +1,7 @@
 com\yowu\yogacenter\controller\client\HomeController.class
 com\yowu\yogacenter\repository\BillMembershipRepository.class
 com\yowu\yogacenter\controller\admin\AddCourseScheduleController.class
+com\yowu\yogacenter\model\CourseError.class
 com\yowu\yogacenter\controller\client\ViewScheduleController.class
 com\yowu\yogacenter\controller\admin\DeleteAccountController.class
 com\yowu\yogacenter\controller\admin\AddMembershipController.class
@@ -20,6 +21,7 @@ com\yowu\yogacenter\controller\client\CourseFilterController.class
 com\yowu\yogacenter\repository\RegistrationCourseRepository.class
 com\yowu\yogacenter\controller\admin\ViewCategoryListController.class
 com\yowu\yogacenter\controller\client\LogoutController.class
+com\yowu\yogacenter\model\CategoryError.class
 com\yowu\yogacenter\controller\admin\UpdateClassScheduleController.class
 com\yowu\yogacenter\controller\admin\DashBoardController.class
 com\yowu\yogacenter\controller\client\UserProfileCourse.class

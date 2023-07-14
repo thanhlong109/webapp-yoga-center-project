@@ -178,13 +178,24 @@
                 transform: translateY(-10px);
                 box-shadow: 0 0 25px rgba(0,0,0,0.35);
             }
-
+            
+            .surgest-card-img{
+                height: 160px;
+                max-height: 160px;
+                min-height: 160px;
+                overflow: hidden;
+                display: flex;
+                align-items: center;
+            }
+                
+            
             .surgest-card-img img{
                 max-width: 100%;
             }
 
             .surgest-card-body{
                 padding: 12px 20px;
+                min-height: 140px;
             }
             .surgest-card-body>div:first-child{
                 display: flex;
@@ -217,6 +228,7 @@
                 color: #a2a2a2;
                 font-size: 14px;
             }
+            /**/
             select.label-value{
                 font-size: 14px !important;
                 padding: 4px 8px;
@@ -296,7 +308,16 @@
                 color: #444444;
             }
 
-
+            
+            .text-ellipsis {
+                display: -webkit-box;
+                -webkit-line-clamp: 2; /* Limit the text to 3 lines */
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+                text-overflow: ellipsis; /* Add "..." at the end of the third line */
+                white-space: normal;
+             }
+            
 
             @media screen and (max-width:740px) {
                 .wrapper-container{
@@ -341,6 +362,7 @@
                 color: #a4262c
                 
             }
+            
 
         </style>
 
@@ -502,7 +524,7 @@
                                         <i class=""></i>
                                     </div>
                                 </div>
-                                <a>${c.title}</a><!--replace title for surgest card-->
+                                    <a class="text-ellipsis">${c.title}</a><!--replace title for surgest card-->
                             </div>
                             <div class="surgest-card-footer">
                                 <p class="surgest-card-price"><c:if test="${c.price>0}">$${c.price}</c:if><c:if test="${c.price<=0}">Free</c:if></p>

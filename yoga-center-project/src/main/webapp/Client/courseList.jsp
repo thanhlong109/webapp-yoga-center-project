@@ -122,19 +122,19 @@
                 font-size: 12px;
             }
             .card-price{
-                height: 75px;
-                width: 75px;
+                height: 85px;
+                width: 85px;
                 display: flex;
                 justify-content: center;
-                line-height: 75px;
+                line-height: 85px;
                 background-color: #3dbca8;
                 color: white;
                 font-weight: 600;
-                font-size: 25px;
+                font-size: 22px;
                 border-radius: 50%;
                 margin-left: 32px;
-                min-width: 75px;
-                min-height: 75px;
+                min-width: 85px;
+                min-height: 85px;
                 
             }
             .card-teacher{
@@ -148,12 +148,12 @@
                 width: 48px;
                 height: 48px;
                 display: flex;
+                justify-content: center;
+                align-items: center;
                 border-radius: 50%;
                 overflow: hidden;
             }
-            .card-teacher-img img{
-                width: 100%;
-            }
+
             .card-teacher p,.card-teacher a{
                 line-height: 1.7;
             }
@@ -588,7 +588,7 @@
                             </div>
                             <div class="card-detail text-ellipsis">${course.detail}</div>
                             <div class="card-teacher">
-                                <div class="card-teacher-img">
+                                <div class="card-teacher-img img-square-container">
                                     <img src="Asset/img/avatar/${course.account.img}" alt="">
                                 </div>
                                 <div>

@@ -41,7 +41,7 @@
                 </c:if>
                 <c:if test="${sessionScope.account != null}">
                     <a class="text-account" href="${pageContext.request.contextPath}/userprofile/course">
-                        <div class="img">
+                        <div class="img img-square-container">
                             <img id="img_account" src="${pageContext.request.contextPath}/Asset/img/avatar/${sessionScope.account.img}" />
                         </div>   
                     </a>
@@ -56,7 +56,7 @@
 <!-- End header -->
 <script src="${pageContext.request.contextPath}/Asset/js/cdnjs.cloudflare.com_ajax_libs_jquery_3.7.0_jquery.min.js"></script>
 
-
+<%@include file="../Component/imgSquare.jsp" %>
 <script defer>
     const menuBtn = document.querySelector(".menu-mobile");
     const nav = document.querySelector(".nav");

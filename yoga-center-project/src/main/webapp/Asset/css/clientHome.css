@@ -200,8 +200,9 @@
     align-items: center;
 }
 .card2-body h2{
-    font-size: 23px;
-    color: #227179;
+    margin-top: 16px;
+    font-size: 20px;
+    color: #545454;
 }
 .card2-body a{
     color: #afafaf;
