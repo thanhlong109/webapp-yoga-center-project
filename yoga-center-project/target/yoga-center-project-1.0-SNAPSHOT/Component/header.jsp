@@ -28,9 +28,7 @@
                     <a href="${pageContext.request.contextPath}/blogs">Blog</a>
                 </li>
                 <li class="js-schedule"><a href="${pageContext.request.contextPath}/Timetable">Schedule</a></li>
-                <c:if test="${sessionScope.account != null && sessionScope.account.id==3}">
-                    <li><a href="${pageContext.request.contextPath}/admin/dashboard">Dashboard</a></li>
-                </c:if>
+                
             </ul>
 
             <div class="user-btn">
