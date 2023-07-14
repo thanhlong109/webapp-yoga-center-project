@@ -21,6 +21,7 @@ import com.yowu.yogacenter.repository.CourseRepository;
 import com.yowu.yogacenter.repository.CourseScheduleRepository;
 import com.yowu.yogacenter.repository.MembershipRepository;
 import com.yowu.yogacenter.repository.RegistrationCourseRepository;
+import com.yowu.yogacenter.repository.RegistrationMembershipRepository;
 import jakarta.mail.Session;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -79,32 +80,31 @@ public class CheckoutSendController extends HttpServlet {
                 
                 MembershipRepository msr = new MembershipRepository();
                 Membership accountMembership = msr.discountByAccountID(acc.getId());
+                RegistrationMembershipRepository regis = new RegistrationMembershipRepository();
+                RegistrationMembership rm = new RegistrationMembership();
+                
                 Membership mb = msr.detail(memId);
                 int status = 2;
-                boolean isActive = false;
+                boolean isActive = true;
                 total = Float.parseFloat(request.getParameter("total"));
                 int discount = 0;
+                boolean regisStatus = false;
+                String dateStart = request.getParameter("startDate")+ " 00:00:00";
+                String dateEnd = request.getParameter("endDate")+ " 00:00:00";
+                
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd' 'HH:mm:ss");
+                
+                LocalDateTime dateStartS = LocalDateTime.parse(dateStart, formatter);
+                LocalDateTime  dateEndS = LocalDateTime.parse(dateEnd, formatter);
+                System.out.println("dateS"+dateStartS);
+                System.out.println("dateE"+dateEndS);
                 //(Membership membership, Account account, int status, boolean isActive, float value, int discount, Date date, String ordercode, String method, Date paymentDate)
                 orderMem = new BillMembership(mb, acc, status, isActive, total, discount, date, orderCode, method);
+                //(Membership membership, Account account, Date registrationDate, Date expirationDate, boolean registrationtatus)
+                rm = new RegistrationMembership(mb, acc, regisStatus, dateStartS, dateEndS);
                 BillMembershipRepository billMemRepo = new BillMembershipRepository();
                 billMemRepo.add(orderMem);
-//                int status = 1;
-//                total = regisMember.getMembership().getPrice();
-//                order = new Bill();
-//                order.setMethod(method);
-//                order.setPaymentDate(date);
-//                int discount = 0;
-//                if (accountMembership != null) {
-//                    discount = accountMembership.getDiscount();
-//                }
-//                order.setDiscount(discount);
-//                order.setOrdercode(orderCode);
-//                order.setValue(total);
-//                order.setStatus(status);
-//                order.setAccount(acc);
-//                HttpSession session = request.getSession();
-//                session.setAttribute("billCourse", order);
-//                System.out.println("By member ship");
+                regis.add(rm);
             } else {
                 int courseId = Integer.parseInt(request.getParameter("id"));
                 CourseRepository cr = new CourseRepository();

@@ -1,18 +1,20 @@
 <%-- 
-    Document   : failcheckout
-    Created on : Jun 27, 2023, 9:53:10 PM
+    Document   : successmembership
+    Created on : Jul 13, 2023, 9:00:16 PM
     Author     : Chien Thang
 --%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="jakarta.tags.core" %>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Payment | YowuYoga</title>
 
+        <title>Payment | YowuYoga</title>
+        <!-- Google font -->
+        <!-- <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'> -->
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@100;200;300;400&display=swap"
@@ -25,29 +27,29 @@
         <link rel="stylesheet" href="Asset/css/clientFooter.css">
         <link rel="stylesheet" href="Asset/css/common.css">
         <link rel="stylesheet" href="Asset/css/stylepayment-success.css">
-
     </head>
 
     <body>
-
         <jsp:include page="../Component/header.jsp"></jsp:include>
 
-        <div class="outline">
-            <div class="container payment-body">
-                <div class="row payment-container">
-                    <div class="col-md-12 pay-header">
-                        <h5>PAYMENT INFORMATION</h5>
-                    </div>
-                    <div class="col-md-12 pay-img">
-                        <img src="Asset/img/checkout/failure-icon.png" alt="" width="100px">
-                        <h4>Payment failure</h4>
-                    </div>
-                    <div class="col-md-12 payment-in4">
-                        <table>
-                            <tbody>
-                                <tr>
-                                    <th>Customer:</th>
-                                    <td>${sessionScope.account.name}</td>
+
+            <div class="outline">
+                <div class="container payment-body">
+                    <div class="row payment-container">
+                        <div class="col-md-12 pay-header">
+                            <h5>PAYMENT INFORMATION</h5>
+                        </div>
+
+                        <div class="col-md-12 pay-img">
+                            <img src="Asset/img/checkout/success-icon.png" alt="" width="100px">
+                            <h4>Payment success</h4>
+                        </div>
+                        <div class="col-md-12 payment-in4">
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <th>Customer:</th>
+                                        <td>${sessionScope.account.name}</td>
                                 </tr>
                                 <tr>
                                     <th>Email:</th>
@@ -55,10 +57,7 @@
                                 </tr>
                                 <tr>
                                     <th>Payment method:</td>
-                                        <c:if test="${sessionScope.billCourseC != null}">
-                                            <td>${sessionScope.billCourseC.method}</td>
-                                        </c:if>
-                                    
+                                        <td>${requestScope.billMem.method}</td>
                                 </tr>
                                 <tr>
                                     <th>Order code:</th>
@@ -66,9 +65,9 @@
                                 </tr>
                                 <tr>
                                     <th>Amount paid:</th>
-                                    <td class="amout">$${sessionScope.billCourseC.value}</td>
+                                    <td class="amout">$${requestScope.billMem.value}</td>
                                 </tr>
-                                
+
                             </tbody>
                         </table>
                     </div>
@@ -80,25 +79,26 @@
                     <div class="col-md-12 payment-details">
                         <table>
                             <tbody>
-                                <tr>
-                                    <th>Payment product:</th>
-                                    <c:if test="${sessionScope.billCourseC.course != null}">
-                                        <td>${sessionScope.billCourseC.course.title}</td>
-                                    </c:if>
-                                    
-                                </tr>
-                                <tr>
-                                    <th>Bank code:</td>
-                                    <td>${PAYMENT.vnp_BankCode}</td>
-                                </tr>
-                                <tr>
-                                    <th>Payment type:</td>
-                                    <td>${PAYMENT.vnp_CardType}</td>
-                                </tr>
-                                <tr>
-                                    <th>Payment date:</td>
-                                    <td>${sessionScope.billCourseC.paymentDate}</td>
-                                </tr>
+                                    <tr>
+                                        <th>Payment product:</th>
+                                        <td>Yowu Member level: ${requestScope.billMem.membership.name}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Bank Transaction Number:</td>
+                                        <td>${PAYMENT.vnp_BankTranNo}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Bank code:</td>
+                                        <td>${PAYMENT.vnp_BankCode}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Payment type:</td>
+                                        <td>${PAYMENT.vnp_CardType}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Payment date:</td>
+                                        <td>${requestScope.billMem.paymentDate}</td>
+                                    </tr>
                             </tbody>
                         </table>
                         <div class="thanks">
@@ -106,7 +106,7 @@
                             <p>See you again!</p>
                         </div>
                         <div class="payment-footer">
-                            <div>Go to Home page after <span id="counter">30</span>s</div>
+                            <div>Go to Home page after s</div>
                             <p>Powered by <a href="#">VNPAY</a></p>
                         </div>
                     </div>
@@ -120,18 +120,16 @@
             session.removeAttribute("bill");
         %>
         <jsp:include page="../Component/footer.jsp"></jsp:include>
-        <script>
-            setInterval(function () {
-                var div = document.querySelector("#counter");
-                var count = div.textContent * 1 - 1;
-                div.textContent = count;
-                if (count <= 0) {
-                    window.location.replace("${pageContext.request.contextPath}/");
-                }
-            }, 1000);
+            <script>
+                setInterval(function () {
+                    var div = document.querySelector("#counter");
+                    var count = div.textContent * 1 - 1;
+                    div.textContent = count;
+                    if (count <= 0) {
+                        window.location.replace("${pageContext.request.contextPath}/");
+                    }
+                }, 1000);
         </script>
-
-    
     </body>
 
 </html>

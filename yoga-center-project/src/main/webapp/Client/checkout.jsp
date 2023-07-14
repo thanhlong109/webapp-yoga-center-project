@@ -90,7 +90,7 @@
                                         <li class="element__checkout-method-paypal">
                                             <input type="radio" name="payment-method" value="VNPAY">
                                             <img src="Asset/img/checkout/vnpay.png" alt="">
-                                            <span class="checkout-method">VnPay</span>
+                                            <span class="checkout-method">VI EN PAY</span>
                                         </li>
                                         <li class="element__checkout-method-offline__payment">
                                             <input type="radio" name="payment-method" value="STUDIO">
@@ -205,7 +205,8 @@
                                                 <th class="title-content">End date</th>
                                                 <th class="title-price" >${enddate}</th>
                                             </tr>
-
+                                        <input type="hidden" value="${enddate}" name="endDate" id="endDate">
+                                        <input type="hidden" value="${startdate}" name="startDate" id="startDate">
                                             <tr class="table-title">
                                                 <th class="title-price" style="color: #a2a2a2">${member.description}</th>
                                             </tr>
@@ -240,13 +241,13 @@
         var scheduleId = params.get('course_scheduleId');
         var duration = params.get('duration');
         var startTime = params.get('start_time');
-
+        
         var memId = params.get('memId');
         var durationMem = params.get('durationMem');
-        console.log(id);
-        console.log(scheduleId);
+
         console.log(memId);
         console.log(durationMem);
+
 
         document.getElementById('course_id').value = id;
         document.getElementById('course_scheduleId').value = scheduleId;
