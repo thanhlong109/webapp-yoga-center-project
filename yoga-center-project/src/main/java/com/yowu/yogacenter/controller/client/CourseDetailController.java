@@ -52,7 +52,6 @@ public class CourseDetailController extends HttpServlet {
             if (account != null) {
                 isInWishList = cwr.isExist(id, account.getId());
                 billStatus = billRepo.getBillRecentByAccountIdAndCourseID(account.getId(), id);
-                System.out.println(billStatus);
                 if (billStatus != null) {
                     RegistrationCourse regisStatus = rcr.getRecentRegisByCourseIdAndAccountID(account.getId(), id);
                     if (regisStatus != null) {
@@ -69,7 +68,6 @@ public class CourseDetailController extends HttpServlet {
                     }
                     allowBook = regisStatus.getCourseStatus() == RegistrationCourse.CourseStatus.FINISH.ordinal();
                     
-                    System.out.println("stattus" + allowBook);
                 }
             }
             if (billStatus != null) {
