@@ -4,13 +4,14 @@
  */
 package com.yowu.yogacenter.model;
 
+import java.io.Serializable;
 import java.sql.Date;
 
 /**
  *
  * @author DungVNT
  */
-public class Bill {
+public class Bill implements Serializable{
     
     public static enum BillStatus{COMPLETED,CANCELLED,PENDING};
     

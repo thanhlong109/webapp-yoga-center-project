@@ -480,10 +480,10 @@
                             </div> <!--replace price here-->
                         </div>
                         <div  class="course-card book1">
-                        <c:if test="${sessionScope.account == null && billStatus != 1}">
+                        <c:if test="${sessionScope.account == null}">
                             <c:if test="${course.price>0}">
                                 <a class="book-course" onclick="gotoCheckout('Checkout?id=${course.id}&action=course')" class="course-card">
-                                    <p>Purchase</p>
+                                    <p>Purchase2</p>
                                 </a>
                             </c:if>   
                             <c:if test="${course.price<=0}">
@@ -493,10 +493,10 @@
                             </c:if>
                         </c:if>
                             
-                        <c:if test="${sessionScope.account != null && billStatus != 2 && denyBook != 1}">
+                        <c:if test="${sessionScope.account != null && allowBook}">
                             <c:if test="${course.price>0}">
                                 <a class="book-course" onclick="gotoCheckout('Checkout?id=${course.id}&action=course')" class="course-card">
-                                    <p>Book now</p>
+                                    <p>Purchase1</p>
                                 </a>
                             </c:if>   
                             <c:if test="${course.price<=0}">
@@ -508,7 +508,7 @@
                         </c:if>
 
 
-                        <c:if test="${sessionScope.account != null && billStatus != 2 && denyBook == 1}">
+                        <c:if test="${sessionScope.account != null && !allowBook}">
                             <c:if test="${course.price>0}">
                                 <a class="book-course" class="course-card">
                                     <p>You have joined the course</p>
@@ -522,9 +522,7 @@
                             
                         </c:if>
 
-                        <c:if test="${sessionScope.account != null && billStatus == 2}">
-                            <p>Waiting for payment...</p>
-                        </c:if>
+                       
                     </div>
                 </div>
             </div>
