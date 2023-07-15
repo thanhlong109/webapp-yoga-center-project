@@ -29,12 +29,8 @@ public class UserProfileCourse extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        /*
-        HttpSession ss = request.getSession();
-        int accountID =((Account)ss.getAttribute("account")).getId();*/
-        int accountID = 2;
-        AccountRepository ar = new AccountRepository();
-        request.setAttribute("account", ar.detail(accountID));
+        Account acc = (Account)request.getSession().getAttribute("account");
+
         String txtStatus = request.getParameter("status");
         RegistrationCourseRepository rcRepo = new RegistrationCourseRepository();
         if(txtStatus!=null){
@@ -43,17 +39,17 @@ public class UserProfileCourse extends HttpServlet {
                 RegistrationCourse.CourseStatus CourseStatus = RegistrationCourse.CourseStatus.values()[status];
                 switch(CourseStatus){
                     case INPROGRESS:{
-                        List<RegistrationCourse> list = rcRepo.getCoursesByAccountIDAndStatus(accountID,RegistrationCourse.CourseStatus.INPROGRESS.ordinal());
+                        List<RegistrationCourse> list = rcRepo.getCoursesByAccountIDAndStatus(acc.getId(),RegistrationCourse.CourseStatus.INPROGRESS.ordinal());
                         out.print(getHtmlListCourse(list));
                         break;
                     }
                     case FINISH :{
-                        List<RegistrationCourse> list = rcRepo.getCoursesByAccountIDAndStatus(accountID,RegistrationCourse.CourseStatus.FINISH.ordinal());
+                        List<RegistrationCourse> list = rcRepo.getCoursesByAccountIDAndStatus(acc.getId(),RegistrationCourse.CourseStatus.FINISH.ordinal());
                         out.print(getHtmlListCourse(list));
                         break;
                     }
                     case ALL:{
-                        List<RegistrationCourse> list = rcRepo.getCoursesByAccountID(accountID);
+                        List<RegistrationCourse> list = rcRepo.getCoursesByAccountID(acc.getId());
                         out.print(getHtmlListCourse(list));
                         break;
                     }
@@ -62,7 +58,10 @@ public class UserProfileCourse extends HttpServlet {
                     System.out.println(e);
             }
         }else{
-            List<RegistrationCourse> list = rcRepo.getCoursesByAccountID(accountID);
+            List<RegistrationCourse> list = null;
+            if(acc!=null){
+               list = rcRepo.getCoursesByAccountID(acc.getId());
+            }
             request.setAttribute("listRegistrationCourse", list);
             request.getRequestDispatcher(USER_PROFILE_COURSE_PAGE).forward(request, response);
         }
@@ -71,23 +70,24 @@ public class UserProfileCourse extends HttpServlet {
     
     private String getHtmlListCourse(List<RegistrationCourse> list){
         String data = "";
+        
         if(list.size()==0){
             data = "";
         }else{
-        data = " <table class=\"course-table\"> <tr>\n" +
-"                                    <th></th>\n" +
-"                                    <th>Name</th>\n" +
-"                                    <th>Registation Date</th>\n" +
-"                                    <th>End Date</th>\n" +
-"                                </tr>";
-        for(RegistrationCourse rc : list){
-            Course c = rc.getCourse();
-            data+= "<tr>\n" + 
-"                  <td><img src=\"../Asset/img/classes/"+c.getImg()
-                    + "\" alt=\"img\"></td>"+"<td>"+c.getTitle()+"</td>"+"<td>"+rc.getRegistrationDate()+"</td>"
-                    +"<td>"+rc.getEndDate()+"</td> </tr>";
-        }
-        data+=" </table>";
+            data = " <table class=\"course-table\"> <tr>\n" +
+    "                                    <th></th>\n" +
+    "                                    <th>Name</th>\n" +
+    "                                    <th>Registation Date</th>\n" +
+    "                                    <th>End Date</th>\n" +
+    "                                </tr>";
+            for(RegistrationCourse rc : list){
+                Course c = rc.getCourse();
+                data+= "<tr>\n" + 
+    "                  <td><img src=\"../Asset/img/classes/"+c.getImg()
+                        + "\" alt=\"img\"></td>"+"<td>"+c.getTitle()+"</td>"+"<td>"+rc.getRegistrationDate()+"</td>"
+                        +"<td>"+rc.getEndDate()+"</td> </tr>";
+            }
+            data+=" </table>";
         }
         return data;
     }

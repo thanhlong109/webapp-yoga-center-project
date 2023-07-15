@@ -1,0 +1,195 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+
+}
+
+body {
+    font-family: 'Jost', sans-serif;
+    width: 100vw;
+    height: 100vh;
+    /* background-color: #87b7b1; */
+
+    overflow-x: hidden;
+}
+
+.banner{
+    padding: 10% 0;
+    width: 100%;
+    max-width: 100%;
+    text-align: center;
+    background: url(../img/bg/page-title-1.png) top center / cover no-repeat;
+}
+.banner h2{
+    color: #227179;
+    font-size: 30px;
+}
+
+/* Main Card */
+.container {
+    text-transform: capitalize;
+    transition: all 300ms linear;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+.box {
+    width: 300px;
+    height: 455px;
+    border-radius: 15px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    margin: 10px;
+    padding: 20px;
+    padding-top: 50px;
+    letter-spacing: 1px;
+    overflow: hidden;
+    position: relative;
+    z-index: 0;
+    background: #fff;
+}
+
+.box h3 {
+    text-align: center;
+    font-style: 35px;
+    color: #444;
+}
+
+.box .price {
+    text-align: center;
+    font-style: 15px;
+    color: #444;
+}
+
+.box button {
+    width: 140px;
+    height: 40px;
+    background: #333;
+    color: #fff;
+    border-radius: 15px;
+    outline: none;
+    border: none;
+    font-size: 15px;
+    cursor: pointer;
+    margin-top: 20px;
+    position: absolute;
+    bottom: 5%;
+    transform: translateX(40%);
+}
+
+.box button:hover {
+    opacity: 0.5;
+    letter-spacing: 1.5px;
+}
+
+.box::before {
+    content: '';
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+
+.box::after {
+    content: '';
+    width: 100%;
+    height: 100%;
+    background: rgb(242, 243, 244);
+    background: linear-gradient(160deg, rgba(242, 243, 244, 1) 0%, rgb(174, 177, 181) 48%, rgba(121, 125, 127, 1) 100%);
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -2;
+    clip-path: circle(20% at 90% 10%);
+    transition: .2s;
+}
+
+.box:nth-child(2)::after {
+    background: rgb(242, 243, 244);
+    background: linear-gradient(160deg, rgba(242, 243, 244, 1) 0%, rgba(247, 220, 111, 1) 67%, rgba(244, 208, 63, 1) 100%);
+}
+
+.box:nth-child(3)::after {
+    background: rgb(242, 243, 244);
+    background: linear-gradient(160deg, rgb(242, 243, 244) 0%, rgba(236, 112, 99, 1) 67%, rgba(23, 32, 42, 1) 100%);
+}
+
+.box:nth-child(4)::after {
+    background: rgb(224, 238, 224);
+    background: linear-gradient(160deg, rgb(242, 243, 244) 0%, rgba( 233, 150, 122, 1 ) 67%, rgba(23, 32, 42, 1) 100%);
+}
+
+.box:nth-child(5)::after {
+    background: rgb(242, 243, 244);
+    background: linear-gradient(160deg, rgb(242, 243, 244) 0%, rgba(236, 112, 99, 1) 67%, rgba(23, 32, 42, 1) 100%);
+}
+
+.box:nth-child(6)::after {
+    background: rgb(242, 243, 244);
+    background: linear-gradient(160deg, rgb(242, 243, 244) 0%, rgba(236, 112, 99, 1) 67%, rgba(23, 32, 42, 1) 100%);
+}
+
+.box:nth-child(7)::after {
+    background: rgb(242, 243, 244);
+    background: linear-gradient(160deg, rgb(242, 243, 244) 0%, rgba(236, 112, 99, 1) 67%, rgba(23, 32, 42, 1) 100%);
+}
+
+.box:nth-child(8)::after {
+    background: rgb(242, 243, 244);
+    background: linear-gradient(160deg, rgb(242, 243, 244) 0%, rgba(236, 112, 99, 1) 67%, rgba(23, 32, 42, 1) 100%);
+}
+
+.box:nth-child(9)::after {
+    background: rgb(242, 243, 244);
+    background: linear-gradient(160deg, rgb(242, 243, 244) 0%, rgba(236, 112, 99, 1) 67%, rgba(23, 32, 42, 1) 100%);
+}
+
+.box:nth-child(10)::after {
+    background: rgb(242, 243, 244);
+    background: linear-gradient(160deg, rgb(242, 243, 244) 0%, rgba(236, 112, 99, 1) 67%, rgba(23, 32, 42, 1) 100%);
+}
+
+.box:hover::after{
+    clip-path: circle(100%);
+}
+
+.box .type {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 20px;
+    font-weight: bolder;
+    color: #fff;
+}
+
+.box .box__content {
+    display: flex;
+    margin: 10px;
+}
+
+.box .box__content span {
+    padding-right: 5px;
+}
+.box:hover h3{
+    color: #fff;
+}
+.box:hover p{
+    color: #fff;
+}
+.box:hover span{
+    color: #fff;
+}
+.box:hover button{
+    color: #333;
+    background: #fff;
+}
+.box:hover::before{
+    background: rgba(0, 0, 0, 0.1);
+}

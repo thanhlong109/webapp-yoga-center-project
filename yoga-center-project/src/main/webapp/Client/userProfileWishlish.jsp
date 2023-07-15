@@ -51,10 +51,6 @@
                border: 1px solid #4444;
                margin-right: 24px;
             }
-            .user-img img{
-                width: 100%;
-                max-height: 150px ;
-            }
             .user-container{
                 margin-top: 64px;
                 display: flex;
@@ -91,7 +87,7 @@
             }
             .user-content{
                 padding: 0 50px;
-                width: 100%;
+                flex:1;
             }
 
             table{
@@ -198,7 +194,7 @@
         <div class="container">
             <c:if test="${sessionScope.account!=null}">
                 <div class="user2">
-                    <div class="user-img"><img src="../Asset/img/avatar/${sessionScope.account.img}" alt=""></div>
+                    <div class="user-img img-square-container"><img src="../Asset/img/avatar/${sessionScope.account.img}" alt=""></div>
                     <h2>${sessionScope.account.name}</h2>
                 </div>
             </c:if>
@@ -208,7 +204,7 @@
                     <li class="active"><a href="wishlist"><i class="fa fa-heart" aria-hidden="true"></i> Wishlist</a></li>
                     <li><a href="setting"><i class="fa fa-sliders" aria-hidden="true"></i> Setting</a></li>
                     <li><a href="booking"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Booking</a></li>
-                    <li><a href="../logout"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a></li>
+                    <li><a href="${pageContext.request.contextPath}/logout"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a></li>
                 </ul>
                 <div class="user-content">
                         <div class="display-course-content">
@@ -222,7 +218,7 @@
                                     <c:forEach items="${wishlist}" var="item">
                                         <tr>
                                             <td><img src="../Asset/img/classes/${item.course.img}" alt="img"></td>
-                                            <td><a href="#">${item.course.title}</a></td>
+                                            <td><a href="../course-detail?id=${item.course.id}">${item.course.title}</a></td>
                                             <td><i onclick="deteleWishlist(this)" data-courseid="${item.course.id}" class="fa fa-trash" aria-hidden="true"></i></td>
                                         </tr>
                                     </c:forEach>

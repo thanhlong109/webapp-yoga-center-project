@@ -172,7 +172,7 @@
     background-color: white;
     box-shadow: 0 5px 15px rgba(0, 0, 0,0.3);
     width: 80%;
-    padding: 18px 32px;
+    padding: 18px 12px;
     display: flex;
     flex-direction: column;
     align-items: start;
@@ -200,8 +200,9 @@
     align-items: center;
 }
 .card2-body h2{
-    font-size: 23px;
-    color: #227179;
+    margin-top: 16px;
+    font-size: 20px;
+    color: #545454;
 }
 .card2-body a{
     color: #afafaf;
@@ -259,22 +260,25 @@
     margin-bottom: 8px;
     object-fit: cover;
 }
-.section5 a{
+.section5 .category-list{
+    margin-top: 52px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+.section5 .category-list a{
     text-decoration: none;
     color: #6f948d;
     font-size: 20px;
     font-weight: 400;
     display: block;
     line-height: 2;
+    text-transform: capitalize;
+    
 }
 .section5 i{
     padding-right: 8px;
 }
-.section5>div>div{
-    margin-top: 52px;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-}
+
 /*Section 6*/
 .section6{
     padding: 120px 0 600px 0;
@@ -336,6 +340,14 @@
 .section6 button:hover{
     background: white;
     color: #227179;
+}
+.text-ellipsis {
+    display: -webkit-box;
+    -webkit-line-clamp: 1; /* Limit the text to 1 lines */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis; /* Add "..." at the end of the 1 line */
+    white-space: normal;
 }
 
 @media screen and (max-width:739px) {

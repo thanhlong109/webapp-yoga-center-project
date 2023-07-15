@@ -4,30 +4,30 @@
  */
 package com.yowu.yogacenter.model;
 
-import java.sql.Date;
+import java.io.Serializable;
+import java.sql.Timestamp;
+
 
 /**
  *
  * @author DungVNT
  */
-public class Blog {
+public class Blog implements Serializable{
 
     private int id;
     private String title;
     private String detail;
-    private boolean isActive;
     private Account account;
-    private Date date;
+    private Timestamp date;
     private String img;
 
     public Blog() {
     }
 
-    public Blog(int id, String title, String detail, boolean isActive, Account account, Date date, String img) {
+    public Blog(int id, String title, String detail, Account account, Timestamp date, String img) {
         this.id = id;
         this.title = title;
         this.detail = detail;
-        this.isActive = isActive;
         this.account = account;
         this.date = date;
         this.img = img;
@@ -42,11 +42,11 @@ public class Blog {
     }
 
     
-    public Date getDate() {
+    public Timestamp getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(Timestamp date) {
         this.date = date;
     }
    
@@ -75,13 +75,6 @@ public class Blog {
         this.detail = detail;
     }
 
-    public boolean isIsActive() {
-        return isActive;
-    }
-
-    public void setIsActive(boolean isActive) {
-        this.isActive = isActive;
-    }
 
     public Account getAccount() {
         return account;

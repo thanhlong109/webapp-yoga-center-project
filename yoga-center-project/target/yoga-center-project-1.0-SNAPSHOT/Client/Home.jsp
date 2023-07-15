@@ -5,6 +5,10 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="jakarta.tags.core" %>
+<%@page import="com.yowu.yogacenter.repository.RegistrationCourseRepository" %>
+<%@page import="com.yowu.yogacenter.repository.CourseRepository" %>
+<%@page import="com.yowu.yogacenter.repository.RatingCourseRepository" %>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -18,7 +22,92 @@
         <link rel="stylesheet" href="Asset/css/clientHome.css">
         <link rel="stylesheet" href="Asset/css/clientHeader.css"/>
         <link rel="stylesheet" href="Asset/css/clientFooter.css"/>
+        <style>
+            .card2{
+                max-height: 300px;
+                border: 1px solid #ccc;
+            }
+            .caroursel{
+                padding: 32px 0;
+                padding-left: 32px;
+            }
+            .surgest-course-section{
+                margin-top: 64px;
+            }
+            .surgest-course-section h2{
+                font-size: 29px;
+                color: #227179;
+                margin-bottom: 32px;
+            }
+            .surgest-list{
+                display: flex;
+                flex-wrap: wrap;
+                gap: 24px;
+            }
 
+            .surgest-course-card{
+                width: calc(90% / 4);
+                transition: all ease-in-out .3s;
+                box-shadow: 0 0 15px rgba(0,0,0,0.15);
+                min-width: 250px;
+                cursor: pointer;
+            }
+            .surgest-course-card:hover{
+                transform: translateY(-10px);
+                box-shadow: 0 0 25px rgba(0,0,0,0.35);
+            }
+            
+            .surgest-card-img{
+                height: 160px;
+                max-height: 160px;
+                min-height: 160px;
+                overflow: hidden;
+                display: flex;
+                align-items: center;
+            }
+                
+            
+            .surgest-card-img img{
+                max-width: 100%;
+            }
+
+            .surgest-card-body{
+                padding: 12px 20px;
+                min-height: 140px;
+            }
+            .surgest-card-body>div:first-child{
+                display: flex;
+                justify-content: space-between;
+            }
+            .surgest-card-body>div:first-child p{
+                color: #3dbca8;
+            }
+            .green-stars{
+                font-size: 12px;
+                color: #3dbca8;
+            }
+            .surgest-card-body a{
+                font-size: 20px;
+                color: #545454;
+                margin: 8px 0;
+                text-decoration: none;
+                font-weight: 600;
+            }
+            .surgest-card-footer{
+                padding: 20px;
+                border-top: 1px solid #e6e6e6;
+            }
+            .surgest-card-price{
+                font-size: 20px;
+                color: #5e5e5e;
+                margin-bottom: 8px;
+            }
+            .surgest-card-student{
+                color: #a2a2a2;
+                font-size: 14px;
+            }
+            
+        </style>
     </head>
     <body>
         <jsp:include page="../Component/header.jsp"></jsp:include>
@@ -29,10 +118,10 @@
                     <p>
                         We are the most popular yoga studio in town. Rated by more than 1000+ customers. Our instructers are well-know and certified
                     </p>
-                    <a href="#caroursel" class="btn btn-red-orange">
+                    <a href="#section2" class="btn btn-red-orange">
                         Browse Course
                     </a>
-                    <a href="#caroursel" class="arrow">
+                    <a href="#section2" class="arrow">
                         <i class="fa-solid fa-arrow-down"></i>
                     </a>
                 </div>
@@ -43,7 +132,7 @@
             <div class="section1">
                 <div>
                     <div>
-                        <img src="Asset/img/icon/icon1-1.png" alt="">
+                        <img src="./Asset/img/icon/icon1-1.png" alt="">
                     </div>
                     <div>
                         <h2>Many Style</h2>
@@ -78,124 +167,47 @@
             <!-- End section 1 -->
 
             <!-- Start section 2 - popular online classes -->
-            <div class="section">
+            <div id="section2" class="section">
                 <h2 class="section-title">Popular Online Classes</h2>
                 <p class="section-des">A meditative means of discovering dysfunctional perception and cognition, as well as overcoming it to release any suffering, find inner peace and salvation.</p>
             </div>
             <!-- End section 2 -->
-
+            
             <!-- Start carourse -->
+            <%
+                request.setAttribute("rcRepo",new RegistrationCourseRepository());
+                request.setAttribute("courseRepo",new CourseRepository());
+            %>
+            <c:set var="ratingRepo" value="<%= new RatingCourseRepository()%>"/> 
             <div id="caroursel"  class="wrapper-caroursel">
                 <i id="left" class="fa-solid fa-arrow-left"></i>
                 <ul class="caroursel">
-                    <li class="card card-zoom">
-                        <div class="card-img">
-                            <img src="..Asset/img/classes/shutterstock_1371365420-950x1075.jpg" alt="">
-                            <div class="card-hide">
-                                <p><i class="fa-solid fa-book"></i> 7 Lessons</p>
-                                <p><i class="fa-solid fa-user-group"></i> 188 Student Enrolled</p>
-                                <p><i class="fa-regular fa-lightbulb"></i> Pranayama, Vinyasa Yoga</p>
+                    <c:forEach items="${popularList}" var="c">
+                        <li class="card-course">
+                            <div onclick="goto('course-detail?id=${c.id}')" class="surgest-course-card">
+                                <div class="surgest-card-img">
+                                    <img src="${pageContext.request.contextPath}/Asset/img/classes/${c.img}" alt="">
+                                </div>
+                                <div class="surgest-card-body">
+                                    <div>
+                                        <p>${c.category.name}</p> <!--replace category for surgest card -->
+                                        <div data-avg="${ratingRepo.getAvgCourseRating(c.id)}" class="green-stars stars">
+                                            <i class=""></i>
+                                            <i class=""></i>
+                                            <i class=""></i>
+                                            <i class=""></i>
+                                            <i class=""></i>
+                                        </div>
+                                    </div>
+                                        <a class="text-ellipsis">${c.title}</a><!--replace title for surgest card-->
+                                </div>
+                                <div class="surgest-card-footer">
+                                    <p class="surgest-card-price"><c:if test="${c.price>0}">$${c.price}</c:if><c:if test="${c.price<=0}">Free</c:if></p>
+                                    <p class="surgest-card-student"><i class="fa fa-users" aria-hidden="true"></i> ${rcRepo.getStudentEnrolled(c.id)} Student Enrolled </p>
+                                </div>
                             </div>
-                        </div>
-                        <div class="card-body">
-                            <p>
-                                WithMildred Reed
-                            </p>
-                            <a href="#">Yamas and Niyamas</a>
-                            <h3>Free</h3>
-                        </div>
-
-                    </li>
-                    <li class="card card-zoom">
-                        <div class="card-img">
-                            <img src="Asset/img/classes/shutterstock_1371365420-950x1075.jpg" alt="">
-                            <div class="card-hide">
-                                <p><i class="fa-solid fa-book"></i> 7 Lessons</p>
-                                <p><i class="fa-solid fa-user-group"></i> 188 Student Enrolled</p>
-                                <p><i class="fa-regular fa-lightbulb"></i> Pranayama, Vinyasa Yoga</p>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <p>
-                                WithMildred Reed
-                            </p>
-                            <a href="#">Yamas and Niyamas</a>
-                            <h3>Free</h3>
-                        </div>
-
-                    </li>
-                    <li class="card card-zoom">
-                        <div class="card-img">
-                            <img src="Asset/img/classes/shutterstock_1371365420-950x1075.jpg" alt="">
-                            <div class="card-hide">
-                                <p><i class="fa-solid fa-book"></i> 7 Lessons</p>
-                                <p><i class="fa-solid fa-user-group"></i> 188 Student Enrolled</p>
-                                <p><i class="fa-regular fa-lightbulb"></i> Pranayama, Vinyasa Yoga</p>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <p>
-                                WithMildred Reed
-                            </p>
-                            <a href="#">Yamas and Niyamas</a>
-                            <h3>Free</h3>
-                        </div>
-
-                    </li>
-                    <li class="card card-zoom">
-                        <div class="card-img">
-                            <img src="Asset/img/classes/shutterstock_1371365420-950x1075.jpg" alt="">
-                            <div class="card-hide">
-                                <p><i class="fa-solid fa-book"></i> 7 Lessons</p>
-                                <p><i class="fa-solid fa-user-group"></i> 188 Student Enrolled</p>
-                                <p><i class="fa-regular fa-lightbulb"></i> Pranayama, Vinyasa Yoga</p>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <p>
-                                WithMildred Reed
-                            </p>
-                            <a href="#">Yamas and Niyamas</a>
-                            <h3>Free</h3>
-                        </div>
-
-                    </li>
-                    <li class="card card-zoom">
-                        <div class="card-img">
-                            <img src="Asset/img/classes/shutterstock_1371365420-950x1075.jpg" alt="">
-                            <div class="card-hide">
-                                <p><i class="fa-solid fa-book"></i> 7 Lessons</p>
-                                <p><i class="fa-solid fa-user-group"></i> 188 Student Enrolled</p>
-                                <p><i class="fa-regular fa-lightbulb"></i> Pranayama, Vinyasa Yoga</p>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <p>
-                                WithMildred Reed
-                            </p>
-                            <a href="#">Yamas and Niyamas</a>
-                            <h3>Free</h3>
-                        </div>
-
-                    </li>
-                    <li class="card card-zoom">
-                        <div class="card-img">
-                            <img src="Asset/img/classes/shutterstock_1371365420-950x1075.jpg" alt="">
-                            <div class="card-hide">
-                                <p><i class="fa-solid fa-book"></i> 7 Lessons</p>
-                                <p><i class="fa-solid fa-user-group"></i> 188 Student Enrolled</p>
-                                <p><i class="fa-regular fa-lightbulb"></i> Pranayama, Vinyasa Yoga</p>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <p>
-                                WithMildred Reed
-                            </p>
-                            <a href="#">Yamas and Niyamas</a>
-                            <h3>Free</h3>
-                        </div>
-
-                    </li>
+                        </li>
+                    </c:forEach>
                 </ul>
                 <i id="right" class="fa-solid fa-arrow-right"></i>
             </div>
@@ -211,8 +223,8 @@
                     <h2>Modern Yoga</h2>
                     <p>Modern postural yoga consists largely but not exclusively of the practice of asanas. There were very few standing asanas before 1900. By 2012, there were at least 19 widespread styles from Ashtanga Yoga to Viniyoga. These emphasise different aspects including aerobic exercise, precision in the asanas, and spirituality in the Haṭha yoga tradition. For example, Bikram Yoga has an aerobic exercise style with rooms heated to 105 °F</p>
                     <div>
-                        <a href="#" class="btn btn-white-boder-green">Learn More</a>
-                        <a href="#" class="btn btn-light-green">Our Story</a>
+                        <a href="about" class="btn btn-white-boder-green">Learn More</a>
+                        <a href="about" class="btn btn-light-green">Our Story</a>
                     </div>
                 </div>
             </div>
@@ -230,51 +242,19 @@
             <div class="wrapper-caroursel">
                 <i id="left" class="fa-solid fa-arrow-left"></i>
                 <ul class="caroursel">
-                    <li class="card">
-                        <div class="card-img">
-                            <img src="Asset/img/Trainer/personnel-1-600x600.jpg" alt="">
-                        </div>
-                        <div class="card2-body">
-                            <h2>Mildred Reed</h2>
-                            <a href="#">2 Classes</a>
-                        </div>
-                    </li>
-                    <li class="card">
-                        <div class="card-img">
-                            <img src="Asset/img/Trainer/personnel-1-600x600.jpg" alt="">
-                        </div>
-                        <div class="card2-body">
-                            <h2>Mildred Reed</h2>
-                            <a href="#">2 Classes</a>
-                        </div>
-                    </li>
-                    <li class="card">
-                        <div class="card-img">
-                            <img src="Asset/img/Trainer/personnel-1-600x600.jpg" alt="">
-                        </div>
-                        <div class="card2-body">
-                            <h2>Mildred Reed</h2>
-                            <a href="#">2 Classes</a>
-                        </div>
-                    </li>
-                    <li class="card">
-                        <div class="card-img">
-                            <img src="Asset/img/Trainer/personnel-1-600x600.jpg" alt="">
-                        </div>
-                        <div class="card2-body">
-                            <h2>Mildred Reed</h2>
-                            <a href="#">2 Classes</a>
-                        </div>
-                    </li>
-                    <li class="card">
-                        <div class="card-img">
-                            <img src="Asset/img/Trainer/personnel-1-600x600.jpg" alt="">
-                        </div>
-                        <div class="card2-body">
-                            <h2>Mildred Reed</h2>
-                            <a href="#">2 Classes</a>
-                        </div>
-                    </li>
+                    <c:forEach items="${instructorList}" var="acc">
+                        <li class="card">
+                            <div class="card-img card2">
+                                <img src="Asset/img/avatar/${acc.img}" alt="">
+                            </div>
+                            <div class="card2-body">
+                                <h2>${acc.name}</h2>
+                                <a href="#">${courseRepo.countNumberCourseByInstructor(acc.id)} Course</a>
+                            </div>
+                        </li>
+                        
+                    </c:forEach>
+                    
                 </ul>
                 <i id="right" class="fa-solid fa-arrow-right"></i>
             </div>
@@ -284,22 +264,10 @@
                     <img src="Asset/img/icon/yoka-icon.png" alt="">
                     <h2 class="section-title">Inspired Articles</h2>
                     <p class="section-des">Modern postural yoga consists largely but not exclusively of the practice of asanas. There were very few standing asanas before 1900. By 2012, there were at least 19 widespread styles.</p>
-                    <div>
-                        <div>
-                            <a href="#"><i class="fa-solid fa-book"></i> Meditation</a>
-                            <a href="#"><i class="fa-solid fa-book"></i> Anatomy</a>
-                            <a href="#"><i class="fa-solid fa-book"></i> Yoga Poses</a>
-                            <a href="#"><i class="fa-solid fa-book"></i> Yin Poses</a>
-                            <a href="#"><i class="fa-solid fa-book"></i> Styles</a>
-                        </div>
-                        <div>
-                            <a href="#"><i class="fa-solid fa-book"></i> Yoga Therapy</a>
-                            <a href="#"><i class="fa-solid fa-book"></i> Pranayama</a>
-                            <a href="#"><i class="fa-solid fa-book"></i> Remedies</a>
-                            <a href="#"><i class="fa-solid fa-book"></i> Seasonal Tips</a>
-                            <a href="#"><i class="fa-solid fa-book"></i> Recipes</a>
-                        </div>
-
+                    <div class="category-list">
+                        <c:forEach items="${categoryList}" var="category">
+                            <a href="course-filter?categoryid=${category.id}"><i class="fa-solid fa-book"></i> ${category.name}</a>
+                        </c:forEach>
                     </div>
                 </div>
                 <div>
@@ -321,7 +289,48 @@
                 </div>
             </div>
         <jsp:include page="../Component/footer.jsp"></jsp:include>
+        
+        <script>
+            function goto(url){
+                window.window.location.href = "${pageContext.request.contextPath}/"+url;   
+            }
+            /*display star*/
+            const starsParents = document.querySelectorAll(".stars");
+            starsParents.forEach(sp => {
+                let stars = sp.querySelectorAll(".stars i");
+                var avg = $(sp).data('avg');
+                stars.forEach(star => {
+                    if (avg > 0) {
+                        star.classList.add("fa-solid");
+                        if (avg < 1) {
+                            star.classList.add("fa-star-half-stroke");
+                        } else {
+                            star.classList.add("fa-star");
+                        }
+                    } else {
+                        star.classList.add("fa-regular");
+                        star.classList.add("fa-star");
+                    }
+                    avg -= 1;
+                });
+            });
+            
+            const carouselsWrapper  = document.querySelectorAll(".wrapper-caroursel");
+
+            carouselsWrapper.forEach(carouselWrapper =>{
+                let caroursel = carouselWrapper.querySelector(".caroursel");
+                let firstCardWidth = carouselWrapper.querySelector(".card,.card-course").offsetWidth;
+                let arrowBtns = carouselWrapper.querySelectorAll("i");
+
+                arrowBtns.forEach(btn =>{
+                    btn.addEventListener("click",()=>{
+                        caroursel.scrollLeft += btn.id === "left" ? -firstCardWidth : firstCardWidth;
+                    });
+                });
+            });
+        </script>
+        
         <!-- End section 6-->
-        <script defer src="Asset/js/caroursel.js"></script>
+        
     </body>
 </html>

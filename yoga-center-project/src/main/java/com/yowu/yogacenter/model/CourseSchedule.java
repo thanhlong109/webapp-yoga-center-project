@@ -11,7 +11,7 @@ import java.sql.Time;
  * @author ACER
  */
 public class CourseSchedule {
-    public static enum DayOfWeek{SUNDAY,MONDAY,TUESDAY,WEDNESDAY,THURSDAY,FRIDAY,SATURDAY};
+    public static enum DayOfWeek{MONDAY,TUESDAY,WEDNESDAY,THURSDAY,FRIDAY,SATURDAY,SUNDAY};
     private int id;
     private String dateOfWeek;
     private boolean isActive;
@@ -94,6 +94,14 @@ public class CourseSchedule {
 
     public void setCourse(Course course) {
         this.course = course;
+    }
+    
+    public static DayOfWeek getEnumIndex(int i){
+        DayOfWeek[] arr = DayOfWeek.values();
+        if(i>=0&&i<arr.length){
+            return arr[i];
+        }
+        return null;
     }
     
 }

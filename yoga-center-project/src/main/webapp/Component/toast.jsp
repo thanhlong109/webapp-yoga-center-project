@@ -8,7 +8,6 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <style>
             body{
                 font-family: 'Jost', sans-serif;
@@ -18,12 +17,12 @@
                 display: flex;
                 position: fixed;
                 flex-direction: column;
-                top:10px;
+                top:100px;
                 right: 32px;
                 z-index: 99999;
             }
 
-            .toast{
+            .toast2{
                 display: flex;
                 align-items: center;
                 border-radius: 2px;
@@ -35,7 +34,7 @@
                 transition: all ease .3s;
                 background-color: #fff;
             }
-            .toast + .toast{
+            .toast2 + .toast2{
                 margin-top: 8px;
             }
             .toast__icon{
@@ -100,9 +99,6 @@
                 color: #ff623d;
             }
 
-            .btn-mng{
-                margin: auto;
-            }
             @keyframes slideIn{
                 from{
                     opacity: 0;
@@ -118,13 +114,24 @@
                     opacity: 0;
                 }
             }
+            @media screen and (max-width:739px){
+                #toast{
+                    right: 10px;
+                    
+                }
+                .toast2{
+                    min-width: 100px;
+                    max-width: 350px;
+                    padding: 0;
+                }
+            }
         </style>
     </head>
     <body>
         <div id="toast">
 
     </div>
-    <script>
+    <script defer>
         //Toast function
         function toast({
             title='',
@@ -155,9 +162,9 @@
                 //get icon by type
                 const icon = icons[type];
                 const delay = (duration/1000).toFixed(2);// set time display toast
-                toast.classList.add('toast');
+                toast.classList.add('toast2');
                 toast.classList.add("toast--"+type);
-                toast.style.animation = "slideIn cubic-bezier(0.47, 0, 0.745, 0.715) 0.65s, fadeOut linear 1s"+delay+"s forwards";
+                toast.style.animation = "slideIn cubic-bezier(0.47, 0, 0.745, 0.715) 0.65s, fadeOut linear 1s "+delay+"s forwards";
                 toast.innerHTML = `
                     <div class="toast__icon">
                         <i class="`+icon+`"></i>

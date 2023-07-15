@@ -11,6 +11,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
         <title>User profile</title>
         <link rel="stylesheet" href="../Asset/css/clientHeader.css">
         <link rel="stylesheet" href="../Asset/css/clientFooter.css">
@@ -52,10 +53,7 @@
               border: 1px solid #4444;
               margin-right: 24px;
            }
-           .user-img img{
-               width: 100%;
-               max-height: 150px ;
-           }
+
            .user-container{
                margin-top: 64px;
                display: flex;
@@ -92,11 +90,13 @@
            }
            .user-content{
                padding: 0 50px;
+               flex: 1;
            }
            .filter-course{
                list-style: none;
                display: flex;
                gap:16px;
+               margin-bottom: 32px;
            }
            .filter-course>li{
                padding: 0px 4px;
@@ -108,7 +108,6 @@
                border-bottom: 2px solid #3dbca8;
            }
            table{
-               margin-top: 46px;
                border-collapse: collapse;
                border: 1px solid #e6e6e6;
                text-align: center;
@@ -198,7 +197,7 @@
 
             <c:if test="${sessionScope.account!=null}">
                 <div class="user2">
-                    <div class="user-img"><img src="../Asset/img/avatar/${sessionScope.account.img}" alt=""></div>
+                    <div class="user-img img-square-container"><img src="../Asset/img/avatar/${sessionScope.account.img}" alt=""></div>
                     <h2>${sessionScope.account.name}</h2>
                 </div>
             </c:if>
@@ -222,7 +221,7 @@
                             <li value="<%= RegistrationCourse.CourseStatus.INPROGRESS.ordinal() %>">In Progress</li>
                             <li value="<%= RegistrationCourse.CourseStatus.FINISH.ordinal() %>">Finished</li>
                         </ul>
-                        <c:if test="${listRegistrationCourse!=null && listRegistrationCourse.size() gt 1}">
+                        <c:if test="${listRegistrationCourse!=null && listRegistrationCourse.size() gt 0}">
                             <div class="display-course-content">
                                 <table class="course-table">
                                     <tr>
@@ -233,7 +232,7 @@
                                     </tr>
                                     <c:forEach items="${listRegistrationCourse}" var="rCourse">
                                         <tr>
-                                            <td><img src="../Asset/img/classes/${sessionScope.rCourse.course.img}" alt="img"></td>
+                                            <td><img src="../Asset/img/classes/${rCourse.course.img}" alt="img"></td>
                                             <td>${rCourse.course.title}</td>
                                             <td>${rCourse.registrationDate}</td>
                                             <td>${rCourse.endDate}</td>
@@ -244,7 +243,7 @@
                             </div>
                         </c:if>
                          <c:if test="${listRegistrationCourse==null || listRegistrationCourse.size() lt 1}">
-                                <div class="noice-empty">
+                                <div class="noice-empty" style="margin-top: 20px">
                                     <img src="../Asset/img/icon/empty.png" alt="">
                                     <h4>Empty!</h4>
                                 </div>
@@ -267,7 +266,7 @@
                         url:"course?status="+$(f).val(),
                         type:"get",
                         success:function(data){
-                            document.querySelector(".display-course-content").innerHTML = data;
+                            $('.display-course-content').html(data);
                         },
                         error: function(msg){
 
@@ -278,6 +277,7 @@
                });
 
             });
+            
         </script>
     </body>
 </html>

@@ -9,6 +9,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
         <title>user setting</title>
         <link rel="stylesheet" href="../Asset/css/clientHeader.css">
         <link rel="stylesheet" href="../Asset/css/clientFooter.css">
@@ -49,10 +50,6 @@
                border: 1px solid #4444;
                margin-right: 24px;
             }
-            .user-img img{
-                width: 100%;
-                max-height: 150px ;
-            }
             .user-container{
                 margin-top: 64px;
                 display: flex;
@@ -89,6 +86,7 @@
             }
             .user-content{
                 padding: 0 50px;
+                flex:1;
             }
             .filter-course{
                 list-style: none;
@@ -235,7 +233,7 @@
                     margin-top: 64px;
                 }
                 form{
-                    min-width: none;
+                    min-width: 0px;
                 }
 
             }
@@ -249,7 +247,7 @@
         <div class="container">
             <c:if test="${sessionScope.account!=null}">
                 <div class="user2">
-                    <div class="user-img"><img src="../Asset/img/avatar/${sessionScope.account.img}" alt=""></div>
+                    <div class="user-img img-square-container"><img src="../Asset/img/avatar/${sessionScope.account.img}" alt=""></div>
                     <h2>${sessionScope.account.name}</h2>
                 </div>
             </c:if>
@@ -260,7 +258,7 @@
                     <li><a href="wishlist"><i class="fa fa-heart" aria-hidden="true"></i> Wishlist</a></li>
                     <li class="active"><a href="setting"><i class="fa fa-sliders" aria-hidden="true"></i> Setting</a></li>
                     <li><a href="booking"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Booking</a></li>
-                    <li><a href="../logout"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a></li>
+                    <li><a href="${pageContext.request.contextPath}/logout"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a></li>
                 </ul>
                 <div class="user-content">
                     <div class="course-option">
@@ -268,7 +266,10 @@
                         <ul class="filter-course">
                             <li data-filterid="general" class="active">General</li>
                             <li data-filterid="avatar">Avatar</li>
-                            <li data-filterid="password">Password</li>
+                            <c:if test='${notloginwithGg}'>
+                                <li data-filterid="password">Password </li>
+                            </c:if>
+                            
                         </ul>
                         <c:if test="${sessionScope.account!=null}">
                             <div class="display-content">
@@ -285,7 +286,7 @@
                                         </div>
                                         <div class="box-input">
                                             <label>Phone Number:</label>
-                                            <input required type="number" name="txtPhone" placeholder="Phone Number" value="${sessionScope.account.phone}">
+                                            <input required type="number" name="txtPhone" placeholder="Phone Number" <c:if test="${sessionScope.account.phone!=null}">value="${sessionScope.account.phone}</c:if>">
                                         </div>
                                         <button type="submit">Save</button>
                                     </form>
@@ -304,7 +305,9 @@
                                     </form>
                                 </div>
                                 <!-- password section -->
-                                <div class="password" style="display: none;">
+                                
+                                    
+                                        <div class="password" style="display: none;">
                                     <form class="password-form" action="setting">
                                         <div class="box-input">
                                             <label>Current Password:</label>
@@ -327,6 +330,7 @@
                                                 <i class="fa-sharp fa-solid fa-eye"></i>
                                             </div>
                                             <button id="btnPass" type="submit">Save</button>
+                                            <a href="${pageContext.request.contextPath}/Client/forgetPassword.jsp">Forgotten password</a>
                                         </div>
                                         <h4 class="noice"></h4>
                                     </form>

@@ -86,11 +86,11 @@ public class CourseScheduleRepository {
         }
         return null;
     }
-
-    public CourseSchedule detailCourseSchedule(int CourseScheduleID) {
+    
+    public CourseSchedule detailByScheduleID(int id) {
         String sql = "select * from tblCourseSchedule where course_schedule_id=? ";
         try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
-            stmt.setInt(1, CourseScheduleID);
+            stmt.setInt(1, id);
             try ( ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
                     CourseSchedule c = new CourseSchedule();
@@ -102,7 +102,8 @@ public class CourseScheduleRepository {
                     c.setEndTime(rs.getTime("end_time"));
                     c.setIsActive(rs.getBoolean("is_active"));
                     return c;
-                }
+                }                    CourseSchedule c = new CourseSchedule();
+
             }
         } catch (Exception e) {
             System.out.println(e);

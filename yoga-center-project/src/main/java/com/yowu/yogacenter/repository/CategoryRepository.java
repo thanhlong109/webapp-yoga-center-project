@@ -4,12 +4,13 @@
  */
 package com.yowu.yogacenter.repository;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.yowu.yogacenter.model.Category;
 import com.yowu.yogacenter.util.DBHelpler;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -21,10 +22,9 @@ public class CategoryRepository {
     public List<Category> getAll() {
         String sql = "select * from tblCategory";
         List<Category> list = new ArrayList<>();
-
-        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
-            try ( ResultSet rs = stmt.executeQuery()) {
-                while (rs.next()) {
+        try(PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)){
+            try(ResultSet rs = stmt.executeQuery()){
+                while(rs.next()){
                     Category c = new Category();
                     c.setId(rs.getInt("category_id"));
                     c.setName(rs.getString("category_name"));
@@ -37,8 +37,49 @@ public class CategoryRepository {
         }
         return list;
     }
-
+    public List<Category> getAllActive(){
+        String sql = "select * from tblCategory where category_is_active=1";
+        List<Category> list = new ArrayList<>();
+        try(PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)){
+            try(ResultSet rs = stmt.executeQuery()){
+                while(rs.next()){
+                    Category c = new Category();
+                    c.setId(rs.getInt("category_id"));
+                    c.setName(rs.getString("category_name"));
+                    c.setIsActive(true);
+                    list.add(c);
+                }
+            }
+        }catch(Exception e){
+            System.out.println(e);
+        }
+        return list;
+    }
+    public String getCategoryJson(){
+        String sql = "select ct.category_name,COUNT(cs.category_id) as num from (select * from tblCourse  where course_is_active=1 ) cs join (select * from tblCategory where category_is_active=1) ct on cs.category_id=ct.category_id group by ct.category_name";
+        String data="";
+        try(PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)){
+            try(ResultSet rs = stmt.executeQuery()){
+                List<String> lst1 = new ArrayList<>();
+                List<Integer> lst2 = new ArrayList<>();
+                while(rs.next()){
+                    lst1.add(rs.getString("category_name"));
+                    lst2.add(rs.getInt("num"));
+                }
+                HashMap<String,Object> dataMap = new HashMap<>();
+                ObjectMapper mapper = new ObjectMapper();
+                dataMap.put("categoryName", lst1);
+                dataMap.put("categoryNum", lst2);
+                data=mapper.writeValueAsString(dataMap);
+            }
+        }catch(Exception e){
+            System.out.println(e);
+        }
+        return data;
+    }
+            
     public Category detail(int id) {
+
         String sql = "select * from tblCategory where category_id=? ";
         try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
             stmt.setInt(1, id);
@@ -131,6 +172,6 @@ public class CategoryRepository {
 
     public static void main(String[] args) {
         CategoryRepository cr = new CategoryRepository();
-        System.out.println(cr.getAll().get(0).getName());
+        System.out.println(cr.getAllActive().get(0).getName());
     }
 }

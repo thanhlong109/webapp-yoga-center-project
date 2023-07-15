@@ -12,7 +12,7 @@
 .header{
     display: grid;
     grid-template-columns: 2fr 8fr;
-    padding: 20px 20px;
+    padding: 15px 20px;
     align-items: center;
     max-width: 1320px;
     margin: 0 auto;
@@ -147,9 +147,16 @@
     font-weight: 400;
     display: block;
 }
+body.modal-open{
+    max-height: 100vh;
+    overflow-y: hidden;
+}
 
 @media (max-width:739px){
     /*header*/
+    .header{
+        padding: 10px 20px;
+    }
     .nav-wrapper{
         position: relative;
     }
@@ -195,6 +202,12 @@
         display: flex;
         border-bottom: 1px solid #979797;
         justify-content: space-between;
+    }
+    .user-btn .img{
+        width: 40px;
+        height: 40px;
+        max-width: 40px;
+        max-height: 40px;
     }
     .header .menu-mobile{
         display: block;

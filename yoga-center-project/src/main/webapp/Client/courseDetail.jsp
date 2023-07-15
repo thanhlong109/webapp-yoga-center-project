@@ -11,7 +11,8 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <title>Course Detail</title>
         <link rel="stylesheet" href="${pageContext.request.contextPath}/Asset/css/clientHeader.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/Asset/css/clientFooter.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -23,7 +24,7 @@
                 box-sizing: border-box;
             }
             html{
-                scroll-behavior: smooth; 
+                scroll-behavior: smooth;
             }
 
             body{
@@ -48,7 +49,7 @@
                 background-color: white;
                 transform: translateY(-50px);
             }
-            .container{ 
+            .container{
                 display: grid;
                 grid-template-columns: 2fr 1fr;
                 gap: 32px;
@@ -167,7 +168,7 @@
             }
 
             .surgest-course-card{
-                width: calc(100% / 4);
+                width: calc(90% / 4);
                 transition: all ease-in-out .3s;
                 box-shadow: 0 0 15px rgba(0,0,0,0.15);
                 min-width: 250px;
@@ -177,13 +178,24 @@
                 transform: translateY(-10px);
                 box-shadow: 0 0 25px rgba(0,0,0,0.35);
             }
-
+            
+            .surgest-card-img{
+                height: 160px;
+                max-height: 160px;
+                min-height: 160px;
+                overflow: hidden;
+                display: flex;
+                align-items: center;
+            }
+                
+            
             .surgest-card-img img{
                 max-width: 100%;
             }
 
             .surgest-card-body{
                 padding: 12px 20px;
+                min-height: 140px;
             }
             .surgest-card-body>div:first-child{
                 display: flex;
@@ -202,7 +214,7 @@
                 margin: 8px 0;
                 text-decoration: none;
                 font-weight: 600;
-            } 
+            }
             .surgest-card-footer{
                 padding: 20px;
                 border-top: 1px solid #e6e6e6;
@@ -216,25 +228,32 @@
                 color: #a2a2a2;
                 font-size: 14px;
             }
+            /**/
             select.label-value{
                 font-size: 14px !important;
                 padding: 4px 8px;
                 border: 1px solid #333;
+
             }
+
+            .time-value {
+                padding: 0px !important;
+            }
+
             .jstime{
                 list-style: none;
             }
             .hover-poiter{
-                
+
                 cursor: pointer;
             }
-            
+
             .separate{
                 border-bottom: 1px solid #d7d7d7;
                 margin: 32px 0;
             }
             /*feedback*/
-             .feedback-area{
+            .feedback-area{
                 background-color: #e9ebee4d;
                 padding: 32px 0px;
             }
@@ -289,7 +308,16 @@
                 color: #444444;
             }
 
-
+            
+            .text-ellipsis {
+                display: -webkit-box;
+                -webkit-line-clamp: 2; /* Limit the text to 3 lines */
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+                text-overflow: ellipsis; /* Add "..." at the end of the third line */
+                white-space: normal;
+             }
+            
 
             @media screen and (max-width:740px) {
                 .wrapper-container{
@@ -324,19 +352,35 @@
                 }
             }
 
+
+            .book1 a{
+                text-decoration: none;
+                
+            }
+
+            .choose{
+                color: #a4262c
+                
+            }
+            
+
         </style>
-    
+
     </head>
     <body>
         <%@include file="../Component/header.jsp" %>
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <script src="https://unpkg.com/gijgo@1.9.14/js/gijgo.min.js" type="text/javascript"></script>
+        <link href="https://unpkg.com/gijgo@1.9.14/css/gijgo.min.css" rel="stylesheet" type="text/css" />
         <div class="banner">
-            <h2>Yoga for Beginners Course</h2>
+            <h2>${course.title}</h2>
         </div>
         <div class="wrapper-container">
             <div class="row1">
                 <div onclick='goto("teacher?id=1")'  class="teacher hover-poiter">
                     <div class="teacher-img">
-                        <img src="${pageContext.request.contextPath}/Asset/img/avatar/${course.account.img}" alt=""> <!--replace Teacher img here-->
+                        <img src="${pageContext.request.contextPath}/Asset/img/avatar/${course.account.img}" alt="#"> <!--replace Teacher img here-->
                     </div>
                     <div>
                         <h4>Teacher</h4>
@@ -368,7 +412,7 @@
             </div>
             <div class="container">
                 <div class="left-container">
-                    
+
                     <div class="row2">
                         <h2>${course.title}</h2> <!--replace Course title here-->
                         <p>${course.detail}</p> <!--Course description here-->
@@ -412,25 +456,80 @@
                 <div class="right-container">
                     <div class="right-box">
                         <div class="label">Date</div>
-                        <select class="label-value jsdate" onchange="loadTime(this)"></select>
+                        <select id="dateSD" class="label-value jsdate" onchange="loadTime(this)"></select>
                     </div>
                     <div class="right-box">
+                        <div class="label " >Choose start date</div>
+                        <input id="datepicker" type="text" width="276"/>
+                    </div>
+                    <div id="date-error-message" style="display: none;"></div>
+                    <div class="right-box">
                         <div class="label">Time</div>
-                        <ul class="label-value jstime"></ul> <!--replace time here-->
+                        <ul class="label-value time-value jstime" style=" padding: 0px"></ul> <!--replace time here-->
                     </div>
                     <div class="right-box">
                         <div class="label">Duration</div>
                         <div class="label-value">${course.duration} slots</div> <!--replace duration here-->
+                        <input id="duration" value="${course.duration}" type="hidden" required>
                     </div>
                     <div class="right-box">
                         <div class="label">Price</div>
-                        <div class="label-value"><c:if test="${course.price>0}">$${course.price}</c:if><c:if test="${course.price<=0}">Free</c:if></div> <!--replace price here-->
+                        <div class="label-value">
+                            <c:if test="${course.price>0}">$${course.price}</c:if>
+                            <c:if test="${course.price<=0}">Free</c:if>
+                            </div> <!--replace price here-->
+                        </div>
+                        <div  class="course-card book1">
+                        <c:if test="${sessionScope.account == null && billStatus != 1}">
+                            <c:if test="${course.price>0}">
+                                <a class="book-course" onclick="gotoCheckout('Checkout?id=${course.id}&action=course')" class="course-card">
+                                    <p>Purchase</p>
+                                </a>
+                            </c:if>   
+                            <c:if test="${course.price<=0}">
+                                <a class="book-course" onclick="gotoCheckout('Checkout?id=${course.id}&action=course')" class="course-card">
+                                    <p>Errol</p>
+                                </a>
+                            </c:if>
+                        </c:if>
+                            
+                        <c:if test="${sessionScope.account != null && billStatus != 2 && denyBook != 1}">
+                            <c:if test="${course.price>0}">
+                                <a class="book-course" onclick="gotoCheckout('Checkout?id=${course.id}&action=course')" class="course-card">
+                                    <p>Book now</p>
+                                </a>
+                            </c:if>   
+                            <c:if test="${course.price<=0}">
+                                <a class="book-course" onclick="gotoCheckout('Checkout?id=${course.id}&action=course')" class="course-card">
+                                    <p>Errol</p>
+                                </a>
+                            </c:if>
+                            
+                        </c:if>
+
+
+                        <c:if test="${sessionScope.account != null && billStatus != 2 && denyBook == 1}">
+                            <c:if test="${course.price>0}">
+                                <a class="book-course" class="course-card">
+                                    <p>You have joined the course</p>
+                                </a>
+                            </c:if>   
+                            <c:if test="${course.price<=0}">
+                                <a class="book-course" class="course-card">
+                                    <p>You have joined the course</p>
+                                </a>
+                            </c:if>
+                            
+                        </c:if>
+
+                        <c:if test="${sessionScope.account != null && billStatus == 2}">
+                            <p>Waiting for payment...</p>
+                        </c:if>
                     </div>
-                    <a href="#" class="book-btn">Book now</a>
                 </div>
             </div>
-                   
-            
+
+
             <c:set var="ratingRepo" value="<%= new RatingCourseRepository()%>"/> 
             <c:set var="rcRepo" value="<%= new RegistrationCourseRepository()%>"/> 
             <div class="surgest-course-section">
@@ -452,7 +551,7 @@
                                         <i class=""></i>
                                     </div>
                                 </div>
-                                <a>${c.title}</a><!--replace title for surgest card-->
+                                    <a class="text-ellipsis">${c.title}</a><!--replace title for surgest card-->
                             </div>
                             <div class="surgest-card-footer">
                                 <p class="surgest-card-price"><c:if test="${c.price>0}">$${c.price}</c:if><c:if test="${c.price<=0}">Free</c:if></p>
@@ -460,105 +559,181 @@
                             </div>
                         </div>
                     </c:forEach>
-                    
+
                 </div>
             </div>
         </div>
-        <%@include file="../Component/toast.jsp" %>                         
-        <script defer>    
-            /*display star*/
-            const starsParents = document.querySelectorAll(".stars");
-            starsParents.forEach(sp =>{
-                let stars = sp.querySelectorAll(".stars i");
-                var avg = $(sp).data('avg');
-                stars.forEach(star =>{
-                    if(avg>0){
-                        star.classList.add("fa-solid");
-                        if(avg<1){
-                            star.classList.add("fa-star-half-stroke");
-                        }else{
-                            star.classList.add("fa-star");
-                        } 
-                    }else{
-                        star.classList.add("fa-regular");
+        <%@include file="../Component/toast.jsp" %>       
+    </script>
+    <script>
+        var dateSelect = [];
+        var date = new Date();
+        var today = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+        $('#datepicker').datepicker({
+            uiLibrary: 'bootstrap5',
+            format: 'yyyy-mm-dd',
+            minDate: today,
+            disableDates: function (date) {
+                const dayOfWeek = date.getDay();
+                return dateSelect.includes(dayOfWeek);
+            }
+        });
+
+        document.getElementById("datepicker").required = true;
+    </script>
+    <script defer>
+        /*display star*/
+        const starsParents = document.querySelectorAll(".stars");
+        starsParents.forEach(sp => {
+            let stars = sp.querySelectorAll(".stars i");
+            var avg = $(sp).data('avg');
+            stars.forEach(star => {
+                if (avg > 0) {
+                    star.classList.add("fa-solid");
+                    if (avg < 1) {
+                        star.classList.add("fa-star-half-stroke");
+                    } else {
                         star.classList.add("fa-star");
                     }
-                    avg-=1;
-                });
+                } else {
+                    star.classList.add("fa-regular");
+                    star.classList.add("fa-star");
+                }
+                avg -= 1;
             });
-            /*display date text*/
-            const displayDate = document.querySelector(".jsdate");
-            const displayTime = document.querySelector(".jstime");
-            var dateData="";
-            var timeData="";
-            <c:forEach items="${courseScheduleList}" var="i">
-                dateData+= "<option value='${i.id}' > ${i.dateToString()} </option>";
-                timeData+="<li class='time-${i.id}' > ${i.startTime} - ${i.endTime}</li>";
-            </c:forEach>
-                displayDate.innerHTML =dateData;
-                displayTime.innerHTML = timeData;
-            loadTime($('.jsdate'));
-            function loadTime(select){
-                var id = $(select).val();
-                $('.right-container li.time-'+id).show();
-                $('.right-container li.time-'+id).siblings().hide();    
+        });
+        /*display date text*/
+        const displayDate = document.querySelector(".jsdate");
+        const displayTime = document.querySelector(".jstime");
+        var dateData = "";
+        var timeData = "";
+        <c:forEach items="${courseScheduleList}" var="i">
+        dateData += "<option data-cId='${i.dateOfWeek}' value='${i.id}' > ${i.dateToString()} </option>";
+        timeData += "<li class='time-${i.id}' > ${i.startTime} - ${i.endTime}</li>";
+        </c:forEach>
+        displayDate.innerHTML = dateData;
+        displayTime.innerHTML = timeData;
+        loadTime($('.jsdate'));
+        function loadTime(select) {
+            var id = $(select).val();
+            var datePick = $('.jsdate').find(':selected').attr('data-cId');
+            var parseDate = datePick.split(",");
+            dateSelect = [];
+            parseDate.forEach(i => {
+                var j = parseInt(i);
+                if (j < 6) {
+                    j = j + 1;
+                } else {
+                    j = 0;
+                }
+                dateSelect.push(j);
+            });
+
+            console.log(dateSelect);
+            $('.right-container li.time-' + id).show();
+            $('.right-container li.time-' + id).siblings().hide();
+        }
+        function goto(url) {
+            window.location.href = "${pageContext.request.contextPath}/" + url;
+        }
+
+        function gotoCheckout(url) {
+            var course_scheduleId = $('#dateSD').val();
+            var duration = $('#duration').val();
+            var start_Time = $('#datepicker').val();
+
+            if (!start_Time) {
+                $('#date-error-message').text('Please choose a start date !!!');
+                $('#date-error-message').css('color', 'red');
+                $('#date-error-message').show();
+
+                setTimeout(function () {
+                    $('#date-error-message').hide();
+                }, 5000);
+
+                return;
             }
 
-            function goto(url){
-                window.window.location.href = "${pageContext.request.contextPath}/"+url;   
-            }
-            
-            $('.jsWishlist').click(()=>{
-                if($('.jsWishlist').hasClass('added')){
-                   $.ajax({
-                        url:"course-detail?courseid="+${course.id}+"&action=remove",
-                        type:"post",
-                        success:function(data){
+            // Các mã khác trong hàm gotoCheckout...
+
+            // Xóa thông báo nếu đã chọn ngày
+            $('#date-error-message').text('');
+            $('#date-error-message').hide();
+
+            window.location.href = "${pageContext.request.contextPath}/" + url + "&course_scheduleId=" + course_scheduleId + "&duration=" + duration + "&start_time=" + start_Time;
+        }
+
+
+
+        $('.jsWishlist').click(() => {
+            if ($('.jsWishlist').hasClass('added')) {
+                $.ajax({
+                    url: "course-detail?courseid=" +${course.id} + "&action=remove",
+                    type: "post",
+                    success: function (data) {
+                        if (data == "account-failed") {
                             toast({
-                                title:"Success!",
-                                msg:"Remove success!",
-                                type:'success',
-                                duration:5000   
+                                title: "Opps!",
+                                msg: "Login to use this fuction!",
+                                type: 'error',
+                                duration: 5000
+                            });
+                        } else {
+                            toast({
+                                title: "Success!",
+                                msg: "Remove success!",
+                                type: 'success',
+                                duration: 5000
                             });
                             $('.jsWishlist').removeClass('added');
                             $('.jsWishlist').html('<i class="fa-regular fa-bookmark"></i> Add To WishList');
-                        },
-                        error: function(msg){
+                        }
+                    },
+                    error: function (msg) {
+                        toast({
+                            title: "Opps!",
+                            msg: "Login to use this fuction!",
+                            type: 'error',
+                            duration: 5000
+                        });
+                    }
+                });
+            } else {
+
+                $.ajax({
+                    url: "course-detail?courseid=" +${course.id} + "&action=add",
+                    type: "post",
+                    success: function (data) {
+                        if (data == "account-failed") {
                             toast({
-                                title:"Opps!",
-                                msg:"Login to use this fuction!",
-                                type:'error',
-                                duration:5000   
+                                title: "Opps!",
+                                msg: "Login to use this fuction!",
+                                type: 'error',
+                                duration: 5000
                             });
-                        }   
-                    });
-                }else{
-                    
-                   $.ajax({
-                        url:"course-detail?courseid="+${course.id}+"&action=add",
-                        type:"post",
-                        success:function(data){
+                        } else {
                             $('.jsWishlist').addClass('added');
                             $('.jsWishlist').html('<i class="fa fa-times" aria-hidden="true"></i> Remove From WishList');
                             toast({
-                                title:"Success!",
-                                msg:"Add success!",
-                                type:'success',
-                                duration:5000   
+                                title: "Success!",
+                                msg: "Add success!",
+                                type: 'success',
+                                duration: 5000
                             });
-                        },
-                        error: function(msg){
-                            toast({
-                                title:"Opps!",
-                                msg:"Login to use this fuction!",
-                                type:'error',
-                                duration:5000   
-                            });
-                        }   
-                    });
-                }  
-            }); 
-        </script>
-        <%@include file="../Component/footer.jsp" %> 
-    </body>
+                        }
+                    },
+                    error: function (msg) {
+                        toast({
+                            title: "Opps!",
+                            msg: "Login to add wishlist!",
+                            type: 'error',
+                            duration: 5000
+                        });
+                    }
+                });
+            }
+        });
+    </script>
+    <%@include file="../Component/footer.jsp" %> 
+</body>
 </html>

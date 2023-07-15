@@ -4,6 +4,8 @@
  */
 package com.yowu.yogacenter.controller.client;
 
+import com.yowu.yogacenter.model.Course;
+import com.yowu.yogacenter.repository.CategoryRepository;
 import com.yowu.yogacenter.repository.CourseRepository;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -11,6 +13,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.List;
 
 
 public class CourseListController extends HttpServlet {
@@ -20,8 +23,17 @@ public class CourseListController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        CategoryRepository categoryRepo = new CategoryRepository();
         CourseRepository cr = new CourseRepository();
-        request.setAttribute("courseList", cr.getAll());
+        List<Course> list = cr.getActive();
+        request.setAttribute("courseList", list);
+        request.setAttribute("categoryList", categoryRepo.getAllActive());
+        request.setAttribute("minPrice", cr.getMinCoursePrice());
+        request.setAttribute("maxPrice", cr.getMaxCoursePrice());
+        int itemPerPage = 4;
+        int numpage = (int) Math.ceil(list.size() / (double) itemPerPage);
+        request.setAttribute("numpage", numpage);
+        request.setAttribute("itemPerPage", itemPerPage);
         request.getRequestDispatcher(COURSE_LIST_PAGE).forward(request, response);
     }  
     @Override

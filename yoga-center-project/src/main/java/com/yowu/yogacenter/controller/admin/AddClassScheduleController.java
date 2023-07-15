@@ -44,7 +44,7 @@ public class AddClassScheduleController extends HttpServlet {
             cs.setEndTime(Time.valueOf(request.getParameter("txtEndDate")));
             cs.setStatus(1);
             
-            boolean add = csr.add(cs);
+            boolean add = csr.addClassSchedule(cs);
             if (add) {
                 response.sendRedirect(VIEW_CLASS_SCHEDULE_PAGE);
             }

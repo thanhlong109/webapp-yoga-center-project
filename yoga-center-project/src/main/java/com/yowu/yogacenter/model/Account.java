@@ -4,11 +4,14 @@
  */
 package com.yowu.yogacenter.model;
 
+import java.io.Serializable;
+import java.sql.Date;
+
 /**
  *
  * @author DungVNT
  */
-public class Account {
+public class Account implements Serializable{
     
     public static String DEFAULT_IMG = "hinh-avatar-1.png";
 
@@ -21,6 +24,7 @@ public class Account {
     private boolean isActive;
     private Role role;
     private String socialID;
+    private Date createDate;
 
     public Account() {
     }
@@ -36,6 +40,14 @@ public class Account {
         this.socialID = socialID;
     }
 
+    public Date getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
+    }
+    
     public int getId() {
         return id;
     }

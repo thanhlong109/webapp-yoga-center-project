@@ -4,6 +4,7 @@
  */
 package com.yowu.yogacenter.controller.client;
 
+import com.yowu.yogacenter.model.Account;
 import com.yowu.yogacenter.model.Bill;
 import com.yowu.yogacenter.repository.AccountRepository;
 import com.yowu.yogacenter.repository.BillRepository;
@@ -13,6 +14,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -25,12 +27,16 @@ public class UserProfileBooking extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        int accountID = 2;
+        Account acc = (Account)request.getSession().getAttribute("account");
         AccountRepository ar = new AccountRepository();
-        request.setAttribute("account", ar.detail(accountID));
+        request.setAttribute("account", ar.detail(acc.getId()));
+
         try{
             BillRepository bRepo = new BillRepository();
-            List<Bill> list = bRepo.getByAccountID(accountID);
+            List<Bill> list=null;
+            if(acc!=null){
+                list = bRepo.getByAccountID(acc.getId());
+            }
             request.setAttribute("billList", list);
         }catch(Exception e){
             System.out.println(e);
@@ -48,17 +54,15 @@ public class UserProfileBooking extends HttpServlet {
         try(PrintWriter out = response.getWriter()){
             String action = request.getParameter("action");
             BillRepository br = new BillRepository();
-            int accountID = 2;
             int billID = Integer.parseInt(request.getParameter("billid"));
-            Bill b = br.detail(billID);
             switch(action){
                 case "view":{
+                    Bill b = br.detail(billID);
                     out.print(getHtmlViewBill(b));
                     break;
                 }
                 case "cancel":{
-                    b.setStatus(Bill.BillStatus.CANCELLED.ordinal());
-                    br.update(b);
+                    br.updateStatus(billID, Bill.BillStatus.CANCELLED.ordinal());
                     break;
                 }
             }
@@ -86,7 +90,14 @@ public class UserProfileBooking extends HttpServlet {
 "                                </div>\n" +"<div>\n" +
 "                                    <label>Discount:</label><span>$"+b.getDiscount()
                 + "</span>\n" +
-"                                </div>"+
+"                                </div>"+"<div>\n" +
+"                                    <label>Payment Method:</label><span> "+b.getMethod()
+                + "</span>\n" +
+"                                </div>\n" +
+"                                <div>\n" +
+"                                    <label>Order code:</label><span>"+b.getOrdercode()
+                + "</span>\n" +
+"                                </div>\n" +
 "                                <div>\n" +
 "                                    <label>Date:</label><span>"+b.getDate()
                 + "</span>\n" +

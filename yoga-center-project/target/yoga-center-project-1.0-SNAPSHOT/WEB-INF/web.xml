@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+    <filter>
+        <filter-name>AuthenticationFilter</filter-name>
+        <filter-class>com.yowu.yogacenter.filter.AuthenticationFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>AuthenticationFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
     <servlet>
         <servlet-name>UserProfileCourse</servlet-name>
         <servlet-class>com.yowu.yogacenter.controller.client.UserProfileCourse</servlet-class>
@@ -33,14 +41,6 @@
         <servlet-class>com.yowu.yogacenter.controller.client.ViewScheduleController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>BlogHomeDetailController</servlet-name>
-        <servlet-class>com.yowu.yogacenter.controller.client.BlogHomeDetailController</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>DispatchController</servlet-name>
-        <servlet-class>com.yowu.yogacenter.controller.client.DispatchController</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>CourseListController</servlet-name>
         <servlet-class>com.yowu.yogacenter.controller.client.CourseListController</servlet-class>
     </servlet>
@@ -65,12 +65,32 @@
         <servlet-class>com.yowu.yogacenter.controller.client.CourseDetailController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>LoginGoogleHandler</servlet-name>
-        <servlet-class>com.yowu.yogacenter.controller.client.LoginGoogleHandler</servlet-class>
+        <servlet-name>BlogDetailController</servlet-name>
+        <servlet-class>com.yowu.yogacenter.controller.client.BlogDetailController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>LogoutController</servlet-name>
         <servlet-class>com.yowu.yogacenter.controller.client.LogoutController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>LoginGoogleController</servlet-name>
+        <servlet-class>com.yowu.yogacenter.controller.client.LoginGoogleController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CheckoutController</servlet-name>
+        <servlet-class>com.yowu.yogacenter.controller.client.CheckoutController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AuthorizePaymentController</servlet-name>
+        <servlet-class>com.yowu.yogacenter.checkout.AuthorizePaymentController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CheckoutResultController</servlet-name>
+        <servlet-class>com.yowu.yogacenter.checkout.CheckoutResultController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CheckoutSendController</servlet-name>
+        <servlet-class>com.yowu.yogacenter.checkout.CheckoutSendController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ViewCourseTimeListController</servlet-name>
@@ -107,6 +127,18 @@
     <servlet>
         <servlet-name>UpdateCourseScheduleController</servlet-name>
         <servlet-class>com.yowu.yogacenter.controller.admin.UpdateCourseScheduleController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>MembershipController</servlet-name>
+        <servlet-class>com.yowu.yogacenter.controller.client.MembershipController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>HomeController</servlet-name>
+        <servlet-class>com.yowu.yogacenter.controller.client.HomeController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CourseFilterController</servlet-name>
+        <servlet-class>com.yowu.yogacenter.controller.client.CourseFilterController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>AddCourseController</servlet-name>
@@ -165,6 +197,10 @@
         <servlet-class>com.yowu.yogacenter.controller.admin.SearchCourseScheduleController</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>DashBoardController</servlet-name>
+        <servlet-class>com.yowu.yogacenter.controller.admin.DashBoardController</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>UpdateClassScheduleController</servlet-name>
         <servlet-class>com.yowu.yogacenter.controller.admin.UpdateClassScheduleController</servlet-class>
     </servlet>
@@ -204,6 +240,10 @@
         <servlet-name>UpdateBillCashierController</servlet-name>
         <servlet-class>com.yowu.yogacenter.controller.cashier.UpdateBillCashierController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AboutController</servlet-name>
+        <servlet-class>com.yowu.yogacenter.controller.client.AboutController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>UserProfileCourse</servlet-name>
         <url-pattern>/userprofile/course</url-pattern>
@@ -229,20 +269,8 @@
         <url-pattern>/userprofile/setting</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>BlogHomeController</servlet-name>
-        <url-pattern>/BlogHomeController</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>ViewScheduleController</servlet-name>
         <url-pattern>/Timetable</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>BlogHomeDetailController</servlet-name>
-        <url-pattern>/BlogHomeDetailController</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>DispatchController</servlet-name>
-        <url-pattern>/DispatchController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>CourseListController</servlet-name>
@@ -269,12 +297,36 @@
         <url-pattern>/course-detail</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>LoginGoogleHandler</servlet-name>
-        <url-pattern>/LoginGoogleHandler</url-pattern>
+        <servlet-name>BlogHomeController</servlet-name>
+        <url-pattern>/blogs</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>BlogDetailController</servlet-name>
+        <url-pattern>/blog-detail</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>LogoutController</servlet-name>
         <url-pattern>/logout</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LoginGoogleController</servlet-name>
+        <url-pattern>/LoginWithGoogle</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CheckoutController</servlet-name>
+        <url-pattern>/Checkout</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AuthorizePaymentController</servlet-name>
+        <url-pattern>/authorize_payment</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CheckoutResultController</servlet-name>
+        <url-pattern>/CheckoutResult</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CheckoutSendController</servlet-name>
+        <url-pattern>/CheckoutSendController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ViewCourseTimeListController</servlet-name>
@@ -311,6 +363,18 @@
     <servlet-mapping>
         <servlet-name>UpdateCourseScheduleController</servlet-name>
         <url-pattern>/admin/updateCourseScheduleController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MembershipController</servlet-name>
+        <url-pattern>/Membership</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>HomeController</servlet-name>
+        <url-pattern>/home</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CourseFilterController</servlet-name>
+        <url-pattern>/course-filter</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AddCourseController</servlet-name>
@@ -369,6 +433,10 @@
         <url-pattern>/admin/searchCourseScheduleController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+        <servlet-name>DashBoardController</servlet-name>
+        <url-pattern>/admin/dashboard</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>UpdateClassScheduleController</servlet-name>
         <url-pattern>/admin/updateClassScheduleController</url-pattern>
     </servlet-mapping>
@@ -385,6 +453,7 @@
         <url-pattern>/admin/searchClassScheduleController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+
         <servlet-name>ViewBillController</servlet-name>
         <url-pattern>/cashier/viewBillController</url-pattern>
     </servlet-mapping>
@@ -408,12 +477,16 @@
         <servlet-name>UpdateBillCashierController</servlet-name>
         <url-pattern>/cashier/updateBillCashierController</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AboutController</servlet-name>
+        <url-pattern>/about</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
         </session-timeout>
     </session-config>
     <welcome-file-list>
-        <welcome-file>Client/Home.jsp</welcome-file>
+        <welcome-file>Client/index.jsp</welcome-file>
     </welcome-file-list>
 </web-app>

@@ -4,12 +4,24 @@
  */
 package com.yowu.yogacenter.controller.client;
 
+import com.yowu.yogacenter.model.Account;
+import com.yowu.yogacenter.model.Category;
+import com.yowu.yogacenter.model.ClassSchedule;
+import com.yowu.yogacenter.repository.CategoryRepository;
+import com.yowu.yogacenter.repository.ClassScheduleRepository;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.sql.Date;
+import java.sql.Time;
+import java.time.LocalDate;
+import java.util.List;
+import java.time.temporal.TemporalAdjusters;
+import java.time.DayOfWeek;
+import java.time.format.DateTimeFormatter;
 
 /**
  *
@@ -19,47 +31,63 @@ public class ViewScheduleController extends HttpServlet {
 
     private final String SCHEDULE_PAGE = "Client/viewSchedule.jsp";
     
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        
-        request.getRequestDispatcher(SCHEDULE_PAGE).forward(request, response);  
-    }
-
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        //get current week
+        LocalDate currentDate = LocalDate.now();
+        loadScheduleOfDate(currentDate, request);
+        request.getRequestDispatcher(SCHEDULE_PAGE).forward(request, response);
+    }
+    
+    private void loadScheduleOfDate(LocalDate date,HttpServletRequest request){
+        Account acc = (Account) request.getSession().getAttribute("account");
+        if(acc!=null){
+            LocalDate startOfWeek = date.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
+            LocalDate endOfWeek = date.with(TemporalAdjusters.nextOrSame(DayOfWeek.SUNDAY));
+            Date sDate = Date.valueOf(startOfWeek);
+            Date eDate = Date.valueOf(endOfWeek);
+            Date[] daysList = new Date[7];
+            for(int i=0;i<7;i++){
+                daysList[i] = Date.valueOf(startOfWeek.plusDays(i));
+            }
+            CategoryRepository cr = new CategoryRepository();
+            //get data from data base
+            ClassScheduleRepository csr = new ClassScheduleRepository();
+            System.out.println("accid"+acc.getId());
+            List<ClassSchedule> scheduleList = csr.getScheduleBetweenDateByAccount(sDate, eDate, acc.getId());
+            List<Time> timeList = csr.getTimeScheduleBetweenDateByAccount(sDate, eDate, acc.getId());
+            List<Category> categoryList = cr.getAllActive();
+            //generate 2 demension array
+            ClassSchedule[][] scheduleTable = new ClassSchedule[timeList.size()][7];
+            for(ClassSchedule cs : scheduleList){
+                LocalDate scDate = cs.getDate().toLocalDate();
+                int x = scDate.getDayOfWeek().getValue()-1;
+                int y = timeList.indexOf(cs.getStartTime());
+                scheduleTable[y][x] = cs;
+            }
+            request.setAttribute("categoryList", categoryList);
+            request.setAttribute("dateSelected", date);
+            request.setAttribute("scheduleTable", scheduleTable);  
+            request.setAttribute("daysList", daysList);
+        }
     }
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String txtDate = request.getParameter("txtDate");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        try{
+            LocalDate date = LocalDate.parse(txtDate,formatter);
+            loadScheduleOfDate(date, request);
+            
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        request.getRequestDispatcher(SCHEDULE_PAGE).forward(request, response);
     }
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
     @Override
     public String getServletInfo() {
         return "Short description";

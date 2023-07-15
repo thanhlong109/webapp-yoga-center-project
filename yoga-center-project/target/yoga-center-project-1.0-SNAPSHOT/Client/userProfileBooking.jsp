@@ -11,6 +11,7 @@
 <html>
     <head>
         <title>User profile</title>
+        <meta name="viewport" content="width=device-width,initial-scale=1">
         <link rel="stylesheet" href="../Asset/css/clientHeader.css">
         <link rel="stylesheet" href="../Asset/css/clientFooter.css">
         <link rel="stylesheet" href="../Asset/css/common.css">
@@ -31,6 +32,7 @@
                max-width: 1320px;
                margin: 0 auto;
                padding: 50px 30px;
+               width: 1220px;
            }
            .user2{
                display: flex;
@@ -49,13 +51,10 @@
               border: 1px solid #4444;
               margin-right: 24px;
            }
-           .user-img img{
-               width: 100%;
-               max-height: 150px ;
-           }
            .user-container{
                margin-top: 64px;
                display: flex;
+               
            }
            .user-nav{
                list-style: none;
@@ -89,7 +88,7 @@
            }
            .user-content{
                padding: 0 50px;
-               width: 100%;
+               flex: 1;
            }
            .filter-course{
                list-style: none;
@@ -129,17 +128,18 @@
                font-weight: 600;
                font-size: 14px;
                color: white;
+               text-transform: capitalize;
            }
            .status-completed{
-               background-color: #eabd53;
+               background-color: rgb(75, 192, 192);
                content: "Completed";
            }
            .status-pending{
-               background-color: #b3b3b3;
+               background-color: rgb(255, 205, 86);
                content: "Pending";
            }
            .status-cancelled{
-               background-color: #ea6553;
+               background-color: rgb(255, 99, 132);
                content:"Cancelled";
            }
            
@@ -178,24 +178,21 @@
                    flex-direction: column;
                }
                .user-nav{
-                   flex-direction: row;
-                   width: fit-content;
-               }
-               .user-nav li{
-                   width: fit-content;
-                   display: flex;
-                   height: fit-content;
-               }
-               .user-nav a{
-                   margin-left: 0; 
-                   text-align: center;
-                   display: flex;
-                   flex-direction: column;
-                   padding: 4px;
-               }
-               .user-nav a i{
-                   margin-right: 0;
-               }
+                    flex-direction: row;
+                    width: 100%;
+                }
+                .user-nav li{
+                    width: fit-content;
+                    display: flex;
+                    height: fit-content;
+                }
+                .user-nav a{
+                    margin-left: 0; 
+                    text-align: center; 
+                }
+                .user-nav a i{
+                    margin-right: 0;
+                }
 
                .user-content{
                    padding: 0;
@@ -255,7 +252,7 @@
         <div class="container">
             <c:if test="${sessionScope.account!=null}">
                 <div class="user2">
-                    <div class="user-img"><img src="../Asset/img/avatar/${sessionScope.account.img}" alt=""></div>
+                    <div class="user-img img-square-container"><img src="../Asset/img/avatar/${sessionScope.account.img}" alt=""></div>
                     <h2>${sessionScope.account.name}</h2>
                 </div>
             </c:if>
@@ -268,7 +265,7 @@
                     <li><a href="wishlist"><i class="fa fa-heart" aria-hidden="true"></i> Wishlist</a></li>
                     <li><a href="setting"><i class="fa fa-sliders" aria-hidden="true"></i> Setting</a></li>
                     <li class="active"  ><a href="booking"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Booking</a></li>
-                    <li><a href="../logout"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a></li>
+                    <li><a href="${pageContext.request.contextPath}/logout"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a></li>
                 </ul>
                 <!-- End navigation-->
                 <div class="user-content">
@@ -285,7 +282,7 @@
                                     </tr>
                                     <c:forEach items="${billList}" var="bill">
                                         <tr>
-                                            <c:set var="status" value="${Bill.getEnumIndex(bill.status).name().toLowerCase()}" />
+                                            <c:set var="status"  value="${Bill.getEnumIndex(bill.status).name().toLowerCase()}" />
                                             <td>${bill.id}</td>
                                             <td>$${bill.value}</td>
                                             <td><span class="status status-${status}">${status}</span></td>
@@ -353,5 +350,6 @@
                 });
             }
         </script>
+        
     </body>
 </html>

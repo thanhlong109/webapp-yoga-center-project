@@ -19,7 +19,7 @@ public class UpdateCourseScheduleController extends HttpServlet {
             throws ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
         CourseScheduleRepository csr = new CourseScheduleRepository();
-        CourseSchedule cs = csr.detailCourseSchedule(id);
+        CourseSchedule cs = csr.detailByScheduleID(id);
         request.setAttribute("courseSchedule", cs);
         request.getRequestDispatcher(EDIT_COURSE_SCHEDULE_PAGE).forward(request, response);
     }

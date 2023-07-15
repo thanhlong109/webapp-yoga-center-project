@@ -25,7 +25,7 @@
     </div>
     <div class="container">
         <div class="image-instructor-profile">
-            <img src="../img/avatar/hinh-avatar-1.png" alt="image for profile">
+            <img src="../img/avatar/" alt="image for profile">
         </div>
         <div class="bio-instructor-profile">
             <h3>Jane Smith</h3>
