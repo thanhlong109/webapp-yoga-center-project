@@ -58,20 +58,34 @@
                                 <input type="hidden" name="txtId" value="${CATEGORY.id}">
                             <input type="text" name="txtName" value="${CATEGORY.name}">
                             <label for="">Name</label>
-                            </div>
-                            <c:if test="${UPDATE_CATEGORY_ERROR != null}">
+                        </div>
+                        <c:choose>
+                            <c:when test="${UPDATE_CATEGORY_ERROR.categoryNameError != null}">
                                 <div class="alert">
                                     <span class="closebtn" onclick="this.parentElement.style.display = 'none';">&times;</span> 
                                     <strong>Warning!</strong> ${UPDATE_CATEGORY_ERROR.categoryNameError}
                                 </div>
-                            </c:if>
-                            <div class="input__button">
-                                <button type="submit" value="Add" id="btn__Add">Update</button>
-                                <button type="reset" value="Reset" id="btn__Reset">Refresh</button>
-                            </div>
-                        </form>
-                    </div>
-                </main>
+                            </c:when>
+                            <c:when test="${UPDATE_CATEGORY_ERROR.categoryNameDuplicateError != null}">
+                                <div class="alert">
+                                    <span class="closebtn" onclick="this.parentElement.style.display = 'none';">&times;</span> 
+                                    <strong>Warning!</strong> ${UPDATE_CATEGORY_ERROR.categoryNameError}
+                                </div>
+                            </c:when>
+                            <c:when test="${UPDATE_CATEGORY_ERROR.error != null}">
+                                <div class="alert">
+                                    <span class="closebtn" onclick="this.parentElement.style.display = 'none';">&times;</span> 
+                                    <strong>Warning!</strong> ${UPDATE_CATEGORY_ERROR.error}
+                                </div>
+                            </c:when>
+                        </c:choose>
+                        <div class="input__button">
+                            <button type="submit" value="Add" id="btn__Add">Update</button>
+                            <button type="reset" value="Reset" id="btn__Reset">Refresh</button>
+                        </div>
+                    </form>
+                </div>
+            </main>
         </div>
     </body>
 </html>

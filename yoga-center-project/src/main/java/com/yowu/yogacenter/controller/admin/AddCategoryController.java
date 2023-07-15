@@ -26,7 +26,7 @@ public class AddCategoryController extends HttpServlet {
             throws ServletException, IOException {
         CategoryRepository _categoryRepository = new CategoryRepository();
         CategoryError categoryError = new CategoryError();
-        boolean result = true;
+        boolean result = false;
         
         try {
             boolean checkValidation = true;

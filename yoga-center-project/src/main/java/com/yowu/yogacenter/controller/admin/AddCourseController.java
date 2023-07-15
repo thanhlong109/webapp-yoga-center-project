@@ -73,6 +73,10 @@ public class AddCourseController extends HttpServlet {
                 courseError.setCourseTitleDuplicateError("Title already existed!!!");
                 checkValidation = false;
             }
+            if (detail.length()< 10 ) {
+                courseError.setCourseDetailLengthError("Detail must be 10 or more characters!!!");
+                checkValidation = false;
+            }
             if (!duration.matches("[0-9]+")) {
                 courseError.setCourseDurationError("Duration only contains numbers");
                 checkValidation = false;

@@ -145,6 +145,42 @@ public class CategoryRepository {
         return status;
     }
     
+     public List<Category> getAllFollowPagination(int offset, int next) {
+        String sql = "select * from tblCategory order by category_id desc OFFSET ? ROWS FETCH NEXT ? ROWS ONLY ";
+        List<Category> list = new ArrayList<>();
+        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
+            stmt.setInt(1, offset);
+            stmt.setInt(2, next);
+            try ( ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                     Category c = new Category();
+                    c.setId(rs.getInt("category_id"));
+                    c.setName(rs.getString("category_name"));
+                    c.setIsActive(rs.getBoolean("category_is_active"));
+                    list.add(c);
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return list;
+    }
+
+    public int count() {
+        String sql = "select count(*) as num from tblCategory ";
+        int count = 0;
+        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
+            try ( ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    count = rs.getInt("num");
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return count;
+    }
+
     public static void main(String[] args) {
         CategoryRepository cr = new CategoryRepository();
         System.out.println(cr.getAll().get(0).getName());

@@ -8,7 +8,6 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
 */
 
 /* ROOT VARIABLES */
-/* ROOT VARIABLES */
 :root {
     --color-primary: #7380ec;
     --color-danger: #ff7782;
@@ -239,7 +238,7 @@ main{
 main .top{
     display: flex;
     justify-content: end;
-    gap: 2rem;
+    gap: 10rem;
 }
 main .top button#menu-btn{
     display: none;
@@ -254,25 +253,27 @@ main .top .profile{
  #search-box{
     background: var(--color-white);
     border-radius: var(--border-radius-2);
-    
+    position: relative;
 }
 #search-box #search-text{
     border: none;
     outline: none;
     background: none;
     font-size: 1.2rem;
-    padding: 0;
-    width: 0;
+    padding: 10px 0px 10px 15px;
+    width: 700px;
     transition: all 0.25s ease-in-out;
 }
-#search-box:hover #search-text, #search-box #search-text:valid{
+/*#search-box:hover #search-text, #search-box #search-text:valid{
     width: 300px;
     padding: 10px 0 10px 15px;
-}
+}*/
 #search-box #btnSearch{
     background: var(--color-white);
     border: none;
-    
+    position: absolute;
+    top: 0;
+    right: 0;
     cursor: pointer;
     border-radius: 50%;
     font-size: 1.2rem;

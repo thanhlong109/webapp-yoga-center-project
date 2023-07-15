@@ -18,7 +18,7 @@ import java.util.List;
  * @author Chien Thang
  */
 public class AccountRepository {
-    
+
     private final String LOGIN_ACCOUNT = "SELECT * from tblAccount where ( account_email =? AND account_password =? )";
     private final String CREATE_ACCOUNT = "INSERT INTO tblAccount ("
             + "account_img, account_name, account_password, account_email, "
@@ -59,33 +59,32 @@ public class AccountRepository {
         }
         return list;
     }
-    
-    public Account checkLogin(String accountemail, String password) {
-        
-    try (PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(LOGIN_ACCOUNT)) {
-        stmt.setString(1, accountemail);
-        stmt.setString(2, password);
-        try (ResultSet rs = stmt.executeQuery()) {
-            if (rs.next()) {
-                RoleRepository cr = new RoleRepository();
-                Account c = new Account();
-                c.setId(rs.getInt("account_id"));
-                c.setImg(rs.getString("account_img"));
-                c.setName(rs.getString("account_name"));
-                c.setPassword(password);
-                c.setEmail(accountemail);
-                c.setPhone(rs.getString("account_phone"));
-                c.setIsActive(rs.getBoolean("account_is_active"));
-                c.setRole(cr.detail(rs.getInt("role_id"))); 
-                return c;
-            }
-        }
-    } catch (Exception e) {
-        System.out.println(e);
-    }
-    return null;
-}
 
+    public Account checkLogin(String accountemail, String password) {
+
+        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(LOGIN_ACCOUNT)) {
+            stmt.setString(1, accountemail);
+            stmt.setString(2, password);
+            try ( ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    RoleRepository cr = new RoleRepository();
+                    Account c = new Account();
+                    c.setId(rs.getInt("account_id"));
+                    c.setImg(rs.getString("account_img"));
+                    c.setName(rs.getString("account_name"));
+                    c.setPassword(password);
+                    c.setEmail(accountemail);
+                    c.setPhone(rs.getString("account_phone"));
+                    c.setIsActive(rs.getBoolean("account_is_active"));
+                    c.setRole(cr.detail(rs.getInt("role_id")));
+                    return c;
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return null;
+    }
 
     public boolean createAccount(Account c) {
 //private final String CREATE_ACCOUNT = "INSERT INTO tblAccount ("
@@ -135,7 +134,7 @@ public class AccountRepository {
         return null;
     }
 
-    public boolean update(Account c){
+    public boolean update(Account c) {
         int status = 0;
         try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(UPDATE_ACCOUNT)) {
             stmt.setString(1, c.getName());
@@ -151,48 +150,48 @@ public class AccountRepository {
         }
         return status == 1;
     }
-    
-    public boolean updateGeneral(Account c){
-            
+
+    public boolean updateGeneral(Account c) {
+
         int status = 0;
-        try(PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(UPDATE_GENERAL)){
+        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(UPDATE_GENERAL)) {
             stmt.setString(1, c.getName());
             stmt.setString(2, c.getEmail());
             stmt.setString(3, c.getPhone());
             stmt.setInt(4, c.getId());
             status = stmt.executeUpdate();
-        }catch(Exception e){
+        } catch (Exception e) {
             System.out.println(e);
         }
-        return status==1;
+        return status == 1;
     }
-    
-    public boolean updateImg(Account c){
+
+    public boolean updateImg(Account c) {
         String sql = "update tblAccount set account_img=? where account_id=? ";
         int status = 0;
-        try(PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)){
+        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
             stmt.setString(1, c.getImg());
             stmt.setInt(2, c.getId());
             status = stmt.executeUpdate();
-        }catch(Exception e){
+        } catch (Exception e) {
             System.out.println(e);
         }
-        return status==1;
+        return status == 1;
     }
-    
-    public boolean updatePassword(Account c){
+
+    public boolean updatePassword(Account c) {
         String sql = "update tblAccount set account_password=? where account_id=? ";
         int status = 0;
-        try(PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)){
+        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
             stmt.setString(1, c.getPassword());
             stmt.setInt(2, c.getId());
             status = stmt.executeUpdate();
-        }catch(Exception e){
+        } catch (Exception e) {
             System.out.println(e);
         }
-        return status==1;
+        return status == 1;
     }
-    
+
     public boolean delete(int id) {
         int status = 0;
         try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(DELETE_ACCOUNT)) {
@@ -205,22 +204,22 @@ public class AccountRepository {
         return status == 1;
     }
 
-
     public boolean checkDuplicate(String accountEmail) {
-    boolean status = false;
-    try (PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(CHECK_DUPLICATE)) {
-        stmt.setString(1, accountEmail);
-        try (ResultSet rs = stmt.executeQuery()) {
-            if (rs.next()) {
-                status = true;
+        boolean status = false;
+        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(CHECK_DUPLICATE)) {
+            stmt.setString(1, accountEmail);
+            try ( ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    status = true;
+                }
             }
+        } catch (Exception e) {
+            System.out.println(e);
         }
-    } catch (Exception e) {
-        System.out.println(e);
+        return status;
     }
-    return status;
-}
-public List<Account> searchName(String search) {
+
+    public List<Account> searchName(String search) {
         String sql = "select * from tblAccount where account_name Like ? ";
         List<Account> list = new ArrayList<>();
         try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
@@ -246,17 +245,60 @@ public List<Account> searchName(String search) {
         }
         return list;
     }
-    public static void main(String[] args) {
-    AccountRepository cr = new AccountRepository();
-    boolean isCreated = cr.checkDuplicate("anmobieblog@gmail.com");
-    
-    if (isCreated) {
-        System.out.println("Trung email!");
-    } else {
-        System.out.println("Khong trung email.");
-    }
-}
 
+    public static void main(String[] args) {
+        AccountRepository cr = new AccountRepository();
+        boolean isCreated = cr.checkDuplicate("anmobieblog@gmail.com");
+
+        if (isCreated) {
+            System.out.println("Trung email!");
+        } else {
+            System.out.println("Khong trung email.");
+        }
+    }
+
+    public List<Account> getAllFollowPagination(int offset, int next) {
+        String sql = "select * from tblAccount order by account_id desc OFFSET ? ROWS FETCH NEXT ? ROWS ONLY ";
+        List<Account> list = new ArrayList<>();
+        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
+            stmt.setInt(1, offset);
+            stmt.setInt(2, next);
+            try ( ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    RoleRepository cr = new RoleRepository();
+                    Account c = new Account();
+                    c.setId(rs.getInt("account_id"));
+                    c.setImg(rs.getString("account_img"));
+                    c.setName(rs.getString("account_name"));
+                    c.setPassword(rs.getString("account_password"));
+                    c.setEmail(rs.getString("account_email"));
+                    c.setPhone(rs.getString("account_phone"));
+                    c.setIsActive(rs.getBoolean("account_is_active"));
+                    c.setRole(cr.detail(rs.getInt("role_id")));
+                    c.setSocialID(rs.getString("social_id"));
+                    list.add(c);
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return list;
+    }
+
+    public int count() {
+        String sql = "select count(*) as num from tblAccount ";
+        int count = 0;
+        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
+            try ( ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    count = rs.getInt("num");
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return count;
+    }
 // public static void main(String[] args) {
 //    AccountRepository cr = new AccountRepository();
 //    Role rl = new Role();

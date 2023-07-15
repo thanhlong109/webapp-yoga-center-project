@@ -9,20 +9,23 @@ package com.yowu.yogacenter.model;
  * @author DungVNT
  */
 public class CourseError {
+
     private String courseTitleLengthError;
     private String courseTitleDuplicateError;
     private String courseDurationError;
     private String coursePriceError;
+    private String courseDetailLengthError;
     private String error;
 
     public CourseError() {
     }
 
-    public CourseError(String courseTitleLengthError, String courseTitleDuplicateError, String courseDurationError, String coursePriceError, String error) {
+    public CourseError(String courseTitleLengthError, String courseTitleDuplicateError, String courseDurationError, String coursePriceError, String courseDetailLengthError, String error) {
         this.courseTitleLengthError = courseTitleLengthError;
         this.courseTitleDuplicateError = courseTitleDuplicateError;
         this.courseDurationError = courseDurationError;
         this.coursePriceError = coursePriceError;
+        this.courseDetailLengthError = courseDetailLengthError;
         this.error = error;
     }
 
@@ -58,6 +61,14 @@ public class CourseError {
         this.coursePriceError = coursePriceError;
     }
 
+    public String getCourseDetailLengthError() {
+        return courseDetailLengthError;
+    }
+
+    public void setCourseDetailLengthError(String courseDetailLengthError) {
+        this.courseDetailLengthError = courseDetailLengthError;
+    }
+
     public String getError() {
         return error;
     }
@@ -66,5 +77,4 @@ public class CourseError {
         this.error = error;
     }
 
-   
 }

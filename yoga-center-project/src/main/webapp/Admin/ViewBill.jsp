@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="com.yowu.yogacenter.model.Bill" %>
 <%@taglib prefix="c" uri="jakarta.tags.core" %>
 <!DOCTYPE html>
 <html>
@@ -25,6 +26,7 @@
         <!-- Link CSS -->
         <link rel="stylesheet" href="../Asset/css/dashboard_2.css">
         <link rel="stylesheet" href="../Asset/css/adminEditCategory_2.css">
+        <link rel="stylesheet" href="../Asset/css/paginationAdmin.css">
         <!-- Library JS -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
         <script src="../js/cdnjs.cloudflare.com_ajax_libs_Chart.js_2.4.0_Chart.min.js"></script>
@@ -88,7 +90,7 @@
                                             ${bill.account.name}
                                         </td>
                                         <td>
-                                            ${bill.getEnumIndex(status)}
+                                            ${Bill.getEnumIndex(bill.status)}
                                         </td>
                                         <td>
                                             ${bill.value}
@@ -115,6 +117,19 @@
                         </table>
                     </div>
                 </div>
+                <div class="pagination">
+                    <c:if test="${NUMPAGE>1}">
+                        <c:if test="${PAGE>1}">
+                            <a href="viewBillListController?page=${PAGE-1}"><i class="fa-solid fa-chevron-left"></i></a>
+                            </c:if>
+                            <c:forEach begin="${1}" var="i" end="${NUMPAGE}">
+                            <a href="viewBillListController?page=${i}" <c:if test="${i==PAGE}">class="p-active"</c:if> >${i}</a>
+                        </c:forEach>
+                        <c:if test="${PAGE<NUMPAGE}">
+                            <a href="viewBillListController?page=${PAGE<NUMPAGE?(PAGE+1):NUMPAGE}"><i class="fa-solid fa-chevron-right"></i></a>
+                            </c:if>
+                        </c:if>
+                </div>  
             </main>
         </div>
     </body>

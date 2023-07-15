@@ -58,14 +58,38 @@
                             <input type="text" name="txtTitle" value="${COURSE.title}">
                             <label for="">Title</label>
                         </div>
+                        <c:if test="${UPDATE_COURSE_ERROR.courseTitleLengthError != null}">
+                            <div class="alert">
+                                <span class="closebtn" onclick="this.parentElement.style.display = 'none';">&times;</span> 
+                                <strong>Warning!</strong> ${UPDATE_COURSE_ERROR.courseTitleLengthError}
+                            </div>
+                        </c:if>
+                        <c:if test="${UPDATE_COURSE_ERROR.courseTitleDuplicateError != null}">
+                            <div class="alert">
+                                <span class="closebtn" onclick="this.parentElement.style.display = 'none';">&times;</span> 
+                                <strong>Warning!</strong> ${UPDATE_COURSE_ERROR.courseTitleDuplicateError}
+                            </div>
+                        </c:if>
                         <div class="input__group detail">
                             <textarea name="txtDetail" id="detail" rows="5" value="${COURSE.detail}">${COURSE.detail}</textarea>
                             <label for="">Details</label>
                         </div>
+                        <c:if test="${UPDATE_COURSE_ERROR.courseDetailLengthError != null}">
+                            <div class="alert">
+                                <span class="closebtn" onclick="this.parentElement.style.display = 'none';">&times;</span> 
+                                <strong>Warning!</strong> ${UPDATE_COURSE_ERROR.courseDetailLengthError}
+                            </div>
+                        </c:if>
                         <div class="input__group">
                             <input type="text" name="txtDuration" value="${COURSE.duration}">
                             <label for="">Duration</label>
                         </div>
+                        <c:if test="${UPDATE_COURSE_ERROR.courseDurationError != null}">
+                            <div class="alert">
+                                <span class="closebtn" onclick="this.parentElement.style.display = 'none';">&times;</span> 
+                                <strong>Warning!</strong> ${UPDATE_COURSE_ERROR.courseDurationError}
+                            </div>
+                        </c:if>
                         <div class="input__group image">
                             <input type="hidden" name="originImg" value="${COURSE.img}">
                             <input type="file" name="courseImg" accept=".png, .jpg" onchange="loadFile(this)">
@@ -101,34 +125,18 @@
                             <input type="text" name="txtPrice" value="${COURSE.price}">
                             <label for="">Price</label>
                         </div>
-                        <c:if test="${UPDATE_COURSE_ERROR != null}">
-                            <c:choose>
-                                <c:when test="${UPDATE_COURSE_ERROR.courseTitleLengthError != null}">
-                                    <div class="alert">
-                                        <span class="closebtn" onclick="this.parentElement.style.display = 'none';">&times;</span> 
-                                        <strong>Warning!</strong> ${UPDATE_COURSE_ERROR.courseTitleLengthError}
-                                    </div>
-                                </c:when>
-                                <c:when test="${UPDATE_COURSE_ERROR.courseDurationError != null}">
-                                    <div class="alert">
-                                        <span class="closebtn" onclick="this.parentElement.style.display = 'none';">&times;</span> 
-                                        <strong>Warning!</strong> ${UPDATE_COURSE_ERROR.courseDurationError}
-                                    </div>
-                                </c:when>
-                                <c:when test="${UPDATE_COURSE_ERROR.coursePriceError != null}">
-                                    <div class="alert">
-                                        <span class="closebtn" onclick="this.parentElement.style.display = 'none';">&times;</span> 
-                                        <strong>Warning!</strong> ${UPDATE_COURSE_ERROR.coursePriceError}
-                                    </div>
-                                </c:when>
-                                <c:when test="${UPDATE_COURSE_ERROR.error != null}">
-                                    <div class="alert">
-                                        <span class="closebtn" onclick="this.parentElement.style.display = 'none';">&times;</span> 
-                                        <strong>Warning!</strong> ${UPDATE_COURSE_ERROR.error}
-                                    </div>
-                                </c:when>
-                            </c:choose>
+                        <c:if test="${UPDATE_COURSE_ERROR.coursePriceError != null}">
+                            <div class="alert">
+                                <span class="closebtn" onclick="this.parentElement.style.display = 'none';">&times;</span> 
+                                <strong>Warning!</strong> ${UPDATE_COURSE_ERROR.coursePriceError}
+                            </div>
                         </c:if>
+                        <c:if test="${UPDATE_COURSE_ERROR.error != null}">
+                            <div class="alert">
+                                <span class="closebtn" onclick="this.parentElement.style.display = 'none';">&times;</span> 
+                                <strong>Warning!</strong> ${UPDATE_COURSE_ERROR.error}
+                            </div>
+                        </c:if>   
                         <div class="input__button">
                             <button type="submit" value="Add" id="btn__Add">Update</button>
                             <button type="reset" value="Reset" id="btn__Reset" onclick="loadDefault()">Refresh</button>
