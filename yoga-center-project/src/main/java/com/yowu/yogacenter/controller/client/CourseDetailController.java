@@ -7,6 +7,7 @@ package com.yowu.yogacenter.controller.client;
 import com.yowu.yogacenter.model.Account;
 import com.yowu.yogacenter.model.Bill;
 import com.yowu.yogacenter.model.Course;
+import com.yowu.yogacenter.model.RatingCourse;
 import com.yowu.yogacenter.model.RegistrationCourse;
 import com.yowu.yogacenter.repository.BillRepository;
 import com.yowu.yogacenter.repository.CourseRepository;
@@ -49,11 +50,12 @@ public class CourseDetailController extends HttpServlet {
             Bill billStatus = null;
             BillRepository billRepo = new BillRepository();
             boolean allowBook = true;
+            RegistrationCourse regisStatus=null;
             if (account != null) {
                 isInWishList = cwr.isExist(id, account.getId());
                 billStatus = billRepo.getBillRecentByAccountIdAndCourseID(account.getId(), id);
                 if (billStatus != null) {
-                    RegistrationCourse regisStatus = rcr.getRecentRegisByCourseIdAndAccountID(account.getId(), id);
+                    regisStatus = rcr.getRecentRegisByCourseIdAndAccountID(account.getId(), id);
                     if (regisStatus != null) {
                         if (regisStatus.getCourseStatus() != RegistrationCourse.CourseStatus.FINISH.ordinal()) {
                             Date dateNow = new Date();
@@ -74,6 +76,16 @@ public class CourseDetailController extends HttpServlet {
                 int status = billStatus.getStatus();
                 request.setAttribute("billStatus", status);
             }
+            
+            /*check rating able*/
+            boolean allowRating = false;
+            if(account!=null&&regisStatus!=null){
+                if(ratec.detail(regisStatus.getId())==null){
+                    System.out.println("reid:"+regisStatus.getId());
+                    allowRating = true;
+                }
+            }
+            request.setAttribute("allowRating", allowRating);
             request.setAttribute("allowBook", allowBook);
             System.out.println(request.getContextPath() + "/course-detail?id=" + id);
             request.setAttribute("regisID", rc2);
@@ -109,6 +121,21 @@ public class CourseDetailController extends HttpServlet {
                         
                         cwr.add(courseId, account.getId());
                         break;
+                    }
+                    case "rating":{
+                        int starPoint = Integer.parseInt(request.getParameter("star"));
+                        String feedback = request.getParameter("feedback");
+                        RatingCourseRepository rateRepo = new RatingCourseRepository();
+                        Course c = new Course();
+                        c.setId(courseId);
+                        RatingCourse ratingCourse = new RatingCourse();
+                        RegistrationCourseRepository rcr = new RegistrationCourseRepository();
+                        RegistrationCourse regisCourse = rcr.getRecentRegisByCourseIdAndAccountID(account.getId(), courseId);
+                        ratingCourse.setFeedback(feedback);
+                        ratingCourse.setCourse(c);
+                        ratingCourse.setRatingStar(starPoint);
+                        ratingCourse.setRegistrationCourse(regisCourse);
+                        rateRepo.add(ratingCourse);
                     }
                 }
             }
