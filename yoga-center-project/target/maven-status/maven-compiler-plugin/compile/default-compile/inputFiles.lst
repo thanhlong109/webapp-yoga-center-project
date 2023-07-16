@@ -44,6 +44,7 @@ D:\HocTap\Summer 2023\SWP391\PROJECT-SWP\yoga-center-project\src\main\java\com\y
 D:\HocTap\Summer 2023\SWP391\PROJECT-SWP\yoga-center-project\src\main\java\com\yowu\yogacenter\controller\admin\AddCourseScheduleController.java
 D:\HocTap\Summer 2023\SWP391\PROJECT-SWP\yoga-center-project\src\main\java\com\yowu\yogacenter\controller\admin\ViewClassScheduleListController.java
 D:\HocTap\Summer 2023\SWP391\PROJECT-SWP\yoga-center-project\src\main\java\com\yowu\yogacenter\controller\admin\SearchCategoryController.java
+D:\HocTap\Summer 2023\SWP391\PROJECT-SWP\yoga-center-project\src\main\java\com\yowu\yogacenter\model\CourseScheduleError.java
 D:\HocTap\Summer 2023\SWP391\PROJECT-SWP\yoga-center-project\src\main\java\com\yowu\yogacenter\repository\RegistrationMembershipRepository.java
 D:\HocTap\Summer 2023\SWP391\PROJECT-SWP\yoga-center-project\src\main\java\com\yowu\yogacenter\repository\RoleHasPermissionRepository.java
 D:\HocTap\Summer 2023\SWP391\PROJECT-SWP\yoga-center-project\src\main\java\com\yowu\yogacenter\controller\admin\AddClassScheduleController.java
