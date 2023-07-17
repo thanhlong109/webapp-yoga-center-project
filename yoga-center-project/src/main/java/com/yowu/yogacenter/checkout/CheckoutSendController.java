@@ -237,13 +237,33 @@ public class CheckoutSendController extends HttpServlet {
                 session.setAttribute("bill", order);
                 request.getRequestDispatcher(url).forward(request, response);
                 System.out.println(url);
+            } else if(method.equals("Free")){
+                url = PENDING_CHECKOUT;
+                int courseId = Integer.parseInt(request.getParameter("id"));
+                CourseRepository cr = new CourseRepository();
+                Course c = cr.detail(courseId);
+                int status = 0;
+                boolean isActive = true;
+                total = Float.parseFloat(request.getParameter("total"));
+                int discount = 0;
+                String sDiscount = request.getParameter("discountTotal");
+                if (!sDiscount.isEmpty()) {
+                    discount = Integer.parseInt(sDiscount);
+                }
+                RegistrationCourseRepository regisRepo = new RegistrationCourseRepository();
+                regisRepo.updateCourseStatus(isActive, acc.getId(), courseId);
+                order = new Bill(c, acc, status, isActive, total, discount, date, orderCode, method);
+                HttpSession session = request.getSession();
+                session.setAttribute("bill", order);
+                request.getRequestDispatcher(url).forward(request, response);
+                System.out.println(url);
             } else {
                 long totalVnPay = (long) (total * 100);
                 url = vnpay_payment(orderCode, totalVnPay, request, response);
                 response.sendRedirect(url);
                 System.out.println(url);
             }
-        } catch (Exception e) {
+        } catch (ServletException | IOException | NumberFormatException e) {
             System.out.println(e);
         }
     }

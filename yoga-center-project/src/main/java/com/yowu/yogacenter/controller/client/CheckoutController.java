@@ -40,6 +40,8 @@ public class CheckoutController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String action = request.getParameter("action");
+        String coursePrice = request.getParameter("coursePrice");
+        System.out.println("coursePrice" + coursePrice);
         if (action.equals("course")) {
             CourseRepository cr = new CourseRepository();
             int id = Integer.parseInt(request.getParameter("id"));

@@ -428,6 +428,23 @@ public class RegistrationCourseRepository {
 
         return updateStatus;
     }
+    
+    public boolean updateCourseStatus(boolean status, int accountId, int courseId) {
+        String sql = "UPDATE tblRegistrationCourse SET registration_status = ? "
+                + "WHERE account_id = ? AND course_id = ? ";
+        boolean updateStatus = false;
+
+        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
+            stmt.setBoolean(1, status);
+            stmt.setInt(2, accountId);
+            stmt.setInt(3, courseId);
+            updateStatus = stmt.executeUpdate() > 0 ? true : false;
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+        return updateStatus;
+    }
 
     public boolean delete(int id) {
         String sql = "UPDATE tblRegistrationCourse SET course_status = 0 "
