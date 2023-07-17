@@ -64,7 +64,7 @@
                         <h3>Bill</h3>
                     </a>
                     <ul class="sub-item" id="subItem">
-                        <li><a href="<c:url value="/cashier/viewBillController"/>">Update Bill</a></li>
+                        <li><a href="<c:url value="/cashier/updateBillCashierController"/>">Update Bill</a></li>
                         <li><a href="<c:url value="/cashier/viewBillController"/>"> View Bill Details</a></li>
                     </ul>
                 </div>
@@ -76,7 +76,7 @@
                     </a>
                     <ul class="sub-item" id="subItem">
                         <li><a href="<c:url value="/cashier/viewMembershipController"/>">View Membership</a></li>
-                        <li><a href="<c:url value="/cashier/updateMembershipCashierController"/>">Edit Membership</a></li>
+                        <li><a href="<c:url value="/cashier/updateMembershipCashierController"/>">Update Membership</a></li>
                     </ul>
                 </div>
                 <div class="sidebar-elements">

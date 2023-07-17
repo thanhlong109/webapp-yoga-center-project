@@ -5,13 +5,15 @@
 package com.yowu.yogacenter.model;
 
 import java.sql.Date;
+import java.time.LocalDateTime;
 
 /**
  *
  * @author DungVNT
  */
 public class Bill {
-    
+
+
     public static enum BillStatus{COMPLETED,CANCELLED,PENDING};
     
     private Course course;

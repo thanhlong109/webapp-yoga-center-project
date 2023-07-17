@@ -94,9 +94,9 @@
                                             </td>
                                             <td>
                                                   <a class="btn btn-red" href="#delete">Delete</a> 
-<!--                                                <button class="btn btn-delete" name="btnDelete"><span class="material-symbols-sharp">delete</span></button>-->
-                                                 <a class="btn btn-green" href="#Edit">Edit</a> 
-<!--                                                <button class="btn btn-view"><span class="material-symbols-sharp">visibility </span></button>-->
+                                              
+                                                 <a class="btn btn-green" href="#UpdateBill.jsp">Edit</a> 
+                                                
                                             </td>
                                         </tr>
                                     </c:if>

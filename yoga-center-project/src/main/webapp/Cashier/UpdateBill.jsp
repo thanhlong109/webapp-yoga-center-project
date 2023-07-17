@@ -13,6 +13,7 @@
 
         <!-- Link CSS -->
         <link rel="stylesheet" href="../Asset/css/cashier.css">
+        <link rel="stylesheet" href="../Asset/css/dashboard_2.css">
         <!-- Google font -->
         <link href="https://fonts.googleapis.com/css2?family=Jost:wght@200;300;400;500;600;700;800&display=swap"
               rel="stylesheet">
@@ -32,27 +33,47 @@
     </head>
     <body>
         <jsp:include page="../Component/cashierSideMenu.jsp"></jsp:include>
-        <main>
-            <div class="top">
-                <button id="menu-btn">
-                    <span class="material-symbols-sharp">menu</span>
-                </button>
-                <form action="searchBillController" id="search-box">
-                    <input type="text" id="search-text" placeholder="Search" required>
-                    <button id="btnSearch"><i class="fa-solid fa-magnifying-glass"></i></button>
-                </form>
-                <div class="profile">
-                    <div class="info">
-                        <p>Hey, <b>Cashier</b></p>
-                        <small class="text-muted">Cashier</small>
-                    </div>
-                    <div class="profile-photo">
-                        <img src="../img/avatar/hinh-avatar-1.png" alt="">
+            <main>
+                <div class="top">
+                    <button id="menu-btn">
+                        <span class="material-symbols-sharp">menu</span>
+                    </button>
+                    <form action="searchBillController" id="search-box">
+                        <input type="text" id="search-text" placeholder="Search" required>
+                        <button id="btnSearch"><i class="fa-solid fa-magnifying-glass"></i></button>
+                    </form>
+                    <div class="profile">
+                        <div class="info">
+                            <p>Hey, <b>Cashier</b></p>
+                            <small class="text-muted">Cashier</small>
+                        </div>
+                        <div class="profile-photo">
+                            <img src="../img/avatar/hinh-avatar-1.png" alt="">
+                        </div>
                     </div>
                 </div>
+                <h1>Update Bill</h1>
+                <div id="wrapper">
+                    <form action="updateBillCashierController" method="post">
+                        <h3>Update Bill </h3>
+                        <div class="input__group">
+                            <input type="hidden" name="txtOrderCode" value="${BILL.ordercode}"/>
+                        <label for="">Order Code</label>
+                    </div>
+                    <div class="input__group">
+                        <input type="number" name="txtStatus" value="${BILL.status}"/>
+                        <label for="">Status</label>
+                    </div>
+                    <div class="input__group">
+                        <input type="datetime" name="txtPaymentDate" value="${BILL.paymentDate}"/>
+                        <label for="">Payment Date</label>
+                    </div>
+                    <div class="input__button">
+                        <button type="submit" value="Add" id="btn__Add">Update</button>
+                        <button type="reset" value="Reset" id="btn__Reset">Refresh</button>
+                    </div>
+                </form>
             </div>
-            <h1>Update Bill</h1>
-            
         </main>
     </body>
 </html>

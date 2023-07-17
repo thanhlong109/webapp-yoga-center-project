@@ -52,9 +52,9 @@ public class BillRepository {
         }
         return list;
     }
-    
-    public String getBillJson(){
-        String sql = "select bill_date, SUM(bill_value)as bill_value from tblBill where bill_status="+Bill.BillStatus.COMPLETED.ordinal()+" group by  bill_date order by bill_date asc";
+
+    public String getBillJson() {
+        String sql = "select bill_date, SUM(bill_value)as bill_value from tblBill where bill_status=" + Bill.BillStatus.COMPLETED.ordinal() + " group by  bill_date order by bill_date asc";
         List<List<Object>> list = new ArrayList();
         String data = "";
         try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
@@ -69,12 +69,12 @@ public class BillRepository {
                 ObjectMapper mapper = new ObjectMapper();
                 data = mapper.writeValueAsString(list);
             }
-        }catch (Exception e) {
+        } catch (Exception e) {
             System.out.println(e);
         }
         return data;
     }
-        
+
     public List<Bill> getByAccountID(int accountId) {
         String sql = "select * from tblBill where account_id=?";
         List<Bill> list = new ArrayList<>();
@@ -133,8 +133,8 @@ public class BillRepository {
         }
         return null;
     }
-    
-    public Bill getAllByAccountIdAndCourseID(String accountId, int courseId ) {
+
+    public Bill getAllByAccountIdAndCourseID(String accountId, int courseId) {
         String sql = "select * from tblBill WHERE account_id = ? AND course_id = ? ";
         try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
             stmt.setString(1, accountId);
@@ -163,8 +163,8 @@ public class BillRepository {
         }
         return null;
     }
-    
-    public Bill getAllByAccountIdAndCourseID(int accountId, int courseId ) {
+
+    public Bill getAllByAccountIdAndCourseID(int accountId, int courseId) {
         String sql = "select * from tblBill WHERE account_id = ? AND course_id = ? ";
         try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
             stmt.setInt(1, accountId);
@@ -198,10 +198,10 @@ public class BillRepository {
         boolean check = false;
         LocalDateTime sqlDate = null;
         if (!date.isEmpty()) {
-             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
             sqlDate = LocalDateTime.parse(date, formatter);
         }
-        
+
         String sql = "UPDATE tblBill SET bill_status = ? , payment_date =? WHERE order_code = ?";
         try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
             stmt.setInt(1, status);
@@ -213,7 +213,9 @@ public class BillRepository {
         }
         return check;
     }
-        public boolean updateStatus(int id, int status) {
+
+
+    public boolean updateStatus(int id, int status) {
         String sql = "UPDATE tblBill SET bill_status = ? WHERE bill_id = ?";
         int updateStatus = 0;
 
@@ -311,8 +313,6 @@ public class BillRepository {
         return status == 1;
     }
 
-
-
     public boolean delete(int id) {
         String sql = "UPDATE tblBill SET bill_is_active = 0 WHERE bill_id = ?";
         int status = 0;
@@ -326,7 +326,6 @@ public class BillRepository {
         }
         return status == 1;
     }
-
 
     public List<Bill> searchId(int search) {
         String sql = "select * from tblBill where bill_id=? ";
@@ -354,8 +353,8 @@ public class BillRepository {
         }
         return list;
     }
-    
-     public List<Bill> searchOrderCode(int search) {
+
+    public List<Bill> searchOrderCode(int search) {
         String sql = "select * from tblBill where order_code=? ";
         List<Bill> list = new ArrayList<>();
         try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
@@ -381,9 +380,10 @@ public class BillRepository {
         }
         return list;
     }
+
     public static void main(String[] args) {
         BillRepository b = new BillRepository();
-        
+
     }
 
 }
