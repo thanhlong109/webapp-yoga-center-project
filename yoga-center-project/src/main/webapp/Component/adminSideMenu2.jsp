@@ -45,9 +45,9 @@
                 <li><a href="<c:url value="/admin/addCourseController"/>">
                         Add New Course</a></li>
                 <li><a href="<c:url value="/admin/viewCourseTimeListController"/>">
-                        View & Edit Course Time</a></li>
+                        View & Edit Course Schedule</a></li>
                 <li><a href="<c:url value="/admin/addCourseScheduleController"/>">
-                        Add Course Time</a></li>
+                        Add Course Schedule</a></li>
             </ul>
         </div>
         <div class="sidebar-elements">
@@ -85,13 +85,13 @@
         <div class="sidebar-elements">
             <a href="#">
                 <span class="material-symbols-sharp">calendar_today</span>
-                <h3>Schedule</h3>
+                <h3>Class Schedule</h3>
             </a>
             <ul class="sub-item" id="subItem">
                 <li><a href="<c:url value="/admin/viewClassScheduleListController"/>">
-                        View & Edit Schedule</a></li>
+                        View & Edit Class Schedule</a></li>
                 <li><a href="<c:url value="/admin/addClassScheduleController"/>">
-                        Add Schedule</a></li>
+                        Add Class Schedule</a></li>
             </ul>
         </div>
         <div class="sidebar-elements">

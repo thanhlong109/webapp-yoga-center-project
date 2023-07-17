@@ -103,7 +103,7 @@ public class ClassScheduleRepository {
 
         return status == 1;
     }
-    
+
     public boolean update2(ClassSchedule classSchedule) {
         String sql = "UPDATE tblClassSchedule SET class_date = ?, slot_start_time = ?, slot_end_time = ?, class_status = ? WHERE class_schedule_id = ?";
         int status = 0;
@@ -137,7 +137,7 @@ public class ClassScheduleRepository {
 
         return status == 1;
     }
-    
+
     public List<ClassSchedule> searchClassScheduleByRegistrationID(Date search) {
         String sql = "SELECT * FROM tblClassSchedule WHERE class_date LIKE ? ";
         List<ClassSchedule> list = new ArrayList<>();
@@ -162,4 +162,45 @@ public class ClassScheduleRepository {
         }
         return list;
     }
+
+    public List<ClassSchedule> pagingClassSchedule(int offset, int next) {
+        String sql = "select * from tblClassSchedule order by class_schedule_id OFFSET ? ROWS FETCH NEXT ? ROWS ONLY ";
+        List<ClassSchedule> list = new ArrayList<>();
+        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
+            stmt.setInt(1, offset);
+            stmt.setInt(2, next);
+            try ( ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    RegistrationCourseRepository cr = new RegistrationCourseRepository();
+                    ClassSchedule c = new ClassSchedule();
+                    c.setId(rs.getInt("class_schedule_id"));
+                    c.setRegistrationCourse(cr.detail(rs.getInt("registration_id")));
+                    c.setDate(rs.getDate("class_date"));
+                    c.setStartTime(rs.getTime("slot_start_time"));
+                    c.setEndTime(rs.getTime("slot_end_time"));
+                    c.setStatus(rs.getInt("class_status"));
+                    list.add(c);
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return list;
+    }
+
+    public int count() {
+        String sql = "select count(*) as num from tblClassSchedule ";
+        int count = 0;
+        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
+            try ( ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    count = rs.getInt("num");
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return count;
+    }
+
 }

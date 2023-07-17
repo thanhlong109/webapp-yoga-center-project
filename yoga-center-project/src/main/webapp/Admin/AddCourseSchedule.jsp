@@ -35,7 +35,7 @@
                         </button>
                         <div class="profile">
                             <div class="info">
-                                <p>Hey, <b>An</b></p>
+                                <p>Hey, <b>Admin</b></p>
                                 <small class="text-muted">Admin</small>
                             </div>
                             <div class="profile-photo">

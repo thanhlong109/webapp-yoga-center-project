@@ -215,6 +215,48 @@ public class CourseScheduleRepository {
         return list;
     }
     
+        public List<CourseSchedule> pagingCourseSchedule(int offset, int next) {
+        String sql = "select * from tblCourseSchedule order by course_schedule_id OFFSET ? ROWS FETCH NEXT ? ROWS ONLY ";
+        List<CourseSchedule> list = new ArrayList<>();
+        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
+            stmt.setInt(1, offset);
+            stmt.setInt(2, next);
+            try ( ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    CourseRepository cr = new CourseRepository();
+                    CourseSchedule c = new CourseSchedule();
+                    c.setCourse(cr.detail(rs.getInt("course_id")));
+                    c.setId(rs.getInt("course_schedule_id"));
+                    c.setDateOfWeek(rs.getString("day_of_week"));
+                    c.setStartTime(rs.getTime("start_time"));
+                    c.setEndTime(rs.getTime("end_time"));
+                    c.setIsActive(rs.getBoolean("is_active"));
+                    list.add(c);
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return list;
+    }
+
+    public int count() {
+        String sql = "select count(*) as num from tblCourseSchedule ";
+        int count = 0;
+        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
+            try ( ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    count = rs.getInt("num");
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return count;
+    }
+    
+    
+    
     public static void main(String[] args) {
         CourseScheduleRepository cs = new CourseScheduleRepository();
         System.out.println(cs.getScheduleByCourse(2).get(0).dateToString());

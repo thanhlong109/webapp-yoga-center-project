@@ -33,7 +33,7 @@
                         </button>
                         <div class="profile">
                             <div class="info">
-                                <p>Hey, <b>An</b></p>
+                                <p>Hey, <b>Admin</b></p>
                                 <small class="text-muted">Admin</small>
                             </div>
                             <div class="profile-photo">
@@ -48,23 +48,23 @@
                             <div class="input__group filter">
                                 <select class="input-filter" name="registrationList" id="registrationCourse">
                                 <c:forEach items="${LIST_REGISTRATION}" var="registrationList">
-                                        <option value="${registrationList.id}"> 
-                                            ${registrationList.id} 
-                                        </option>                              
+                                    <option value="${registrationList.id}"> 
+                                        ${registrationList.id} 
+                                    </option>                              
                                 </c:forEach>
                             </select>
                             <label for="">Registration Course ID</label>
                         </div>
                         <div class="input__group">
-                            <input type="date" name="txtDate" required">
+                            <input type="date" name="txtDate" id="txtDate" value="">
                             <label for="">Class Date</label>
                         </div>
                         <div class="input__group">
-                            <input type="time" name="txtStartDate" required">
+                            <input type="time" name="txtStartDate" value="08:00">
                             <label for="">Start Time</label>
                         </div>
                         <div class="input__group">
-                            <input type="time" name="txtEndDate" required">
+                            <input type="time" name="txtEndDate" value="10:00">
                             <label for="">End Time</label>
                         </div>
                         <div class="input__button">
@@ -75,5 +75,13 @@
                 </div>
             </main>
         </div>
+        <script>
+            var today = new Date();
+            var dd = String(today.getDate()).padStart(2, '0');
+            var mm = String(today.getMonth() + 1).padStart(2, '0');
+            var yyyy = today.getFullYear();
+            today = dd + '/' + mm + '/' + yyyy;
+            document.getElementById("txtDate").value = today;
+        </script>
     </body>
 </html>
