@@ -19,6 +19,7 @@
               href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
         <!-- Link CSS  -->
         <link rel="stylesheet" href="../Asset/css/dashboard_2.css">
+        <link rel="stylesheet" href="../Asset/css/alertBoxAdmin.css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 
         <script src="../js/cdnjs.cloudflare.com_ajax_libs_Chart.js_2.4.0_Chart.min.js"></script>
@@ -45,8 +46,9 @@
                     <div id="wrapper">
                         <form action="../admin/addClassScheduleController" method="POST">
                             <h3>Add Schedule</h3>
-                            <div class="input__group filter">
-                                <select class="input-filter" name="registrationList" id="registrationCourse">
+                        <c:set var = "errors" value="${requestScope.ADD_CLASS_TIME_ERROR}"/>
+                        <div class="input__group filter">
+                            <select class="input-filter" name="registrationList" id="registrationCourse">
                                 <c:forEach items="${LIST_REGISTRATION}" var="registrationList">
                                     <option value="${registrationList.id}"> 
                                         ${registrationList.id} 
@@ -56,9 +58,14 @@
                             <label for="">Registration Course ID</label>
                         </div>
                         <div class="input__group">
-                            <input type="date" name="txtDate" id="txtDate" value="">
+                            <input type="date" name="txtDate" value="">
                             <label for="">Class Date</label>
                         </div>
+                        <c:if test="${not empty errors.dateError}">
+                            <div class="alert">
+                                <strong>Warning!</strong> ${errors.dateError}
+                            </div>
+                        </c:if>
                         <div class="input__group">
                             <input type="time" name="txtStartDate" value="08:00">
                             <label for="">Start Time</label>
@@ -75,13 +82,5 @@
                 </div>
             </main>
         </div>
-        <script>
-            var today = new Date();
-            var dd = String(today.getDate()).padStart(2, '0');
-            var mm = String(today.getMonth() + 1).padStart(2, '0');
-            var yyyy = today.getFullYear();
-            today = dd + '/' + mm + '/' + yyyy;
-            document.getElementById("txtDate").value = today;
-        </script>
     </body>
 </html>
