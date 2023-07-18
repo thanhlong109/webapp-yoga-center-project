@@ -343,7 +343,7 @@ public class CourseRepository implements Serializable{
 
     public List<Course> getLastAddCourse() {
         List<Course> list = new ArrayList<>();
-        
+
         String sql = "select * from tblCourse order by course_id desc ";
         try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
             try ( ResultSet rs = stmt.executeQuery()) {
@@ -397,8 +397,8 @@ public class CourseRepository implements Serializable{
         }
         return list;
     }
-    
-        public boolean checkDuplicate(String title) {
+
+    public boolean checkDuplicate(String title) {
         String sql = "select course_title from tblCourse where course_title Like ? ";
         boolean status = false;
         try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
@@ -413,7 +413,51 @@ public class CourseRepository implements Serializable{
         }
         return status;
     }
-        
+
+    public List<Course> getAllFollowPagination(int offset, int next) {
+        String sql = "select * from tblCourse order by course_id desc OFFSET ? ROWS FETCH NEXT ? ROWS ONLY ";
+        List<Course> list = new ArrayList<>();
+        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
+            stmt.setInt(1, offset);
+            stmt.setInt(2, next);
+            try ( ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    CategoryRepository cr = new CategoryRepository();
+                    Course c = new Course();
+                    c.setId(rs.getInt("course_id"));
+                    c.setCategory(cr.detail(rs.getInt("category_id")));
+                    c.setDetail(rs.getString("course_detail"));
+                    c.setDuration(rs.getInt("course_duration"));
+                    c.setImg(rs.getString("course_img"));
+                    c.setIsActive(rs.getBoolean("course_is_active"));
+                    c.setPrice(rs.getFloat("course_price"));
+                    c.setTitle(rs.getString("course_title"));
+                    AccountRepository ar = new AccountRepository();
+                    c.setAccount(ar.detail(rs.getInt("account_id")));
+                    list.add(c);
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return list;
+    }
+
+    public int count() {
+        String sql = "select count(*) as num from tblCourse ";
+        int count = 0;
+        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
+            try ( ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    count = rs.getInt("num");
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return count;
+    }
+
     public static void main(String[] args) {
         CourseRepository cr = new CourseRepository();
         System.out.println(cr.getMaxCoursePrice());

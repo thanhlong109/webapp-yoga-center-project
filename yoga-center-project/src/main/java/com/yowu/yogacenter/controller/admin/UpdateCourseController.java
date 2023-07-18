@@ -81,6 +81,14 @@ public class UpdateCourseController extends HttpServlet {
                 courseError.setCourseTitleLengthError("Title must be 6 - 50 characters!!!");
                 checkValidation = false;
             }
+            if (_courseRepository.checkDuplicate(title)) {
+                courseError.setCourseTitleDuplicateError("Title already existed!!!");
+                checkValidation = false;
+            }
+            if (detail.length()< 10 ) {
+                courseError.setCourseDetailLengthError("Detail must be 10 or more characters!!!");
+                checkValidation = false;
+            }
             if (!duration.matches("[0-9]+")) {
                 courseError.setCourseDurationError("Duration only contains numbers");
                 checkValidation = false;

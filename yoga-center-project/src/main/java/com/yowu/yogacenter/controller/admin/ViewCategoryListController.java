@@ -4,6 +4,7 @@
  */
 package com.yowu.yogacenter.controller.admin;
 
+import com.yowu.yogacenter.model.Category;
 import com.yowu.yogacenter.repository.CategoryRepository;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -11,6 +12,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  *
@@ -25,7 +27,22 @@ public class ViewCategoryListController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         CategoryRepository _categoryRepository = new CategoryRepository();
-        request.setAttribute("CATEGORY_LIST", _categoryRepository.getAll());
+
+        //Phan trang
+        String xpage = request.getParameter("page");
+        int itemPerPage = 6; // number item each page
+        int size = _categoryRepository.count();
+        int numPage = (int) Math.ceil(size / (double) itemPerPage);// this will print how many page number
+        int page = 1;
+        if (xpage != null) {
+            page = Integer.parseInt(xpage);
+        }
+        int start = (page - 1) * itemPerPage;
+        List<Category> list = _categoryRepository.getAllFollowPagination(start, itemPerPage);
+        request.setAttribute("CATEGORY_LIST", list);
+        request.setAttribute("PAGE", page);
+        request.setAttribute("NUMPAGE", numPage);
+        //end phan trang
         request.getRequestDispatcher(CATEGORY_LIST_PAGE).forward(request, response);
     }
 
@@ -33,7 +50,7 @@ public class ViewCategoryListController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+        doPost(request, response);
     }
 
     /**

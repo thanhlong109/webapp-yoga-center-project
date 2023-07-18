@@ -107,3 +107,4 @@ com\yowu\yogacenter\controller\client\UserProfileSetting.class
 com\yowu\yogacenter\controller\admin\SearchCourseController.class
 com\yowu\yogacenter\model\CourseSchedule$DayOfWeek.class
 com\yowu\yogacenter\repository\PermissionRepository.class
+com\yowu\yogacenter\model\MembershipError.class

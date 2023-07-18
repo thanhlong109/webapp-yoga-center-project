@@ -392,4 +392,48 @@ public List<Integer> getYearList(){
 
     }
 
+
+    public List<Account> getAllFollowPagination(int offset, int next) {
+        String sql = "select * from tblAccount order by account_id desc OFFSET ? ROWS FETCH NEXT ? ROWS ONLY ";
+        List<Account> list = new ArrayList<>();
+        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
+            stmt.setInt(1, offset);
+            stmt.setInt(2, next);
+            try ( ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    RoleRepository cr = new RoleRepository();
+                    Account c = new Account();
+                    c.setId(rs.getInt("account_id"));
+                    c.setImg(rs.getString("account_img"));
+                    c.setName(rs.getString("account_name"));
+                    c.setPassword(rs.getString("account_password"));
+                    c.setEmail(rs.getString("account_email"));
+                    c.setPhone(rs.getString("account_phone"));
+                    c.setIsActive(rs.getBoolean("account_is_active"));
+                    c.setRole(cr.detail(rs.getInt("role_id")));
+                    c.setSocialID(rs.getString("social_id"));
+                    list.add(c);
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return list;
+    }
+
+    public int count() {
+        String sql = "select count(*) as num from tblAccount ";
+        int count = 0;
+        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
+            try ( ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    count = rs.getInt("num");
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return count;
+    }
+
 }

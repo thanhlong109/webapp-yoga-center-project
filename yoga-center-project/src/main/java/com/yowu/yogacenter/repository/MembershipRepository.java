@@ -212,4 +212,59 @@ public class MembershipRepository {
    
 
 
+     public boolean checkDuplicate(String name) {
+        String sql = "select membership_name from tblMembership where membership_name Like ? ";
+        boolean status = false;
+        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
+            stmt.setString(1, name);
+            try ( ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    status = true;
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return status;
+    }
+     public List<Membership> getAllFollowPagination(int offset, int next) {
+        String sql = "select * from tblMembership order by membership_id desc OFFSET ? ROWS FETCH NEXT ? ROWS ONLY ";
+        List<Membership> list = new ArrayList<>();
+        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
+            stmt.setInt(1, offset);
+            stmt.setInt(2, next);
+            try ( ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    Membership c = new Membership();
+                    c.setId(rs.getInt("membership_id"));
+                    c.setName(rs.getString("membership_name"));
+                    c.setDuration(rs.getInt("membership_duration"));
+                    c.setPrice(rs.getFloat("membership_price"));
+                    c.setDescription(rs.getString("membership_description"));
+                    c.setDiscount(rs.getInt("membership_discours"));
+                    c.setIsActive(rs.getBoolean("membership_is_active"));
+                    list.add(c);
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return list;
+    }
+
+    public int count() {
+        String sql = "select count(*) as num from tblMembership ";
+        int count = 0;
+        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
+            try ( ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    count = rs.getInt("num");
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return count;
+    }
+
 }
