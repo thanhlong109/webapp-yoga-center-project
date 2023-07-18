@@ -6,12 +6,16 @@ package com.yowu.yogacenter.controller.client;
 
 import com.paypal.base.rest.PayPalRESTException;
 import com.yowu.yogacenter.model.Account;
+import com.yowu.yogacenter.model.ClassSchedule;
 import com.yowu.yogacenter.model.Course;
+import com.yowu.yogacenter.model.CourseSchedule;
 import com.yowu.yogacenter.model.Membership;
 import com.yowu.yogacenter.model.RegistrationCourse;
 import com.yowu.yogacenter.model.RegistrationMembership;
 import com.yowu.yogacenter.repository.AccountRepository;
+import com.yowu.yogacenter.repository.ClassScheduleRepository;
 import com.yowu.yogacenter.repository.CourseRepository;
+import com.yowu.yogacenter.repository.CourseScheduleRepository;
 import com.yowu.yogacenter.repository.MembershipRepository;
 import com.yowu.yogacenter.repository.RegistrationCourseRepository;
 import com.yowu.yogacenter.repository.RegistrationMembershipRepository;
@@ -23,7 +27,12 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.sql.Date;
+import java.sql.Time;
+import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
 
 /**
  *
@@ -55,8 +64,62 @@ public class CheckoutController extends HttpServlet {
                 response.sendRedirect(COURSE_DETAIL + id);
             } else {
                 String startdate = request.getParameter("start_time");
-                System.out.println("date checkout " + startdate);
-               
+                String duration = request.getParameter("duration");
+                
+                int courseScheduleID = Integer.parseInt(request.getParameter("course_scheduleId"));
+                CourseScheduleRepository csr = new CourseScheduleRepository();
+                CourseSchedule csa = csr.detailByScheduleID(courseScheduleID);
+                String schedule = csa.getDateOfWeek();
+                String inputDayOfWeek = schedule; // Lấy từ FE hoặc DB => Day of week
+
+                String inputDateTime = startdate + " 00:00:00"; // Lấy từ FE hoặc DB => start date
+
+                int inputDuration = Integer.parseInt(duration); // Lấy từ FE hoặc DB => duration
+
+                DayOfWeek[] allDateOfWeek = DayOfWeek.values();
+                System.out.println("range day" + Arrays.toString(allDateOfWeek));
+
+                String[] parts = inputDayOfWeek.split(",");
+
+                int[] numbers = new int[parts.length];
+
+                for (int i = 0; i < parts.length; i++) {
+                    numbers[i] = Integer.parseInt(parts[i]);
+                }
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd' 'HH:mm:ss");
+
+                LocalDateTime dateTime = LocalDateTime.parse(inputDateTime, formatter);
+
+                LocalDate startDate = dateTime.toLocalDate();
+
+                int temp = 1;
+                LocalDate firstDate = null;
+                LocalDate lastDate = startDate;
+                boolean firstDateFound = false;
+                while (temp <= inputDuration) {
+                    DayOfWeek dayOfWeek = startDate.getDayOfWeek();
+                    for (int number : numbers) {
+                        if (allDateOfWeek[number] == dayOfWeek) {//fix
+                            System.out.println("Day: " + startDate);
+                            temp++;
+                            if (!firstDateFound) {
+                                firstDate = startDate;
+                                firstDateFound = true;
+                            }
+                        }
+                    }
+//                startDate = startDate.plusDays(1);
+//                lastDate = startDate; // Cập nhật ngày cuối cùng trong vòng lặp
+//                startDate = startDate.plusDays(1);
+                    lastDate = startDate; // Cập nhật ngày cuối cùng trong vòng lặp
+                    startDate = startDate.plusDays(1);
+                }
+                Date firstDateSql = Date.valueOf(firstDate);
+                Date lastDateSql = Date.valueOf(lastDate);
+                
+                
+                System.out.println("date checkout " + lastDateSql);
+                request.setAttribute("dateEnd", lastDateSql);
                 AccountRepository ar = new AccountRepository();
                 MembershipRepository msr = new MembershipRepository();
                 Course c = cr.detail(id);

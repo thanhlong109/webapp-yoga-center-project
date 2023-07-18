@@ -79,7 +79,7 @@
                                           placeholder="Note to administrator" spellcheck="false"></textarea>
                             </div>
                             <c:if test="${course.price != 0}">
-                                <input name="coursePrice" id="coursePrice" value="${course.price}">
+                                <input name="coursePrice" id="coursePrice" value="${course.price}" type="hidden">
                                 <div class="element__checkout-payment">
                                     <div class="checkout__payment-title">
                                         <h4>Payment</h4>
@@ -167,7 +167,10 @@
                                             <th class="title-content">Course start date</th>
                                             <th class="title-price" >${startDate}</th>
                                         </tr>
-
+                                        <tr class="table-title">
+                                            <th class="title-content">Course end date</th>
+                                            <th class="title-price" >${dateEnd}</th>
+                                        </tr>
                                         <tbody>
                                             <tr class="table-detail">
                                                 <td class="detail-content">Subtotal</td>
