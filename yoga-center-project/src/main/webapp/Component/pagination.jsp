@@ -16,6 +16,9 @@
                 border-radius: 24px;
                 max-width: fit-content;
                 margin: 12px auto;
+                max-width: 100%;
+                flex-wrap: wrap;
+                row-gap: 12px;
             }
             .pagination a{
                 width: 45px;

@@ -25,6 +25,7 @@
         <!-- Link CSS -->
         <link rel="stylesheet" href="../Asset/css/dashboard_2.css">
         <link rel="stylesheet" href="../Asset/css/adminEditCategory_2.css">
+        <link rel="stylesheet" href="../Asset/css/paginationAdmin.css">
         <!-- Library JS -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
         <script src="../js/cdnjs.cloudflare.com_ajax_libs_Chart.js_2.4.0_Chart.min.js"></script>
@@ -75,39 +76,52 @@
                                 </tr>
                             <c:forEach items="${ACCOUNT_LIST}" var="account">
                                 <c:if test="${account.isActive== true}"> 
-                                <tr>
-                                    <td>
-                                        ${account.id}
-                                    </td>
-                                    <td>
-                                        <img class="image" src="../Asset/img/account/${account.img}" alt="img">  
-                                    </td>
-                                    <td>
-                                        ${account.name}
-                                    </td>
-                                    <td>
-                                        ${account.email}
-                                    </td>
-                                    <td>
-                                        ${account.phone}
-                                    </td>
-                                    <td>
-                                        ${account.socialID}
-                                    </td>
-                                    <td>
-                                        ${account.role.name}
-                                    </td>                                                                                   
-                                    <td>
-                                        <a class="btn btn-red" href="deleteAccountController?id=${account.id}">
-                                            Delete</a> 
-                                    </td>
-                                </tr>
+                                    <tr>
+                                        <td>
+                                            ${account.id}
+                                        </td>
+                                        <td>
+                                            <img class="image" src="../Asset/img/account/${account.img}" alt="img">  
+                                        </td>
+                                        <td>
+                                            ${account.name}
+                                        </td>
+                                        <td>
+                                            ${account.email}
+                                        </td>
+                                        <td>
+                                            ${account.phone}
+                                        </td>
+                                        <td>
+                                            ${account.socialID}
+                                        </td>
+                                        <td>
+                                            ${account.role.name}
+                                        </td>                                                                                   
+                                        <td>
+                                            <a class="btn btn-red" href="deleteAccountController?id=${account.id}">
+                                                Delete</a> 
+                                        </td>
+                                    </tr>
                                 </c:if>
                             </c:forEach>
 
                         </table>
                     </div>
                 </div>
+                <div class="pagination">
+                    <c:if test="${NUMPAGE>1}">
+                        <c:if test="${PAGE>1}">
+                            <a href="viewAccountListController?page=${PAGE-1}"><i class="fa-solid fa-chevron-left"></i></a>
+                            </c:if>
+                            <c:forEach begin="${1}" var="i" end="${NUMPAGE}">
+                            <a href="viewAccountListController?page=${i}" <c:if test="${i==PAGE}">class="p-active"</c:if> >${i}</a>
+                        </c:forEach>
+                        <c:if test="${PAGE<NUMPAGE}">
+                            <a href="viewAccountListController?page=${PAGE<NUMPAGE?(PAGE+1):NUMPAGE}"><i class="fa-solid fa-chevron-right"></i></a>
+                            </c:if>
+                        </c:if>
+                </div> 
             </main>
         </div>
     </body>

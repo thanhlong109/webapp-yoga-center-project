@@ -13,14 +13,16 @@ public class RatingCourse {
     private int ratingStar;
     private String feedback;
     private RegistrationCourse registrationCourse;
+    private Course course;
 
     public RatingCourse() {
     }
 
-    public RatingCourse(int ratingStar, String feedback, RegistrationCourse registrationCourse) {
+    public RatingCourse(int ratingStar, String feedback, RegistrationCourse registrationCourse, Course course) {
         this.ratingStar = ratingStar;
         this.feedback = feedback;
         this.registrationCourse = registrationCourse;
+        this.course = course;
     }
 
     public int getRatingStar() {
@@ -47,4 +49,12 @@ public class RatingCourse {
         this.registrationCourse = registrationCourse;
     }
 
+    public Course getCourse() {
+        return course;
+    }
+
+    public void setCourse(Course course) {
+        this.course = course;
+    }
+    
 }

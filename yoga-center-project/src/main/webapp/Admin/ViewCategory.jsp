@@ -23,6 +23,7 @@
         <!--        <link rel="stylesheet" href="../Asset/css/adminCommon.css">-->
         <link rel="stylesheet" href="../Asset/css/dashboard_2.css">
         <link rel="stylesheet" href="../Asset/css/adminEditCategory_2.css">
+        <link rel="stylesheet" href="../Asset/css/paginationAdmin.css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
         <script src="../js/cdnjs.cloudflare.com_ajax_libs_Chart.js_2.4.0_Chart.min.js"></script>
     </head>
@@ -79,6 +80,19 @@
                         </table>
                     </div>
                 </div>
+                <div class="pagination">
+                    <c:if test="${NUMPAGE>1}">
+                        <c:if test="${PAGE>1}">
+                            <a href="categoryListController?page=${PAGE-1}"><i class="fa-solid fa-chevron-left"></i></a>
+                            </c:if>
+                            <c:forEach begin="${1}" var="i" end="${NUMPAGE}">
+                            <a href="categoryListController?page=${i}" <c:if test="${i==PAGE}">class="p-active"</c:if> >${i}</a>
+                        </c:forEach>
+                        <c:if test="${PAGE<NUMPAGE}">
+                            <a href="categoryListController?page=${PAGE<NUMPAGE?(PAGE+1):NUMPAGE}"><i class="fa-solid fa-chevron-right"></i></a>
+                            </c:if>
+                        </c:if>
+                </div>  
             </main>
         </div>
     </body>

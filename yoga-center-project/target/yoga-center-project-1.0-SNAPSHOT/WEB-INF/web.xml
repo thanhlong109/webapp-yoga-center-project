@@ -224,6 +224,10 @@
         <servlet-name>InstructorProfileController</servlet-name>
         <servlet-class>com.yowu.yogacenter.controller.client.InstructorProfileController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>UserProfileMebership</servlet-name>
+        <servlet-class>com.yowu.yogacenter.controller.client.UserProfileMebership</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>UserProfileCourse</servlet-name>
         <url-pattern>/userprofile/course</url-pattern>
@@ -439,6 +443,10 @@
     <servlet-mapping>
         <servlet-name>InstructorProfileController</servlet-name>
         <url-pattern>/instructor</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UserProfileMebership</servlet-name>
+        <url-pattern>/userprofile/membership</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

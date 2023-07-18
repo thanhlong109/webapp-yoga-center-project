@@ -9,6 +9,7 @@ import com.yowu.yogacenter.model.Account;
 import com.yowu.yogacenter.model.Role;
 import com.yowu.yogacenter.util.DBHelpler;
 import java.io.Serializable;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.time.LocalDate;
@@ -62,6 +63,37 @@ public class AccountRepository {
             System.out.println(e);
         }
         return list;
+    }
+    
+    public int getTotalAccount(){
+        String sql = "select count(*) as num from tblAccount where account_is_active=1";
+        int total = 0;
+        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
+            try ( ResultSet rs = stmt.executeQuery()) {
+                if(rs.next()){
+                    total = rs.getInt("num");
+                }
+            }
+        }catch(Exception e){
+            System.out.println(e);
+        }
+        return total;
+    }
+    
+    public int getTotalAccount(Date to){
+        String sql = "select count(*) as num from tblAccount where account_is_active=1 and create_date<=?";
+        int total = 0;
+        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
+            stmt.setDate(1, to);
+            try ( ResultSet rs = stmt.executeQuery()) {
+                if(rs.next()){
+                    total = rs.getInt("num");
+                }
+            }
+        }catch(Exception e){
+            System.out.println(e);
+        }
+        return total;
     }
     
     public List<Account> getIntructorList(){
@@ -358,6 +390,50 @@ public List<Integer> getYearList(){
         AccountRepository accountRepository = new AccountRepository();
         
 
+    }
+
+
+    public List<Account> getAllFollowPagination(int offset, int next) {
+        String sql = "select * from tblAccount order by account_id desc OFFSET ? ROWS FETCH NEXT ? ROWS ONLY ";
+        List<Account> list = new ArrayList<>();
+        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
+            stmt.setInt(1, offset);
+            stmt.setInt(2, next);
+            try ( ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    RoleRepository cr = new RoleRepository();
+                    Account c = new Account();
+                    c.setId(rs.getInt("account_id"));
+                    c.setImg(rs.getString("account_img"));
+                    c.setName(rs.getString("account_name"));
+                    c.setPassword(rs.getString("account_password"));
+                    c.setEmail(rs.getString("account_email"));
+                    c.setPhone(rs.getString("account_phone"));
+                    c.setIsActive(rs.getBoolean("account_is_active"));
+                    c.setRole(cr.detail(rs.getInt("role_id")));
+                    c.setSocialID(rs.getString("social_id"));
+                    list.add(c);
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return list;
+    }
+
+    public int count() {
+        String sql = "select count(*) as num from tblAccount ";
+        int count = 0;
+        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
+            try ( ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    count = rs.getInt("num");
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return count;
     }
 
 }

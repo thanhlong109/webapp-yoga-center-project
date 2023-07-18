@@ -58,7 +58,8 @@ public class LoginGoogleController extends HttpServlet {
                 //Account( String name, String password, String email, String phone, Role role, String socialID)
                 boolean checkInsert = dao.createAccount(user);
                 if (checkInsert) {
-                    session.setAttribute("account", userGG);
+                    Account user2 = dao.checkLoginGoogle(emailGG, googleID);
+                    session.setAttribute("account", user2);
                     url = HOME_PAGE;
                     //request.getRequestDispatcher(url).forward(request, response);
                     response.sendRedirect(HOME_PAGE);

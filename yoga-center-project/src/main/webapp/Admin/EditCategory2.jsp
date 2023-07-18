@@ -24,30 +24,9 @@
               href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
         <!-- Link CSS  -->
         <link rel="stylesheet" href="../Asset/css/dashboard_2.css">
+        <link rel="stylesheet" href="../Asset/css/alertBoxAdmin.css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
-        <script src="../js/cdnjs.cloudflare.com_ajax_libs_Chart.js_2.4.0_Chart.min.js"></script>
-        <style>
-            .alert {
-                padding: 20px;
-                background-color: #f44336;
-                color: white;
-            }
-
-            .closebtn {
-                margin-left: 15px;
-                color: white;
-                font-weight: bold;
-                float: right;
-                font-size: 22px;
-                line-height: 20px;
-                cursor: pointer;
-                transition: 0.3s;
-            }
-
-            .closebtn:hover {
-                color: black;
-            }
-        </style>
+        <script src="../js/cdnjs.cloudflare.com_ajax_libs_Chart.js_2.4.0_Chart.min.js"></script>      
     </head>
     <body>
         <div class="container">
@@ -79,20 +58,34 @@
                                 <input type="hidden" name="txtId" value="${CATEGORY.id}">
                             <input type="text" name="txtName" value="${CATEGORY.name}">
                             <label for="">Name</label>
-                            </div>
-                            <c:if test="${UPDATE_CATEGORY_ERROR != null}">
+                        </div>
+                        <c:choose>
+                            <c:when test="${UPDATE_CATEGORY_ERROR.categoryNameError != null}">
                                 <div class="alert">
                                     <span class="closebtn" onclick="this.parentElement.style.display = 'none';">&times;</span> 
                                     <strong>Warning!</strong> ${UPDATE_CATEGORY_ERROR.categoryNameError}
                                 </div>
-                            </c:if>
-                            <div class="input__button">
-                                <button type="submit" value="Add" id="btn__Add">Update</button>
-                                <button type="reset" value="Reset" id="btn__Reset">Refresh</button>
-                            </div>
-                        </form>
-                    </div>
-                </main>
+                            </c:when>
+                            <c:when test="${UPDATE_CATEGORY_ERROR.categoryNameDuplicateError != null}">
+                                <div class="alert">
+                                    <span class="closebtn" onclick="this.parentElement.style.display = 'none';">&times;</span> 
+                                    <strong>Warning!</strong> ${UPDATE_CATEGORY_ERROR.categoryNameError}
+                                </div>
+                            </c:when>
+                            <c:when test="${UPDATE_CATEGORY_ERROR.error != null}">
+                                <div class="alert">
+                                    <span class="closebtn" onclick="this.parentElement.style.display = 'none';">&times;</span> 
+                                    <strong>Warning!</strong> ${UPDATE_CATEGORY_ERROR.error}
+                                </div>
+                            </c:when>
+                        </c:choose>
+                        <div class="input__button">
+                            <button type="submit" value="Add" id="btn__Add">Update</button>
+                            <button type="reset" value="Reset" id="btn__Reset">Refresh</button>
+                        </div>
+                    </form>
+                </div>
+            </main>
         </div>
     </body>
 </html>

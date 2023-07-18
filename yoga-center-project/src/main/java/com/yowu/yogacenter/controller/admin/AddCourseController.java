@@ -7,6 +7,7 @@ package com.yowu.yogacenter.controller.admin;
 import com.yowu.yogacenter.model.Account;
 import com.yowu.yogacenter.model.Category;
 import com.yowu.yogacenter.model.Course;
+import com.yowu.yogacenter.model.CourseError;
 import com.yowu.yogacenter.repository.AccountRepository;
 import com.yowu.yogacenter.repository.CategoryRepository;
 import com.yowu.yogacenter.repository.CourseRepository;
@@ -51,43 +52,85 @@ public class AddCourseController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        CategoryRepository _categoryRepository = new CategoryRepository();
+        AccountRepository _accountRepository = new AccountRepository();
+        CourseRepository _courseRepository = new CourseRepository();
+        Course course = new Course();
+        CourseError courseError = new CourseError();
+        boolean result = false;
         try {
-            CategoryRepository _categoryRepository = new CategoryRepository();
-            AccountRepository _accountRepository = new AccountRepository();
-            CourseRepository _courseRepository = new CourseRepository();
-            Course course = new Course();
-            course.setTitle(request.getParameter("txtTitle"));
-            course.setDetail(request.getParameter("txtDetail"));
-            course.setDuration(Integer.parseInt(request.getParameter("txtDuration")));
-            course.setImg("img");
-            Category category
-                    = _categoryRepository.detail(
-                            Integer.parseInt(request.getParameter("categoyList"))
-                    );
-            course.setCategory(category);
-            Account account
-                    = _accountRepository.detail(
-                            Integer.parseInt(request.getParameter("accountList"))
-                    );
-            course.setAccount(account);
-            course.setPrice(Float.parseFloat(request.getParameter("txtPrice")));
-            course.setIsActive(true);
-            boolean add = _courseRepository.add(course);
-            System.out.println("duration: " + Integer.parseInt(request.getParameter("txtDuration")));
-            System.out.println("add: " +add);
-            course = _courseRepository.getLastAddCourse().get(0);
-            String uploadDirectory = "/Asset/img/classes/";
-            String imgName = "img-course-id-" + course.getId();
-            String fileName = storeImgWithName(imgName, uploadDirectory, request.getPart("courseImg"));
-            course.setImg(fileName);
-            boolean status = _courseRepository.update(course);
-            Thread.sleep(2000);
-            System.out.println("status: " +status);
-            if (status) {
-                response.sendRedirect(VIEW_COURSE_LIST_CONTROLLER);
+            boolean checkValidation = true;
+            String duration = request.getParameter("txtDuration");
+            String price = request.getParameter("txtPrice");
+            String title = request.getParameter("txtTitle");
+            String detail = request.getParameter("txtDetail");
+
+            if (title.length() < 6 || title.length() > 50) {
+                courseError.setCourseTitleLengthError("Title must be 6 - 50 characters!!!");
+                checkValidation = false;
             }
+            if (_courseRepository.checkDuplicate(title)) {
+                courseError.setCourseTitleDuplicateError("Title already existed!!!");
+                checkValidation = false;
+            }
+            if (detail.length()< 10 ) {
+                courseError.setCourseDetailLengthError("Detail must be 10 or more characters!!!");
+                checkValidation = false;
+            }
+            if (!duration.matches("[0-9]+")) {
+                courseError.setCourseDurationError("Duration only contains numbers");
+                checkValidation = false;
+            }
+            if (!price.matches("[0-9]+")) {
+                courseError.setCoursePriceError("Price only contains numbers and not negative!!!");
+                checkValidation = false;
+            }
+
+            if (checkValidation) {
+                course.setTitle(title);
+                course.setDetail(detail);
+                course.setDuration(Integer.parseInt(duration));
+                course.setImg("img");
+                Category category
+                        = _categoryRepository.detail(
+                                Integer.parseInt(request.getParameter("categoyList"))
+                        );
+                course.setCategory(category);
+                Account account
+                        = _accountRepository.detail(
+                                Integer.parseInt(request.getParameter("accountList"))
+                        );
+                course.setAccount(account);
+                course.setPrice(Float.parseFloat(price));
+                course.setIsActive(true);
+                _courseRepository.add(course);
+                course = _courseRepository.getLastAddCourse().get(0);
+                String uploadDirectory = "/Asset/img/classes/";
+                String imgName = "img-course-id-" + course.getId();
+                String fileName = storeImgWithName(imgName, uploadDirectory, request.getPart("courseImg"));
+                course.setImg(fileName);
+                result = _courseRepository.update(course);
+                if (!result) {
+                    courseError.setError("Unknow error!");
+                    request.setAttribute("CATEGORY_ADD_OPTIONS", _categoryRepository.getAll());
+                    request.setAttribute("ACCOUNT_ADD_OPTIONS", _accountRepository.getAll());
+                    request.setAttribute("ADD_COURSE_ERROR", courseError);
+                }
+                Thread.sleep(2000);
+            } else {
+                request.setAttribute("CATEGORY_ADD_OPTIONS", _categoryRepository.getAll());
+                request.setAttribute("ACCOUNT_ADD_OPTIONS", _accountRepository.getAll());
+                request.setAttribute("ADD_COURSE_ERROR", courseError);
+            }
+
         } catch (InterruptedException ex) {
-            Logger.getLogger(AddCourseController.class.getName()).log(Level.SEVERE, null, ex);
+            log("Error at AddCourseController" + ex.toString());
+        } finally {
+            if (result) {
+                response.sendRedirect(VIEW_COURSE_LIST_CONTROLLER);
+            } else{
+                request.getRequestDispatcher(ADD_COURSE_PAGE).forward(request, response);
+            }
         }
 
     }

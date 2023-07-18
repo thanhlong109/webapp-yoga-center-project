@@ -265,6 +265,7 @@
                     <li><a href="wishlist"><i class="fa fa-heart" aria-hidden="true"></i> Wishlist</a></li>
                     <li><a href="setting"><i class="fa fa-sliders" aria-hidden="true"></i> Setting</a></li>
                     <li class="active"  ><a href="booking"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Booking</a></li>
+                    <li><a href="membership"><i class="fa-solid fa-medal"></i> Membership </a></li>
                     <li><a href="${pageContext.request.contextPath}/logout"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a></li>
                 </ul>
                 <!-- End navigation-->

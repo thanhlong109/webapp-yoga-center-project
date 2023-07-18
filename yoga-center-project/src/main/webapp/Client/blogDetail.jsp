@@ -19,7 +19,6 @@ f<%--
         <link rel="stylesheet" href="Asset/css/blogDetail.css">
         <link href="Asset/css/font/css/all.css" rel="stylesheet">
         <link rel="stylesheet" href="Asset/css/common.css">
-        <link rel="stylesheet" href="Asset/css/clientHome.css">
         <link rel="stylesheet" href="Asset/css/clientHeader.css"/>
         <link rel="stylesheet" href="Asset/css/clientFooter.css"/>   
     </head>

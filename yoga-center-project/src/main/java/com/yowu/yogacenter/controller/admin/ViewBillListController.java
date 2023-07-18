@@ -5,6 +5,7 @@
 package com.yowu.yogacenter.controller.admin;
 
 import com.yowu.yogacenter.model.Account;
+import com.yowu.yogacenter.model.Bill;
 import com.yowu.yogacenter.repository.BillRepository;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -12,6 +13,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  *
@@ -24,9 +26,23 @@ public class ViewBillListController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
         BillRepository _billRepository = new BillRepository();
-        request.setAttribute("BILL_LIST", _billRepository.getAll());
+        
+        //Phan trang
+        String xpage = request.getParameter("page");
+        int itemPerPage = 6; // number item each page
+        int size = _billRepository.count();
+        int numPage = (int) Math.ceil(size / (double) itemPerPage);// this will print how many page number
+        int page = 1;
+        if (xpage != null) {
+            page = Integer.parseInt(xpage);
+        }
+        int start = (page - 1) * itemPerPage;
+        List<Bill> list = _billRepository.getAllFollowPagination(start, itemPerPage);
+        request.setAttribute("BILL_LIST", list);
+        request.setAttribute("PAGE", page);
+        request.setAttribute("NUMPAGE", numPage);
+        //end phan trang
         request.getRequestDispatcher(BILL_LIST_PAGE).forward(request, response);
     }
 

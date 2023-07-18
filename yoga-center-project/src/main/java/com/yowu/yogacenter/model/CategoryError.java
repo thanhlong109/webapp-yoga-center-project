@@ -11,12 +11,16 @@ package com.yowu.yogacenter.model;
 public class CategoryError {
 
     private String categoryNameError;
+    private String categoryNameDuplicateError;
+    private String error;
 
     public CategoryError() {
     }
 
-    public CategoryError(String categoryNameError) {
+    public CategoryError(String categoryNameError, String categoryNameDuplicateError, String error) {
         this.categoryNameError = categoryNameError;
+        this.categoryNameDuplicateError = categoryNameDuplicateError;
+        this.error = error;
     }
 
     public String getCategoryNameError() {
@@ -25,6 +29,22 @@ public class CategoryError {
 
     public void setCategoryNameError(String categoryNameError) {
         this.categoryNameError = categoryNameError;
+    }
+
+    public String getCategoryNameDuplicateError() {
+        return categoryNameDuplicateError;
+    }
+
+    public void setCategoryNameDuplicateError(String categoryNameDuplicateError) {
+        this.categoryNameDuplicateError = categoryNameDuplicateError;
+    }
+
+    public String getError() {
+        return error;
+    }
+
+    public void setError(String error) {
+        this.error = error;
     }
 
 }

@@ -118,8 +118,6 @@ public class CheckoutSendController extends HttpServlet {
 
                 int status = 2;
                 boolean isActive = true;
-
-                System.out.println("date" + date);
                 order = new Bill(c, acc, status, isActive, total, discount, date, orderCode, method);
                 BillRepository billRepo = new BillRepository();
                 billRepo.add(order);

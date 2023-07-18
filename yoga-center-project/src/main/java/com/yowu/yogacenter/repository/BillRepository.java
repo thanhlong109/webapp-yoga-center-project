@@ -41,8 +41,8 @@ public class BillRepository {
                     c.setValue(rs.getFloat("bill_value"));
                     c.setDiscount(rs.getInt("bill_discount"));
                     c.setDate(rs.getDate("bill_date"));
-                    c.setOrdercode(rs.getString("order_code"));
-                    c.setMethod(rs.getString("payment_method"));
+                    c.setOrderCode(rs.getString("order_code"));
+                    c.setPaymentMethod(rs.getString("payment_method"));
                     c.setPaymentDate(rs.getDate("payment_date"));
                     list.add(c);
                 }
@@ -74,7 +74,38 @@ public class BillRepository {
         }
         return data;
     }
-        
+     
+    public float getTotalIncome(){
+        float income = 0;
+        String sql = "select SUM(bill_value) as income from tblBill where bill_status = 0";
+        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
+            try ( ResultSet rs = stmt.executeQuery()) {
+                if(rs.next()){
+                    income = rs.getFloat("income");
+                }
+            }
+        }catch(Exception e){
+            System.out.println(e);
+        }
+        return income;
+    }
+    
+    public float getTotalIncome(Date to){
+        float income = 0;
+        String sql = "select SUM(bill_value) as income from tblBill where bill_status = 0 and payment_date<=?";
+        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
+            stmt.setDate(1, to);
+            try ( ResultSet rs = stmt.executeQuery()) {
+                if(rs.next()){
+                    income = rs.getFloat("income");
+                }
+            }
+        }catch(Exception e){
+            System.out.println(e);
+        }
+        return income;
+    }
+    
     public List<Bill> getByAccountID(int accountId) {
         String sql = "select * from tblBill where account_id=?";
         List<Bill> list = new ArrayList<>();
@@ -93,8 +124,8 @@ public class BillRepository {
                     c.setValue(rs.getFloat("bill_value"));
                     c.setDiscount(rs.getInt("bill_discount"));
                     c.setDate(rs.getDate("bill_date"));
-                    c.setOrdercode(rs.getString("order_code"));
-                    c.setMethod(rs.getString("payment_method"));
+                    c.setOrderCode(rs.getString("order_code"));
+                    c.setPaymentMethod(rs.getString("payment_method"));
                     c.setPaymentDate(rs.getDate("payment_date"));
                     list.add(c);
                 }
@@ -122,8 +153,8 @@ public class BillRepository {
                     c.setValue(rs.getFloat("bill_value"));
                     c.setDiscount(rs.getInt("bill_discount"));
                     c.setDate(rs.getDate("bill_date"));
-                    c.setOrdercode(rs.getString("order_code"));
-                    c.setMethod(rs.getString("payment_method"));
+                    c.setOrderCode(rs.getString("order_code"));
+                    c.setPaymentMethod(rs.getString("payment_method"));
                     c.setPaymentDate(rs.getDate("payment_date"));
                     return c;
                 }
@@ -152,8 +183,8 @@ public class BillRepository {
                     c.setValue(rs.getFloat("bill_value"));
                     c.setDiscount(rs.getInt("bill_discount"));
                     c.setDate(rs.getDate("bill_date"));
-                    c.setOrdercode(rs.getString("order_code"));
-                    c.setMethod(rs.getString("payment_method"));
+                    c.setOrderCode(rs.getString("order_code"));
+                    c.setPaymentMethod(rs.getString("payment_method"));
                     c.setPaymentDate(rs.getDate("payment_date"));
                     return c;
                 }
@@ -182,8 +213,8 @@ public class BillRepository {
                     c.setValue(rs.getFloat("bill_value"));
                     c.setDiscount(rs.getInt("bill_discount"));
                     c.setDate(rs.getDate("bill_date"));
-                    c.setOrdercode(rs.getString("order_code"));
-                    c.setMethod(rs.getString("payment_method"));
+                    c.setOrderCode(rs.getString("order_code"));
+                    c.setPaymentMethod(rs.getString("payment_method"));
                     c.setPaymentDate(rs.getDate("payment_date"));
                     return c;
                 }
@@ -212,8 +243,8 @@ public class BillRepository {
                     c.setValue(rs.getFloat("bill_value"));
                     c.setDiscount(rs.getInt("bill_discount"));
                     c.setDate(rs.getDate("bill_date"));
-                    c.setOrdercode(rs.getString("order_code"));
-                    c.setMethod(rs.getString("payment_method"));
+                    c.setOrderCode(rs.getString("order_code"));
+                    c.setPaymentMethod(rs.getString("payment_method"));
                     c.setPaymentDate(rs.getDate("payment_date"));
                     return c;
                 }
@@ -276,8 +307,8 @@ public class BillRepository {
                     c.setValue(rs.getFloat("bill_value"));
                     c.setDiscount(rs.getInt("bill_discount"));
                     c.setDate(rs.getDate("bill_date"));
-                    c.setOrdercode(rs.getString("order_code"));
-                    c.setMethod(rs.getString("payment_method"));
+                    c.setOrderCode(rs.getString("order_code"));
+                    c.setPaymentMethod(rs.getString("payment_method"));
                     c.setPaymentDate(rs.getDate("payment_date"));
                     return c;
                 }
@@ -303,8 +334,8 @@ public class BillRepository {
             stmt.setFloat(5, c.getValue());
             stmt.setInt(6, c.getDiscount());
             stmt.setDate(7, c.getDate());
-            stmt.setString(8, c.getOrdercode());
-            stmt.setString(9, c.getMethod());
+            stmt.setString(8, c.getOrderCode());
+            stmt.setString(9, c.getPaymentMethod());
 
             status = stmt.executeUpdate();
         } catch (Exception e) {
@@ -330,8 +361,8 @@ public class BillRepository {
             stmt.setInt(6, c.getDiscount());
             stmt.setDate(7, c.getDate());
             stmt.setInt(8, c.getId());
-            stmt.setString(9, c.getOrdercode());
-            stmt.setString(10, c.getMethod());
+            stmt.setString(9, c.getOrderCode());
+            stmt.setString(10, c.getPaymentMethod());
             stmt.setDate(11, c.getPaymentDate());
             status = stmt.executeUpdate();
         } catch (Exception e) {
@@ -376,6 +407,9 @@ public class BillRepository {
                     c.setValue(rs.getFloat("bill_value"));
                     c.setDiscount(rs.getInt("bill_discount"));
                     c.setDate(rs.getDate("bill_date"));
+                    c.setOrderCode(rs.getString("order_code"));
+                    c.setPaymentMethod(rs.getString("payment_method"));
+                    c.setPaymentDate(rs.getDate("payment_date"));
                     list.add(c);
                 }
             }
@@ -385,6 +419,51 @@ public class BillRepository {
         return list;
     }
 
+     public List<Bill> getAllFollowPagination(int offset, int next) {
+        String sql = "select * from tblBill order by bill_id desc OFFSET ? ROWS FETCH NEXT ? ROWS ONLY ";
+        List<Bill> list = new ArrayList<>();
+        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
+            stmt.setInt(1, offset);
+            stmt.setInt(2, next);
+            try ( ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    AccountRepository acc = new AccountRepository();
+                    CourseRepository cr = new CourseRepository();
+                    Bill c = new Bill();
+                    c.setCourse(cr.detail(rs.getInt("course_id")));
+                    c.setAccount(acc.detail(rs.getInt("account_id")));
+                    c.setId(rs.getInt("bill_id"));
+                    c.setStatus(rs.getInt("bill_status"));
+                    c.setIsActive(rs.getBoolean("bill_is_active"));
+                    c.setValue(rs.getFloat("bill_value"));
+                    c.setDiscount(rs.getInt("bill_discount"));
+                    c.setDate(rs.getDate("bill_date"));
+                    c.setOrderCode(rs.getString("order_code"));
+                    c.setPaymentMethod(rs.getString("payment_method"));
+                    c.setPaymentDate(rs.getDate("payment_date"));
+                    list.add(c);
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return list;
+    }
+
+    public int count() {
+        String sql = "select count(*) as num from tblBill ";
+        int count = 0;
+        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
+            try ( ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    count = rs.getInt("num");
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return count;
+    }
     public static void main(String[] args) {
         BillRepository b = new BillRepository();
         
