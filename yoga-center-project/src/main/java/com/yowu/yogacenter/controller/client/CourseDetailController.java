@@ -80,7 +80,7 @@ public class CourseDetailController extends HttpServlet {
             
             /*check rating able*/
             boolean allowRating = false;
-            if(account!=null&&regisStatus!=null){
+            if(account!=null&&regisStatus!=null&&regisStatus.getRegistrationtatus()){
                 if(ratec.detail(regisStatus.getId())==null){
                     System.out.println("reid:"+regisStatus.getId());
                     allowRating = true;

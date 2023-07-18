@@ -4,6 +4,7 @@
  */
 package com.yowu.yogacenter.controller.client;
 
+import com.yowu.yogacenter.repository.MembershipRepository;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -22,6 +23,8 @@ public class UserProfileMebership extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        MembershipRepository mr = new MembershipRepository();
+        request.setAttribute("membership", this);
         request.getRequestDispatcher(USER_MEMBERSHIP).forward(request, response);
     }
 
