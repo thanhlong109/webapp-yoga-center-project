@@ -26,7 +26,7 @@
         <link rel="stylesheet"
             href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
         <!-- Link CSS  -->
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/Asset/css/dashboard_2.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/Asset/css/dashboard.css">
         <!-- Library JS -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
         <script src="${pageContext.request.contextPath}/Asset/js/cdnjs.cloudflare.com_ajax_libs_Chart.js_2.4.0_Chart.min.js"></script>
