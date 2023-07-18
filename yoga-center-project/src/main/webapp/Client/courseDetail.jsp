@@ -78,14 +78,15 @@
                 display: flex;
                 gap: 16px;
             }
-            .teacher img{
+            .teacher-img{
                 height: 45px;
                 width: 45px;
+                max-width: 45px;
                 border-radius: 50%;
             }
             .yellow-stars{
                 font-size: 12px;
-                color: #fc9d1d;
+                color: #ffc107;
                 line-height: 100%;
             }
             .avg-star{
@@ -255,36 +256,45 @@
             /*feedback*/
             .feedback-area{
                 background-color: #e9ebee4d;
-                padding: 32px 0px;
+                padding: 8px 0px 32px 0px;
             }
             .feedback-area-title{
-                color: #444444;
-                margin-bottom: 32px;
+                color: #545454;
+                font-weight: 600;
                 font-size: 1.4em;
-                padding-left: 24px
+                padding-left: 12px;
+                border-left: 10px solid #227179;
+                line-height: 2.8;
             }
 
             .load-feedback{
                 display: flex;
                 flex-direction: column;
-                gap: 32px;
+                gap: 20px;
             }
 
             .user-feedback-item{
                 display: flex;
                 gap: 16px;
                 padding: 16px 24px;
+                background: #fff;
+                border:1px solid #e6e6e6;
+                border-radius: 10px;
+                margin: 0 20px;
+                transition: all ease-in-out .3s
             }
             .user-feedback-item:hover{
-                background-color: #9f9d9d44;
+                background: #3dbca829;
             }
-
+            .user-feedback-item .yellow-stars{
+                font-size: 16px;
+            }
             .user-feedback-avata{
                 overflow: hidden;
                 display: flex;
                 justify-content: center;
                 border-radius: 50%;
-                border: 1px solid #5e5e5e;
+                border: 2px solid #e6e6e6;
                 align-items: center;
                 max-width: 85px;
                 max-height: 85px;
@@ -304,8 +314,29 @@
                 margin-bottom: 8px;
             }
             .user-feedback-name{
-                font-size: 16px;
-                color: #444444;
+                font-size: 17px;
+                color: #3dbca8;
+                font-weight: 600;
+            }
+            .user-feedback-content{
+                line-height: 1.7;
+                color: #5e5e5e;
+            }
+            .feedback-btn-open{
+                display: inline-block;
+                margin: 20px 20px 0;
+                padding: 10px 24px;
+                background: #fff;
+                border:1px solid #e6e6e6;
+                border-radius: 10px;
+                color: #3dbca8;
+                cursor: pointer;
+                font-weight: 600;
+                transition: all ease-in-out .3s;
+            }
+            .feedback-btn-open:hover{
+                background: #3dbca8;
+                color: white;
             }
 
             
@@ -317,7 +348,145 @@
                 text-overflow: ellipsis; /* Add "..." at the end of the third line */
                 white-space: normal;
              }
+             .book-btn{
+                text-decoration: none;
+                font-size: 16px;
+                padding: 12px 24px;
+                border: 2px solid #3dbca8;
+                color: #3dbca8;
+                text-transform: uppercase;
+                display: block;
+                text-align: center;
+                transition: all ease-in-out .3s;
+                cursor: pointer;
+                text-align: center;
+            }
+            .book-btn:hover{
+                background-color: #3dbca8;
+                color: white;
+                border-radius: 24px;
+            }
+            .msg-green{
+                padding: 12px 24px;
+                background-color: white;
+                border-radius: 24px;
+                color: #3dbca8;
+                text-transform:capitalize;
+                display: block;
+                font-weight: 600;
+                border: 2px solid #3dbca8;
+                text-align: center;
+            }
+            .msg-yellow{
+                padding: 12px 24px;
+                background-color: white;
+                border-radius: 24px;
+                color: rgb(255, 205, 86);
+                text-transform:capitalize;
+                display: block;
+                font-weight: 600;
+                border: 2px solid rgb(255, 205, 86);
+                text-align: center;
+            }
             
+            /*rating*/
+            .rating-box-wrapper{
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background-color: rgba(0,0,0,0.35);
+                align-items: center;
+                justify-content: center;
+                display: none;
+                animation: fadein2 ease-in-out .3s;
+            }
+            .rating-box{
+                width: 400px;
+                background-color: #fff;
+                padding: 20px 40px;
+                display: flex;
+                flex-direction: column;
+                gap: 16px;
+                border-radius: 10px;
+                position: relative;
+            }
+            .rating-title{
+                font-size: 18px;
+                color: #545454;
+                font-weight: 600;
+                text-transform: capitalize;
+            }
+            .rating-star{
+                display: flex;
+                gap: 16px;
+                color: #e6e6e6;
+                cursor: pointer;
+                font-size: 32px;
+                justify-content: space-around;
+            }
+            .rating-note{
+                font-size: 20px;
+                line-height: 1.7;
+                text-align: center;
+                color: #3dbca8;
+            }
+            .star-light{
+                color: #ff9c1a;
+                animation: fadein2 ease-in-out .3s;
+            }
+            .rating-feedback{
+                padding: 15px;
+                height: 59px;
+                border-radius: 5px;
+                outline: none;
+                font-size: 16px;
+                resize: none;
+                max-height: 200px;
+                border-color: #bfbfbf;
+            }
+            .rating-feedback::-webkit-scrollbar{
+                display: none;
+            }
+
+            .rating-box button{
+                padding: 12px 24px;
+                width: fit-content;
+                margin: 0 auto;
+                border: 2px solid #3dbca8;
+                background-color: #3dbca8;
+                border-radius: 12px;
+                color: white;
+                font-weight: 600;
+                cursor: pointer;
+                box-shadow: 0 2px 8px rgba(0,0,0,.25);
+                transition: all ease-in-out .3s;
+            }
+            .rating-box button:hover{
+                background-color: #fff;
+                color: #3dbca8;
+            }
+            .rating-close{
+                position: absolute;
+                top:20px;
+                right: 20px;
+                color: #545454;
+                font-size: 24px;
+                cursor: pointer;
+            }
+            .rating-close:hover{
+                color: #e53f4f;
+            }
+
+            @keyframes fadein2{
+                from{
+                    opacity: 0;
+                }
+                to{
+                    opacity: 1;
+                }
+            }
 
             @media screen and (max-width:740px) {
                 .wrapper-container{
@@ -352,18 +521,6 @@
                 }
             }
 
-
-            .book1 a{
-                text-decoration: none;
-                
-            }
-
-            .choose{
-                color: #a4262c
-                
-            }
-            
-
         </style>
 
     </head>
@@ -378,18 +535,18 @@
         </div>
         <div class="wrapper-container">
             <div class="row1">
-                <div onclick='goto("teacher?id=1")'  class="teacher hover-poiter">
-                    <div class="teacher-img">
+                <div onclick='goto("instructor?id=${course.account.id}")'  class="teacher hover-poiter">
+                    <div class="img-square-container teacher-img">
                         <img src="${pageContext.request.contextPath}/Asset/img/avatar/${course.account.img}" alt="#"> <!--replace Teacher img here-->
                     </div>
                     <div>
                         <h4>Teacher</h4>
-                        <a href="#" class="text-style-light-green">${course.account.name}</a> <!--replace teacher name here-->
+                        <a class="text-style-light-green">${course.account.name}</a> <!--replace teacher name here-->
                     </div>
                 </div>
                 <div class="category">
                     <h4>Category</h4>
-                    <a href="#" class="text-style-light-green">${course.category.name}</a> <!--replace category here-->
+                    <a href="course-filter?categoryid=${course.category.id}" class="text-style-light-green">${course.category.name}</a> <!--replace category here-->
                 </div>
                 <div>
                     <h4>Review</h4>
@@ -422,14 +579,15 @@
                         </div>
                     </div>
                     <div class="separate"></div>
-                    <c:if test="${feedbackList!=null && feedbackList.size() gt 0}">
+                    <!<!-- ----------------------------------- Feedback -------------------------------- -->
+                    <c:if test="${feedbackList!=null || allowRating}">
                         <div class="feedback-area">
                             <h2 class="feedback-area-title">Feedback (${feedbackList.size()})</h2>
                             <div class="load-feedback">
                                 <c:forEach items="${feedbackList}" var="feedbackItem">
                                     <c:set var="feedbackAcc" value="${feedbackItem.registrationCourse.account}"/>
                                     <div class="user-feedback-item">
-                                        <div class="user-feedback-avata">
+                                        <div class="user-feedback-avata img-square-container">
                                             <img src="${pageContext.request.contextPath}/Asset/img/avatar/${feedbackAcc.img}" alt="avatar.img">
                                         </div>
                                         <div class="feedback-info">
@@ -450,6 +608,9 @@
                                     </div>
                                 </c:forEach>
                             </div>
+                            <c:if test="${allowRating}">
+                                <span class="feedback-btn-open">Post Your Feedback</span>
+                            </c:if>
                         </div>
                     </c:if>
                 </div>
@@ -477,55 +638,37 @@
                         <div class="label-value">
                             <c:if test="${course.price>0}">$${course.price}</c:if>
                             <c:if test="${course.price<=0}">Free</c:if>
-                            </div> <!--replace price here-->
-                        </div>
-                        <div  class="course-card book1">
-                        <c:if test="${sessionScope.account == null && billStatus != 1}">
-                            <c:if test="${course.price>0}">
-                                <a class="book-course" onclick="gotoCheckout('Checkout?id=${course.id}&action=course')" class="course-card">
-                                    <p>Purchase</p>
-                                </a>
-                            </c:if>   
-                            <c:if test="${course.price<=0}">
-                                <a class="book-course" onclick="gotoCheckout('Checkout?id=${course.id}&action=course')" class="course-card">
-                                    <p>Errol</p>
-                                </a>
-                            </c:if>
+                        </div> <!--replace price here-->
+                   </div>
+                    <c:if test="${sessionScope.account == null}">
+                        <c:if test="${course.price>0}">
+                            <a class="book-btn" onclick="gotoCheckout('Checkout?id=${course.id}&action=course')" >
+                                Purchase
+                            </a>
+                        </c:if>   
+                        <c:if test="${course.price<=0}">
+                            <a class="book-btn" onclick="gotoCheckout('Checkout?id=${course.id}&action=course')" >
+                                Errol
+                            </a>
                         </c:if>
-                            
-                        <c:if test="${sessionScope.account != null && billStatus != 2 && denyBook != 1}">
-                            <c:if test="${course.price>0}">
-                                <a class="book-course" onclick="gotoCheckout('Checkout?id=${course.id}&action=course')" class="course-card">
-                                    <p>Book now</p>
-                                </a>
-                            </c:if>   
-                            <c:if test="${course.price<=0}">
-                                <a class="book-course" onclick="gotoCheckout('Checkout?id=${course.id}&action=course')" class="course-card">
-                                    <p>Errol</p>
-                                </a>
-                            </c:if>
-                            
+                    </c:if>
+
+                    <c:if test="${sessionScope.account != null && allowBook}">
+                        <c:if test="${course.price>0}">
+                            <a class="book-btn" onclick="gotoCheckout('Checkout?id=${course.id}&action=course')" >
+                                Book now
+                            </a>
+                        </c:if>   
+                        <c:if test="${course.price<=0}">
+                            <a class="book-btn" onclick="gotoCheckout('Checkout?id=${course.id}&action=course')" >
+                                Errol
+                            </a>
                         </c:if>
 
-
-                        <c:if test="${sessionScope.account != null && billStatus != 2 && denyBook == 1}">
-                            <c:if test="${course.price>0}">
-                                <a class="book-course" class="course-card">
-                                    <p>You have joined the course</p>
-                                </a>
-                            </c:if>   
-                            <c:if test="${course.price<=0}">
-                                <a class="book-course" class="course-card">
-                                    <p>You have joined the course</p>
-                                </a>
-                            </c:if>
-                            
-                        </c:if>
-
-                        <c:if test="${sessionScope.account != null && billStatus == 2}">
-                            <p>Waiting for payment...</p>
-                        </c:if>
-                    </div>
+                    </c:if>
+                    <c:if test="${sessionScope.account != null  && !allowBook}">
+                            <p class="msg-green">You have joined the course</p> 
+                    </c:if>
                 </div>
             </div>
 
@@ -563,7 +706,142 @@
                 </div>
             </div>
         </div>
-        <%@include file="../Component/toast.jsp" %>       
+        <div class="rating-box-wrapper">
+            <form action="course-detail" method="post" class="rating-box">
+                <i class="fa-regular fa-circle-xmark rating-close"></i>
+                <p class="rating-title">how was your experience?</p>
+                <div class="rating-star">
+                    <i class="fas-sharp fa-solid fa-star"></i>
+                    <i class="fas-sharp fa-solid fa-star"></i>
+                    <i class="fas-sharp fa-solid fa-star"></i>
+                    <i class="fas-sharp fa-solid fa-star"></i>
+                    <i class="fas-sharp fa-solid fa-star"></i>
+                </div>
+                <input id="starPoint" type="hidden" name="star" value="0"/>
+                <div class="rating-note"></div>
+                <textarea required name="feedback" class="rating-feedback" placeholder="Describe your experience.."></textarea>
+                <button>POST</button>
+            </form>
+        </div>
+        <%@include file="../Component/toast.jsp" %> 
+    <script defer>
+            /*rating stars*/
+        const ratingStarList = $('.rating-star i');
+        const ratingFeedback = document.querySelector('.rating-feedback');
+        
+        $('.rating-feedback').keyup(function(e){
+            $(this).css('height','59px');
+            let scHeight = e.target.scrollHeight;
+            $(this).css('height',scHeight+'px');
+        });
+        var ratingList = $('.rating-star i');
+        let valueStar = 0;
+        ratingList.each(function(){
+            $(this).click(function(){
+                for(let i=0;i<ratingList.length;i++){
+                    if(i<=$(this).index()){
+                        $(ratingList[i]).addClass('star-light');
+                    }else{
+                        $(ratingList[i]).removeClass('star-light');
+                    }
+                }
+                let text="";
+                valueStar = $(this).index();
+                switch(valueStar){
+                    case 0:{
+                        text = 'I just hate it <i class="fa-solid fa-face-angry"></i>';
+                        break;
+                    }
+                    case 1:{
+                        text = "I don't like it <i class='fa-solid fa-face-frown'></i>";
+                        break;
+                    }
+                    case 2:{
+                        text = 'It ok <i class="fa-solid fa-face-smile"></i>';
+                        break;
+                    }
+                    case 3:{
+                        text = 'It is awesome <i class="fa-solid fa-face-laugh-beam"></i>';
+                        break;
+                    }
+                    case 4:{
+                        text = 'I just love it <i class="fa-solid fa-face-laugh-squint"></i>';
+                        break;
+                    }
+                }
+                $('.rating-note').html(text);
+                $('#starPoint').val(valueStar+1);
+            });
+        });
+        /*validate and post form rating*/
+<c:if test="${allowRating}">
+       $('.rating-box').on("submit",function(e){
+            e.preventDefault();
+            if($('#starPoint').val()==='0'){
+                toast({
+                    title: "Opps!",
+                    msg: 'Please rate us by click on star <i class="fa-solid fa-face-laugh-squint"></i>!',
+                    type: 'warning',
+                    duration: 5000
+                });
+            }else if($('.rating-feedback').val().length>50){
+                toast({
+                    title: "Opps!",
+                    msg: "Your feedback too long, please lest than 50 charactors!",
+                    type: 'warning',
+                    duration: 5000
+                });
+            }else{
+                $.ajax({
+                    type     : "POST",
+                    cache    : false,
+                    url      : $(this).attr('action'),
+                    data     : "action=rating&courseid=${course.id}&"+$(this).serialize(),
+                    success: function (data) {
+                        let rateUi = '<div class="user-feedback-item">'+
+                                        '<div class="user-feedback-avata img-square-container">'+
+                                            '<img src="${pageContext.request.contextPath}/Asset/img/avatar/${sessionScope.account.img}" alt="avatar.img">'+
+                                        '</div>'+
+                                        '<div class="feedback-info">'+
+                                            '<div>'+
+                                                '<h4 class="user-feedback-name">${sessionScope.account.name}</h4>'+
+                                                '<div data-avg="'+(valueStar+1)+'" class="yellow-stars stars">'+
+                                                    '<i class=""></i>'+
+                                                    '<i class=""></i>'+
+                                                    '<i class=""></i>'+
+                                                    '<i class=""></i>'+
+                                                    '<i class=""></i>'+
+                                                '</div>'+
+                                            '</div>'+
+                                            '<p class="user-feedback-content text">'+$('.rating-feedback').val()+'</p>'+
+                                        '</div>'+
+                                    '</div>';
+                            $('.load-feedback').append(rateUi);
+                        displayStars();
+                        toast({
+                            title: "Success!",
+                            msg: "Thanks for your feedback!",
+                            type: 'success',
+                            duration: 5000
+                        });
+                        $('.feedback-btn-open').hide();
+                    },
+                    error: function (msg) {
+                        
+                    }
+                });
+                $('.rating-box-wrapper').hide();
+            }
+        });
+        /*close form*/
+       $('.rating-close').click(function(){
+            $('.rating-box-wrapper').hide();
+       });
+       /*open form*/
+       $('.feedback-btn-open').click(function (){
+           $('.rating-box-wrapper').css('display','flex');
+       });                 
+</c:if>
     </script>
     <script>
         var dateSelect = [];
@@ -583,25 +861,28 @@
     </script>
     <script defer>
         /*display star*/
-        const starsParents = document.querySelectorAll(".stars");
-        starsParents.forEach(sp => {
-            let stars = sp.querySelectorAll(".stars i");
-            var avg = $(sp).data('avg');
-            stars.forEach(star => {
-                if (avg > 0) {
-                    star.classList.add("fa-solid");
-                    if (avg < 1) {
-                        star.classList.add("fa-star-half-stroke");
+        displayStars();
+        function displayStars(){
+           const starsParents = document.querySelectorAll(".stars");
+            starsParents.forEach(sp => {
+                let stars = sp.querySelectorAll(".stars i");
+                var avg = $(sp).data('avg');
+                stars.forEach(star => {
+                    if (avg > 0) {
+                        star.classList.add("fa-solid");
+                        if (avg < 1) {
+                            star.classList.add("fa-star-half-stroke");
+                        } else {
+                            star.classList.add("fa-star");
+                        }
                     } else {
+                        star.classList.add("fa-regular");
                         star.classList.add("fa-star");
                     }
-                } else {
-                    star.classList.add("fa-regular");
-                    star.classList.add("fa-star");
-                }
-                avg -= 1;
-            });
-        });
+                    avg -= 1;
+                });
+            }); 
+        }
         /*display date text*/
         const displayDate = document.querySelector(".jsdate");
         const displayTime = document.querySelector(".jstime");

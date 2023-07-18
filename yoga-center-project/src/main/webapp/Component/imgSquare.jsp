@@ -6,17 +6,20 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<script>
+<script defer>
     //to use this  need set img-square-container for class contain img, set max-with for container
     window.addEventListener('DOMContentLoaded', function() {
                 var container = document.querySelectorAll('.img-square-container');
                 container.forEach(c =>{
                     var image = c.querySelector('img');
                     let width = $(c).css('max-width');
-                    $(c).attr('style','display: flex');
-                    $(c).attr('style','justify-content: center');
-                    $(c).attr('style','align-items: center');
-                    $(c).attr('style','overflow: hidden');
+                    $(c).css({
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        overflow: 'hidden'
+                     });
+                    
                     if (image.naturalWidth > image.naturalHeight) {
                       image.style.width = 'auto';
                       image.style.height = width;

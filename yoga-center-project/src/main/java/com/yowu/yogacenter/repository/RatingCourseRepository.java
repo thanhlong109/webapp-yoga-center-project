@@ -61,15 +61,14 @@ public class RatingCourseRepository {
     }
 
     public RatingCourse detail(int id) {
-        String sql = "select * from tblRatingCourse where registration_id=? "
-                + "AND account_id =? ";
+        String sql = "select * from tblRatingCourse where registration_id=? ";
         try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
             stmt.setInt(1, id);
             try ( ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
                     RatingCourse c = new RatingCourse();
                     RegistrationCourseRepository rc = new RegistrationCourseRepository();
-                    c.setRegistrationCourse(rc.detail(rs.getInt("registraion_id")));
+                    c.setRegistrationCourse(rc.detail(rs.getInt("registration_id")));
                     c.setFeedback(rs.getString("feedback"));
                     c.setRatingStar(rs.getInt("rating_star"));
                     return c;
@@ -84,14 +83,15 @@ public class RatingCourseRepository {
 
     
     public boolean add(RatingCourse ratingCourse) {
-        String sql = "INSERT INTO tblRatingCourse (registration_id, feedback, rating_star) "
-                + "VALUES (?, ?, ?)";
+        String sql = "INSERT INTO tblRatingCourse (registration_id, feedback, rating_star, course_id) "
+                + "VALUES (?, ?, ?,?)";
         int status = 0;
 
         try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
             stmt.setInt(1, ratingCourse.getRegistrationCourse().getId());
             stmt.setString(2, ratingCourse.getFeedback());
             stmt.setInt(3, ratingCourse.getRatingStar());
+            stmt.setInt(4, ratingCourse.getCourse().getId());
 
             status = stmt.executeUpdate();
         } catch (Exception e) {

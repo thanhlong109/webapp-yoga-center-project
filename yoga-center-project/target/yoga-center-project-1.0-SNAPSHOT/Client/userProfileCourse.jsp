@@ -169,7 +169,7 @@
                    padding: 8px 12px;
                }
            }
-        .noice-empty{
+            .noice-empty{
                 display: flex;
                 margin: auto;
                 justify-content: center;
@@ -183,6 +183,11 @@
                 height: 75px;
                 width: 75px;
             }
+            .course-table tr:not(tr:nth-child(1)):hover{
+                background-color: #ccc;
+                cursor: pointer;
+            }
+            
        </style>
        
         
@@ -231,7 +236,7 @@
                                         <th>End Date</th>
                                     </tr>
                                     <c:forEach items="${listRegistrationCourse}" var="rCourse">
-                                        <tr>
+                                        <tr onclick="goto('course-detail?id=${rCourse.course.id}')">
                                             <td><img src="../Asset/img/classes/${rCourse.course.img}" alt="img"></td>
                                             <td>${rCourse.course.title}</td>
                                             <td>${rCourse.registrationDate}</td>
@@ -257,6 +262,10 @@
         </div>
         <%@include file="../Component/footer.jsp" %> 
         <script>
+            function goto(url){
+                window.window.location.href = "${pageContext.request.contextPath}/"+url;   
+            }
+            
             $(document).ready(()=>{
                document.querySelectorAll(".filter-course li").forEach(f =>{
                 $(f).click(()=>{

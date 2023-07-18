@@ -28,7 +28,6 @@
                     <a href="${pageContext.request.contextPath}/blogs">Blog</a>
                 </li>
                 <li class="js-schedule"><a href="${pageContext.request.contextPath}/Timetable">Schedule</a></li>
-
             </ul>
 
             <div class="user-btn">

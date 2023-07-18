@@ -12,8 +12,9 @@
         <title>Cashier</title>
 
         <!-- Link CSS -->
-        <link rel="stylesheet" href="../Asset/css/cashier.css">
-        <link rel="stylesheet" href="../Asset/css/dashboard_2.css">
+        <!--<link rel="stylesheet" href="../Asset/css/dashboard_2.css"/>-->
+          <link rel="stylesheet" href="../Asset/css/cashier.css"/> 
+        <!--  <link rel="stylesheet" href="../Asset/css/adminAddScreen.css"/> -->
         <!-- Google font -->
         <link href="https://fonts.googleapis.com/css2?family=Jost:wght@200;300;400;500;600;700;800&display=swap"
               rel="stylesheet">
@@ -32,48 +33,68 @@
         <script src="../js/cdnjs.cloudflare.com_ajax_libs_Chart.js_2.4.0_Chart.min.js"></script>
     </head>
     <body>
-        <jsp:include page="../Component/cashierSideMenu.jsp"></jsp:include>
-            <main>
-                <div class="top">
-                    <button id="menu-btn">
-                        <span class="material-symbols-sharp">menu</span>
-                    </button>
-                    <form action="searchBillController" id="search-box">
-                        <input type="text" id="search-text" placeholder="Search" required>
-                        <button id="btnSearch"><i class="fa-solid fa-magnifying-glass"></i></button>
-                    </form>
-                    <div class="profile">
-                        <div class="info">
-                            <p>Hey, <b>Cashier</b></p>
-                            <small class="text-muted">Cashier</small>
-                        </div>
-                        <div class="profile-photo">
-                            <img src="../img/avatar/hinh-avatar-1.png" alt="">
+        <div class="container">
+            <jsp:include page="../Component/cashierSideMenu.jsp"></jsp:include>
+                <!--                <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+                                <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+                                <script src="https://unpkg.com/gijgo@1.9.14/js/gijgo.min.js" type="text/javascript"></script>
+                                <link href="https://unpkg.com/gijgo@1.9.14/css/gijgo.min.css" rel="stylesheet" type="text/css" />-->
+                <main>
+                    <div class="top">
+                        <button id="menu-btn">
+                            <span class="material-symbols-sharp">menu</span>
+                        </button>
+                        <form action="searchBillController" id="search-box">
+                            <input type="text" id="search-text" placeholder="Search" required>
+                            <button id="btnSearch"><i class="fa-solid fa-magnifying-glass"></i></button>
+                        </form>
+                        <div class="profile">
+                            <div class="info">
+                                <p>Hey, <b>Cashier</b></p>
+                                <small class="text-muted">Cashier</small>
+                            </div>
+                            <div class="profile-photo">
+                                <img src="../Asset/img/avatar/hinh-avatar-1.png" alt="">
+                            </div>
                         </div>
                     </div>
+                    <h1>Update Bill</h1>
+                    <div id="wrapper">
+                        <form action="updateBillCashierController" method="POST">
+                            <h3>Update Bill </h3>
+                            <div class="input__group">
+                                <input type="hidden" name="txtId" value="${BILL.id}">
+                                <input type="text" name="txtOrderCode" value="${BILL.ordercode}"/>
+                                <label for="">Order Code</label>
+                             </div>
+                            <div class="input__group filter">
+                                 <select class="input-filter" name="txtStatus" >
+                                    <c:forEach items="${StatusList}" var="item">
+                                        <option ${BILL.status==item.ordinal()?'selected':''} value="${item.ordinal()}" >${item.name()}</option>
+                                    </c:forEach>
+                                </select>
+
+                                <label for="">Status</label>
+                            </div>
+
+
+                            <div class="input__button">
+                            <button type="submit" value="Add" id="btn__Add">Update</button>
+                            <button type="reset" value="Reset" id="btn__Reset">Refresh</button>
+                            </div>
+                        </form>
                 </div>
-                <h1>Update Bill</h1>
-                <div id="wrapper">
-                    <form action="updateBillCashierController" method="post">
-                        <h3>Update Bill </h3>
-                        <div class="input__group">
-                            <input type="hidden" name="txtOrderCode" value="${BILL.ordercode}"/>
-                        <label for="">Order Code</label>
-                    </div>
-                    <div class="input__group">
-                        <input type="number" name="txtStatus" value="${BILL.status}"/>
-                        <label for="">Status</label>
-                    </div>
-                    <div class="input__group">
-                        <input type="datetime" name="txtPaymentDate" value="${BILL.paymentDate}"/>
-                        <label for="">Payment Date</label>
-                    </div>
-                    <div class="input__button">
-                        <button type="submit" value="Add" id="btn__Add">Update</button>
-                        <button type="reset" value="Reset" id="btn__Reset">Refresh</button>
-                    </div>
-                </form>
-            </div>
-        </main>
+            </main>
+        </div>
+
+
+        <script>
+            var sidebarElements = document.querySelectorAll(".sidebar-elements");
+            sidebarElements.forEach(btn => {
+                $(btn).click(function () {
+                    $(this).children(".sub-item").slideToggle(300);
+                });
+            });
+        </script>
     </body>
 </html>

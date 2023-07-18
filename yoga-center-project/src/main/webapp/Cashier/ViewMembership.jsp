@@ -11,7 +11,8 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Cashier</title>
         <!-- Link CSS -->
-        <link rel="stylesheet" href="../Asset/css/cashier.css">
+        <link rel="stylesheet" href="../Asset/css/dashboard_2.css">
+        <link rel="stylesheet" href="../Asset/css/adminEditCategory_2.css">
 
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" 
               integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" 
@@ -90,10 +91,17 @@
                                     </tr>
                                 </c:if>
                             </c:forEach>
-
                         </table>
                     </div>
             </main>
         </div>
+        <script>
+            var sidebarElements = document.querySelectorAll(".sidebar-elements");
+            sidebarElements.forEach(btn => {
+                $(btn).click(function () {
+                    $(this).children(".sub-item").slideToggle(300);
+                });
+            });
+        </script>
     </body>
 </html>

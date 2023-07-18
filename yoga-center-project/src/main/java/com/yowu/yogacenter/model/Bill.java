@@ -4,15 +4,22 @@
  */
 package com.yowu.yogacenter.model;
 
+import java.io.Serializable;
 import java.sql.Date;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 /**
  *
  * @author DungVNT
  */
-public class Bill {
 
+
+
+
+
+public class Bill implements Serializable{
+    
 
     public static enum BillStatus{COMPLETED,CANCELLED,PENDING};
     
@@ -27,6 +34,7 @@ public class Bill {
     private String ordercode;
     private String method;
     private Date paymentDate;
+   
 
     public Bill() {
     }
@@ -54,6 +62,21 @@ public class Bill {
         this.date = date;
         this.ordercode = ordercode;
     }
+
+    public Bill(Course course, Account account, int status, boolean isActive, float value, int discount, Date date, String ordercode, String method, LocalDate payDate) {
+        this.course = course;
+        this.account = account;
+        this.status = status;
+        this.isActive = isActive;
+        this.value = value;
+        this.discount = discount;
+        this.date = date;
+        this.ordercode = ordercode;
+        this.method = method;
+        
+    }
+    
+    
     
     
     public static BillStatus getEnumIndex(int i){
@@ -217,5 +240,9 @@ public class Bill {
     public void setPaymentDate(Date paymentDate) {
         this.paymentDate = paymentDate;
     }
+
+    
+    
+    
     
 }

@@ -4,6 +4,7 @@
     Author     : localboss
 --%>
 <%@taglib prefix="c" uri="jakarta.tags.core" %>
+<%@page import="com.yowu.yogacenter.model.Bill" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -12,7 +13,8 @@
         <title>Cashier</title>
 
         <!-- Link CSS -->
-        <link rel="stylesheet" href="../Asset/css/cashier.css">
+        <link rel="stylesheet" href="../Asset/css/dashboard_2.css">
+        <link rel="stylesheet" href="../Asset/css/adminEditCategory_2.css">
         <!-- Google font -->
         <link href="https://fonts.googleapis.com/css2?family=Jost:wght@200;300;400;500;600;700;800&display=swap"
               rel="stylesheet">
@@ -39,7 +41,7 @@
                         <button id="menu-btn">
                             <span class="material-symbols-sharp">menu</span>
                         </button>
-                        <form action="SearchBillCashierController" id="search-box">
+                        <form action="searchBillCashierController" id="search-box">
                             <input type="text" id="search-text" placeholder="Search" required>
                             <button id="btnSearch"><i class="fa-solid fa-magnifying-glass"></i></button>
                         </form>
@@ -59,13 +61,17 @@
                             <div class="wrapper-box">
                                 <table class="table-style-1">
                                     <tr>
+                                        
                                         <th>Bill ID</th>
                                         <th>Course</th>
                                         <th>Account</th>
+                                        <th>Order Code</th>
                                         <th>Status</th>
                                         <th>Price</th>
                                         <th>Discount</th>
-                                        <th>Date</th>
+                                        <th>Payment Method</th>
+                                        <th>Bill Date</th>
+                                        <th>Payment Date</th>
                                         <th>Actions</th>
                                     </tr>
                                 <c:forEach items="${BILL_LIST}" var="bill">
@@ -77,11 +83,15 @@
                                             <td>
                                                 ${bill.course.title}
                                             </td>
+                                           
                                             <td>
                                                 ${bill.account.name}
                                             </td>
                                             <td>
-                                                ${bill.status}
+                                                ${bill.ordercode}
+                                            </td>
+                                            <td>
+                                                ${Bill.getEnumIndex(bill.status).name()}
                                             </td>
                                             <td>
                                                 ${bill.value}
@@ -90,13 +100,16 @@
                                                 ${bill.discount}
                                             </td>
                                             <td>
+                                                ${bill.method}
+                                            </td>
+                                            <td>
                                                 ${bill.date}
                                             </td>
                                             <td>
-                                                  <a class="btn btn-red" href="#delete">Delete</a> 
-                                              
-                                                 <a class="btn btn-green" href="#UpdateBill.jsp">Edit</a> 
-                                                
+                                                ${bill.paymentDate}
+                                            </td>
+                                            <td>
+                                                 <a class="btn btn-green" href="updateBillCashierController?id=${bill.id}">Edit</a> 
                                             </td>
                                         </tr>
                                     </c:if>

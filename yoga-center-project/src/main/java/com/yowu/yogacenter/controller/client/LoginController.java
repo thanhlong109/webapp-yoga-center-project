@@ -17,7 +17,7 @@ import java.util.logging.Logger;
 public class LoginController extends HttpServlet {
 
     private final String LOGIN_PAGE = "Client/login_register.jsp";
-    private final String CASHIER_PAGE = "Cashier/ViewBill.jsp";
+    private final String CASHIER_PAGE = "cashier/viewBillController";
 
     private final String ADMIN_PAGE = "admin/dashboard";
     private final String HOME_PAGE = "home";

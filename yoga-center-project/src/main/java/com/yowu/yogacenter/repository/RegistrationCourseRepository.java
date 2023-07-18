@@ -144,7 +144,7 @@ public class RegistrationCourseRepository {
             stmt.setInt(1, accountId);
             stmt.setInt(2, courseId);
             try ( ResultSet rs = stmt.executeQuery()) {
-                while (rs.next()) {
+                if (rs.next()) {
                     AccountRepository acc = new AccountRepository();
                     CourseRepository cr = new CourseRepository();
                     CourseScheduleRepository cs = new CourseScheduleRepository();
@@ -165,7 +165,36 @@ public class RegistrationCourseRepository {
         }
         return null;
     }
-
+    
+    public RegistrationCourse getRecentRegisByCourseIdAndAccountID(int accountId, int courseId) {
+        String sql = "select * from tblRegistrationCourse "
+                + "WHERE account_id = ? AND course_id = ? order by registration_id desc";
+        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
+            stmt.setInt(1, accountId);
+            stmt.setInt(2, courseId);
+            try ( ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    AccountRepository acc = new AccountRepository();
+                    CourseRepository cr = new CourseRepository();
+                    CourseScheduleRepository cs = new CourseScheduleRepository();
+                    RegistrationCourse c = new RegistrationCourse();
+                    c.setId(rs.getInt("registration_id"));
+                    c.setCourse(cr.detail(rs.getInt("course_id")));
+                    c.setAccount(acc.detail(rs.getInt("account_id")));
+                    c.setCourseSchedule(cs.detail(rs.getInt("course_schedule_id")));
+                    c.setRegistrationDate(rs.getDate("registration_date"));
+                    c.setEndDate(rs.getDate("end_date"));
+                    c.setCourseStatus(rs.getInt("course_status"));
+                    c.setRegistrationtatus(rs.getBoolean("registration_status"));
+                    return c;
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return null;
+    }
+    
     public List<RegistrationCourse> getCoursesByAccountIDAndStatus(int accountId, int status) {
         String sql = "select * from tblRegistrationCourse where account_id=? and course_status=? and registration_status=1";
         List<RegistrationCourse> list = new ArrayList<>();
@@ -392,6 +421,23 @@ public class RegistrationCourseRepository {
             stmt.setBoolean(1, status);
             stmt.setString(2, accountId);
             stmt.setInt(3, courseId);
+            updateStatus = stmt.executeUpdate() > 0 ? true : false;
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+        return updateStatus;
+    }
+    
+     public boolean updateStatusById(boolean status, int registrationId) {
+        String sql = "UPDATE tblRegistrationCourse SET registration_status = ? "
+                + "WHERE registration_id = ? ";
+        boolean updateStatus = false;
+
+        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
+            stmt.setBoolean(1, status);
+            stmt.setInt(2, registrationId);
+           
             updateStatus = stmt.executeUpdate() > 0 ? true : false;
         } catch (Exception e) {
             System.out.println(e);

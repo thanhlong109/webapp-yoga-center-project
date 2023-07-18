@@ -221,10 +221,6 @@
         <servlet-class>com.yowu.yogacenter.controller.cashier.ViewBillController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>searchBillController</servlet-name>
-        <servlet-class>com.yowu.yogacenter.controller.cashier.SearchBillCashierController</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>ViewMembershipController</servlet-name>
         <servlet-class>com.yowu.yogacenter.controller.cashier.ViewMembershipController</servlet-class>
     </servlet>
@@ -243,6 +239,14 @@
     <servlet>
         <servlet-name>AboutController</servlet-name>
         <servlet-class>com.yowu.yogacenter.controller.client.AboutController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>InstructorProfileController</servlet-name>
+        <servlet-class>com.yowu.yogacenter.controller.client.InstructorProfileController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SearchBillCashierController</servlet-name>
+        <servlet-class>com.yowu.yogacenter.controller.cashier.SearchBillCashierController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>UserProfileCourse</servlet-name>
@@ -453,14 +457,10 @@
         <url-pattern>/admin/searchClassScheduleController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-
         <servlet-name>ViewBillController</servlet-name>
         <url-pattern>/cashier/viewBillController</url-pattern>
     </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>SearchBillController</servlet-name>
-        <url-pattern>/cashier/searchBillController</url-pattern>
-    </servlet-mapping>
+   
     <servlet-mapping>
         <servlet-name>ViewMembershipController</servlet-name>
         <url-pattern>/cashier/viewMembershipController</url-pattern>
@@ -480,6 +480,14 @@
     <servlet-mapping>
         <servlet-name>AboutController</servlet-name>
         <url-pattern>/about</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>InstructorProfileController</servlet-name>
+        <url-pattern>/instructor</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchBillCashierController</servlet-name>
+        <url-pattern>cashier/searchBillCashierController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

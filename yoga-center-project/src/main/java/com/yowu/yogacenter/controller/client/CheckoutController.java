@@ -8,6 +8,7 @@ import com.paypal.base.rest.PayPalRESTException;
 import com.yowu.yogacenter.model.Account;
 import com.yowu.yogacenter.model.Course;
 import com.yowu.yogacenter.model.Membership;
+import com.yowu.yogacenter.model.RegistrationCourse;
 import com.yowu.yogacenter.model.RegistrationMembership;
 import com.yowu.yogacenter.repository.AccountRepository;
 import com.yowu.yogacenter.repository.CourseRepository;
@@ -44,14 +45,16 @@ public class CheckoutController extends HttpServlet {
             int id = Integer.parseInt(request.getParameter("id"));
             Course cs = cr.detail(id);
             HttpSession session = request.getSession();
-            Account accountID = (Account) session.getAttribute("account");
+             Account acc = (Account) request.getSession().getAttribute("account");
             RegistrationCourseRepository regis = new RegistrationCourseRepository();
-//            if (regis.checkRegis(accountID.getId(), cs.getId()) != null) {
-//                response.sendRedirect(COURSE_DETAIL + id);
-//            } else {
+            RegistrationCourse rc = regis.getRegisByCourseIdAndAccountID(acc.getId(), id);
+            System.out.println(acc.getId() + "," + id);
+            if (rc!= null && rc.getCourseStatus()==RegistrationCourse.CourseStatus.INPROGRESS.ordinal()) {
+                response.sendRedirect(COURSE_DETAIL + id);
+            } else {
                 String startdate = request.getParameter("start_time");
                 System.out.println("date checkout " + startdate);
-                Account acc = (Account) request.getSession().getAttribute("account");
+               
                 AccountRepository ar = new AccountRepository();
                 MembershipRepository msr = new MembershipRepository();
                 Course c = cr.detail(id);
@@ -60,8 +63,8 @@ public class CheckoutController extends HttpServlet {
                 request.setAttribute("account", ar.detail(acc.getId()));
                 request.setAttribute("course", c);
                 request.setAttribute("discount", msr.discountByAccountID(acc.getId()));
-                //request.getRequestDispatcher(CHECKOUT_PAGE).forward(request, response);
-            //}
+                request.getRequestDispatcher(CHECKOUT_PAGE).forward(request, response);
+            }
 
         }
         if (action.equals("membership")) {
@@ -70,9 +73,9 @@ public class CheckoutController extends HttpServlet {
             MembershipRepository mbr = new MembershipRepository();
             HttpSession session = request.getSession();
             Account account = (Account) session.getAttribute("account");
-//            if (rmsr.detail(account.getId()) != null) {
-//                response.sendRedirect(MEMBERSHIP);
-//            } else {
+            if (rmsr.detail(account.getId()) != null) {
+                response.sendRedirect(MEMBERSHIP);
+            } else {
                 Membership mb = mbr.detail(memberId);
                 request.setAttribute("member", mb);
                 LocalDate current = LocalDate.now();
@@ -80,11 +83,11 @@ public class CheckoutController extends HttpServlet {
                 request.setAttribute("startdate", current);
                 request.setAttribute("enddate", enddate);
                 session.setAttribute("RegistrationMembership", new RegistrationMembership(mb, account, Date.valueOf(current), Date.valueOf(enddate)));
-                //request.getRequestDispatcher(CHECKOUT_PAGE).forward(request, response);
-            //}
+                request.getRequestDispatcher(CHECKOUT_PAGE).forward(request, response);
+            }
             
         }
-        request.getRequestDispatcher(CHECKOUT_PAGE).forward(request, response);
+        //request.getRequestDispatcher(CHECKOUT_PAGE).forward(request, response);
     }
 
     @Override

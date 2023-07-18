@@ -62,7 +62,8 @@ public class LoginGoogleController extends HttpServlet {
                 if (checkInsert) {
                     session.setAttribute("account", userGG);
                     url = HOME_PAGE;
-                    request.getRequestDispatcher(url).forward(request, response);
+                    //request.getRequestDispatcher(url).forward(request, response);
+                    response.sendRedirect(HOME_PAGE);
                 }
             } else {
                 session.setAttribute("account", loginUser);
@@ -82,8 +83,7 @@ public class LoginGoogleController extends HttpServlet {
                         session.removeAttribute("currentPage"); // Xóa thuộc tính currentPage khỏi session
                         response.sendRedirect(request.getContextPath() + url);
                     }else{
-                        url = HOME_PAGE;
-                        request.getRequestDispatcher(url).forward(request, response);
+                        response.sendRedirect(HOME_PAGE);
                     }
                 }
                 else if (Role.RoleList.CASHER.ordinal() == role.getId()) {

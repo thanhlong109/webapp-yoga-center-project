@@ -5,15 +5,16 @@
 package com.yowu.yogacenter.controller.cashier;
 
 import com.yowu.yogacenter.model.Bill;
+import com.yowu.yogacenter.model.RegistrationCourse;
 import com.yowu.yogacenter.repository.BillRepository;
+import com.yowu.yogacenter.repository.RegistrationCourseRepository;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.Date;
 import java.text.ParseException;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -22,40 +23,70 @@ import java.util.logging.Logger;
  * @author localboss
  */
 public class UpdateBillCashierController extends HttpServlet {
+
     private final String EDIT_BILL_PAGE = "../Cashier/UpdateBill.jsp";
     private final String VIEW_BILL_CONTROLLER = "viewBillController";
-    
 
-   
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       String orderCode = request.getParameter("txtOrderCode");
+        int id = Integer.parseInt(request.getParameter("id"));
+
         BillRepository _billRepository = new BillRepository();
-        Bill billCashier = _billRepository.getCourseIdByOrdercode(orderCode);
-        
+        Bill billCashier = _billRepository.detail(id);
+        request.setAttribute("StatusList", Bill.BillStatus.values());
         request.setAttribute("BILL", billCashier);
         request.getRequestDispatcher(EDIT_BILL_PAGE).forward(request, response);
     }
 
-    
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         BillRepository _billRepository = new BillRepository();
         Bill bill = new Bill();
+        RegistrationCourseRepository _regisCourseRepository = new RegistrationCourseRepository();
+
+//        int id = Integer.parseInt(request.getParameter("txtId"));
         String orderCode = request.getParameter("txtOrderCode");
         int status = Integer.parseInt(request.getParameter("txtStatus"));
-        String paymentDate = request.getParameter("txtPaymentDate");
-        LocalDateTime paymentDateBill = LocalDateTime.parse(paymentDate);
-        bill.setStatus(status);
-//        bill.setPaymentDate(paymentDateBill);
+//        String paymentDate = request.getParameter("datepicker");
+//        System.out.println(paymentDate);
+//        String payDate = paymentDate +  " 00:00:00";
 //       
-//        boolean update = _billRepository.updateStatus( orderCode, paymentDate, status);
-       
+//        DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd' 'HH:mm:ss");
+//        
+//        LocalDateTime paymentDateBill = LocalDateTime.parse(payDate,format);
+//        LocalDate payBill = paymentDateBill.toLocalDate();
+//        System.out.println("sql date" + payBill);
+
+        
+        try {
+
+            boolean update = _billRepository.updateStatus(orderCode, LocalDate.now(), status);
+
+            if (update) {
+                bill = _billRepository.getCourseIdByOrdercode(orderCode);
+                
+//                bill = _billRepository.getCourseIdByOrdercode(orderCode);
+                if (status == Bill.BillStatus.COMPLETED.ordinal()) {
+                    RegistrationCourse regisCourse = _regisCourseRepository.getRecentRegisByCourseIdAndAccountID(bill.getAccount().getId(), bill.getCourse().getId());
+                    
+                    _regisCourseRepository.updateStatusById(true, regisCourse.getId());
+                }
+                if (status == Bill.BillStatus.CANCELLED.ordinal() || status == Bill.BillStatus.PENDING.ordinal()) {
+                    RegistrationCourse regisCourse = _regisCourseRepository.getRecentRegisByCourseIdAndAccountID(bill.getAccount().getId(), bill.getCourse().getId());
+                    
+                    _regisCourseRepository.updateStatusById(false, regisCourse.getId());
+                }
+                response.sendRedirect(VIEW_BILL_CONTROLLER);
+
+            }
+        } catch (ParseException ex) {
+            Logger.getLogger(UpdateBillCashierController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
 
-    
     @Override
     public String getServletInfo() {
         return "Short description";

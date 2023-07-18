@@ -304,13 +304,21 @@
                 $(window).on('mousewheel');
                 $('body').removeClass('modal-open');
             }
-
+            //click btnopen blog
             function postBlog() {
                 $('.btnSave').hide();
                 $('.btnPost').show();
+                resetDataBlog();
                 openPostBlog();
             }
-
+            
+            function resetDataBlog(){
+                displayImg.setAttribute("src", "");
+                $('#jsuploadImg').val("");
+                $('#postTile').val("");
+                $('#textEditor').val("");
+                tinymce.activeEditor.setContent("");  
+            }
             //show post blog 
             function openPostBlog() {
             <c:if test="${sessionScope.account!=null}">

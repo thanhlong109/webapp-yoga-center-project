@@ -21,7 +21,7 @@ body{
     align-items: center;
     min-height: 80vh;
 }
-form{
+#wrapper form{
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.25);
     border-radius: 8px;
     padding: 40px;
@@ -37,7 +37,7 @@ h3{
     margin-bottom: 15px;
     position: relative;
 }
-input{
+.input__group input{
     height: 50px;
     width: 300px;
     outline: none;
@@ -48,7 +48,7 @@ input{
     color: #202124;
     transition: all 0.3s ease-in-out;
 }
-label{
+.input__group label{
     position: absolute;
     padding: 0px 5px;
     left: 5%;
