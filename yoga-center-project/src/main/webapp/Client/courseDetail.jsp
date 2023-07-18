@@ -666,8 +666,12 @@
                         </c:if>
 
                     </c:if>
-                    <c:if test="${sessionScope.account != null  && !allowBook}">
+                    <c:if test="${sessionScope.account != null  && !allowBook && billStatus != 2}">
                             <p class="msg-green">You have joined the course</p> 
+                    </c:if>
+                            
+                    <c:if test="${sessionScope.account != null  && billStatus == 2}">
+                            <p class="msg-yellow">Waiting for payment</p> 
                     </c:if>
                 </div>
             </div>
