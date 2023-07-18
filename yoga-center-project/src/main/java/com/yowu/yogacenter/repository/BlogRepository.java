@@ -4,12 +4,15 @@
  */
 package com.yowu.yogacenter.repository;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.yowu.yogacenter.model.Blog;
+import com.yowu.yogacenter.model.Role;
 import com.yowu.yogacenter.util.DBHelpler;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,14 +21,15 @@ import java.util.List;
  * @author Chien Thang
  */
 public class BlogRepository {
-    public List<Blog> getAll(int offset , int next){
+
+    public List<Blog> getAll(int offset, int next) {
         String sql = "select * from tblBlog order by blog_date desc OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
         List<Blog> list = new ArrayList<>();
-        try(PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)){
+        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
             stmt.setInt(1, offset);
             stmt.setInt(2, next);
-            try(ResultSet rs = stmt.executeQuery()){
-                while(rs.next()){
+            try ( ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
                     Blog c = new Blog();
                     AccountRepository cr = new AccountRepository();
                     c.setId(rs.getInt("blog_id"));
@@ -37,70 +41,71 @@ public class BlogRepository {
                     list.add(c);
                 }
             }
-        }catch(Exception e){
+        } catch (Exception e) {
             System.out.println(e);
         }
         return list;
     }
-    public int count(){
+
+    public int count() {
         String sql = "select count(*) as num from tblBlog";
         int count = 0;
-        try(PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)){
-            try(ResultSet rs = stmt.executeQuery()){
-                if(rs.next()){
+        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
+            try ( ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
                     count = rs.getInt("num");
                 }
             }
-        }catch(Exception e){
+        } catch (Exception e) {
             System.out.println(e);
         }
         return count;
     }
-    
-    public int count(Date to){
+
+    public int count(Date to) {
         String sql = "select count(*) as num from tblBlog where blog_date<=?";
         int count = 0;
-        try(PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)){
+        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
             stmt.setDate(1, to);
-            try(ResultSet rs = stmt.executeQuery()){
-                if(rs.next()){
+            try ( ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
                     count = rs.getInt("num");
                 }
             }
-        }catch(Exception e){
+        } catch (Exception e) {
             System.out.println(e);
         }
         return count;
     }
-    public boolean create(Blog blog){
+
+    public boolean create(Blog blog) {
         String sql = "INSERT INTO tblBlog ("
-            + "blog_img, blog_date, account_id, "
-            + "blog_detail, blog_title) "
-            + "VALUES (?, ?, ?, ?, ?)";
+                + "blog_img, blog_date, account_id, "
+                + "blog_detail, blog_title) "
+                + "VALUES (?, ?, ?, ?, ?)";
         int status = 0;
-        try(PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)){
+        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
             stmt.setString(1, blog.getImg());
             stmt.setTimestamp(2, blog.getDate());
             stmt.setInt(3, blog.getAccount().getId());
             stmt.setString(4, blog.getDetail());
             stmt.setString(5, blog.getTitle());
             status = stmt.executeUpdate();
-        }catch(Exception e){
+        } catch (Exception e) {
             System.out.println(e);
         }
         return status == 1;
     }
-    
-    
-    public List<Blog> getRecentBlog(int offset,int next,int accountId){
+
+    public List<Blog> getRecentBlog(int offset, int next, int accountId) {
         String sql = "select * from tblBlog where account_id=? order by blog_date DESC OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
         List<Blog> list = new ArrayList<>();
-        try(PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)){
+        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
             stmt.setInt(1, accountId);
             stmt.setInt(2, offset);
             stmt.setInt(3, next);
-            try(ResultSet rs = stmt.executeQuery()){
-                while(rs.next()){
+            try ( ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
                     Blog c = new Blog();
                     AccountRepository cr = new AccountRepository();
                     c.setId(rs.getInt("blog_id"));
@@ -112,35 +117,35 @@ public class BlogRepository {
                     list.add(c);
                 }
             }
-        }catch(Exception e){
+        } catch (Exception e) {
             System.out.println(e);
         }
         return list;
     }
-    
-    public int getTotalBlog(int accountId){
+
+    public int getTotalBlog(int accountId) {
         String sql = "select COUNT(*) as count from tblBlog where account_id=?";
         int count = 0;
-        try(PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)){
+        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
             stmt.setInt(1, accountId);
-            try(ResultSet rs = stmt.executeQuery()){
-                if(rs.next()){
+            try ( ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
                     count = rs.getInt("count");
                 }
             }
-        
-        }catch(Exception e){
+
+        } catch (Exception e) {
             System.out.println(e);
         }
         return count;
     }
-    
-    public Blog detail(int id){
+
+    public Blog detail(int id) {
         String sql = "select * from tblBlog where blog_id =? ";
-        try(PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)){
+        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
             stmt.setInt(1, id);
-            try(ResultSet rs = stmt.executeQuery()){
-                while(rs.next()){
+            try ( ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
                     Blog c = new Blog();
                     AccountRepository cr = new AccountRepository();
                     c.setId(rs.getInt("blog_id"));
@@ -152,15 +157,16 @@ public class BlogRepository {
                     return c;
                 }
             }
-        }catch(Exception e){
+        } catch (Exception e) {
             System.out.println(e);
         }
         return null;
     }
-    public boolean update(Blog c){
+
+    public boolean update(Blog c) {
         String sql = "update tblBlog set blog_title=? , blog_detail=? , account_id=? , blog_date=? , blog_img=? where blog_id=? ";
         int status = 0;
-        try(PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)){
+        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
             stmt.setString(1, c.getTitle());
             stmt.setString(2, c.getDetail());
             stmt.setInt(3, c.getAccount().getId());
@@ -168,25 +174,99 @@ public class BlogRepository {
             stmt.setString(5, c.getImg());
             stmt.setInt(6, c.getId());
             status = stmt.executeUpdate();
-        }catch(Exception e){
+        } catch (Exception e) {
             System.out.println(e);
         }
-        return status==1;
+        return status == 1;
     }
-      
-    public boolean delete(int id){
-         String sql = "delete from tblBlog where blog_id=?";
+
+    public boolean delete(int id) {
+        String sql = "delete from tblBlog where blog_id=?";
         int status = 0;
-        try(PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)){
+        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
             CommentRepository cr = new CommentRepository();
             cr.delete(id);
             stmt.setInt(1, id);
             status = stmt.executeUpdate();
-        }catch(Exception e){
+        } catch (Exception e) {
             System.out.println(e);
         }
-        return status==1;
+        return status == 1;
     }
+
+    public int getTotalAllBlog() {
+        String sql = "select count(*) as num from tblBlog ";
+        int total = 0;
+        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
+            try ( ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    total = rs.getInt("num");
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return total;
+    }
+
+    public int getTotalAllBlog(Date to) {
+        String sql = "select count(*) as num from tblBlog where blog_date <= ?";
+        int total = 0;
+        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
+            stmt.setDate(1, to);
+            try ( ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    total = rs.getInt("num");
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return total;
+    }
+
+    public List<Integer> getYearList() {
+        String sql = "select YEAR(blog_date) as year from tblBlog group by YEAR(blog_date) order by YEAR(blog_date) desc";
+        List<Integer> list = new ArrayList<>();
+        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
+            try ( ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    list.add(rs.getInt("year"));
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+        return list;
+    }
+public String getBlogDateJson(int year){
+    String sql = "SELECT DATEPART(MONTH, blog_date) AS [Month], COUNT(blog_id) AS [total] FROM tblBlog where YEAR(blog_date)=? GROUP BY DATEPART(MONTH, [blog_date]) ORDER BY [Month] ";
+    String data="";
+    try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
+            stmt.setInt(1, year);
+             try ( ResultSet rs = stmt.executeQuery()) {
+                 int[] array;// at index 0 defind maximum month to display
+                 LocalDate now = LocalDate.now();
+                 if(now.getYear()==year){
+                     int month = now.getMonthValue();
+                     array = new int[month];
+                 }else{
+                     array = new int[12];
+                 }
+                 while(rs.next()){
+                     int i = rs.getInt("Month")-1;
+                     array[i]=rs.getInt("total");                    
+                 }
+                 ObjectMapper objMapper = new ObjectMapper();
+                 data = objMapper.writeValueAsString(array);
+             }
+     }catch (Exception e) {
+        System.out.println("getBlogDateJson: " +e);
+    }
+     return data;
+}
+
     public static void main(String[] args) {
         BlogRepository cr = new BlogRepository();
         System.out.println(cr.delete(12));

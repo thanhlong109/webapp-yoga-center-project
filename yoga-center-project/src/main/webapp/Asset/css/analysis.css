@@ -55,22 +55,22 @@ main .top{
 #chart-2{
     height: 100%;
 }
-#chart-3{
+#chart-1{
     height: 100%;
 }
-.chart-3{
+.chart-1{
     width: 60%;
     position: relative;
 }
 
-#chart3-year{
+#chart1-year{
     position: absolute;
     top: calc(1rem + 4px);
     right: 200px;
     z-index: 10;
 
 }
-#chart3-year select{
+#chart1-year select{
     padding: 4px 8px;
     border-bottom: 2px solid #7d8da1;
     background: #f6f6f9;

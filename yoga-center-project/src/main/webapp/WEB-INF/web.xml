@@ -232,6 +232,10 @@
         <servlet-name>BillAnalysisController</servlet-name>
         <servlet-class>com.yowu.yogacenter.controller.admin.BillAnalysisController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>BlogAnalysisController</servlet-name>
+        <servlet-class>com.yowu.yogacenter.controller.admin.BlogAnalysisController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>UserProfileCourse</servlet-name>
         <url-pattern>/userprofile/course</url-pattern>
@@ -455,6 +459,10 @@
     <servlet-mapping>
         <servlet-name>BillAnalysisController</servlet-name>
         <url-pattern>/admin/billAnalysisController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>BlogAnalysisController</servlet-name>
+        <url-pattern>/admin/blogAnalysisController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

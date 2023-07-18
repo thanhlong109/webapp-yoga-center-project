@@ -127,7 +127,7 @@
             <ul class="sub-item" id="subItem">
                 <li><a href="<c:url value="/admin/categoryListController"/>">
                         View & Edit Category Course</a></li>
-                <li><a href="../Admin/AddCategory.jsp">
+                <li><a href="${pageContext.request.contextPath}/Admin/AddCategory.jsp">
                         Add Category Course</a></li>
                 <li><a href="<c:url value="/admin/viewCourseListController"/>">
                         View & Edit Course</a></li>
@@ -145,7 +145,8 @@
                 <h3>Bill</h3>
             </a>
             <ul class="sub-item" id="subItem">
-                <li><a href="#">Bill Analysis</a></li>
+                <li><a href="<c:url value="/admin/billAnalysisController"/>">
+                        Bill Analysis</a></li>
                 <li><a href="<c:url value="/admin/viewBillListController"/>">
                         View Bill Details</a></li>
             </ul>
@@ -156,7 +157,8 @@
                 <h3>Blog</h3>
             </a>
             <ul class="sub-item" id="subItem">
-                <li><a href="#">Blog Analysis</a></li>
+                <li><a href="<c:url value="/admin/blogAnalysisController"/>">
+                        Blog Analysis</a></li>
             </ul>
         </div>
         <div class="sidebar-elements">

@@ -464,6 +464,38 @@ public class BillRepository {
         }
         return count;
     }
+    
+        public int getTotalPaidBill(){
+        int total = 0;
+        String sql = "select count(*) as num from tblBill where bill_status = 0";
+        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
+            try ( ResultSet rs = stmt.executeQuery()) {
+                if(rs.next()){
+                    total = rs.getInt("num");
+                }
+            }
+        }catch(Exception e){
+            System.out.println(e);
+        }
+        return total;
+    }
+    
+    public int getTotalPaidBill(Date to){
+        int total = 0;
+        String sql = "select count(*) as num from tblBill where bill_status = 0 and payment_date<=?";
+        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
+            stmt.setDate(1, to);
+            try ( ResultSet rs = stmt.executeQuery()) {
+                if(rs.next()){
+                    total = rs.getInt("num");
+                }
+            }
+        }catch(Exception e){
+            System.out.println(e);
+        }
+        return total;
+    }
+    
     public static void main(String[] args) {
         BillRepository b = new BillRepository();
         
