@@ -67,8 +67,9 @@ public class CourseDetailController extends HttpServlet {
                                 
                             }
                         }
+                        allowBook = regisStatus.getCourseStatus() == RegistrationCourse.CourseStatus.FINISH.ordinal();
                     }
-                    allowBook = regisStatus.getCourseStatus() == RegistrationCourse.CourseStatus.FINISH.ordinal();
+                    
                     
                 }
             }

@@ -34,7 +34,7 @@
                 flex-direction: column;
             }
             .banner{
-                padding: 12% 20px 10% 20px;
+                padding: 150px 20px 50px 20px;
                 width: 100%;
                 text-align: center;
                 background: url( Asset/img/bg/page-title-1.png) top center / cover no-repeat;
@@ -407,6 +407,8 @@
                 border-radius: 24px;
                 max-width: fit-content;
                 margin: 12px auto;
+                row-gap: 16px;
+                flex-wrap: wrap;
             }
             .pagination a{
                 width: 45px;

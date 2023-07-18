@@ -74,7 +74,38 @@ public class BillRepository {
         }
         return data;
     }
-        
+     
+    public float getTotalIncome(){
+        float income = 0;
+        String sql = "select SUM(bill_value) as income from tblBill where bill_status = 0";
+        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
+            try ( ResultSet rs = stmt.executeQuery()) {
+                if(rs.next()){
+                    income = rs.getFloat("income");
+                }
+            }
+        }catch(Exception e){
+            System.out.println(e);
+        }
+        return income;
+    }
+    
+    public float getTotalIncome(Date to){
+        float income = 0;
+        String sql = "select SUM(bill_value) as income from tblBill where bill_status = 0 and payment_date<=?";
+        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
+            stmt.setDate(1, to);
+            try ( ResultSet rs = stmt.executeQuery()) {
+                if(rs.next()){
+                    income = rs.getFloat("income");
+                }
+            }
+        }catch(Exception e){
+            System.out.println(e);
+        }
+        return income;
+    }
+    
     public List<Bill> getByAccountID(int accountId) {
         String sql = "select * from tblBill where account_id=?";
         List<Bill> list = new ArrayList<>();

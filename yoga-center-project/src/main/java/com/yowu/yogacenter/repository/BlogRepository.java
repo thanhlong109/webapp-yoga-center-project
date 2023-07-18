@@ -6,6 +6,7 @@ package com.yowu.yogacenter.repository;
 
 import com.yowu.yogacenter.model.Blog;
 import com.yowu.yogacenter.util.DBHelpler;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Timestamp;
@@ -45,6 +46,22 @@ public class BlogRepository {
         String sql = "select count(*) as num from tblBlog";
         int count = 0;
         try(PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)){
+            try(ResultSet rs = stmt.executeQuery()){
+                if(rs.next()){
+                    count = rs.getInt("num");
+                }
+            }
+        }catch(Exception e){
+            System.out.println(e);
+        }
+        return count;
+    }
+    
+    public int count(Date to){
+        String sql = "select count(*) as num from tblBlog where blog_date<=?";
+        int count = 0;
+        try(PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)){
+            stmt.setDate(1, to);
             try(ResultSet rs = stmt.executeQuery()){
                 if(rs.next()){
                     count = rs.getInt("num");

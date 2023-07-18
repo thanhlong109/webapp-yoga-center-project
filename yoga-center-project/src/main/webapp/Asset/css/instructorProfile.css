@@ -36,6 +36,12 @@ body{
     padding: 4px;
     border: 2px solid #383838;
     border-radius: 50%;
+    height: fit-content;
+    width: fit-content;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
 }
 
 .image-instructor-profile{
@@ -160,4 +166,16 @@ body{
     overflow: hidden;
     text-overflow: ellipsis; /* Add "..." at the end of the 1 line */
     white-space: normal;
+}
+@media screen and (max-width:739px){
+    .container{
+        flex-direction: column;
+        padding: 70px 20px 30px;
+    }
+    .image-instructor-profile-wrapper{
+        margin: 0 auto;
+    }
+    .surgest-course-card{
+        width: 100%;
+    }
 }

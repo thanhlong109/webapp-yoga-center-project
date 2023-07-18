@@ -5,6 +5,8 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="jakarta.tags.core"%>
+<%@taglib prefix="fmt" uri="jakarta.tags.fmt"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -29,6 +31,11 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
         <script src="${pageContext.request.contextPath}/Asset/js/cdnjs.cloudflare.com_ajax_libs_Chart.js_2.4.0_Chart.min.js"></script>
         <style>
+            main .top{
+                padding: 20px 20px 20px 0px;  
+                margin-top: 16px;
+            }
+            
             .h-320{
                 height: 320px;
             }
@@ -94,6 +101,76 @@
                   background: #f6f6f9;
                   cursor: pointer;
               }
+              /*report*/
+              .report-wrapper{
+                    width: 100%;
+                    margin-bottom: 3rem;
+                    display: flex;
+                    gap: 24px;
+                    background-color: #fff;
+                    padding: 24px;
+                    border-radius: 4px;
+                }
+                .report-item{
+                    height: 100%;
+                    display: flex;
+                    flex-direction: column;
+                    min-width: 200px;
+                    width: calc(100% / 4);
+                    background: #f3f4f6;
+                    border:1px solid #e5e7eb;
+                    padding: 5px 10px;
+                    border-radius: 4px;
+                }
+              .report-item-title{
+                  font-size: 15px;
+                  color: #838383;
+                  font-weight: 500;
+              }
+              .report-item-statis-wrapper{
+                  display: flex;
+                  justify-content: space-between;
+                  margin-top: 12px;
+              }
+              .report-item-number{
+                  font-size: 30px;
+                  color: #545454;
+                  font-weight: 600;
+                  
+              }
+              .report-item-percent{
+                  display: flex;
+                  align-items: end;
+                  font-size: 14px;
+              }
+              .report-item-percent i{
+                  margin-right: 4px;
+                  font-size: 12px;
+              }
+              .report-item-percent p{
+                  padding-bottom: 4px;
+              }
+              
+              .item-status-up .report-item-status:before{
+                 content: "+";
+                 display: inline-block;
+                 font-size: 16px;
+                 color: #05bd70;
+              }
+              .item-status-up .report-item-percent p{
+                  color: #05bd70;
+              }
+              .item-status-down .report-item-percent p{
+                  color: #ff0000;
+              }
+              .report-item-compare{
+                  margin-top: 8px;
+                  color: #9d9d9d;
+                  text-align: center;
+                  line-height: 20px;
+              }
+              
+              
         </style>
     </head>
     <body>
@@ -106,21 +183,76 @@
                     <button id="menu-btn">
                         <span class="material-symbols-sharp">menu</span>
                     </button>
-                    <form action="" id="search-box">
-                        <input type="text" id="search-text" placeholder="Search anything you want" required>
-                        <button id="btnSearch"><i class="fa-solid fa-magnifying-glass"></i></button>
-                    </form>
                     <div class="profile">
                         <div class="info">
-                            <p>Hey, <b>An</b></p>
+                            <p>Hey, <b>${sessionScope.account.name}</b></p>
                             <small class="text-muted">Admin</small>
                         </div>
                         <div class="profile-photo">
                             <img src="../Asset/img/avatar/hinh-avatar-1.png" alt="">
                         </div>
-                    </div>
+                    </div> 
                 </div>
+                <h2 class="title">DashBoard</h2>
                 <div id="wrapper">
+                    <div class="report-wrapper chart-border">
+                        <div class="report-item ${totalAccount-totalAccountPreMonth>0?'item-status-up':'item-status-down'}">
+                            <h4 class="report-item-title">Total Accounts</h4>
+                            <div class="report-item-statis-wrapper">
+                                <div class="report-item-statis">
+                                    <span class="report-item-number">${totalAccount}</span>
+                                </div>
+                                <div class="report-item-percent" >
+                                    <p><span class="icon-status"></span><fmt:formatNumber value="${((totalAccount-totalAccountPreMonth)/totalAccountPreMonth)*100}" pattern="##.##"/>% (<span class="report-item-status"></span>${totalAccount-totalAccountPreMonth})</p>
+                                </div>
+                            </div>
+                            <div class="report-item-compare">
+                                vs previous 30 days
+                            </div>
+                        </div>
+                        <div class="report-item ${totalIncome-totalIncomePreMonth>0?'item-status-up':'item-status-down'}">
+                            <h4 class="report-item-title">Total Income</h4>
+                            <div class="report-item-statis-wrapper">
+                                <div class="report-item-statis">
+                                    <span class="report-item-number">$${totalIncome}</span>
+                                </div>
+                                <div class="report-item-percent" >
+                                    <p><span class="icon-status"></span>${IncomePrecent}% (<span class="report-item-status"></span><fmt:formatNumber value="${totalIncome-totalIncomePreMonth}" pattern="##.##"/>$)</p>
+                                </div>
+                            </div>
+                            <div class="report-item-compare">
+                                vs previous 30 days
+                            </div>
+                        </div>
+                        <div class="report-item ${totalEnrollment-totalEnrollmentPreMonth>0?'item-status-up':'item-status-down'}">
+                            <h4 class="report-item-title">Total Course Enrollment</h4>
+                            <div class="report-item-statis-wrapper">
+                                <div class="report-item-statis">
+                                    <span class="report-item-number">${totalEnrollment}</span>
+                                </div>
+                                <div class="report-item-percent" >
+                                    <p><span class="icon-status"></span><c:if test="${totalEnrollmentPreMonth!=0}"><fmt:formatNumber value="${((totalEnrollment-totalEnrollmentPreMonth)/totalEnrollmentPreMonth)*100}" pattern="##.##"/></c:if><c:if test="${totalEnrollmentPreMonth==0}">100</c:if>% (<span class="report-item-status"></span>${totalEnrollment-totalEnrollmentPreMonth})</p>
+                                </div>
+                            </div>
+                            <div class="report-item-compare">
+                                vs previous 30 days
+                            </div>
+                        </div>
+                        <div class="report-item ${totalBlog-totalBlogPreMonth>0?'item-status-up':'item-status-down'}">
+                            <h4 class="report-item-title">Total Post Blogs</h4>
+                            <div class="report-item-statis-wrapper">
+                                <div class="report-item-statis">
+                                    <span class="report-item-number">${totalBlog}</span>
+                                </div>
+                                <div class="report-item-percent" >
+                                    <p><span class="icon-status"></span><c:if test="${totalBlogPreMonth!=0}"><fmt:formatNumber value="${((totalBlog-totalBlogPreMonth)/totalBlogPreMonth)*100}" pattern="##.##"/></c:if><c:if test="${totalBlogPreMonth==0}">100</c:if>% (<span class="report-item-status"></span>${totalBlog-totalBlogPreMonth})</p>
+                                </div>
+                            </div>
+                            <div class="report-item-compare">
+                                vs previous 30 days
+                            </div>
+                        </div>
+                    </div>
                     <div class="row h-320">
                         <div class="chart-border chart-3">
                             <form id="chart3-year" action="dashboard" method="post">
@@ -154,6 +286,10 @@
             </main>
         </div>
         <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+        <script>
+            $('.item-status-up .icon-status').html('<i class="fa-solid fa-chevron-up"></i>');
+            $('.item-status-down .icon-status').html('<i class="fa-solid fa-chevron-down"></i>');
+        </script>
         <script defer >
             chartAreaInit();
             function chartAreaInit(){
@@ -204,7 +340,7 @@
                   }
                 },
                 dataLabels: {
-                  enabled: false
+                  enabled: true
                 },
                 fill: {
                   gradient: {
@@ -437,7 +573,7 @@
                         data: customerData
                       },
                       {
-                        name: "Course registered",
+                        name: "Course Enrollment",
                         data: courseRegistrationData
                       }
                     ],

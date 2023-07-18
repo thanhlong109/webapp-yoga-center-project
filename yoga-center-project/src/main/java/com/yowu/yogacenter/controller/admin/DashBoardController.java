@@ -7,6 +7,7 @@ package com.yowu.yogacenter.controller.admin;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.yowu.yogacenter.repository.AccountRepository;
 import com.yowu.yogacenter.repository.BillRepository;
+import com.yowu.yogacenter.repository.BlogRepository;
 import com.yowu.yogacenter.repository.CategoryRepository;
 import com.yowu.yogacenter.repository.ClassScheduleRepository;
 import com.yowu.yogacenter.repository.RegistrationCourseRepository;
@@ -16,9 +17,13 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.sql.Date;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 
 /**
  *
@@ -35,7 +40,31 @@ public class DashBoardController extends HttpServlet {
         AccountRepository ar = new AccountRepository();
         ClassScheduleRepository csr = new ClassScheduleRepository();
         RegistrationCourseRepository rcr = new RegistrationCourseRepository();
+        BlogRepository blogRepo = new BlogRepository();
+        /*report*/
+        LocalDate current = LocalDate.now();
+        LocalDate pre30 = current.minusDays(30);
+        Date pre30d = Date.valueOf(pre30);
+        DecimalFormatSymbols symbols = new DecimalFormatSymbols(Locale.getDefault());
+        DecimalFormat df = new DecimalFormat("#.00",symbols);
+        float totalIncome = br.getTotalIncome();
+        float totalIncomePreMonth = Float.valueOf(df.format(br.getTotalIncome(pre30d)));
+        float incomePercent = 100;
+        if(totalIncomePreMonth!=0){
+            incomePercent   = ((totalIncome-totalIncomePreMonth)/totalIncomePreMonth)*100;
+        }
+        incomePercent = Float.valueOf(df.format(incomePercent));
+        request.setAttribute("totalAccount", ar.getTotalAccount());
+        request.setAttribute("totalAccountPreMonth", ar.getTotalAccount(pre30d));
+        request.setAttribute("totalIncome", totalIncome);
+        request.setAttribute("totalIncomePreMonth",totalIncomePreMonth );
+        request.setAttribute("IncomePrecent",incomePercent );
+        request.setAttribute("totalEnrollment", rcr.getTotalEnrollment());
+        request.setAttribute("totalEnrollmentPreMonth", rcr.getTotalEnrollment(pre30d));
+        request.setAttribute("totalBlog", blogRepo.count());
+        request.setAttribute("totalBlogPreMonth", blogRepo.count(pre30d));
         
+        /**/
         request.setAttribute("billData", br.getBillJson());
         request.setAttribute("categoryData", cr.getCategoryJson());
         /* start chart 3*/

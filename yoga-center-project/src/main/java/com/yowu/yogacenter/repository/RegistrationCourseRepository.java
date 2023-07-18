@@ -106,6 +106,36 @@ public class RegistrationCourseRepository {
         }
         return data;
     }
+    
+    public int getTotalEnrollment(){
+        String sql = "select COUNT(*) as num from tblRegistrationCourse where registration_status=1";
+        int num = 0;
+         try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
+            try ( ResultSet rs = stmt.executeQuery()) {
+                if(rs.next()){
+                    num = rs.getInt("num");
+                }
+            }
+         }catch(Exception e){
+             System.out.println(e);
+         }
+         return num;
+    }
+    public int getTotalEnrollment(Date to){
+        String sql = "select * from tblRegistrationCourse where registration_status=1 and registration_date<=?";
+        int num = 0;
+         try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
+             stmt.setDate(1, to);
+            try ( ResultSet rs = stmt.executeQuery()) {
+                if(rs.next()){
+                    num = rs.getInt("num");
+                }
+            }
+         }catch(Exception e){
+             System.out.println(e);
+         }
+         return num;
+    }
 
     public RegistrationCourse getRegisIdByCourseIdAndAccountID(int accountId, int courseId, boolean regisStatus) {
         String sql = "select * from tblRegistrationCourse "

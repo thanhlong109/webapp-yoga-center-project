@@ -9,6 +9,7 @@ import com.yowu.yogacenter.model.Account;
 import com.yowu.yogacenter.model.Role;
 import com.yowu.yogacenter.util.DBHelpler;
 import java.io.Serializable;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.time.LocalDate;
@@ -62,6 +63,37 @@ public class AccountRepository {
             System.out.println(e);
         }
         return list;
+    }
+    
+    public int getTotalAccount(){
+        String sql = "select count(*) as num from tblAccount where account_is_active=1";
+        int total = 0;
+        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
+            try ( ResultSet rs = stmt.executeQuery()) {
+                if(rs.next()){
+                    total = rs.getInt("num");
+                }
+            }
+        }catch(Exception e){
+            System.out.println(e);
+        }
+        return total;
+    }
+    
+    public int getTotalAccount(Date to){
+        String sql = "select count(*) as num from tblAccount where account_is_active=1 and create_date<=?";
+        int total = 0;
+        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
+            stmt.setDate(1, to);
+            try ( ResultSet rs = stmt.executeQuery()) {
+                if(rs.next()){
+                    total = rs.getInt("num");
+                }
+            }
+        }catch(Exception e){
+            System.out.println(e);
+        }
+        return total;
     }
     
     public List<Account> getIntructorList(){
