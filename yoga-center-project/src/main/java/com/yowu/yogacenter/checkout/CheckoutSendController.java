@@ -58,6 +58,7 @@ public class CheckoutSendController extends HttpServlet {
 
     private final String CHECKOUT_PAGE = "Client/checkout.jsp";
     private final String PENDING_CHECKOUT = "Client/pending.jsp";
+    private final String SUCCESS_CHECKOUT = "Client/successcheckout.jsp";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -236,7 +237,7 @@ public class CheckoutSendController extends HttpServlet {
                 request.getRequestDispatcher(url).forward(request, response);
                 System.out.println(url);
             } else if(method.equals("Free")){
-                url = PENDING_CHECKOUT;
+                url = SUCCESS_CHECKOUT;
                 int courseId = Integer.parseInt(request.getParameter("id"));
                 CourseRepository cr = new CourseRepository();
                 Course c = cr.detail(courseId);
@@ -252,6 +253,8 @@ public class CheckoutSendController extends HttpServlet {
                 regisRepo.updateCourseStatus(isActive, acc.getId(), courseId);
                 order = new Bill(c, acc, status, isActive, total, discount, date, orderCode, method);
                 HttpSession session = request.getSession();
+                BillRepository billRepo  = new BillRepository();
+                billRepo.updateStatus(orderCode, status);
                 session.setAttribute("bill", order);
                 request.getRequestDispatcher(url).forward(request, response);
                 System.out.println(url);

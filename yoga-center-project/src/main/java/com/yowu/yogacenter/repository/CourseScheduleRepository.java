@@ -5,6 +5,7 @@
 package com.yowu.yogacenter.repository;
 
 import com.yowu.yogacenter.model.CourseSchedule;
+import com.yowu.yogacenter.model.RegistrationCourse;
 import com.yowu.yogacenter.util.DBHelpler;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -44,6 +45,7 @@ public class CourseScheduleRepository {
 
     public List<CourseSchedule> getScheduleByCourse(int courseId) {
         String sql = "select * from tblCourseSchedule where (course_id=? and is_active=1)";
+
         List<CourseSchedule> list = new ArrayList<>();
 
         try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
@@ -63,6 +65,82 @@ public class CourseScheduleRepository {
         }
         return list;
     }
+
+    public List<CourseSchedule> getScheduleByIsActive(int IsActive) {
+        String sql = "select * from tblCourseSchedule where is_active=?";
+
+        List<CourseSchedule> list = new ArrayList<>();
+
+        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
+            stmt.setInt(1, IsActive);
+            try ( ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    CourseSchedule c = new CourseSchedule();
+                    c.setId(rs.getInt("course_schedule_id"));
+                    c.setDateOfWeek(rs.getString("day_of_week"));
+                    c.setStartTime(rs.getTime("start_time"));
+                    c.setEndTime(rs.getTime("end_time"));
+                    list.add(c);
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return list;
+    }
+
+    public boolean isSameSchedule(int courseScheduleId, int account_id) {
+        CourseScheduleRepository csr = new CourseScheduleRepository();
+        CourseSchedule cs = csr.detailByID(courseScheduleId);
+        String sql = "SELECT * FROM ( SELECT * FROM tblRegistrationCourse WHERE account_id = ? AND registration_status = 1 AND course_status = 0" + RegistrationCourse.CourseStatus.INPROGRESS.ordinal()
+                + ") rc JOIN tblCourseSchedule cs ON cs.course_schedule_id = rc.course_schedule_id WHERE ( "
+                + "        ( start_time >= '" + cs.getStartTime() + "' AND start_time <= '" + cs.getEndTime() + "' AND end_time >= '" + cs.getEndTime() + "' ) "
+                + "        OR ( end_time >= '" + cs.getStartTime() + "' AND end_time <= '" + cs.getEndTime() + "' AND start_time <= '" + cs.getStartTime() + "' )  )";
+        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
+            stmt.setInt(1, account_id);
+
+            try ( ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    String dayOfWeek = rs.getString("day_of_week");
+                    String[] part = dayOfWeek.split(",");
+                    String courseDOW = cs.getDateOfWeek();
+                    for (String p : part) {
+                        if (courseDOW.contains(p)) {
+                            return true;
+                        }
+                    }
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return false;
+    }
+    
+
+    public CourseSchedule detailByID(int id) {
+        String sql = "select * from tblCourseSchedule where course_schedule_id=? ";
+        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
+            stmt.setInt(1, id);
+            try ( ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    CourseSchedule c = new CourseSchedule();
+                    CourseRepository cr = new CourseRepository();
+                    c.setCourse(cr.detail(rs.getInt("course_id")));
+                    c.setId(rs.getInt("course_schedule_id"));
+                    c.setDateOfWeek(rs.getString("day_of_week"));
+                    c.setStartTime(rs.getTime("start_time"));
+                    c.setEndTime(rs.getTime("end_time"));
+                    c.setIsActive(rs.getBoolean("is_active"));
+                    return c;
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return null;
+    }
+    
 
     public CourseSchedule detail(int id) {
         String sql = "select * from tblCourseSchedule where course_id=? ";
@@ -86,7 +164,7 @@ public class CourseScheduleRepository {
         }
         return null;
     }
-    
+
     public CourseSchedule detailByScheduleID(int id) {
         String sql = "select * from tblCourseSchedule where course_schedule_id=? ";
         try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
@@ -102,7 +180,8 @@ public class CourseScheduleRepository {
                     c.setEndTime(rs.getTime("end_time"));
                     c.setIsActive(rs.getBoolean("is_active"));
                     return c;
-                }                    CourseSchedule c = new CourseSchedule();
+                }
+                CourseSchedule c = new CourseSchedule();
 
             }
         } catch (Exception e) {
@@ -215,10 +294,10 @@ public class CourseScheduleRepository {
         }
         return list;
     }
-    
+
     public static void main(String[] args) {
         CourseScheduleRepository cs = new CourseScheduleRepository();
-        System.out.println(cs.getScheduleByCourse(2).get(0).dateToString());
+        System.out.println(cs.isSameSchedule(20, 55) );
     }
 
 }

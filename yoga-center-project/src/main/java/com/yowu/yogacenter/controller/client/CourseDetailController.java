@@ -7,6 +7,7 @@ package com.yowu.yogacenter.controller.client;
 import com.yowu.yogacenter.model.Account;
 import com.yowu.yogacenter.model.Bill;
 import com.yowu.yogacenter.model.Course;
+import com.yowu.yogacenter.model.CourseSchedule;
 import com.yowu.yogacenter.model.RatingCourse;
 import com.yowu.yogacenter.model.RegistrationCourse;
 import com.yowu.yogacenter.repository.BillRepository;
@@ -23,16 +24,19 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  *
  * @author ACER
  */
 public class CourseDetailController extends HttpServlet {
-    
+
     private final String COURSE_DETAIL_PAGE = "Client/courseDetail.jsp";
-    
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -40,18 +44,48 @@ public class CourseDetailController extends HttpServlet {
             int id = Integer.parseInt(request.getParameter("id"));
             CourseRepository cr = new CourseRepository();
             CourseScheduleRepository sc = new CourseScheduleRepository();
+
             RatingCourseRepository ratec = new RatingCourseRepository();
             CourseWishlistRepository cwr = new CourseWishlistRepository();
             Course c = cr.detail(id);
+
             Account account = (Account) request.getSession().getAttribute("account");
             RegistrationCourseRepository rcr = new RegistrationCourseRepository();
-            boolean isInWishList = false;
             RegistrationCourse rc2 = null;
+            List<CourseSchedule> list_dow = sc.getScheduleByCourse(c.getId());
+
+            boolean isInWishList = false;
+
             Bill billStatus = null;
             BillRepository billRepo = new BillRepository();
             boolean allowBook = true;
-            RegistrationCourse regisStatus=null;
+            RegistrationCourse regisStatus = null;
             if (account != null) {
+                // add
+//                List<CourseSchedule> list_dow = sc.getScheduleByCourse(c.getId());
+//                List<RegistrationCourse> rc3List = rcr.getAllByAccountID(account.getId());
+//                for (RegistrationCourse rs : rc3List) {
+//                    System.out.println(rs.getCourseSchedule().getDateOfWeek());
+//                }
+//                
+//                if (rc3List != null) {
+//                    for (RegistrationCourse rc3 : rc3List) {
+//                        if (rc3.getCourseSchedule() != null) {
+//                            String dow = rc3.getCourseSchedule().getDateOfWeek();
+//                            Iterator<CourseSchedule> iterator = list_dow.iterator();
+//                            while (iterator.hasNext()) {
+//                                CourseSchedule cs = iterator.next();
+//                                if (cs.getDateOfWeek().contains(dow)) {
+//                                    iterator.remove();
+//                                }
+//                            }
+//                        }
+//                    }
+//                }
+
+                //---
+                request.getParameter("");
+                
                 isInWishList = cwr.isExist(id, account.getId());
                 billStatus = billRepo.getBillRecentByAccountIdAndCourseID(account.getId(), id);
                 if (billStatus != null) {
@@ -59,30 +93,27 @@ public class CourseDetailController extends HttpServlet {
                     if (regisStatus != null) {
                         if (regisStatus.getCourseStatus() != RegistrationCourse.CourseStatus.FINISH.ordinal()) {
                             Date dateNow = new Date();
-                            
+
                             Date dateEnd = regisStatus.getEndDate();
                             if (!dateNow.before(dateEnd)) {
                                 regisStatus.setCourseStatus(RegistrationCourse.CourseStatus.FINISH.ordinal());
                                 rcr.update(regisStatus);
-                                
                             }
                         }
                         allowBook = regisStatus.getCourseStatus() == RegistrationCourse.CourseStatus.FINISH.ordinal();
                     }
-                    
-                    
                 }
             }
             if (billStatus != null) {
                 int status = billStatus.getStatus();
                 request.setAttribute("billStatus", status);
             }
-            
+
             /*check rating able*/
             boolean allowRating = false;
-            if(account!=null&&regisStatus!=null&&regisStatus.getRegistrationtatus()){
-                if(ratec.detail(regisStatus.getId())==null){
-                    System.out.println("reid:"+regisStatus.getId());
+            if (account != null && regisStatus != null && regisStatus.getRegistrationtatus()) {
+                if (ratec.detail(regisStatus.getId()) == null) {
+                    System.out.println("reid:" + regisStatus.getId());
                     allowRating = true;
                 }
             }
@@ -92,16 +123,24 @@ public class CourseDetailController extends HttpServlet {
             request.setAttribute("regisID", rc2);
             request.setAttribute("agvRating", ratec.getAvgCourseRating(c.getId()));
             request.setAttribute("course", c);
-            request.setAttribute("courseScheduleList", sc.getScheduleByCourse(c.getId()));
+//            if (!list_dow.isEmpty()) {
+//                request.setAttribute("courseScheduleList", list_dow);
+//                System.out.println(list_dow);
+            //} else {
+                request.setAttribute("courseScheduleList", sc.getScheduleByCourse(c.getId()));
+                System.out.println("abs ");
+            //}
+//            request.setAttribute("courseScheduleList", sc.getScheduleByCourse(c.getId()));
+
             request.setAttribute("surgestCourseList", cr.getRandomNCourses(4));
             request.setAttribute("isInWishList", isInWishList);
             request.setAttribute("feedbackList", ratec.getByCourseID(id));
-        } catch (Exception e) {
+        } catch (NumberFormatException e) {
             System.out.println(e);
         }
         request.getRequestDispatcher(COURSE_DETAIL_PAGE).forward(request, response);
     }
-    
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -119,11 +158,11 @@ public class CourseDetailController extends HttpServlet {
                         break;
                     }
                     case "add": {
-                        
+
                         cwr.add(courseId, account.getId());
                         break;
                     }
-                    case "rating":{
+                    case "rating": {
                         int starPoint = Integer.parseInt(request.getParameter("star"));
                         String feedback = request.getParameter("feedback");
                         RatingCourseRepository rateRepo = new RatingCourseRepository();
@@ -143,9 +182,9 @@ public class CourseDetailController extends HttpServlet {
         } catch (NumberFormatException e) {
             System.out.println(e);
         }
-        
+
     }
-    
+
     @Override
     public String getServletInfo() {
         return "Short description";

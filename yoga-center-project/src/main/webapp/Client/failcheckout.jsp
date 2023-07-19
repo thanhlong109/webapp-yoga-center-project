@@ -56,7 +56,7 @@
                                 <tr>
                                     <th>Payment method:</td>
                                         <c:if test="${sessionScope.billCourseC != null}">
-                                            <td>${sessionScope.billCourseC.method}</td>
+                                            <td>${sessionScope.billCourseC.paymentMethod}</td>
                                         </c:if>
                                 </tr>
                                 <tr>
