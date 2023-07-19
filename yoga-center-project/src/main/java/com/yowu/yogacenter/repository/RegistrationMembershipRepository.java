@@ -40,6 +40,30 @@ public class RegistrationMembershipRepository {
         }
         return list;
     }
+    public RegistrationMembership getRecenRegisByMembershipIdAndAccountId(int membershipId, int accountId){
+        String sql = "select * from tblRegistrationMembership "
+                + "WHERE membership_id = ? AND account_id = ? order by membership_id desc";
+        try (PreparedStatement stm = DBHelpler.makeConnection().prepareStatement(sql)){
+            stm.setInt(1, membershipId);
+            stm.setInt(2, accountId);
+            try(ResultSet rs = stm.executeQuery()){
+                if(rs.next()){
+                    AccountRepository acc = new AccountRepository();
+                    MembershipRepository mem = new MembershipRepository();
+                    RegistrationMembership rm = new RegistrationMembership();
+                    rm.setAccount(acc.detail(rs.getInt("account_id")));
+                    rm.setMembership(mem.detail(rs.getInt("membership_id")));
+                    rm.setRegistrationDate(rs.getDate("registration_date"));
+                    rm.setExpirationDate(rs.getDate("expriration_date"));
+                    rm.setRegistrationtatus(rs.getBoolean("registration_status"));
+                    return rm;
+                }
+            }
+        } catch (Exception e) {
+             System.out.println(e);
+        }
+        return null;
+    }
 
     public RegistrationMembership detail(int id) {
         String sql = "select * from tblRegistrationMembership where account_id=? ";
@@ -73,6 +97,22 @@ public class RegistrationMembershipRepository {
             stmt.setBoolean(1, status);
             stmt.setString(2, accountId);
             stmt.setInt(3, memId);
+            updateStatus = stmt.executeUpdate() > 0 ? true : false;
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+        return updateStatus;
+    }
+    public boolean updateStatusMemById(boolean status, int memId) {
+        String sql = "UPDATE tblRegistrationMembership SET registration_status = ? "
+                + "WHERE membership_id = ? ";
+        boolean updateStatus = false;
+
+        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
+            stmt.setBoolean(1, status);
+           
+            stmt.setInt(2, memId);
             updateStatus = stmt.executeUpdate() > 0 ? true : false;
         } catch (Exception e) {
             System.out.println(e);

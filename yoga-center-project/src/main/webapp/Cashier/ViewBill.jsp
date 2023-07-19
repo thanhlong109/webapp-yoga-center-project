@@ -43,7 +43,7 @@
                             <span class="material-symbols-sharp">menu</span>
                         </button>
                         <form action="searchBillCashierController" id="search-box">
-                            <input type="text" id="search-text" placeholder="Search" required>
+                            <input type="text" name="txtSearch" id="search-text" placeholder="Search" required>
                             <button id="btnSearch"><i class="fa-solid fa-magnifying-glass"></i></button>
                         </form>
                         <div class="profile">
@@ -52,7 +52,7 @@
                                 <small class="text-muted">Cashier</small>
                             </div>
                             <div class="profile-photo">
-                                <img src="../img/avatar/hinh-avatar-1.png" alt="">
+                                <img src="../Asset/img/avatar/hinh-avatar-1.png" alt="">
                             </div>
                         </div>
                     </div>
