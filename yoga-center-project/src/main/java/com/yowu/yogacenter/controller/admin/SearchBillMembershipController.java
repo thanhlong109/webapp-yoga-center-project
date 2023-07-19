@@ -4,9 +4,11 @@
  */
 package com.yowu.yogacenter.controller.admin;
 
-import com.yowu.yogacenter.model.Membership;
+import com.yowu.yogacenter.model.Bill;
+import com.yowu.yogacenter.model.BillMembership;
 import com.yowu.yogacenter.model.SearchError;
-import com.yowu.yogacenter.repository.MembershipRepository;
+import com.yowu.yogacenter.repository.BillMembershipRepository;
+import com.yowu.yogacenter.repository.BillRepository;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -19,34 +21,33 @@ import java.util.List;
  *
  * @author DungVNT
  */
-public class SearchMembershipController extends HttpServlet {
+public class SearchBillMembershipController extends HttpServlet {
 
-    private final String MEMBERSHIP_LIST_PAGE = "../Admin/ViewMembership.jsp";
-    private final String VIEW_MEMBERSHIP_LIST_CONTROLLER = "viewMembershipListController";
-
+    private final String BILL_MEMBERSHIP_LIST_PAGE = "../Admin/ViewBillMembership.jsp";
+    private final String VIEW_BILL_MEMBERSHIP_LIST_CONTROLLER = "viewBillMembershipListController";
+    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String search = request.getParameter("txtSearch");
         SearchError searchError = new SearchError();
-        MembershipRepository _membershipRepository = new MembershipRepository();
-        List<Membership> result = _membershipRepository.searchName(search);
-
+        BillMembershipRepository _BillMembershipRepository = new BillMembershipRepository();
+        List<BillMembership> result = _BillMembershipRepository.searchOrderCode(search);
         if (result.isEmpty()) {
             searchError.setSearchError("Search value doesn't exist");
             request.setAttribute("SEARCH_ERROR", searchError);
-            request.getRequestDispatcher(VIEW_MEMBERSHIP_LIST_CONTROLLER).forward(request, response);
+            request.getRequestDispatcher(VIEW_BILL_MEMBERSHIP_LIST_CONTROLLER).forward(request, response);
         } else {
-            request.setAttribute("MEMBERSHIP_LIST", result);
-            request.getRequestDispatcher(MEMBERSHIP_LIST_PAGE).forward(request, response);
+            request.setAttribute("BILL_MEMBERSHIP_LIST", result);
+            request.getRequestDispatcher(BILL_MEMBERSHIP_LIST_PAGE).forward(request, response);
         }
-
     }
 
+    
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        doGet(request, response);
+        
     }
 
     /**

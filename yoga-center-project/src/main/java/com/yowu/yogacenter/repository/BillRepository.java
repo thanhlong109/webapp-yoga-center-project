@@ -275,6 +275,7 @@ public class BillRepository {
         }
         return check;
     }
+    
     public boolean updateStatus(String ordercode, LocalDate date, int status) throws ParseException {
         boolean check = false;
         LocalDateTime sqlDate = null;
@@ -292,7 +293,7 @@ public class BillRepository {
         return check;
     }
     
-        public boolean updateStatus(int id, int status) {
+    public boolean updateStatus(int id, int status) {
         String sql = "UPDATE tblBill SET bill_status = ? WHERE bill_id = ?";
         int updateStatus = 0;
 
@@ -527,6 +528,131 @@ public class BillRepository {
         return count;
     }
 
+
+    public int getTotalPaidBill() {
+        int total = 0;
+        String sql = "select count(*) as num from tblBill where bill_status = 0";
+        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
+            try ( ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    total = rs.getInt("num");
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return total;
+    }
+
+    public int getTotalPaidBill(Date to) {
+        int total = 0;
+        String sql = "select count(*) as num from tblBill where bill_status = 0 and payment_date<=?";
+        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
+            stmt.setDate(1, to);
+            try ( ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    total = rs.getInt("num");
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return total;
+    }
+
+    public String getBillPaidDateJson(int year) {
+        String sql = "SELECT DATEPART(MONTH, payment_date) AS [Month], COUNT(bill_id) AS [total] FROM tblBill where bill_status=0 and YEAR(payment_date)=? GROUP BY DATEPART(MONTH, [payment_date]) ORDER BY [Month]";
+        String data = "";
+        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
+            stmt.setInt(1, year);
+            try ( ResultSet rs = stmt.executeQuery()) {
+                int[] array;// at index 0 defind maximum month to display
+                LocalDate now = LocalDate.now();
+                if (now.getYear() == year) {
+                    int month = now.getMonthValue();
+                    array = new int[month];
+                } else {
+                    array = new int[12];
+                }
+                while (rs.next()) {
+                    array[rs.getInt("Month") - 1] = rs.getInt("total");
+                }
+                ObjectMapper objMapper = new ObjectMapper();
+                data = objMapper.writeValueAsString(array);
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return data;
+    }
+
+    public List<Integer> getYearList() {
+        String sql = "select YEAR(payment_date) as year from tblBill where bill_status = 0 group by YEAR(payment_date) order by YEAR(payment_date) desc";
+        List<Integer> list = new ArrayList<>();
+        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
+            try ( ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    list.add(rs.getInt("year"));
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return list;
+    }
+
+    public String getBillStatusJson() {
+        String sql = "SELECT bill_status AS status, COUNT(*) AS total_count "
+                + "FROM ( SELECT bill_status FROM tblBill "
+                + "UNION ALL "
+                + "SELECT bill_status FROM tblBillMembership ) AS combined_tables "
+                + "GROUP BY bill_status ";
+        String data = "";
+        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
+            try ( ResultSet rs = stmt.executeQuery()) {
+                int[] array =  new int[3];
+                while (rs.next()) {              
+                    array[rs.getInt("status")] = rs.getInt("total_count");
+                }
+                ObjectMapper objMapper = new ObjectMapper();
+                data = objMapper.writeValueAsString(array);
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return data;
+    }
+    
+        public List<Bill> searchOrderCode(String search) {
+        String sql = "select * from tblBill where order_code Like ?  ";
+        List<Bill> list = new ArrayList<>();
+        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
+            stmt.setString(1, search);
+            try ( ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    AccountRepository acc = new AccountRepository();
+                    CourseRepository cr = new CourseRepository();
+                    Bill c = new Bill();
+                    c.setCourse(cr.detail(rs.getInt("course_id")));
+                    c.setAccount(acc.detail(rs.getInt("account_id")));
+                    c.setId(rs.getInt("bill_id"));
+                    c.setStatus(rs.getInt("bill_status"));
+                    c.setIsActive(rs.getBoolean("bill_is_active"));
+                    c.setValue(rs.getFloat("bill_value"));
+                    c.setDiscount(rs.getInt("bill_discount"));
+                    c.setDate(rs.getDate("bill_date"));
+                    c.setOrderCode(rs.getString("order_code"));
+                    c.setPaymentMethod(rs.getString("payment_method"));
+                    c.setPaymentDate(rs.getDate("payment_date"));
+                    list.add(c);
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return list;
+    }
+        
     public static void main(String[] args) {
         BillRepository b = new BillRepository();
 

@@ -6,6 +6,7 @@ package com.yowu.yogacenter.repository;
 
 import com.yowu.yogacenter.model.Comment;
 import com.yowu.yogacenter.util.DBHelpler;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -129,6 +130,67 @@ public class CommentRepository {
         return status == 1;
     }
 
+     public int getTotalAllComment() {
+        String sql = "select count(*) as num from tblComment ";
+        int total = 0;
+        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
+            try ( ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    total = rs.getInt("num");
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return total;
+    }
+    
+    public int getTotalAllComment(Date to){
+        String sql = "select count(*) as num from tblComment where comment_date <= ?";
+        int total = 0;
+        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
+            stmt.setDate(1, to);
+            try ( ResultSet rs = stmt.executeQuery()) {
+                if(rs.next()){
+                    total = rs.getInt("num");
+                }
+            }
+        }catch(Exception e){
+            System.out.println(e);
+        }
+        return total;
+    }
+    
+    public Comment getMostCommentBlog(){
+        String sql="SELECT blog_id , COUNT(comment_content) as total FROM tblComment GROUP BY blog_id ORDER BY total DESC OFFSET 0 ROWS FETCH NEXT 1 ROWS ONLY ";
+        Comment comment = new Comment();
+        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
+            try ( ResultSet rs = stmt.executeQuery()) {
+                if(rs.next()){
+                    BlogRepository _BlogRepository = new BlogRepository();
+                    comment.setBlog(_BlogRepository.detail(rs.getInt("blog_id")));                   
+                }
+            }
+        }catch(Exception e){
+            System.out.println(e);
+        }
+        return comment;
+    }
+    
+    public int getTotalCommentInMostCommentBlog(){
+        String sql="SELECT blog_id , COUNT(comment_content) as total FROM tblComment GROUP BY blog_id ORDER BY total DESC OFFSET 0 ROWS FETCH NEXT 1 ROWS ONLY ";
+        int total = 0;
+        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
+            try ( ResultSet rs = stmt.executeQuery()) {
+                if(rs.next()){
+                    total = rs.getInt("total");
+                }
+            }
+        }catch(Exception e){
+            System.out.println(e);
+        }
+        return total;
+    }
     public static void main(String[] args) {
         CommentRepository cr = new CommentRepository();
         System.out.println(cr.getTotalComment(3));

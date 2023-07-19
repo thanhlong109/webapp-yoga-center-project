@@ -21,11 +21,12 @@
               href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
         <!--        <link rel="stylesheet" href="../Asset/css/dashboard.css">-->
         <!--        <link rel="stylesheet" href="../Asset/css/adminCommon.css">-->
-        <link rel="stylesheet" href="../Asset/css/dashboard_2.css">
-        <link rel="stylesheet" href="../Asset/css/adminEditCategory_2.css">
-        <link rel="stylesheet" href="../Asset/css/paginationAdmin.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/Asset/css/dashboard_2.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/Asset/css/adminEditCategory_2.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/Asset/css/paginationAdmin.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/Asset/css/alertBoxAdmin.css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
-        <script src="../js/cdnjs.cloudflare.com_ajax_libs_Chart.js_2.4.0_Chart.min.js"></script>
+        <script src="${pageContext.request.contextPath}/js/cdnjs.cloudflare.com_ajax_libs_Chart.js_2.4.0_Chart.min.js"></script>
     </head>
     <body>
         <div class="container">
@@ -41,23 +42,29 @@
                         </form>
                         <div class="profile">
                             <div class="info">
-                                <p>Hey, <b>Admin</b></p>
-                                <small class="text-muted">Admin</small>
-                            </div>
-                            <div class="profile-photo">
-                                <img src="../Asset/img/avatar/hinh-avatar-1.png" alt="">
-                            </div>
+                                <p>Hey, <b>${sessionScope.account.name}</b></p>
+                            <small class="text-muted">Admin</small>
+                        </div>
+                        <div class="profile-photo">
+                            <img src="../Asset/img/avatar/${sessionScope.account.img}" alt="">
                         </div>
                     </div>
-                    <h1>Category List</h1>
-                    <div class="container__wrapper-box">
-                        <div class="wrapper-box">
-                            <table class="table-style-1">
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Name</th>
-                                    <th>Actions</th>
-                                </tr>
+                </div>
+                <c:if test="${SEARCH_ERROR != null}">
+                    <div class="alert">
+                        <span class="closebtn" onclick="this.parentElement.style.display = 'none';">&times;</span> 
+                        <strong>Warning!</strong> ${SEARCH_ERROR.searchError}
+                    </div>
+                </c:if>
+                <h1>Category List</h1>
+                <div class="container__wrapper-box">
+                    <div class="wrapper-box">
+                        <table class="table-style-1">
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Actions</th>
+                            </tr>
                             <c:forEach items="${CATEGORY_LIST}" var="category">
                                 <c:if test="${category.isActive == true}">  
                                     <tr>

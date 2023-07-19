@@ -213,10 +213,26 @@ public class MembershipRepository {
 
 
      public boolean checkDuplicate(String name) {
-        String sql = "select membership_name from tblMembership where membership_name Like ? ";
+        String sql = "select membership_name from tblMembership where membership_is_active = 1 and membership_name Like ? ";
         boolean status = false;
         try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
             stmt.setString(1, name);
+            try ( ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    status = true;
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return status;
+    }
+          public boolean checkDuplicateUpdate(String name) {
+        String sql = "SELECT a.membership_name FROM (SELECT membership_name FROM tblMembership where membership_is_active=1 and membership_name not like ?) a  where a.membership_name like ?";
+        boolean status = false;
+        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
+            stmt.setString(1, name);
+            stmt.setString(2, name);
             try ( ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
                     status = true;

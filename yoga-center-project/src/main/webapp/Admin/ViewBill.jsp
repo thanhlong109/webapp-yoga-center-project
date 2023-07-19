@@ -11,7 +11,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Bill</title>
+        <title>Bill Course</title>
         <!-- Fontawesome -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
               integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
@@ -24,20 +24,13 @@
         <link rel="stylesheet"
               href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
         <!-- Link CSS -->
-        <link rel="stylesheet" href="../Asset/css/dashboard_2.css">
-        <link rel="stylesheet" href="../Asset/css/adminEditCategory_2.css">
-        <link rel="stylesheet" href="../Asset/css/paginationAdmin.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/Asset/css/dashboard_2.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/Asset/css/adminEditCategory_2.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/Asset/css/paginationAdmin.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/Asset/css/alertBoxAdmin.css">
         <!-- Library JS -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
-        <script src="../js/cdnjs.cloudflare.com_ajax_libs_Chart.js_2.4.0_Chart.min.js"></script>
-        <style>
-            .image {
-                max-width: 90%;
-                z-index: 1;
-                overflow: hidden;
-                position: relative;
-            }
-        </style>
+        <script src="${pageContext.request.contextPath}/js/cdnjs.cloudflare.com_ajax_libs_Chart.js_2.4.0_Chart.min.js"></script>
     </head>
     <body>
         <div class="container">
@@ -53,36 +46,38 @@
                         </form>
                         <div class="profile">
                             <div class="info">
-                                <p>Hey, <b>Admin</b></p>
-                                <small class="text-muted">Admin</small>
-                            </div>
-                            <div class="profile-photo">
-                                <img src="../Asset/img/avatar/hinh-avatar-1.png" alt="">
-                            </div>
+                                <p>Hey, <b>${sessionScope.account.name}</b></p>
+                            <small class="text-muted">Admin</small>
+                        </div>
+                        <div class="profile-photo">
+                            <img src="../Asset/img/avatar/${sessionScope.account.img}" alt="">
                         </div>
                     </div>
-                    <h1>Bill List</h1>
-                    <div class="container__wrapper-box">
-                        <div class="wrapper-box">
-                            <table class="table-style-1">
-                                <tr>
-                                    <th>Bill ID</th>
-                                    <th>Course</th>
-                                    <th>Account</th>
-                                    <th>Bill Status</th>
-                                    <th>Bill Value</th>
-                                    <th>Bill Discount</th>
-                                    <th>Bill Date</th> 
-                                    <th>Order Code</th> 
-                                    <th>Payment Method</th> 
-                                    <th>Payment Date</th> 
-                                </tr>
+                </div>
+                <c:if test="${SEARCH_ERROR != null}">
+                    <div class="alert">
+                        <span class="closebtn" onclick="this.parentElement.style.display = 'none';">&times;</span> 
+                        <strong>Warning!</strong> ${SEARCH_ERROR.searchError}
+                    </div>
+                </c:if>
+                <h1>Bill List</h1>
+                <div class="container__wrapper-box">
+                    <div class="wrapper-box">
+                        <table class="table-style-1">
+                            <tr>
+                                <th>Course</th>
+                                <th>Account</th>
+                                <th>Bill Status</th>
+                                <th>Bill Value</th>
+                                <th>Bill Discount</th>
+                                <th>Bill Date</th> 
+                                <th>Order Code</th> 
+                                <th>Payment Method</th> 
+                                <th>Payment Date</th> 
+                            </tr>
                             <c:forEach items="${BILL_LIST}" var="bill">
                                 <c:if test="${bill.isActive == true}"> 
                                     <tr>
-                                        <td>
-                                            ${bill.id}
-                                        </td>
                                         <td>
                                             ${bill.course.title}
                                         </td>

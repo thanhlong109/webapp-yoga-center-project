@@ -11,8 +11,11 @@ import java.sql.Date;
  * @author Chien Thang
  */
 public class BillMembership {
-    public static enum BillMemBerStatus{COMPLETED,CANCELLED,PENDING};
-    
+
+    public static enum BillMemBerStatus {
+        COMPLETED, CANCELLED, PENDING
+    };
+
     private Membership membership;
     private Account account;
     private int id;
@@ -40,7 +43,7 @@ public class BillMembership {
         this.method = method;
         this.paymentDate = paymentDate;
     }
-    
+
     public BillMembership(Membership membership, Account account, int status, boolean isActive, float value, int discount, Date date, String ordercode, String method) {
         this.membership = membership;
         this.account = account;
@@ -207,11 +210,6 @@ public class BillMembership {
         this.paymentDate = paymentDate;
     }
 
-    @Override
-    public String toString() {
-        return "BillMembership{" + "membership=" + membership + ", account=" + account + ", id=" + id + ", status=" + status + ", isActive=" + isActive + ", value=" + value + ", discount=" + discount + ", date=" + date + ", ordercode=" + ordercode + ", method=" + method + ", paymentDate=" + paymentDate + '}';
-    }
-    
     public static BillMemBerStatus getEnumIndex(int i) {
         BillMemBerStatus[] arr = BillMemBerStatus.values();
         if (i >= 0 && i < arr.length) {
@@ -219,5 +217,11 @@ public class BillMembership {
         }
         return null;
     }
+
+    @Override
+    public String toString() {
+        return "BillMembership{" + "membership=" + membership + ", account=" + account + ", id=" + id + ", status=" + status + ", isActive=" + isActive + ", value=" + value + ", discount=" + discount + ", date=" + date + ", ordercode=" + ordercode + ", method=" + method + ", paymentDate=" + paymentDate + '}';
+    }
     
 }
+

@@ -91,7 +91,7 @@
         padding-left: 2.7rem;
         display: none;
         transition: max-height 300ms ease;
-        overflow: hidden; 
+        overflow: hidden;
     }
 
 </style>
@@ -108,12 +108,6 @@
     </div>
     <div class="sidebar">
         <div class="sidebar-elements">
-            <a href="${pageContext.request.contextPath}/home">
-                <span class="material-symbols-sharp"> home</span>
-                <h3>Home</h3>
-            </a>
-        </div>
-        <div class="sidebar-elements">
             <a href="${pageContext.request.contextPath}/admin/dashboard" class="js-dashboard">
                 <span class="material-symbols-sharp">grid_view </span>
                 <h3>Dashboard</h3>
@@ -127,7 +121,7 @@
             <ul class="sub-item" id="subItem">
                 <li><a href="<c:url value="/admin/categoryListController"/>">
                         View & Edit Category Course</a></li>
-                <li><a href="../Admin/AddCategory.jsp">
+                <li><a href="<c:url value="/admin/addCategoryController"/>">
                         Add Category Course</a></li>
                 <li><a href="<c:url value="/admin/viewCourseListController"/>">
                         View & Edit Course</a></li>
@@ -145,9 +139,12 @@
                 <h3>Bill</h3>
             </a>
             <ul class="sub-item" id="subItem">
-                <li><a href="#">Bill Analysis</a></li>
+                <li><a href="<c:url value="/admin/billAnalysisController"/>">
+                        Bill Analysis</a></li>
                 <li><a href="<c:url value="/admin/viewBillListController"/>">
-                        View Bill Details</a></li>
+                        View Bill Course Details</a></li>
+                <li><a href="<c:url value="/admin/viewBillMembershipListController"/>">
+                        View Bill Membership Details</a></li>
             </ul>
         </div>
         <div class="sidebar-elements">
@@ -156,7 +153,8 @@
                 <h3>Blog</h3>
             </a>
             <ul class="sub-item" id="subItem">
-                <li><a href="#">Blog Analysis</a></li>
+                <li><a href="<c:url value="/admin/blogAnalysisController"/>">
+                        Blog Analysis</a></li>
             </ul>
         </div>
         <div class="sidebar-elements">
@@ -167,7 +165,8 @@
             <ul class="sub-item" id="subItem">
                 <li><a href="<c:url value="/admin/viewAccountListController"/>">
                         View & Edit Account</a></li>
-                <li><a href="../Admin/AddAccount.jsp">Add New Account</a></li>
+                <li><a href="<c:url value="/admin/addAccountController"/>">
+                        Add New Account</a></li>
             </ul>
         </div>
         <div class="sidebar-elements">
@@ -190,7 +189,7 @@
             <ul class="sub-item" id="subItem">
                 <li><a href="<c:url value="/admin/viewMembershipListController"/>">
                         View & Edit Membership</a></li>
-                <li><a href="../Admin/AddMembership.jsp">
+                <li><a href="<c:url value="/admin/addMembershipController"/>">
                         Add Membership</a></li>
             </ul>
         </div>
@@ -226,23 +225,27 @@
             $('.js-dashboard').addClass('active');
             break;
         }
-        case '/admin/viewBillListController':{
+        case '/admin/viewBillListController':
+        {
             $('.js-bill').addClass('active');
             break;
         }
-        case '/admin/viewMembershipListController':{
+        case '/admin/viewMembershipListController':
+        {
             $('.js-membership').addClass('active');
             break;
         }
         case '/admin/viewClassScheduleListController':
-        case '/admin/addClassScheduleController':{
+        case '/admin/addClassScheduleController':
+        {
             $('.js-schedule').addClass('active');
             break;
         }
-        case '/admin/viewAccountListController':{
+        case '/admin/viewAccountListController':
+        {
             $('.js-account').addClass('active');
             break;
         }
-        
+
     }
 </script>

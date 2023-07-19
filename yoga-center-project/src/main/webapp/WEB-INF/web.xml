@@ -248,6 +248,22 @@
         <servlet-name>SearchBillCashierController</servlet-name>
         <servlet-class>com.yowu.yogacenter.controller.cashier.SearchBillCashierController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>BillAnalysisController</servlet-name>
+        <servlet-class>com.yowu.yogacenter.controller.admin.BillAnalysisController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>BlogAnalysisController</servlet-name>
+        <servlet-class>com.yowu.yogacenter.controller.admin.BlogAnalysisController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ViewBillMembershipListController</servlet-name>
+        <servlet-class>com.yowu.yogacenter.controller.admin.ViewBillMembershipListController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SearchBillMembershipController</servlet-name>
+        <servlet-class>com.yowu.yogacenter.controller.admin.SearchBillMembershipController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>UserProfileCourse</servlet-name>
         <url-pattern>/userprofile/course</url-pattern>
@@ -487,6 +503,22 @@
     <servlet-mapping>
         <servlet-name>SearchBillCashierController</servlet-name>
         <url-pattern>/cashier/searchBillCashierController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>BillAnalysisController</servlet-name>
+        <url-pattern>/admin/billAnalysisController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>BlogAnalysisController</servlet-name>
+        <url-pattern>/admin/blogAnalysisController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewBillMembershipListController</servlet-name>
+        <url-pattern>/admin/viewBillMembershipListController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchBillMembershipController</servlet-name>
+        <url-pattern>/admin/searchBillMembershipController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

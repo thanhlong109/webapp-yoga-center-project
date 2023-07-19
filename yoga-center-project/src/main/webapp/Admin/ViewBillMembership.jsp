@@ -1,16 +1,17 @@
 <%-- 
-    Document   : ViewAccount
-    Created on : Jun 21, 2023, 7:45:37 PM
+    Document   : ViewBillMembership
+    Created on : Jul 19, 2023, 1:58:23 PM
     Author     : DungVNT
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="jakarta.tags.core" %>
+<%@page import="com.yowu.yogacenter.model.BillMembership" %>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>View Account</title>
+        <title>Bill Membership</title>
         <!-- Fontawesome -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
               integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
@@ -30,14 +31,6 @@
         <!-- Library JS -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
         <script src="${pageContext.request.contextPath}/js/cdnjs.cloudflare.com_ajax_libs_Chart.js_2.4.0_Chart.min.js"></script>
-        <style>
-            .image {
-                max-width: 90%;
-                z-index: 1;
-                overflow: hidden;
-                position: relative;
-            }
-        </style>
     </head>
     <body>
         <div class="container">
@@ -47,7 +40,7 @@
                         <button id="menu-btn">
                             <span class="material-symbols-sharp">menu</span>
                         </button>
-                        <form action="searchAccountController" id="search-box">
+                        <form action="searchBillController" id="search-box">
                             <input name="txtSearch" type="text" id="search-text" placeholder="Search anything you want" required>
                             <button type="submit" id="btnSearch"><i class="fa-solid fa-magnifying-glass"></i></button>
                         </form>
@@ -66,49 +59,54 @@
                         <span class="closebtn" onclick="this.parentElement.style.display = 'none';">&times;</span> 
                         <strong>Warning!</strong> ${SEARCH_ERROR.searchError}
                     </div>
-                </c:if>
-                <h1>Account List</h1>
+                </c:if>       
+                <h1>Bill List</h1>
                 <div class="container__wrapper-box">
                     <div class="wrapper-box">
                         <table class="table-style-1">
                             <tr>
-                                <th>Account Image</th>
-                                <th>Account Name</th>
-                                <th>Account Email</th>
-                                <th>Account Phone</th>
-                                <th>Social ID</th>
-                                <th>Role</th>
-                                <th>Status</th>
-                                <th>Actions</th>
+                                <th>Membership</th>
+                                <th>Account</th>
+                                <th>Bill Status</th>
+                                <th>Bill Value</th>
+                                <th>Bill Discount</th>
+                                <th>Bill Date</th> 
+                                <th>Order Code</th> 
+                                <th>Payment Method</th> 
+                                <th>Payment Date</th> 
                             </tr>
-                            <c:forEach items="${ACCOUNT_LIST}" var="account">
-                                <tr>
-                                    <td>
-                                        <img class="image" src="../Asset/img/account/${account.img}" alt="img">  
-                                    </td>
-                                    <td>
-                                        ${account.name}
-                                    </td>
-                                    <td>
-                                        ${account.email}
-                                    </td>
-                                    <td>
-                                        ${account.phone}
-                                    </td>
-                                    <td>
-                                        ${account.socialID}
-                                    </td>
-                                    <td>
-                                        ${account.role.name}
-                                    </td> 
-                                    <td>
-                                        ${account.isActive}
-                                    </td>
-                                    <td>
-                                        <a class="btn btn-red" href="deleteAccountController?id=${account.id}">
-                                            Ban</a> 
-                                    </td>
-                                </tr>
+                            <c:forEach items="${BILL_MEMBERSHIP_LIST}" var="bill">
+                                <c:if test="${bill.isActive == true}"> 
+                                    <tr>
+                                        <td>
+                                            ${bill.membership.name}
+                                        </td>
+                                        <td>
+                                            ${bill.account.name}
+                                        </td>
+                                        <td>
+                                            ${BillMembership.getEnumIndex(bill.status)}
+                                        </td>
+                                        <td>
+                                            ${bill.value}
+                                        </td>
+                                        <td>
+                                            ${bill.discount}
+                                        </td>
+                                        <td>
+                                            ${bill.date}
+                                        </td>   
+                                        <td>
+                                            ${bill.ordercode}
+                                        </td> 
+                                        <td>
+                                            ${bill.method}
+                                        </td> 
+                                        <td>
+                                            ${bill.paymentDate}
+                                        </td> 
+                                    </tr>
+                                </c:if>
                             </c:forEach>
 
                         </table>
@@ -117,16 +115,16 @@
                 <div class="pagination">
                     <c:if test="${NUMPAGE>1}">
                         <c:if test="${PAGE>1}">
-                            <a href="viewAccountListController?page=${PAGE-1}"><i class="fa-solid fa-chevron-left"></i></a>
+                            <a href="viewBillMembershipListController?page=${PAGE-1}"><i class="fa-solid fa-chevron-left"></i></a>
                             </c:if>
                             <c:forEach begin="${1}" var="i" end="${NUMPAGE}">
-                            <a href="viewAccountListController?page=${i}" <c:if test="${i==PAGE}">class="p-active"</c:if> >${i}</a>
+                            <a href="viewBillMembershipListController?page=${i}" <c:if test="${i==PAGE}">class="p-active"</c:if> >${i}</a>
                         </c:forEach>
                         <c:if test="${PAGE<NUMPAGE}">
-                            <a href="viewAccountListController?page=${PAGE<NUMPAGE?(PAGE+1):NUMPAGE}"><i class="fa-solid fa-chevron-right"></i></a>
+                            <a href="viewBillMembershipListController?page=${PAGE<NUMPAGE?(PAGE+1):NUMPAGE}"><i class="fa-solid fa-chevron-right"></i></a>
                             </c:if>
                         </c:if>
-                </div> 
+                </div>  
             </main>
         </div>
     </body>
