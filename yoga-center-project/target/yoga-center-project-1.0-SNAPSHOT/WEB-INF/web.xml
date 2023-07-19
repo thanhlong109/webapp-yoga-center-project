@@ -228,6 +228,26 @@
         <servlet-name>UserProfileMebership</servlet-name>
         <servlet-class>com.yowu.yogacenter.controller.client.UserProfileMebership</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ViewBillCashierController</servlet-name>
+        <servlet-class>com.yowu.yogacenter.controller.cashier.ViewBillCashierController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateBillCashierController</servlet-name>
+        <servlet-class>com.yowu.yogacenter.controller.cashier.UpdateBillCashierController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ViewMembershipCashierController</servlet-name>
+        <servlet-class>com.yowu.yogacenter.controller.cashier.ViewMembershipCashierController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateMembershipCashierController</servlet-name>
+        <servlet-class>com.yowu.yogacenter.controller.cashier.UpdateMembershipCashierController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SearchBillCashierController</servlet-name>
+        <servlet-class>com.yowu.yogacenter.controller.cashier.SearchBillCashierController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>UserProfileCourse</servlet-name>
         <url-pattern>/userprofile/course</url-pattern>
@@ -447,6 +467,26 @@
     <servlet-mapping>
         <servlet-name>UserProfileMebership</servlet-name>
         <url-pattern>/userprofile/membership</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewBillCashierController</servlet-name>
+        <url-pattern>/cashier/viewBillCashierController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateBillCashierController</servlet-name>
+        <url-pattern>/cashier/updateBillCashierController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewMembershipCashierController</servlet-name>
+        <url-pattern>/cashier/viewMembershipCashierController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateMembershipCashierController</servlet-name>
+        <url-pattern>/cashier/updateMembershipCashierController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchBillCashierController</servlet-name>
+        <url-pattern>/cashier/searchBillCashierController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -7,12 +7,14 @@ com\yowu\yogacenter\controller\admin\DeleteAccountController.class
 com\yowu\yogacenter\controller\admin\AddMembershipController.class
 com\yowu\yogacenter\controller\client\UserProfileWishlist.class
 com\yowu\yogacenter\repository\RoleRepository.class
+com\yowu\yogacenter\controller\cashier\ViewBillCashierController.class
 com\yowu\yogacenter\controller\client\NewPassword.class
 com\yowu\yogacenter\controller\admin\DeleteCourseScheduleController.class
 com\yowu\yogacenter\model\GoogleUtils.class
 com\yowu\yogacenter\checkout\Config.class
 com\yowu\yogacenter\repository\RatingCourseRepository.class
 com\yowu\yogacenter\controller\admin\AddCourseController.class
+com\yowu\yogacenter\controller\cashier\UpdateBillCashierController.class
 com\yowu\yogacenter\model\RegistrationCourse.class
 com\yowu\yogacenter\model\RatingCourse.class
 com\yowu\yogacenter\controller\client\BlogDetailController.class
@@ -37,6 +39,7 @@ com\yowu\yogacenter\controller\admin\DeleteMembershipController.class
 com\yowu\yogacenter\util\MyTools.class
 com\yowu\yogacenter\repository\AccountRepository.class
 com\yowu\yogacenter\controller\admin\ViewClassScheduleListController.class
+com\yowu\yogacenter\controller\cashier\UpdateMembershipCashierController.class
 com\yowu\yogacenter\repository\BlogRepository.class
 com\yowu\yogacenter\controller\client\LoginGoogleController.class
 com\yowu\yogacenter\controller\admin\ViewAccountListController.class
@@ -46,6 +49,7 @@ com\yowu\yogacenter\controller\admin\UpdateCourseController.class
 com\yowu\yogacenter\controller\client\CheckoutController.class
 com\yowu\yogacenter\repository\CategoryRepository.class
 com\yowu\yogacenter\controller\admin\ViewCourseListController.class
+com\yowu\yogacenter\controller\cashier\ViewMembershipCashierController.class
 com\yowu\yogacenter\model\AccountError.class
 com\yowu\yogacenter\controller\admin\AddAccountController.class
 com\yowu\yogacenter\repository\Constants.class
@@ -108,3 +112,4 @@ com\yowu\yogacenter\controller\admin\SearchCourseController.class
 com\yowu\yogacenter\model\CourseSchedule$DayOfWeek.class
 com\yowu\yogacenter\repository\PermissionRepository.class
 com\yowu\yogacenter\model\MembershipError.class
+com\yowu\yogacenter\controller\cashier\SearchBillCashierController.class

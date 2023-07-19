@@ -28,7 +28,7 @@ public class LoginGoogleController extends HttpServlet {
     private final String LOGIN_PAGE = "Client/login_register.jsp";
     private final String HOME_PAGE = "home";
     private final String ADMIN_PAGE = "admin/dashboard";
-
+    private final String CASHIER_PAGE = "Cashier/ViewBill.jsp";
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -84,6 +84,10 @@ public class LoginGoogleController extends HttpServlet {
                     }else{
                         response.sendRedirect(HOME_PAGE);
                     }
+                }else if (Role.RoleList.CASHER.ordinal() == role.getId()) {
+                    url = CASHIER_PAGE;
+                    System.out.println("1111");
+                    response.sendRedirect(CASHIER_PAGE);
                 }
             }
 

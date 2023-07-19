@@ -15,6 +15,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -274,8 +275,24 @@ public class BillRepository {
         }
         return check;
     }
+    public boolean updateStatus(String ordercode, LocalDate date, int status) throws ParseException {
+        boolean check = false;
+        LocalDateTime sqlDate = null;
 
-    public boolean updateStatus(int id, int status) {
+
+        String sql = "UPDATE tblBill SET bill_status = ? , payment_date =? WHERE order_code = ?";
+        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
+            stmt.setInt(1, status);
+            stmt.setObject(2, date);
+            stmt.setString(3, ordercode);
+            check = stmt.executeUpdate() > 0 ? true : false;
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return check;
+    }
+    
+        public boolean updateStatus(int id, int status) {
         String sql = "UPDATE tblBill SET bill_status = ? WHERE bill_id = ?";
         int updateStatus = 0;
 
@@ -409,6 +426,36 @@ public class BillRepository {
         List<Bill> list = new ArrayList<>();
         try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
             stmt.setInt(1, search);
+            try ( ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    AccountRepository acc = new AccountRepository();
+                    CourseRepository cr = new CourseRepository();
+                    Bill c = new Bill();
+                    c.setCourse(cr.detail(rs.getInt("course_id")));
+                    c.setAccount(acc.detail(rs.getInt("account_id")));
+                    c.setId(rs.getInt("bill_id"));
+                    c.setStatus(rs.getInt("bill_status"));
+                    c.setIsActive(rs.getBoolean("bill_is_active"));
+                    c.setValue(rs.getFloat("bill_value"));
+                    c.setDiscount(rs.getInt("bill_discount"));
+                    c.setDate(rs.getDate("bill_date"));
+                    c.setOrderCode(rs.getString("order_code"));
+                    c.setPaymentMethod(rs.getString("payment_method"));
+                    c.setPaymentDate(rs.getDate("payment_date"));
+                    list.add(c);
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return list;
+    }
+    
+    public List<Bill> searchCode(String search) {
+        String sql = "select * from tblBill where order_code like ? ";
+        List<Bill> list = new ArrayList<>();
+        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
+            stmt.setString(1, search);
             try ( ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
                     AccountRepository acc = new AccountRepository();

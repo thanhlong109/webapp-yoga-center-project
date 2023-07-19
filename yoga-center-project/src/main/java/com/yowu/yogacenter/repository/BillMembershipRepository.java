@@ -10,6 +10,7 @@ import com.yowu.yogacenter.util.DBHelpler;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.text.ParseException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -217,6 +218,24 @@ public class BillMembershipRepository {
         }
         return check;
     }
+    
+    public boolean updateStatus(String ordercode, LocalDate date, int status) throws ParseException {
+        boolean check = false;
+        LocalDateTime sqlDate = null;
+        
+        
+        String sql = "UPDATE tblBillMembership SET bill_status = ? , payment_date =? WHERE order_code = ?";
+        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
+            stmt.setInt(1, status);
+            stmt.setObject(2, date);
+            stmt.setString(3, ordercode);
+            check = stmt.executeUpdate() > 0 ? true : false;
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return check;
+    }
+    
         public boolean updateStatus(int id, int status) {
         String sql = "UPDATE tblBillMembership SET bill_status = ? WHERE bill_mem_id = ?";
         int updateStatus = 0;

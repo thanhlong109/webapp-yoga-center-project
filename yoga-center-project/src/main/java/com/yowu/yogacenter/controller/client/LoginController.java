@@ -17,7 +17,7 @@ import java.util.logging.Logger;
 public class LoginController extends HttpServlet {
 
     private final String LOGIN_PAGE = "Client/login_register.jsp";
-
+    private final String CASHIER_PAGE = "cashier/viewBillCashierController";
     private final String ADMIN_PAGE = "admin/dashboard";
     private final String HOME_PAGE = "home";
 
@@ -66,6 +66,10 @@ public class LoginController extends HttpServlet {
                     } else {
                         response.sendRedirect(HOME_PAGE);
                     }
+                }else if (Role.RoleList.CASHER.ordinal() == role.getId()) {
+                   
+                    System.out.println("1111");
+                    response.sendRedirect(CASHIER_PAGE);
                 }
             }
         } catch (Exception e) {

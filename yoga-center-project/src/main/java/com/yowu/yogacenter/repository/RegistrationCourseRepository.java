@@ -505,6 +505,23 @@ public class RegistrationCourseRepository {
 
         return updateStatus;
     }
+    
+     public boolean updateStatusById(boolean status, int registrationId) {
+        String sql = "UPDATE tblRegistrationCourse SET registration_status = ? "
+                + "WHERE registration_id = ? ";
+        boolean updateStatus = false;
+
+        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
+            stmt.setBoolean(1, status);
+            stmt.setInt(2, registrationId);
+           
+            updateStatus = stmt.executeUpdate() > 0 ? true : false;
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+        return updateStatus;
+    }
 
     public boolean delete(int id) {
         String sql = "UPDATE tblRegistrationCourse SET course_status = 0 "
