@@ -1,7 +1,10 @@
 package com.yowu.yogacenter.controller.admin;
 
 import com.yowu.yogacenter.model.ClassSchedule;
+import com.yowu.yogacenter.model.ClassScheduleError;
+import com.yowu.yogacenter.model.RegistrationCourse;
 import com.yowu.yogacenter.repository.ClassScheduleRepository;
+import com.yowu.yogacenter.repository.RegistrationCourseRepository;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
@@ -9,6 +12,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.sql.Date;
 import java.sql.Time;
+import java.time.LocalTime;
 
 public class UpdateClassScheduleController extends HttpServlet {
 
@@ -28,21 +32,44 @@ public class UpdateClassScheduleController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        boolean result = false;
+        ClassScheduleError classScheduleError = new ClassScheduleError();
+        ClassSchedule cs = new ClassSchedule();
+        ClassScheduleRepository csr = new ClassScheduleRepository();
         try {
-            ClassScheduleRepository csr = new ClassScheduleRepository();
-            ClassSchedule cs = new ClassSchedule();
+            boolean errorFound = true;
             int id = Integer.parseInt(request.getParameter("txtId"));
-            cs.setId(id);
-            cs.setDate(Date.valueOf(request.getParameter("txtDate")));
-            cs.setStartTime(Time.valueOf(request.getParameter("txtStartDate")));
-            cs.setEndTime(Time.valueOf(request.getParameter("txtEndDate")));
-            cs.setStatus(1);
-            boolean update = csr.update2(cs);
-            if (update) {
-                response.sendRedirect(VIEW_CLASS_TIME_PAGE);
-            }
-        } catch (IOException | NumberFormatException e) {
+            String classDate = request.getParameter("txtDate");
+            Time startTime = Time.valueOf(LocalTime.parse(request.getParameter("txtStartDate")));
+            Time endTime = Time.valueOf(LocalTime.parse(request.getParameter("txtEndDate")));
 
+            if (classDate == null || classDate.trim().isEmpty()) {
+                classScheduleError.setDateError("Must be set class date!");
+                errorFound = false;
+            }
+            if (errorFound) {
+                cs.setId(id);
+                cs.setDate(Date.valueOf(classDate));
+                cs.setStartTime(startTime);
+                cs.setEndTime(endTime);
+                cs.setStatus(1);
+                result = csr.update2(cs);
+                if (!result) {
+                    request.setAttribute("classSchedule", cs);
+                    request.setAttribute("UPDATE_CLASS_TIME_ERROR", classScheduleError);
+                }
+            } else {
+                request.setAttribute("classSchedule", cs);
+                request.setAttribute("UPDATE_CLASS_TIME_ERROR", classScheduleError);
+            }
+        } catch (NumberFormatException e) {
+            log("Error at AddClassScheduleController: " + e.toString());
+        } finally {
+            if (result) {
+                response.sendRedirect(VIEW_CLASS_TIME_PAGE);
+            } else {
+                request.getRequestDispatcher(EDIT_CLASS_SCHEDULE_PAGE).forward(request, response);
+            }
         }
     }
 

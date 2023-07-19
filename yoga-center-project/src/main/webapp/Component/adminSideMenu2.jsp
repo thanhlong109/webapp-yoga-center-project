@@ -128,9 +128,9 @@
                 <li><a href="<c:url value="/admin/addCourseController"/>">
                         Add New Course</a></li>
                 <li><a href="<c:url value="/admin/viewCourseTimeListController"/>">
-                        View & Edit Course Time</a></li>
+                        View & Edit Course Schedule</a></li>
                 <li><a href="<c:url value="/admin/addCourseScheduleController"/>">
-                        Add Course Time</a></li>
+                        Add Course Schedule</a></li>
             </ul>
         </div>
         <div class="sidebar-elements">
