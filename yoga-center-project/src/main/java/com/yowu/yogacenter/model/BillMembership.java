@@ -212,6 +212,12 @@ public class BillMembership {
         return "BillMembership{" + "membership=" + membership + ", account=" + account + ", id=" + id + ", status=" + status + ", isActive=" + isActive + ", value=" + value + ", discount=" + discount + ", date=" + date + ", ordercode=" + ordercode + ", method=" + method + ", paymentDate=" + paymentDate + '}';
     }
     
-    
+    public static BillMemBerStatus getEnumIndex(int i) {
+        BillMemBerStatus[] arr = BillMemBerStatus.values();
+        if (i >= 0 && i < arr.length) {
+            return arr[i];
+        }
+        return null;
+    }
     
 }
