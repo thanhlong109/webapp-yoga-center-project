@@ -25,9 +25,9 @@ public class SearchBillCashierController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        int search = Integer.parseInt(request.getParameter("txtSearch"));
+       String search = request.getParameter("txtSearch");
         BillRepository _billRepo = new BillRepository();
-        List<Bill> billList = _billRepo.searchId(search);
+        List<Bill> billList = _billRepo.searchCode(search);
         request.setAttribute("BILL_LIST", billList);
          request.getRequestDispatcher(BILL_PAGE).forward(request, response);
     }
