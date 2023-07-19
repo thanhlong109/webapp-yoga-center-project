@@ -41,12 +41,15 @@
                         <p class="instructor-join"><i class="fa-solid fa-feather-pointed"></i> Joined on ${instructor.createDate}</p>
                     </div>
                 </div>
-                <div class="row">
-                    <h3>Biography</h3>
-                    <p class="instructor-biography">
-                        A wonderful serenity has taken possession of my entire soul, like these sweet mornings of spring which I enjoy with my whole heart. I am alone, and feel the charm of existence in this spot, which was created for the bliss of souls like mine. I am so happy, my dear friend, so absorbed in the exquisite sense of mere tranquil existence, that I neglect my talents. I should be incapable of drawing a single stroke at the present moment. I throw myself down among the tall grass by the trickling stream; and, as I lie close to the earth. Thousand unknown plants are noticed by me. When I hear the buzz of the little world among the stalks, and grow familiar with the countless.
-                    </p>
-                </div>
+                <c:if test="${instructor.biography!=null}">
+                    <div class="row">
+                        <h3>Biography</h3>
+                        <p class="instructor-biography">
+                            ${instructor.biography}
+                        </p>
+                    </div>
+                </c:if>
+                
                     
                 <c:set var="ratingRepo" value="<%= new RatingCourseRepository()%>"/> 
                 <c:set var="rcRepo" value="<%= new RegistrationCourseRepository()%>"/> 

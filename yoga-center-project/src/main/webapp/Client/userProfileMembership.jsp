@@ -90,6 +90,25 @@
                padding: 0 50px;
                flex: 1;
            }
+           .membership-title{
+               color: #545454;
+           }
+           .membership-container{
+               list-style: none;
+               display: flex;
+               flex-direction: column;
+               gap: 20px;
+               margin-top: 24px;    
+           }
+           
+           .membership-container li{
+               background: #6a6a6a29;
+               padding: 12px 4px;
+           }
+           .membership-container span{
+               font-weight: 600;
+               color: #545454;
+           }
            @media screen and (max-width:740px) {
 
 
@@ -122,6 +141,7 @@
                .user-content{
                    padding: 0;
                }
+            
            }
         </style>
     </head>
@@ -148,7 +168,21 @@
                 </ul>
                 <div class="user-content">
                     <div class="display-course-content">
-                        
+                        <h2 class="membership-title" >Your membership</h2>
+                        <c:if test="${rmembership==null}">
+                            <ul class="membership-container">
+                                <li><span>Member Level: </span> Default</li>
+                                <li><span>Member discount: </span> 0%</li>
+                            </ul>
+                        </c:if>
+                        <c:if test="${rmembership!=null}">
+                            <ul class="membership-container">
+                                <li><span>Member Level: </span>${rmembership.membership.name}</li>
+                                <li><span>Member discount: </span>${rmembership.membership.discount}%</li>
+                                <li><span>Registration Date: </span>${rmembership.registrationDate}</li>
+                                <li><span>Days left:</span> ${daysleft} days</li>
+                            </ul>
+                        </c:if>
                     </div>
                 </div>
             </div>

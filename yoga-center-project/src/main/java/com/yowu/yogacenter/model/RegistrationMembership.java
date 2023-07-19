@@ -4,6 +4,7 @@
  */
 package com.yowu.yogacenter.model;
 
+import java.io.Serializable;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -12,7 +13,7 @@ import java.time.LocalDateTime;
  *
  * @author DungVNT
  */
-public class RegistrationMembership {
+public class RegistrationMembership implements Serializable{
 
     private Membership membership;
     private Account account;
@@ -63,6 +64,10 @@ public class RegistrationMembership {
 
     public void setExpirDate(LocalDateTime expirDate) {
         this.expirDate = expirDate;
+    }
+
+    public boolean isRegistrationtatus() {
+        return registrationtatus;
     }
 
     

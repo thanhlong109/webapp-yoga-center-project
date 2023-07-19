@@ -54,9 +54,11 @@ public class UserProfileSetting extends HttpServlet {
                 String username = request.getParameter("txtUsername");
                 String email = request.getParameter("txtEmail");
                 String phone = request.getParameter("txtPhone");
+                String biography = request.getParameter("txtBiography");
                 account.setName(username);
                 account.setEmail(email);
                 account.setPhone(phone);
+                account.setBiography(biography);
                 if(ar.updateGeneral(account)){
                     out.print(username);
                 }

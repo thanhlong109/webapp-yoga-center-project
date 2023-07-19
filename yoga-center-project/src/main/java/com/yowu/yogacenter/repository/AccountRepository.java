@@ -26,16 +26,16 @@ public class AccountRepository {
     private final String CHECK_DUPLICATE_GOOGLE_LOGIN = "SELECT * FROM tblAccount WHERE account_email = ? OR social_id = ?";
     private final String CREATE_ACCOUNT = "INSERT INTO tblAccount ("
             + "account_img, account_name, account_password, account_email, "
-            + "account_phone, account_is_active, role_id, social_id) "
-            + "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+            + "account_phone, account_is_active, role_id, social_id, biography) "
+            + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
     private final String SEARCH_ACCOUNT = "select * from tblAccount where account_id=? ";
     private final String GET_ALL = "select * from tblAccount";
     private final String UPDATE_ACCOUNT = "update tblAccount set account_name=? , "
-            + "account_password=? ,account_img=? , account_email=? , account_phone=? , "
-            + "account_is_active where account_id=? ";
+            + "account_password=? ,account_img=? , account_email=? , account_phone=?  ,"
+            + "account_is_active= ?, biography=? where account_id=? ";
     private final String DELETE_ACCOUNT = "update tblAccount set account_is_active =? where account_id=? ";
     private final String CHECK_DUPLICATE = "select account_email from tblAccount where account_email =?";
-    private final String UPDATE_GENERAL = "update tblAccount set account_name=? , account_email=? ,account_phone=? where account_id=?";
+    private final String UPDATE_GENERAL = "update tblAccount set account_name=? , account_email=? ,account_phone=?, biography=? where account_id=?";
 
     public List<Account> getAll() {
 
@@ -56,6 +56,7 @@ public class AccountRepository {
                     c.setRole(cr.detail(rs.getInt("role_id")));
                     c.setSocialID(rs.getString("social_id"));
                     c.setCreateDate(rs.getDate("create_date"));
+                    c.setBiography(rs.getString("biography"));
                     list.add(c);
                 }
             }
@@ -114,6 +115,7 @@ public class AccountRepository {
                     c.setRole(cr.detail(rs.getInt("role_id")));
                     c.setSocialID(rs.getString("social_id"));
                     c.setCreateDate(rs.getDate("create_date"));
+                    c.setBiography(rs.getString("biography"));
                     list.add(c);
                 }
             }
@@ -141,6 +143,7 @@ public class AccountRepository {
                     c.setIsActive(rs.getBoolean("account_is_active"));
                     c.setRole(cr.detail(rs.getInt("role_id")));
                     c.setSocialID(rs.getString("social_id"));
+                    c.setBiography(rs.getString("biography"));
                     return c;
                 }
             }
@@ -165,6 +168,7 @@ public class AccountRepository {
             stmt.setBoolean(6, c.isIsActive());
             stmt.setInt(7, c.getRole().getId());
             stmt.setString(8, c.getSocialID());
+            stmt.setString(9, c.getBiography());
             status = stmt.executeUpdate();
         } catch (Exception e) {
             System.out.println(e);
@@ -190,6 +194,7 @@ public class AccountRepository {
                     c.setRole(cr.detail(rs.getInt("role_id")));
                     c.setSocialID(rs.getString("social_id"));
                     c.setCreateDate(rs.getDate("create_date"));
+                    c.setBiography(rs.getString("biography"));
                     return c;
                 }
             }
@@ -209,7 +214,8 @@ public class AccountRepository {
             stmt.setString(4, c.getEmail());
             stmt.setString(5, c.getPhone());
             stmt.setBoolean(6, c.isIsActive());
-            stmt.setInt(7, c.getId());
+            stmt.setString(7, c.getBiography());
+            stmt.setInt(8, c.getId());
             status = stmt.executeUpdate();
         } catch (Exception e) {
             System.out.println(e);
@@ -224,7 +230,8 @@ public class AccountRepository {
             stmt.setString(1, c.getName());
             stmt.setString(2, c.getEmail());
             stmt.setString(3, c.getPhone());
-            stmt.setInt(4, c.getId());
+            stmt.setString(4, c.getBiography());
+            stmt.setInt(5, c.getId());
             status = stmt.executeUpdate();
         } catch (Exception e) {
             System.out.println(e);
@@ -303,6 +310,7 @@ public class AccountRepository {
                     c.setIsActive(rs.getBoolean("account_is_active"));
                     c.setRole(cr.detail(rs.getInt("role_id")));
                     c.setSocialID(socialID);
+                    c.setBiography(rs.getString("biography"));
                     return c;
                 }
             }
@@ -331,6 +339,7 @@ public List<Account> searchName(String search) {
                     c.setRole(cr.detail(rs.getInt("role_id")));
                     c.setSocialID(rs.getString("social_id"));
                     c.setCreateDate(rs.getDate("create_date"));
+                    c.setBiography(rs.getString("biography"));
                     list.add(c);
                 }
             }
@@ -388,7 +397,11 @@ public List<Integer> getYearList(){
 
     public static void main(String[] args) {
         AccountRepository accountRepository = new AccountRepository();
-        
+        Account c = accountRepository.detail(2);
+        c.setBiography("ahihi");
+        accountRepository.updateGeneral(c);
+        c = accountRepository.detail(2);
+        System.out.println(c.getBiography());
 
     }
 

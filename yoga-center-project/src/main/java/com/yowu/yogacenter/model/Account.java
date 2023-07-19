@@ -25,6 +25,8 @@ public class Account implements Serializable{
     private Role role;
     private String socialID;
     private Date createDate;
+    
+    private String biography;
 
     public Account() {
     }
@@ -39,6 +41,16 @@ public class Account implements Serializable{
         this.role = role;
         this.socialID = socialID;
     }
+
+    public String getBiography() {
+        return biography;
+    }
+
+    public void setBiography(String biography) {
+        this.biography = biography;
+    }
+    
+    
 
     public Date getCreateDate() {
         return createDate;

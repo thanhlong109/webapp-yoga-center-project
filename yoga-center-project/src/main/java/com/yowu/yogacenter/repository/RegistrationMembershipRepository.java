@@ -4,6 +4,7 @@
  */
 package com.yowu.yogacenter.repository;
 
+import com.yowu.yogacenter.model.Membership;
 import com.yowu.yogacenter.model.RegistrationMembership;
 import com.yowu.yogacenter.util.DBHelpler;
 import java.sql.PreparedStatement;
@@ -40,7 +41,7 @@ public class RegistrationMembershipRepository {
         }
         return list;
     }
-
+    
     public RegistrationMembership detail(int id) {
         String sql = "select * from tblRegistrationMembership where account_id=? ";
         try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
@@ -127,14 +128,7 @@ public class RegistrationMembershipRepository {
 
     RegistrationMembership registrationMembership = repository.detail(account);
 
-    if (registrationMembership != null) {
-        System.out.println("Membership ID: " + registrationMembership.getMembership().getId());
-        System.out.println("Account ID: " + registrationMembership.getAccount().getId());
-        System.out.println("Registration Date: " + registrationMembership.getRegistrationDate());
-        System.out.println("Expiration Date: " + registrationMembership.getExpirationDate());
-    } else {
-        System.out.println("RegistrationMembership not found!");
-    }
+        System.out.println(registrationMembership.getExpirDate());
 }
 
 }

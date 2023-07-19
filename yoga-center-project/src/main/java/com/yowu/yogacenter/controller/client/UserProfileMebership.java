@@ -4,13 +4,16 @@
  */
 package com.yowu.yogacenter.controller.client;
 
-import com.yowu.yogacenter.repository.MembershipRepository;
+import com.yowu.yogacenter.model.Account;
+import com.yowu.yogacenter.model.RegistrationMembership;
+import com.yowu.yogacenter.repository.RegistrationMembershipRepository;
 import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 
 /**
  *
@@ -23,8 +26,15 @@ public class UserProfileMebership extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        MembershipRepository mr = new MembershipRepository();
-        request.setAttribute("membership", this);
+        Account acc = (Account)request.getSession().getAttribute("account");
+        RegistrationMembershipRepository rm = new RegistrationMembershipRepository();
+        RegistrationMembership rmembership = rm.detail(acc.getId());
+        if(rmembership!=null){
+            request.setAttribute("rmembership", rmembership);
+            
+            long daysLeft = ChronoUnit.DAYS.between(rmembership.getExpirationDate().toLocalDate(),LocalDate.now());
+            request.setAttribute("daysleft",daysLeft );
+        }
         request.getRequestDispatcher(USER_MEMBERSHIP).forward(request, response);
     }
 
