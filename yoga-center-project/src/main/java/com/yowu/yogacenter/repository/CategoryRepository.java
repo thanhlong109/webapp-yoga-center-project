@@ -171,7 +171,7 @@ public class CategoryRepository {
     }
 
     public boolean checkDuplicate(String name) {
-        String sql = "select category_name from tblCategory where category_name Like ? ";
+        String sql = "select category_name from tblCategory where category_is_active = 1 and category_name Like ? ";
         boolean status = false;
         try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
             stmt.setString(1, name);

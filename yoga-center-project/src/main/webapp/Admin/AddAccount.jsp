@@ -37,29 +37,25 @@
                         <button id="menu-btn">
                             <span class="material-symbols-sharp">menu</span>
                         </button>
-                        <form action="" id="search-box">
-                            <input type="text" id="search-text" placeholder="Search anything you want" required>
-                            <button id="btnSearch"><i class="fa-solid fa-magnifying-glass"></i></button>
-                        </form>
                         <div class="profile">
                             <div class="info">
                                 <p>Hey, <b>${sessionScope.account.name}</b></p>
-                                <small class="text-muted">Admin</small>
-                            </div>
-                            <div class="profile-photo">
-                                <img src="../Asset/img/avatar/hinh-avatar-1.png" alt="">
-                            </div>
+                            <small class="text-muted">Admin</small>
+                        </div>
+                        <div class="profile-photo">
+                            <img src="../Asset/img/avatar/${sessionScope.account.img}" alt="">
                         </div>
                     </div>
-                    <h1>Add Account</h1>
-                    <div id="wrapper">
-                        <form action="../admin/addAccountController" >
-                            <h3>Add Account</h3>
+                </div>
+                <h1>Add Account</h1>
+                <div id="wrapper">
+                    <form action="addAccountController" method="post" >
+                        <h3>Add Account</h3>
 
-                            <div class="input__group">
-                                <input type="text" name="txtName" required>
-                                <label for="">Name</label>
-                            </div>
+                        <div class="input__group">
+                            <input type="text" name="txtName" required>
+                            <label for="">Name</label>
+                        </div>
                         <c:if test="${ADD_ACCOUNT_ERROR.fullNameError != null}">
                             <div class="alert">
                                 <span class="closebtn" onclick="this.parentElement.style.display = 'none';">&times;</span> 

@@ -24,10 +24,16 @@ public class AddCategoryController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.getRequestDispatcher(ADD_CATEGORY_PAGE).forward(request, response);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         CategoryRepository _categoryRepository = new CategoryRepository();
         CategoryError categoryError = new CategoryError();
         boolean result = false;
-        
+
         try {
             boolean checkValidation = true;
             //Get parameter
@@ -41,29 +47,24 @@ public class AddCategoryController extends HttpServlet {
                 categoryError.setCategoryNameDuplicateError("Category's name already existed!!!");
                 checkValidation = false;
             }
-            
+
             if (checkValidation) {
                 _categoryRepository.add(name, true);
-            }else{
+                result = true;
+            } else {
                 result = false;
                 request.setAttribute("ADD_CATEGORY_ERROR", categoryError);
             }
-            
+
         } catch (Exception e) {
             log("Error at AddCategoryController" + e.toString());
-        }finally{
+        } finally {
             if (result) {
                 response.sendRedirect(VIEW_CATEGORY_LIST_CONTROLLER);
-            }else{
+            } else {
                 request.getRequestDispatcher(ADD_CATEGORY_PAGE).forward(request, response);
-            }           
-        }       
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-
+            }
+        }
     }
 
     @Override

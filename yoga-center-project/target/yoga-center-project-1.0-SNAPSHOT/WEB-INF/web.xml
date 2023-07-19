@@ -236,6 +236,14 @@
         <servlet-name>BlogAnalysisController</servlet-name>
         <servlet-class>com.yowu.yogacenter.controller.admin.BlogAnalysisController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ViewBillMembershipListController</servlet-name>
+        <servlet-class>com.yowu.yogacenter.controller.admin.ViewBillMembershipListController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SearchBillMembershipController</servlet-name>
+        <servlet-class>com.yowu.yogacenter.controller.admin.SearchBillMembershipController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>UserProfileCourse</servlet-name>
         <url-pattern>/userprofile/course</url-pattern>
@@ -463,6 +471,14 @@
     <servlet-mapping>
         <servlet-name>BlogAnalysisController</servlet-name>
         <url-pattern>/admin/blogAnalysisController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewBillMembershipListController</servlet-name>
+        <url-pattern>/admin/viewBillMembershipListController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchBillMembershipController</servlet-name>
+        <url-pattern>/admin/searchBillMembershipController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

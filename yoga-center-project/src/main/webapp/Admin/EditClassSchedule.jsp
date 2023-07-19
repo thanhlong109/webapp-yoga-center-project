@@ -36,11 +36,11 @@
                         </form>
                         <div class="profile">
                             <div class="info">
-                                <p>Hey, <b>Admin</b></p>
+                                <p>Hey, <b>${sessionScope.account.name}</b></p>
                                 <small class="text-muted">Admin</small>
                             </div>
                             <div class="profile-photo">
-                                <img src="../Asset/img/avatar/hinh-avatar-1.png" alt="">
+                                <img src="../Asset/img/avatar/${sessionScope.account.img}" alt="">
                             </div>
                         </div>
                     </div>

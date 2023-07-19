@@ -54,7 +54,7 @@ public class UpdateMembershipController extends HttpServlet {
                 membershipError.setMembershipNameDuplicateError("Name must have 5 to 50 characters!!!");
                 checkValidation = false;
             }
-            if (_membershipRepository.checkDuplicate(name)) {
+            if (_membershipRepository.checkDuplicateUpdate(name)) {
                 membershipError.setMembershipNameDuplicateError("Name already exsited!!!");
                 checkValidation = false;
             }

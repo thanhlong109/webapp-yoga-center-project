@@ -4,12 +4,15 @@
  */
 package com.yowu.yogacenter.repository;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.yowu.yogacenter.model.BillMembership;
 import com.yowu.yogacenter.model.Membership;
 import com.yowu.yogacenter.util.DBHelpler;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.text.ParseException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -20,6 +23,7 @@ import java.util.List;
  * @author Chien Thang
  */
 public class BillMembershipRepository {
+
     public List<BillMembership> getAll() {
         String sql = "select * from tblBillMembership";
         List<BillMembership> list = new ArrayList<>();
@@ -108,7 +112,7 @@ public class BillMembershipRepository {
         }
         return null;
     }
-    
+
     public BillMembership getMembershipIdByAccountID(int accountID) {
         String sql = "select * from tblBillMembership where account_id=? ";
         try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
@@ -137,8 +141,8 @@ public class BillMembershipRepository {
         }
         return null;
     }
-    
-    public BillMembership getAllByAccountIdAndCourseID(String accountId, int memId ) {
+
+    public BillMembership getAllByAccountIdAndCourseID(String accountId, int memId) {
         String sql = "select * from tblBillMembership WHERE account_id = ? AND course_id = ? ";
         try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
             stmt.setString(1, accountId);
@@ -167,8 +171,8 @@ public class BillMembershipRepository {
         }
         return null;
     }
-    
-    public BillMembership getAllByAccountIdAndMemId(int accountId, int memId ) {
+
+    public BillMembership getAllByAccountIdAndMemId(int accountId, int memId) {
         String sql = "select * from tblBillMembership WHERE account_id = ? AND membership_id = ? ";
         try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
             stmt.setInt(1, accountId);
@@ -202,10 +206,10 @@ public class BillMembershipRepository {
         boolean check = false;
         LocalDateTime sqlDate = null;
         if (!date.isEmpty()) {
-             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
             sqlDate = LocalDateTime.parse(date, formatter);
         }
-        
+
         String sql = "UPDATE tblBillMembership SET bill_status = ? , payment_date =? WHERE order_code = ?";
         try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
             stmt.setInt(1, status);
@@ -217,7 +221,8 @@ public class BillMembershipRepository {
         }
         return check;
     }
-        public boolean updateStatus(int id, int status) {
+
+    public boolean updateStatus(int id, int status) {
         String sql = "UPDATE tblBillMembership SET bill_status = ? WHERE bill_mem_id = ?";
         int updateStatus = 0;
 
@@ -316,8 +321,6 @@ public class BillMembershipRepository {
         return status == 1;
     }
 
-
-
     public boolean delete(int id) {
         String sql = "UPDATE tblBillMembership SET bill_is_active = 0 WHERE bill_mem_id = ?";
         int status = 0;
@@ -331,7 +334,6 @@ public class BillMembershipRepository {
         }
         return status == 1;
     }
-
 
     public List<BillMembership> searchId(int search) {
         String sql = "select * from tblBillMembership where bill_mem_id=? ";
@@ -352,6 +354,192 @@ public class BillMembershipRepository {
                     c.setValue(rs.getFloat("bill_value"));
                     c.setDiscount(rs.getInt("bill_discount"));
                     c.setDate(rs.getDate("bill_date"));
+                    list.add(c);
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return list;
+    }
+
+    public int getTotalPaidBill() {
+        int total = 0;
+        String sql = "select count(*) as num from tblBillMembership where bill_status = 0";
+        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
+            try ( ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    total = rs.getInt("num");
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return total;
+    }
+
+    public int getTotalPaidBill(Date to) {
+        int total = 0;
+        String sql = "select count(*) as num from tblBillMembership where bill_status = 0 and payment_date<=?";
+        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
+            stmt.setDate(1, to);
+            try ( ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    total = rs.getInt("num");
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return total;
+    }
+
+    public float getTotalIncome() {
+        float income = 0;
+        String sql = "select SUM(bill_value) as income from tblBillMembership where bill_status = 0";
+        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
+            try ( ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    income = rs.getFloat("income");
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return income;
+    }
+
+    public float getTotalIncome(Date to) {
+        float income = 0;
+        String sql = "select SUM(bill_value) as income from tblBillMembership where bill_status = 0 and payment_date<=?";
+        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
+            stmt.setDate(1, to);
+            try ( ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    income = rs.getFloat("income");
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return income;
+    }
+
+    public String getBillMembershipJson() {
+        String sql = "select bill_date, SUM(bill_value)as bill_value from tblBillMembership where bill_status=0 group by  bill_date order by bill_date asc";
+        List<List<Object>> list = new ArrayList();
+        String data = "";
+        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
+            try ( ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    List<Object> row = new ArrayList<>();
+                    long date = rs.getDate("bill_date").getTime();
+                    row.add(date);
+                    row.add(rs.getFloat("bill_value"));
+                    list.add(row);
+                }
+                ObjectMapper mapper = new ObjectMapper();
+                data = mapper.writeValueAsString(list);
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return data;
+    }
+
+    public String getBillPaidDateJson(int year) {
+        String sql = "SELECT DATEPART(MONTH, payment_date) AS [Month], COUNT(bill_mem_id) AS [total] FROM tblBillMembership where bill_status=0 and YEAR(payment_date)=? GROUP BY DATEPART(MONTH, [payment_date]) ORDER BY [Month]";
+        String data = "";
+        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
+            stmt.setInt(1, year);
+            try ( ResultSet rs = stmt.executeQuery()) {
+                int[] array;// at index 0 defind maximum month to display
+                LocalDate now = LocalDate.now();
+                if (now.getYear() == year) {
+                    int month = now.getMonthValue();
+                    array = new int[month];
+                } else {
+                    array = new int[12];
+                }
+                while (rs.next()) {
+                    array[rs.getInt("Month") - 1] = rs.getInt("total");
+                }
+                ObjectMapper objMapper = new ObjectMapper();
+                data = objMapper.writeValueAsString(array);
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return data;
+    }
+
+    public List<BillMembership> getAllFollowPagination(int offset, int next) {
+        String sql = "select * from tblBillMembership order by bill_mem_id desc OFFSET ? ROWS FETCH NEXT ? ROWS ONLY ";
+        List<BillMembership> list = new ArrayList<>();
+        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
+            stmt.setInt(1, offset);
+            stmt.setInt(2, next);
+            try ( ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    AccountRepository acc = new AccountRepository();
+                    MembershipRepository mb = new MembershipRepository();
+                    BillMembership c = new BillMembership();
+                    c.setMembership(mb.detail(rs.getInt("membership_id")));
+                    c.setAccount(acc.detail(rs.getInt("account_id")));
+                    c.setId(rs.getInt("bill_mem_id"));
+                    c.setStatus(rs.getInt("bill_status"));
+                    c.setIsActive(rs.getBoolean("bill_is_active"));
+                    c.setValue(rs.getFloat("bill_value"));
+                    c.setDiscount(rs.getInt("bill_discount"));
+                    c.setDate(rs.getDate("bill_date"));
+                    c.setOrdercode(rs.getString("order_code"));
+                    c.setMethod(rs.getString("payment_method"));
+                    c.setPaymentDate(rs.getDate("payment_date"));
+                    list.add(c);
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return list;
+    }
+
+    public int count() {
+        String sql = "select count(*) as num from tblBillMembership ";
+        int count = 0;
+        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
+            try ( ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    count = rs.getInt("num");
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return count;
+    }
+
+    public List<BillMembership> searchOrderCode(String search) {
+        String sql = "select * from tblBillMembership where order_code Like ? ";
+        List<BillMembership> list = new ArrayList<>();
+        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
+            stmt.setString(1, search);
+            try ( ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    AccountRepository acc = new AccountRepository();
+                    MembershipRepository mb = new MembershipRepository();
+                    BillMembership c = new BillMembership();
+                    c.setMembership(mb.detail(rs.getInt("membership_id")));
+                    c.setAccount(acc.detail(rs.getInt("account_id")));
+                    c.setId(rs.getInt("bill_mem_id"));
+                    c.setStatus(rs.getInt("bill_status"));
+                    c.setIsActive(rs.getBoolean("bill_is_active"));
+                    c.setValue(rs.getFloat("bill_value"));
+                    c.setDiscount(rs.getInt("bill_discount"));
+                    c.setDate(rs.getDate("bill_date"));
+                    c.setOrdercode(rs.getString("order_code"));
+                    c.setMethod(rs.getString("payment_method"));
+                    c.setPaymentDate(rs.getDate("payment_date"));
                     list.add(c);
                 }
             }

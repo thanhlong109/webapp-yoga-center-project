@@ -28,6 +28,12 @@ public class AddAccountController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.getRequestDispatcher(ADD_ACCOUNT_PAGE).forward(request, response);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         RoleRepository _roleRepository = new RoleRepository();
         AccountRepository _accountRepository = new AccountRepository();
         AccountError accountError = new AccountError();
@@ -71,15 +77,8 @@ public class AddAccountController extends HttpServlet {
             }else{
                 request.getRequestDispatcher(ADD_ACCOUNT_PAGE).forward(request, response);
             }
-            
         }
 
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        doGet(request, response);
     }
 
     /**

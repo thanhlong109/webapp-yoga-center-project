@@ -458,6 +458,23 @@ public class CourseRepository implements Serializable{
         return count;
     }
 
+    public boolean checkDuplicateUpdate(String title) {
+        String sql = "SELECT a.course_title FROM (select course_title from tblCourse where course_is_active = 1 and course_title not Like ? ) a  where a.course_title Like ? ";
+        boolean status = false;
+        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
+            stmt.setString(1, title);
+            stmt.setString(2, title);
+            try ( ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    status = true;
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return status;
+    }
+    
     public static void main(String[] args) {
         CourseRepository cr = new CourseRepository();
         System.out.println(cr.getMaxCoursePrice());

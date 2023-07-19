@@ -163,7 +163,7 @@
             $('.item-status-up .icon-status').html('<i class="fa-solid fa-chevron-up"></i>');
             $('.item-status-down .icon-status').html('<i class="fa-solid fa-chevron-down"></i>');
         </script>
-        <script>
+        <script defer>
             function getMonthName(monthNumber) {
                 const date = new Date();
                 date.setMonth(monthNumber - 1);

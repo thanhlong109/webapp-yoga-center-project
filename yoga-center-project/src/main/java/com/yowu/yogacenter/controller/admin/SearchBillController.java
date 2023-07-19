@@ -5,6 +5,7 @@
 package com.yowu.yogacenter.controller.admin;
 
 import com.yowu.yogacenter.model.Bill;
+import com.yowu.yogacenter.model.SearchError;
 import com.yowu.yogacenter.repository.BillRepository;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -21,17 +22,25 @@ import java.util.List;
 public class SearchBillController extends HttpServlet {
 
     private final String BILL_LIST_PAGE = "../Admin/ViewBill.jsp";
+    private final String VIEW_BILL_LIST_CONTROLLER = "viewBillListController";
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         String search = request.getParameter("txtSearch");
-        
+        SearchError searchError = new SearchError();
         BillRepository _billRepository = new BillRepository();
-        List<Bill> result = _billRepository.searchId(Integer.parseInt(search));
-        request.setAttribute("BILL_LIST", result );
-        request.getRequestDispatcher(BILL_LIST_PAGE).forward(request, response);
+        List<Bill> result = _billRepository.searchOrderCode(search);
+        if (result.isEmpty()) {
+            searchError.setSearchError("Search value doesn't exist");
+            request.setAttribute("SEARCH_ERROR", searchError);
+            request.getRequestDispatcher(VIEW_BILL_LIST_CONTROLLER).forward(request, response);
+        } else {
+            request.setAttribute("BILL_LIST", result);
+            request.getRequestDispatcher(BILL_LIST_PAGE).forward(request, response);
+        }
+
     }
 
     @Override

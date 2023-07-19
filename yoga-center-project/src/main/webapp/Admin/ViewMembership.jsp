@@ -24,6 +24,7 @@
         <link rel="stylesheet" href="${pageContext.request.contextPath}/Asset/css/dashboard_2.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/Asset/css/adminEditCategory_2.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/Asset/css/paginationAdmin.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/Asset/css/alertBoxAdmin.css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
         <script src="${pageContext.request.contextPath}/js/cdnjs.cloudflare.com_ajax_libs_Chart.js_2.4.0_Chart.min.js"></script>
     </head>
@@ -42,26 +43,32 @@
                         <div class="profile">
                             <div class="info">
                                 <p>Hey, <b>${sessionScope.account.name}</b></p>
-                                <small class="text-muted">Admin</small>
-                            </div>
-                            <div class="profile-photo">
-                                <img src="../Asset/img/avatar/hinh-avatar-1.png" alt="">
-                            </div>
+                            <small class="text-muted">Admin</small>
+                        </div>
+                        <div class="profile-photo">
+                            <img src="../Asset/img/avatar/${sessionScope.account.img}" alt="">
                         </div>
                     </div>
-                    <h1>Membership List</h1>
-                    <div class="container__wrapper-box">
-                        <div class="wrapper-box">
-                            <table class="table-style-1">
-                                <tr>
-                                    <th>Membership ID</th>
-                                    <th>Name</th>
-                                    <th>Duration</th>
-                                    <th>Price(VND)</th>
-                                    <th>Description</th>
-                                    <th>Discount (%)</th>
-                                    <th>Actions</th>
-                                </tr>
+                </div>
+                <c:if test="${SEARCH_ERROR != null}">
+                    <div class="alert">
+                        <span class="closebtn" onclick="this.parentElement.style.display = 'none';">&times;</span> 
+                        <strong>Warning!</strong> ${SEARCH_ERROR.searchError}
+                    </div>
+                </c:if>
+                <h1>Membership List</h1>
+                <div class="container__wrapper-box">
+                    <div class="wrapper-box">
+                        <table class="table-style-1">
+                            <tr>
+                                <th>Membership ID</th>
+                                <th>Name</th>
+                                <th>Duration</th>
+                                <th>Price</th>
+                                <th>Description</th>
+                                <th>Discount (%)</th>
+                                <th>Actions</th>
+                            </tr>
                             <c:forEach items="${MEMBERSHIP_LIST}" var="membership">
                                 <c:if test="${membership.isActive == true}"> 
                                     <tr>
@@ -83,7 +90,7 @@
                                         <td>
                                             ${membership.discount}
                                         </td>
-                                        <td>
+                                        <td style="width: 200px">
                                             <a class="btn btn-red" href="deleteMembershipController?id=${membership.id}">
                                                 Delete</a> 
                                             <a class="btn btn-green" href="updateMembershipController?id=${membership.id}">
