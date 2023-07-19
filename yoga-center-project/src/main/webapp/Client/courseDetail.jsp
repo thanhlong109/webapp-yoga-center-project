@@ -179,7 +179,7 @@
                 transform: translateY(-10px);
                 box-shadow: 0 0 25px rgba(0,0,0,0.35);
             }
-            
+
             .surgest-card-img{
                 height: 160px;
                 max-height: 160px;
@@ -188,8 +188,8 @@
                 display: flex;
                 align-items: center;
             }
-                
-            
+
+
             .surgest-card-img img{
                 max-width: 100%;
             }
@@ -339,7 +339,7 @@
                 color: white;
             }
 
-            
+
             .text-ellipsis {
                 display: -webkit-box;
                 -webkit-line-clamp: 2; /* Limit the text to 3 lines */
@@ -347,8 +347,8 @@
                 overflow: hidden;
                 text-overflow: ellipsis; /* Add "..." at the end of the third line */
                 white-space: normal;
-             }
-             .book-btn{
+            }
+            .book-btn{
                 text-decoration: none;
                 font-size: 16px;
                 padding: 12px 24px;
@@ -388,7 +388,7 @@
                 border: 2px solid rgb(255, 205, 86);
                 text-align: center;
             }
-            
+
             /*rating*/
             .rating-box-wrapper{
                 position: fixed;
@@ -638,8 +638,8 @@
                         <div class="label-value">
                             <c:if test="${course.price>0}">$${course.price}</c:if>
                             <c:if test="${course.price<=0}">Free</c:if>
-                        </div> <!--replace price here-->
-                   </div>
+                            </div> <!--replace price here-->
+                        </div>
                     <c:if test="${sessionScope.account == null}">
                         <c:if test="${course.price>0}">
                             <a class="book-btn" onclick="gotoCheckout('Checkout?id=${course.id}&action=course')" >
@@ -656,7 +656,7 @@
                     <c:if test="${sessionScope.account != null && allowBook}">
                         <c:if test="${course.price>0}">
                             <a class="book-btn" onclick="gotoCheckout('Checkout?id=${course.id}&action=course')" >
-                                Book now
+                                Purchase
                             </a>
                         </c:if>   
                         <c:if test="${course.price<=0}">
@@ -666,12 +666,17 @@
                         </c:if>
 
                     </c:if>
-                    <c:if test="${sessionScope.account != null  && !allowBook && billStatus != 2}">
-                            <p class="msg-green">You have joined the course</p> 
+                    <c:if test="${sessionScope.account != null  && !allowBook && billStatus ==0}">
+                        <p class="msg-green">You have joined the course</p> 
                     </c:if>
-                            
+                    <c:if test="${sessionScope.account != null  && !allowBook && billStatus == 1}">
+                        <a class="book-btn" onclick="gotoCheckout('Checkout?id=${course.id}&action=course')" >
+                            Purchase
+                        </a>
+                    </c:if>
+
                     <c:if test="${sessionScope.account != null  && billStatus == 2}">
-                            <p class="msg-yellow">Waiting for payment</p> 
+                        <p class="msg-yellow">Waiting for payment</p> 
                     </c:if>
                 </div>
             </div>
@@ -698,7 +703,7 @@
                                         <i class=""></i>
                                     </div>
                                 </div>
-                                    <a class="text-ellipsis">${c.title}</a><!--replace title for surgest card-->
+                                <a class="text-ellipsis">${c.title}</a><!--replace title for surgest card-->
                             </div>
                             <div class="surgest-card-footer">
                                 <p class="surgest-card-price"><c:if test="${c.price>0}">$${c.price}</c:if><c:if test="${c.price<=0}">Free</c:if></p>
@@ -728,297 +733,310 @@
             </form>
         </div>
         <%@include file="../Component/toast.jsp" %> 
-    <script defer>
-            /*rating stars*/
-        const ratingStarList = $('.rating-star i');
-        const ratingFeedback = document.querySelector('.rating-feedback');
-        
-        $('.rating-feedback').keyup(function(e){
-            $(this).css('height','59px');
-            let scHeight = e.target.scrollHeight;
-            $(this).css('height',scHeight+'px');
-        });
-        var ratingList = $('.rating-star i');
-        let valueStar = 0;
-        ratingList.each(function(){
-            $(this).click(function(){
-                for(let i=0;i<ratingList.length;i++){
-                    if(i<=$(this).index()){
-                        $(ratingList[i]).addClass('star-light');
-                    }else{
-                        $(ratingList[i]).removeClass('star-light');
-                    }
-                }
-                let text="";
-                valueStar = $(this).index();
-                switch(valueStar){
-                    case 0:{
-                        text = 'I just hate it <i class="fa-solid fa-face-angry"></i>';
-                        break;
-                    }
-                    case 1:{
-                        text = "I don't like it <i class='fa-solid fa-face-frown'></i>";
-                        break;
-                    }
-                    case 2:{
-                        text = 'It ok <i class="fa-solid fa-face-smile"></i>';
-                        break;
-                    }
-                    case 3:{
-                        text = 'It is awesome <i class="fa-solid fa-face-laugh-beam"></i>';
-                        break;
-                    }
-                    case 4:{
-                        text = 'I just love it <i class="fa-solid fa-face-laugh-squint"></i>';
-                        break;
-                    }
-                }
-                $('.rating-note').html(text);
-                $('#starPoint').val(valueStar+1);
+        <script defer>
+            <c:if test="${checkDup != null}">
+            toast({
+                title: "Opps!",
+                msg: "${checkDup}",
+                type: 'warning',
+                duration: 7000
             });
-        });
-        /*validate and post form rating*/
-<c:if test="${allowRating}">
-       $('.rating-box').on("submit",function(e){
-            e.preventDefault();
-            if($('#starPoint').val()==='0'){
-                toast({
-                    title: "Opps!",
-                    msg: 'Please rate us by click on star <i class="fa-solid fa-face-laugh-squint"></i>!',
-                    type: 'warning',
-                    duration: 5000
+            </c:if>
+            /*rating stars*/
+            const ratingStarList = $('.rating-star i');
+            const ratingFeedback = document.querySelector('.rating-feedback');
+
+            $('.rating-feedback').keyup(function (e) {
+                $(this).css('height', '59px');
+                let scHeight = e.target.scrollHeight;
+                $(this).css('height', scHeight + 'px');
+            });
+            var ratingList = $('.rating-star i');
+            let valueStar = 0;
+            ratingList.each(function () {
+                $(this).click(function () {
+                    for (let i = 0; i < ratingList.length; i++) {
+                        if (i <= $(this).index()) {
+                            $(ratingList[i]).addClass('star-light');
+                        } else {
+                            $(ratingList[i]).removeClass('star-light');
+                        }
+                    }
+                    let text = "";
+                    valueStar = $(this).index();
+                    switch (valueStar) {
+                        case 0:
+                        {
+                            text = 'I just hate it <i class="fa-solid fa-face-angry"></i>';
+                            break;
+                        }
+                        case 1:
+                        {
+                            text = "I don't like it <i class='fa-solid fa-face-frown'></i>";
+                            break;
+                        }
+                        case 2:
+                        {
+                            text = 'It ok <i class="fa-solid fa-face-smile"></i>';
+                            break;
+                        }
+                        case 3:
+                        {
+                            text = 'It is awesome <i class="fa-solid fa-face-laugh-beam"></i>';
+                            break;
+                        }
+                        case 4:
+                        {
+                            text = 'I just love it <i class="fa-solid fa-face-laugh-squint"></i>';
+                            break;
+                        }
+                    }
+                    $('.rating-note').html(text);
+                    $('#starPoint').val(valueStar + 1);
                 });
-            }else if($('.rating-feedback').val().length>50){
-                toast({
-                    title: "Opps!",
-                    msg: "Your feedback too long, please lest than 50 charactors!",
-                    type: 'warning',
-                    duration: 5000
-                });
-            }else{
-                $.ajax({
-                    type     : "POST",
-                    cache    : false,
-                    url      : $(this).attr('action'),
-                    data     : "action=rating&courseid=${course.id}&"+$(this).serialize(),
-                    success: function (data) {
-                        let rateUi = '<div class="user-feedback-item">'+
-                                        '<div class="user-feedback-avata img-square-container">'+
-                                            '<img src="${pageContext.request.contextPath}/Asset/img/avatar/${sessionScope.account.img}" alt="avatar.img">'+
-                                        '</div>'+
-                                        '<div class="feedback-info">'+
-                                            '<div>'+
-                                                '<h4 class="user-feedback-name">${sessionScope.account.name}</h4>'+
-                                                '<div data-avg="'+(valueStar+1)+'" class="yellow-stars stars">'+
-                                                    '<i class=""></i>'+
-                                                    '<i class=""></i>'+
-                                                    '<i class=""></i>'+
-                                                    '<i class=""></i>'+
-                                                    '<i class=""></i>'+
-                                                '</div>'+
-                                            '</div>'+
-                                            '<p class="user-feedback-content text">'+$('.rating-feedback').val()+'</p>'+
-                                        '</div>'+
+            });
+            /*validate and post form rating*/
+            <c:if test="${allowRating}">
+            $('.rating-box').on("submit", function (e) {
+                e.preventDefault();
+                if ($('#starPoint').val() === '0') {
+                    toast({
+                        title: "Opps!",
+                        msg: 'Please rate us by click on star <i class="fa-solid fa-face-laugh-squint"></i>!',
+                        type: 'warning',
+                        duration: 5000
+                    });
+                } else if ($('.rating-feedback').val().length > 50) {
+                    toast({
+                        title: "Opps!",
+                        msg: "Your feedback too long, please lest than 50 charactors!",
+                        type: 'warning',
+                        duration: 5000
+                    });
+                } else {
+                    $.ajax({
+                        type: "POST",
+                        cache: false,
+                        url: $(this).attr('action'),
+                        data: "action=rating&courseid=${course.id}&" + $(this).serialize(),
+                        success: function (data) {
+                            let rateUi = '<div class="user-feedback-item">' +
+                                    '<div class="user-feedback-avata img-square-container">' +
+                                    '<img src="${pageContext.request.contextPath}/Asset/img/avatar/${sessionScope.account.img}" alt="avatar.img">' +
+                                    '</div>' +
+                                    '<div class="feedback-info">' +
+                                    '<div>' +
+                                    '<h4 class="user-feedback-name">${sessionScope.account.name}</h4>' +
+                                    '<div data-avg="' + (valueStar + 1) + '" class="yellow-stars stars">' +
+                                    '<i class=""></i>' +
+                                    '<i class=""></i>' +
+                                    '<i class=""></i>' +
+                                    '<i class=""></i>' +
+                                    '<i class=""></i>' +
+                                    '</div>' +
+                                    '</div>' +
+                                    '<p class="user-feedback-content text">' + $('.rating-feedback').val() + '</p>' +
+                                    '</div>' +
                                     '</div>';
                             $('.load-feedback').append(rateUi);
-                        displayStars();
-                        toast({
-                            title: "Success!",
-                            msg: "Thanks for your feedback!",
-                            type: 'success',
-                            duration: 5000
-                        });
-                        $('.feedback-btn-open').hide();
-                    },
-                    error: function (msg) {
-                        
-                    }
-                });
-                $('.rating-box-wrapper').hide();
-            }
-        });
-        /*close form*/
-       $('.rating-close').click(function(){
-            $('.rating-box-wrapper').hide();
-       });
-       /*open form*/
-       $('.feedback-btn-open').click(function (){
-           $('.rating-box-wrapper').css('display','flex');
-       });                 
-</c:if>
-    </script>
-    <script>
-        var dateSelect = [];
-        var date = new Date();
-        var today = new Date(date.getFullYear(), date.getMonth(), date.getDate());
-        $('#datepicker').datepicker({
-            uiLibrary: 'bootstrap5',
-            format: 'yyyy-mm-dd',
-            minDate: today,
-            disableDates: function (date) {
-                const dayOfWeek = date.getDay();
-                return dateSelect.includes(dayOfWeek);
-            }
-        });
+                            displayStars();
+                            toast({
+                                title: "Success!",
+                                msg: "Thanks for your feedback!",
+                                type: 'success',
+                                duration: 5000
+                            });
+                            $('.feedback-btn-open').hide();
+                        },
+                        error: function (msg) {
 
-        document.getElementById("datepicker").required = true;
-    </script>
-    <script defer>
-        /*display star*/
-        displayStars();
-        function displayStars(){
-           const starsParents = document.querySelectorAll(".stars");
-            starsParents.forEach(sp => {
-                let stars = sp.querySelectorAll(".stars i");
-                var avg = $(sp).data('avg');
-                stars.forEach(star => {
-                    if (avg > 0) {
-                        star.classList.add("fa-solid");
-                        if (avg < 1) {
-                            star.classList.add("fa-star-half-stroke");
-                        } else {
-                            star.classList.add("fa-star");
                         }
-                    } else {
-                        star.classList.add("fa-regular");
-                        star.classList.add("fa-star");
-                    }
-                    avg -= 1;
-                });
-            }); 
-        }
-        /*display date text*/
-        const displayDate = document.querySelector(".jsdate");
-        const displayTime = document.querySelector(".jstime");
-        var dateData = "";
-        var timeData = "";
-        <c:forEach items="${courseScheduleList}" var="i">
-        dateData += "<option data-cId='${i.dateOfWeek}' value='${i.id}' > ${i.dateToString()} </option>";
-        timeData += "<li class='time-${i.id}' > ${i.startTime} - ${i.endTime}</li>";
-        </c:forEach>
-        displayDate.innerHTML = dateData;
-        displayTime.innerHTML = timeData;
-        loadTime($('.jsdate'));
-        function loadTime(select) {
-            var id = $(select).val();
-            var datePick = $('.jsdate').find(':selected').attr('data-cId');
-            var parseDate = datePick.split(",");
-            dateSelect = [];
-            parseDate.forEach(i => {
-                var j = parseInt(i);
-                if (j < 6) {
-                    j = j + 1;
-                } else {
-                    j = 0;
+                    });
+                    $('.rating-box-wrapper').hide();
                 }
-                dateSelect.push(j);
+            });
+            /*close form*/
+            $('.rating-close').click(function () {
+                $('.rating-box-wrapper').hide();
+            });
+            /*open form*/
+            $('.feedback-btn-open').click(function () {
+                $('.rating-box-wrapper').css('display', 'flex');
+            });
+            </c:if>
+        </script>
+        <script>
+            var dateSelect = [];
+            var date = new Date();
+            var today = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+            $('#datepicker').datepicker({
+                uiLibrary: 'bootstrap5',
+                format: 'yyyy-mm-dd',
+                minDate: today,
+                disableDates: function (date) {
+                    const dayOfWeek = date.getDay();
+                    return dateSelect.includes(dayOfWeek);
+                }
             });
 
-            console.log(dateSelect);
-            $('.right-container li.time-' + id).show();
-            $('.right-container li.time-' + id).siblings().hide();
-        }
-        function goto(url) {
-            window.location.href = "${pageContext.request.contextPath}/" + url;
-        }
+            document.getElementById("datepicker").required = true;
+        </script>
+        <script defer>
+            /*display star*/
+            displayStars();
+            function displayStars() {
+                const starsParents = document.querySelectorAll(".stars");
+                starsParents.forEach(sp => {
+                    let stars = sp.querySelectorAll(".stars i");
+                    var avg = $(sp).data('avg');
+                    stars.forEach(star => {
+                        if (avg > 0) {
+                            star.classList.add("fa-solid");
+                            if (avg < 1) {
+                                star.classList.add("fa-star-half-stroke");
+                            } else {
+                                star.classList.add("fa-star");
+                            }
+                        } else {
+                            star.classList.add("fa-regular");
+                            star.classList.add("fa-star");
+                        }
+                        avg -= 1;
+                    });
+                });
+            }
+            /*display date text*/
+            const displayDate = document.querySelector(".jsdate");
+            const displayTime = document.querySelector(".jstime");
+            var dateData = "";
+            var timeData = "";
+            <c:forEach items="${courseScheduleList}" var="i">
+            dateData += "<option data-cId='${i.dateOfWeek}' value='${i.id}' > ${i.dateToString()} </option>";
+            timeData += "<li class='time-${i.id}' > ${i.startTime} - ${i.endTime}</li>";
+            </c:forEach>
+            displayDate.innerHTML = dateData;
+            displayTime.innerHTML = timeData;
+            loadTime($('.jsdate'));
+            function loadTime(select) {
+                var id = $(select).val();
+                var datePick = $('.jsdate').find(':selected').attr('data-cId');
+                var parseDate = datePick.split(",");
+                dateSelect = [];
+                parseDate.forEach(i => {
+                    var j = parseInt(i);
+                    if (j < 6) {
+                        j = j + 1;
+                    } else {
+                        j = 0;
+                    }
+                    dateSelect.push(j);
+                });
 
-        function gotoCheckout(url) {
-            var course_scheduleId = $('#dateSD').val();
-            var duration = $('#duration').val();
-            var start_Time = $('#datepicker').val();
-
-            if (!start_Time) {
-                $('#date-error-message').text('Please choose a start date !!!');
-                $('#date-error-message').css('color', 'red');
-                $('#date-error-message').show();
-
-                setTimeout(function () {
-                    $('#date-error-message').hide();
-                }, 5000);
-
-                return;
+                console.log(dateSelect);
+                $('.right-container li.time-' + id).show();
+                $('.right-container li.time-' + id).siblings().hide();
+            }
+            function goto(url) {
+                window.location.href = "${pageContext.request.contextPath}/" + url;
             }
 
-            // Các mã khác trong hàm gotoCheckout...
+            function gotoCheckout(url) {
+                var course_scheduleId = $('#dateSD').val();
+                var duration = $('#duration').val();
+                var start_Time = $('#datepicker').val();
 
-            // Xóa thông báo nếu đã chọn ngày
-            $('#date-error-message').text('');
-            $('#date-error-message').hide();
+                if (!start_Time) {
+                    $('#date-error-message').text('Please choose a start date !!!');
+                    $('#date-error-message').css('color', 'red');
+                    $('#date-error-message').show();
 
-            window.location.href = "${pageContext.request.contextPath}/" + url + "&course_scheduleId=" + course_scheduleId + "&duration=" + duration + "&start_time=" + start_Time;
-        }
+                    setTimeout(function () {
+                        $('#date-error-message').hide();
+                    }, 5000);
+
+                    return;
+                }
+
+                // Các mã khác trong hàm gotoCheckout...
+
+                // Xóa thông báo nếu đã chọn ngày
+                $('#date-error-message').text('');
+                $('#date-error-message').hide();
+
+                window.location.href = "${pageContext.request.contextPath}/" + url + "&course_scheduleId=" + course_scheduleId + "&duration=" + duration + "&start_time=" + start_Time;
+            }
 
 
 
-        $('.jsWishlist').click(() => {
-            if ($('.jsWishlist').hasClass('added')) {
-                $.ajax({
-                    url: "course-detail?courseid=" +${course.id} + "&action=remove",
-                    type: "post",
-                    success: function (data) {
-                        if (data == "account-failed") {
+            $('.jsWishlist').click(() => {
+                if ($('.jsWishlist').hasClass('added')) {
+                    $.ajax({
+                        url: "course-detail?courseid=" +${course.id} + "&action=remove",
+                        type: "post",
+                        success: function (data) {
+                            if (data == "account-failed") {
+                                toast({
+                                    title: "Opps!",
+                                    msg: "Login to use this fuction!",
+                                    type: 'error',
+                                    duration: 5000
+                                });
+                            } else {
+                                toast({
+                                    title: "Success!",
+                                    msg: "Remove success!",
+                                    type: 'success',
+                                    duration: 5000
+                                });
+                                $('.jsWishlist').removeClass('added');
+                                $('.jsWishlist').html('<i class="fa-regular fa-bookmark"></i> Add To WishList');
+                            }
+                        },
+                        error: function (msg) {
                             toast({
                                 title: "Opps!",
                                 msg: "Login to use this fuction!",
                                 type: 'error',
                                 duration: 5000
                             });
-                        } else {
-                            toast({
-                                title: "Success!",
-                                msg: "Remove success!",
-                                type: 'success',
-                                duration: 5000
-                            });
-                            $('.jsWishlist').removeClass('added');
-                            $('.jsWishlist').html('<i class="fa-regular fa-bookmark"></i> Add To WishList');
                         }
-                    },
-                    error: function (msg) {
-                        toast({
-                            title: "Opps!",
-                            msg: "Login to use this fuction!",
-                            type: 'error',
-                            duration: 5000
-                        });
-                    }
-                });
-            } else {
+                    });
+                } else {
 
-                $.ajax({
-                    url: "course-detail?courseid=" +${course.id} + "&action=add",
-                    type: "post",
-                    success: function (data) {
-                        if (data == "account-failed") {
+                    $.ajax({
+                        url: "course-detail?courseid=" +${course.id} + "&action=add",
+                        type: "post",
+                        success: function (data) {
+                            if (data == "account-failed") {
+                                toast({
+                                    title: "Opps!",
+                                    msg: "Login to use this fuction!",
+                                    type: 'error',
+                                    duration: 5000
+                                });
+                            } else {
+                                $('.jsWishlist').addClass('added');
+                                $('.jsWishlist').html('<i class="fa fa-times" aria-hidden="true"></i> Remove From WishList');
+                                toast({
+                                    title: "Success!",
+                                    msg: "Add success!",
+                                    type: 'success',
+                                    duration: 5000
+                                });
+                            }
+                        },
+                        error: function (msg) {
                             toast({
                                 title: "Opps!",
-                                msg: "Login to use this fuction!",
+                                msg: "Login to add wishlist!",
                                 type: 'error',
                                 duration: 5000
                             });
-                        } else {
-                            $('.jsWishlist').addClass('added');
-                            $('.jsWishlist').html('<i class="fa fa-times" aria-hidden="true"></i> Remove From WishList');
-                            toast({
-                                title: "Success!",
-                                msg: "Add success!",
-                                type: 'success',
-                                duration: 5000
-                            });
                         }
-                    },
-                    error: function (msg) {
-                        toast({
-                            title: "Opps!",
-                            msg: "Login to add wishlist!",
-                            type: 'error',
-                            duration: 5000
-                        });
-                    }
-                });
-            }
-        });
-    </script>
-    <%@include file="../Component/footer.jsp" %> 
-</body>
+                    });
+                }
+            });
+        </script>
+        <%@include file="../Component/footer.jsp" %> 
+    </body>
 </html>

@@ -51,7 +51,6 @@ public class LoginGoogleController extends HttpServlet {
             String current = (String) session.getAttribute("currentPage");
 
             Account loginUser = dao.checkLoginGoogle(emailGG, googleID);
-
             if (loginUser == null) {
                 String username = userGG.getName();
                 RoleRepository rr = new RoleRepository();

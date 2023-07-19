@@ -52,9 +52,9 @@ public class BillRepository {
         }
         return list;
     }
-    
-    public String getBillJson(){
-        String sql = "select bill_date, SUM(bill_value)as bill_value from tblBill where bill_status="+Bill.BillStatus.COMPLETED.ordinal()+" group by  bill_date order by bill_date asc";
+
+    public String getBillJson() {
+        String sql = "select bill_date, SUM(bill_value)as bill_value from tblBill where bill_status=" + Bill.BillStatus.COMPLETED.ordinal() + " group by  bill_date order by bill_date asc";
         List<List<Object>> list = new ArrayList();
         String data = "";
         try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
@@ -69,43 +69,43 @@ public class BillRepository {
                 ObjectMapper mapper = new ObjectMapper();
                 data = mapper.writeValueAsString(list);
             }
-        }catch (Exception e) {
+        } catch (Exception e) {
             System.out.println(e);
         }
         return data;
     }
-     
-    public float getTotalIncome(){
+
+    public float getTotalIncome() {
         float income = 0;
         String sql = "select SUM(bill_value) as income from tblBill where bill_status = 0";
         try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
             try ( ResultSet rs = stmt.executeQuery()) {
-                if(rs.next()){
+                if (rs.next()) {
                     income = rs.getFloat("income");
                 }
             }
-        }catch(Exception e){
+        } catch (Exception e) {
             System.out.println(e);
         }
         return income;
     }
-    
-    public float getTotalIncome(Date to){
+
+    public float getTotalIncome(Date to) {
         float income = 0;
         String sql = "select SUM(bill_value) as income from tblBill where bill_status = 0 and payment_date<=?";
         try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
             stmt.setDate(1, to);
             try ( ResultSet rs = stmt.executeQuery()) {
-                if(rs.next()){
+                if (rs.next()) {
                     income = rs.getFloat("income");
                 }
             }
-        }catch(Exception e){
+        } catch (Exception e) {
             System.out.println(e);
         }
         return income;
     }
-    
+
     public List<Bill> getByAccountID(int accountId) {
         String sql = "select * from tblBill where account_id=?";
         List<Bill> list = new ArrayList<>();
@@ -164,8 +164,8 @@ public class BillRepository {
         }
         return null;
     }
-    
-    public Bill getAllByAccountIdAndCourseID(String accountId, int courseId ) {
+
+    public Bill getAllByAccountIdAndCourseID(String accountId, int courseId) {
         String sql = "select * from tblBill WHERE account_id = ? AND course_id = ? ";
         try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
             stmt.setString(1, accountId);
@@ -194,8 +194,8 @@ public class BillRepository {
         }
         return null;
     }
-    
-    public Bill getAllByAccountIdAndCourseID(int accountId, int courseId ) {
+
+    public Bill getAllByAccountIdAndCourseID(int accountId, int courseId) {
         String sql = "select * from tblBill WHERE account_id = ? AND course_id = ? ";
         try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
             stmt.setInt(1, accountId);
@@ -224,8 +224,8 @@ public class BillRepository {
         }
         return null;
     }
-    
-    public Bill getBillRecentByAccountIdAndCourseID(int accountId, int courseId ) {
+
+    public Bill getBillRecentByAccountIdAndCourseID(int accountId, int courseId) {
         String sql = "select * from tblBill WHERE account_id = ? AND course_id = ? order by bill_id DESC";
         try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
             stmt.setInt(1, accountId);
@@ -259,10 +259,10 @@ public class BillRepository {
         boolean check = false;
         LocalDateTime sqlDate = null;
         if (!date.isEmpty()) {
-             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
             sqlDate = LocalDateTime.parse(date, formatter);
         }
-        
+
         String sql = "UPDATE tblBill SET bill_status = ? , payment_date =? WHERE order_code = ?";
         try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
             stmt.setInt(1, status);
@@ -274,13 +274,31 @@ public class BillRepository {
         }
         return check;
     }
-        public boolean updateStatus(int id, int status) {
+
+    public boolean updateStatus(int id, int status) {
         String sql = "UPDATE tblBill SET bill_status = ? WHERE bill_id = ?";
         int updateStatus = 0;
 
         try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
             stmt.setInt(1, status);
             stmt.setInt(2, id);
+
+            updateStatus = stmt.executeUpdate();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+        return updateStatus == 1;
+    }
+    
+    public boolean updateStatus(String orderCode, int status) {
+        String sql = "UPDATE tblBill SET bill_status = ? WHERE order_code = ?";
+        int updateStatus = 0;
+
+        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
+            stmt.setInt(1, status);
+            System.out.println("status repo"+status);
+            stmt.setString(2, orderCode);
 
             updateStatus = stmt.executeUpdate();
         } catch (Exception e) {
@@ -372,8 +390,6 @@ public class BillRepository {
         return status == 1;
     }
 
-
-
     public boolean delete(int id) {
         String sql = "UPDATE tblBill SET bill_is_active = 0 WHERE bill_id = ?";
         int status = 0;
@@ -387,7 +403,6 @@ public class BillRepository {
         }
         return status == 1;
     }
-
 
     public List<Bill> searchId(int search) {
         String sql = "select * from tblBill where bill_id=? ";
@@ -419,7 +434,7 @@ public class BillRepository {
         return list;
     }
 
-     public List<Bill> getAllFollowPagination(int offset, int next) {
+    public List<Bill> getAllFollowPagination(int offset, int next) {
         String sql = "select * from tblBill order by bill_id desc OFFSET ? ROWS FETCH NEXT ? ROWS ONLY ";
         List<Bill> list = new ArrayList<>();
         try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
@@ -464,9 +479,10 @@ public class BillRepository {
         }
         return count;
     }
+
     public static void main(String[] args) {
         BillRepository b = new BillRepository();
-        
+
         System.out.println(b.getBillRecentByAccountIdAndCourseID(2, 1).getId());
     }
 

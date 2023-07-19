@@ -101,6 +101,12 @@ public class ClassSchedule {
     public void setRegisId(int regisId) {
         this.regisId = regisId;
     }
+
+    @Override
+    public String toString() {
+        return "ClassSchedule{" + "id=" + id + ", date=" + date + ", startTime=" + startTime + ", endTime=" + endTime + ", status=" + status + ", registrationCourse=" + registrationCourse + ", regisId=" + regisId + '}';
+    }
+    
     
     
 }

@@ -81,6 +81,7 @@ public class CheckoutResultController extends HttpServlet {
                     System.out.println(billL);
                     if (check) {
                         session.setAttribute("billCourseC", billL);
+                        request.setAttribute("billCourse", billL);
                         request.setAttribute("PAYMENT", payment);
                         url = SUCCESS_CHECKOUT;
                     }

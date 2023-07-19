@@ -55,11 +55,11 @@
                                 </tr>
                                 <tr>
                                     <th>Payment method:</td>
-                                        <td>${bill.method}</td>                                  
+                                        <td>${bill.paymentMethod}</td>                                  
                                 </tr>
                                 <tr>
                                     <th>Order code:</th>
-                                    <td>${bill.ordercode}</td>
+                                    <td>${bill.orderCode}</td>
                                 </tr>
                                 <tr>
                                     <th>Amount paid:</th>
