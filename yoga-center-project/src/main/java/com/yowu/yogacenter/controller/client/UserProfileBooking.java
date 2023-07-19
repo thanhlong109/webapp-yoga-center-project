@@ -91,7 +91,11 @@ public class UserProfileBooking extends HttpServlet {
 "                                    <label>Discount:</label><span>$"+b.getDiscount()
                 + "</span>\n" +
 "                                </div>"+"<div>\n" +
-"                                    <label>Payment Method:</label><span> "+b.getMethod()
+"                                    <label>Payment Method:</label><span> "+b.getPaymentMethod()
+                + "</span>\n" +
+"                                </div>\n" +
+"                                <div>\n" +
+"                                    <label>Order code:</label><span>"+b.getOrderCode()
                 + "</span>\n" +
 "                                </div>\n" +
 "                                <div>\n" +

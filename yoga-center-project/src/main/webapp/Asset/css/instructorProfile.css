@@ -14,7 +14,7 @@ body{
 }
 
 .banner{
-    padding: 15% 20px 10% 20px;
+    padding: 100px 20px 100px 20px;
     width: 100%;
     text-align: center;
     background: url(../img/bg/page-title-1.png) top center / cover no-repeat;
@@ -24,30 +24,158 @@ body{
     font-size: 3.3vw;
 }
 .container{
-    position: relative;
-    margin-top: 50px;
-    margin-left: 100px;
+    padding: 70px 10px 30px;
+    display: flex;
+    gap: 60px;
+    max-width: 1100px;
+    margin: 0 auto;
 }
+/*left*/
+
+.image-instructor-profile-wrapper{
+    padding: 4px;
+    border: 2px solid #383838;
+    border-radius: 50%;
+    height: fit-content;
+    width: fit-content;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
 .image-instructor-profile{
-    position:absolute;
-    padding-left: 50px;
-    padding-top: 60px;
+    border-radius: 50%;
+    max-width: 260px;
+    width: 260px;
+    height: 260px;
+    overflow: hidden;
+    
 }
-img{
-    width: 60%;
-    height: auto;
-    border-radius: 100px;
+.image-instructor-profile img{
+    height: 260px;
 }
-.bio-instructor-profile{
-    position: relative;
-    margin-top: 90px;
-    margin-left: 350px;
+
+/*right*/
+
+.right-container,
+.row, .instructor-contact{
+    display: flex;
+    flex-direction: column;
 }
-h3{
-    font-size: 25px;
-    padding-bottom: 10px;
-    font-family: 'Jost', sans-serif;
+
+.right-container{
+    gap: 32px;
 }
-p{
-    font-family: 'Jost', sans-serif;
+.row{
+    gap: 16px;
+}
+.row h3:not(.instructor-name){
+    color: #383838;
+    font-size: 24px;
+}
+.instructor-contact{
+    gap: 4px;
+    font-size: 18px;
+    color: #383838;
+}
+.instructor-contact i{
+    width: 30px;
+}
+
+.instructor-name{
+    font-size: 54px;
+    color: #383838;
+    line-height: 54px;
+}
+.instructor-biography{
+    color: #5e5e5e;
+    line-height: 1.7;
+}
+.surgest-list{
+    margin-top: 16px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 36px;
+}
+
+.surgest-course-card{
+    width: calc(90% / 2);
+    transition: all ease-in-out .3s;
+    box-shadow: 0 0 15px rgba(0,0,0,0.15);
+    min-width: 250px;
+    cursor: pointer;
+}
+.surgest-course-card:hover{
+    transform: translateY(-10px);
+    box-shadow: 0 0 25px rgba(0,0,0,0.35);
+}
+
+.surgest-card-img{
+    height: 160px;
+    max-height: 160px;
+    min-height: 160px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+}
+
+
+.surgest-card-img img{
+    max-width: 100%;
+}
+
+.surgest-card-body{
+    padding: 12px 20px;
+}
+.surgest-card-body>div:first-child{
+    display: flex;
+    justify-content: space-between;
+}
+.surgest-card-body>div:first-child p{
+    color: #3dbca8;
+}
+.green-stars{
+    font-size: 12px;
+    color: #3dbca8;
+}
+.surgest-card-body a{
+    font-size: 20px;
+    color: #545454;
+    margin: 8px 0;
+    text-decoration: none;
+    font-weight: 600;
+}
+.surgest-card-footer{
+    padding: 20px;
+    border-top: 1px solid #e6e6e6;
+}
+.surgest-card-price{
+    font-size: 20px;
+    color: #5e5e5e;
+    margin-bottom: 8px;
+}
+.surgest-card-student{
+    color: #a2a2a2;
+    font-size: 14px;
+}
+.text-ellipsis {
+    display: -webkit-box;
+    -webkit-line-clamp: 1; /* Limit the text to 1 lines */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis; /* Add "..." at the end of the 1 line */
+    white-space: normal;
+}
+@media screen and (max-width:739px){
+    .container{
+        flex-direction: column;
+        padding: 70px 20px 30px;
+    }
+    .image-instructor-profile-wrapper{
+        margin: 0 auto;
+    }
+    .surgest-course-card{
+        width: 100%;
+    }
 }

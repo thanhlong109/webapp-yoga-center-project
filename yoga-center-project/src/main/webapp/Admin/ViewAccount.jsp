@@ -23,11 +23,13 @@
         <link rel="stylesheet"
               href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
         <!-- Link CSS -->
-        <link rel="stylesheet" href="../Asset/css/dashboard_2.css">
-        <link rel="stylesheet" href="../Asset/css/adminEditCategory_2.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/Asset/css/dashboard_2.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/Asset/css/adminEditCategory_2.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/Asset/css/paginationAdmin.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/Asset/css/alertBoxAdmin.css">
         <!-- Library JS -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
-        <script src="../js/cdnjs.cloudflare.com_ajax_libs_Chart.js_2.4.0_Chart.min.js"></script>
+        <script src="${pageContext.request.contextPath}/js/cdnjs.cloudflare.com_ajax_libs_Chart.js_2.4.0_Chart.min.js"></script>
         <style>
             .image {
                 max-width: 90%;
@@ -51,33 +53,36 @@
                         </form>
                         <div class="profile">
                             <div class="info">
-                                <p>Hey, <b>Admin</b></p>
-                                <small class="text-muted">Admin</small>
-                            </div>
-                            <div class="profile-photo">
-                                <img src="../Asset/img/avatar/hinh-avatar-1.png" alt="">
-                            </div>
+                                <p>Hey, <b>${sessionScope.account.name}</b></p>
+                            <small class="text-muted">Admin</small>
+                        </div>
+                        <div class="profile-photo">
+                            <img src="../Asset/img/avatar/${sessionScope.account.img}" alt="">
                         </div>
                     </div>
-                    <div class="container__wrapper-box">
-                        <div class="wrapper-box">
-                            <table class="table-style-1">
-                                <tr>
-                                    <th>Account ID</th>
-                                    <th>Account Image</th>
-                                    <th>Account Name</th>
-                                    <th>Account Email</th>
-                                    <th>Account Phone</th>
-                                    <th>Social ID</th>
-                                    <th>Role</th>
-                                    <th>Actions</th>
-                                </tr>
+                </div>
+                <c:if test="${SEARCH_ERROR != null}">
+                    <div class="alert">
+                        <span class="closebtn" onclick="this.parentElement.style.display = 'none';">&times;</span> 
+                        <strong>Warning!</strong> ${SEARCH_ERROR.searchError}
+                    </div>
+                </c:if>
+                <h1>Account List</h1>
+                <div class="container__wrapper-box">
+                    <div class="wrapper-box">
+                        <table class="table-style-1">
+                            <tr>
+                                <th>Account Image</th>
+                                <th>Account Name</th>
+                                <th>Account Email</th>
+                                <th>Account Phone</th>
+                                <th>Social ID</th>
+                                <th>Role</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
                             <c:forEach items="${ACCOUNT_LIST}" var="account">
-                                <c:if test="${account.isActive== true}"> 
                                 <tr>
-                                    <td>
-                                        ${account.id}
-                                    </td>
                                     <td>
                                         <img class="image" src="../Asset/img/account/${account.img}" alt="img">  
                                     </td>
@@ -95,18 +100,33 @@
                                     </td>
                                     <td>
                                         ${account.role.name}
-                                    </td>                                                                                   
+                                    </td> 
+                                    <td>
+                                        ${account.isActive}
+                                    </td>
                                     <td>
                                         <a class="btn btn-red" href="deleteAccountController?id=${account.id}">
-                                            Delete</a> 
+                                            Ban</a> 
                                     </td>
                                 </tr>
-                                </c:if>
                             </c:forEach>
 
                         </table>
                     </div>
                 </div>
+                <div class="pagination">
+                    <c:if test="${NUMPAGE>1}">
+                        <c:if test="${PAGE>1}">
+                            <a href="viewAccountListController?page=${PAGE-1}"><i class="fa-solid fa-chevron-left"></i></a>
+                            </c:if>
+                            <c:forEach begin="${1}" var="i" end="${NUMPAGE}">
+                            <a href="viewAccountListController?page=${i}" <c:if test="${i==PAGE}">class="p-active"</c:if> >${i}</a>
+                        </c:forEach>
+                        <c:if test="${PAGE<NUMPAGE}">
+                            <a href="viewAccountListController?page=${PAGE<NUMPAGE?(PAGE+1):NUMPAGE}"><i class="fa-solid fa-chevron-right"></i></a>
+                            </c:if>
+                        </c:if>
+                </div> 
             </main>
         </div>
     </body>

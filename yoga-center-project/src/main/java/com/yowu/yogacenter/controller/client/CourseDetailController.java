@@ -5,95 +5,186 @@
 package com.yowu.yogacenter.controller.client;
 
 import com.yowu.yogacenter.model.Account;
+import com.yowu.yogacenter.model.Bill;
 import com.yowu.yogacenter.model.Course;
+import com.yowu.yogacenter.model.CourseSchedule;
+import com.yowu.yogacenter.model.RatingCourse;
 import com.yowu.yogacenter.model.RegistrationCourse;
+import com.yowu.yogacenter.repository.BillRepository;
 import com.yowu.yogacenter.repository.CourseRepository;
 import com.yowu.yogacenter.repository.CourseScheduleRepository;
 import com.yowu.yogacenter.repository.CourseWishlistRepository;
 import com.yowu.yogacenter.repository.RatingCourseRepository;
 import com.yowu.yogacenter.repository.RegistrationCourseRepository;
+import jakarta.mail.Session;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  *
  * @author ACER
  */
 public class CourseDetailController extends HttpServlet {
+
     private final String COURSE_DETAIL_PAGE = "Client/courseDetail.jsp";
-   
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try{
+        try {
             int id = Integer.parseInt(request.getParameter("id"));
             CourseRepository cr = new CourseRepository();
             CourseScheduleRepository sc = new CourseScheduleRepository();
-            RatingCourseRepository  ratec = new RatingCourseRepository();
+
+            RatingCourseRepository ratec = new RatingCourseRepository();
             CourseWishlistRepository cwr = new CourseWishlistRepository();
             Course c = cr.detail(id);
+
             Account account = (Account) request.getSession().getAttribute("account");
             RegistrationCourseRepository rcr = new RegistrationCourseRepository();
-            boolean isInWishList = false;
             RegistrationCourse rc2 = null;
-            if(account != null){
+            List<CourseSchedule> list_dow = sc.getScheduleByCourse(c.getId());
+
+            boolean isInWishList = false;
+
+            Bill billStatus = null;
+            BillRepository billRepo = new BillRepository();
+            boolean allowBook = true;
+            RegistrationCourse regisStatus = null;
+            if (account != null) {
+                // add
+//                List<CourseSchedule> list_dow = sc.getScheduleByCourse(c.getId());
+//                List<RegistrationCourse> rc3List = rcr.getAllByAccountID(account.getId());
+//                for (RegistrationCourse rs : rc3List) {
+//                    System.out.println(rs.getCourseSchedule().getDateOfWeek());
+//                }
+//                
+//                if (rc3List != null) {
+//                    for (RegistrationCourse rc3 : rc3List) {
+//                        if (rc3.getCourseSchedule() != null) {
+//                            String dow = rc3.getCourseSchedule().getDateOfWeek();
+//                            Iterator<CourseSchedule> iterator = list_dow.iterator();
+//                            while (iterator.hasNext()) {
+//                                CourseSchedule cs = iterator.next();
+//                                if (cs.getDateOfWeek().contains(dow)) {
+//                                    iterator.remove();
+//                                }
+//                            }
+//                        }
+//                    }
+//                }
+
+                //---
+                request.getParameter("");
+                
                 isInWishList = cwr.isExist(id, account.getId());
-                rc2 = rcr.getRegisIdByCourseIdAndAccountID(account.getId(),id,true);
+                billStatus = billRepo.getBillRecentByAccountIdAndCourseID(account.getId(), id);
+                if (billStatus != null) {
+                    regisStatus = rcr.getRecentRegisByCourseIdAndAccountID(account.getId(), id);
+                    if (regisStatus != null) {
+                        if (regisStatus.getCourseStatus() != RegistrationCourse.CourseStatus.FINISH.ordinal()) {
+                            Date dateNow = new Date();
+
+                            Date dateEnd = regisStatus.getEndDate();
+                            if (!dateNow.before(dateEnd)) {
+                                regisStatus.setCourseStatus(RegistrationCourse.CourseStatus.FINISH.ordinal());
+                                rcr.update(regisStatus);
+                            }
+                        }
+                        allowBook = regisStatus.getCourseStatus() == RegistrationCourse.CourseStatus.FINISH.ordinal();
+                    }
+                }
             }
-            if(rc2!=null){
-                request.setAttribute("registrationCourse", rc2);
+            if (billStatus != null) {
+                int status = billStatus.getStatus();
+                request.setAttribute("billStatus", status);
             }
-            
+
+            /*check rating able*/
+            boolean allowRating = false;
+            if (account != null && regisStatus != null && regisStatus.getRegistrationtatus()) {
+                if (ratec.detail(regisStatus.getId()) == null) {
+                    System.out.println("reid:" + regisStatus.getId());
+                    allowRating = true;
+                }
+            }
+            request.setAttribute("allowRating", allowRating);
+            request.setAttribute("allowBook", allowBook);
+            System.out.println(request.getContextPath() + "/course-detail?id=" + id);
             request.setAttribute("regisID", rc2);
             request.setAttribute("agvRating", ratec.getAvgCourseRating(c.getId()));
-            request.setAttribute("course",c);
-            request.setAttribute("courseScheduleList", sc.getScheduleByCourse(c.getId()));
+            request.setAttribute("course", c);
+//            if (!list_dow.isEmpty()) {
+//                request.setAttribute("courseScheduleList", list_dow);
+//                System.out.println(list_dow);
+            //} else {
+                request.setAttribute("courseScheduleList", sc.getScheduleByCourse(c.getId()));
+                System.out.println("abs ");
+            //}
+//            request.setAttribute("courseScheduleList", sc.getScheduleByCourse(c.getId()));
+
             request.setAttribute("surgestCourseList", cr.getRandomNCourses(4));
-            request.setAttribute("isInWishList",isInWishList );
-            request.setAttribute("feedbackList",ratec.getByCourseID(id));
-        }catch(Exception e){
+            request.setAttribute("isInWishList", isInWishList);
+            request.setAttribute("feedbackList", ratec.getByCourseID(id));
+        } catch (NumberFormatException e) {
             System.out.println(e);
         }
         request.getRequestDispatcher(COURSE_DETAIL_PAGE).forward(request, response);
     }
 
-   
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try(PrintWriter out = response.getWriter())
-        {
+        try ( PrintWriter out = response.getWriter()) {
             String action = request.getParameter("action");
             int courseId = Integer.parseInt(request.getParameter("courseid"));
             Account account = (Account) request.getSession().getAttribute("account");
-            if(account==null){
+            if (account == null) {
                 out.print("account-failed");
-            }else{
+            } else {
                 CourseWishlistRepository cwr = new CourseWishlistRepository();
-                switch(action){
-                    case "remove":{
-                        cwr.detele(courseId,account.getId());
+                switch (action) {
+                    case "remove": {
+                        cwr.detele(courseId, account.getId());
                         break;
                     }
-                    case "add":{
+                    case "add": {
 
-                        cwr.add(courseId,account.getId());
+                        cwr.add(courseId, account.getId());
                         break;
+                    }
+                    case "rating": {
+                        int starPoint = Integer.parseInt(request.getParameter("star"));
+                        String feedback = request.getParameter("feedback");
+                        RatingCourseRepository rateRepo = new RatingCourseRepository();
+                        Course c = new Course();
+                        c.setId(courseId);
+                        RatingCourse ratingCourse = new RatingCourse();
+                        RegistrationCourseRepository rcr = new RegistrationCourseRepository();
+                        RegistrationCourse regisCourse = rcr.getRecentRegisByCourseIdAndAccountID(account.getId(), courseId);
+                        ratingCourse.setFeedback(feedback);
+                        ratingCourse.setCourse(c);
+                        ratingCourse.setRatingStar(starPoint);
+                        ratingCourse.setRegistrationCourse(regisCourse);
+                        rateRepo.add(ratingCourse);
                     }
                 }
             }
-        }catch(NumberFormatException e){
+        } catch (NumberFormatException e) {
             System.out.println(e);
         }
-        
+
     }
 
-    
     @Override
     public String getServletInfo() {
         return "Short description";

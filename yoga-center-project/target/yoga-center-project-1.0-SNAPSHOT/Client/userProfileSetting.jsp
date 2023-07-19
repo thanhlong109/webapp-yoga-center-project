@@ -50,10 +50,6 @@
                border: 1px solid #4444;
                margin-right: 24px;
             }
-            .user-img img{
-                width: 100%;
-                max-height: 150px ;
-            }
             .user-container{
                 margin-top: 64px;
                 display: flex;
@@ -241,6 +237,39 @@
                 }
 
             }
+            .btn-forget{
+                padding: 10px 24px;
+                text-decoration: none;
+                width: fit-content;
+                margin-top: 12px;
+                background-color: #3dbca8;
+                border: none;
+                border-radius: 4px;
+                color: white;
+                cursor: pointer;
+                font-size: 14px;
+                font-style: normal;
+            }
+            .btn-forget:hover{
+                opacity: 0.8;
+            }
+            
+            .biography{
+                padding: 12px;
+                height: 42px;
+                border-radius: 5px;
+                outline: none;
+                font-size: 14px;
+                resize: none;
+                max-height: 200px;
+                border: 1px solid #e7e7e7;
+                margin-top: 16px;
+            }
+            .biography::-webkit-scrollbar{
+                display: none;
+            }
+            
+            
         </style>
     </head>
     <body>
@@ -251,8 +280,8 @@
         <div class="container">
             <c:if test="${sessionScope.account!=null}">
                 <div class="user2">
-                    <div class="user-img"><img src="../Asset/img/avatar/${sessionScope.account.img}" alt=""></div>
-                    <h2>${sessionScope.account.name}</h2>
+                    <div class="user-img img-square-container"><img src="../Asset/img/avatar/${sessionScope.account.img}" alt=""></div>
+                    <h2 class="js-username">${sessionScope.account.name}</h2>
                 </div>
             </c:if>
             <div class="user-container">
@@ -262,6 +291,7 @@
                     <li><a href="wishlist"><i class="fa fa-heart" aria-hidden="true"></i> Wishlist</a></li>
                     <li class="active"><a href="setting"><i class="fa fa-sliders" aria-hidden="true"></i> Setting</a></li>
                     <li><a href="booking"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Booking</a></li>
+                    <li><a href="membership"><i class="fa-solid fa-medal"></i> Membership </a></li>
                     <li><a href="${pageContext.request.contextPath}/logout"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a></li>
                 </ul>
                 <div class="user-content">
@@ -270,7 +300,10 @@
                         <ul class="filter-course">
                             <li data-filterid="general" class="active">General</li>
                             <li data-filterid="avatar">Avatar</li>
-                            <li data-filterid="password">Password</li>
+                            <c:if test='${notloginwithGg}'>
+                                <li data-filterid="password">Password </li>
+                            </c:if>
+                            
                         </ul>
                         <c:if test="${sessionScope.account!=null}">
                             <div class="display-content">
@@ -278,7 +311,7 @@
                                 <div class="general">
                                     <form class="general-form" action="setting">
                                         <div class="box-input">
-                                            <label>Username:</label>
+                                            <label>Full Name:</label>
                                             <input required type="text" name="txtUsername" placeholder="Username" value="${sessionScope.account.name}">
                                         </div>
                                         <div class="box-input">
@@ -287,7 +320,11 @@
                                         </div>
                                         <div class="box-input">
                                             <label>Phone Number:</label>
-                                            <input required type="number" name="txtPhone" placeholder="Phone Number" <c:if test="${sessionScope.account.phone!=null}">value="${sessionScope.account.phone}</c:if>">
+                                            <input type="number" name="txtPhone" placeholder="Phone Number" value="${sessionScope.account.phone}">
+                                        </div>
+                                        <div class="box-input">
+                                            <label>Biography:</label>
+                                            <textarea class="biography" name="txtBiography" placeholder="Biography">${sessionScope.account.biography}</textarea>
                                         </div>
                                         <button type="submit">Save</button>
                                     </form>
@@ -306,7 +343,9 @@
                                     </form>
                                 </div>
                                 <!-- password section -->
-                                <div class="password" style="display: none;">
+                                
+                                    
+                                        <div class="password" style="display: none;">
                                     <form class="password-form" action="setting">
                                         <div class="box-input">
                                             <label>Current Password:</label>
@@ -328,7 +367,10 @@
                                                 <input  class="jsCheckPass" id="newPass2" required type="password" placeholder="Confirm New Password">
                                                 <i class="fa-sharp fa-solid fa-eye"></i>
                                             </div>
-                                            <button id="btnPass" type="submit">Save</button>
+                                            <div>
+                                                <button id="btnPass" type="submit">Save</button>
+                                                <a class="btn-forget" href="${pageContext.request.contextPath}/Client/forgetPassword.jsp">Forgotten password</a>
+                                            </div>
                                         </div>
                                         <h4 class="noice"></h4>
                                     </form>
@@ -409,28 +451,47 @@
             /*send to sever*/
             $('.general-form').on('submit',function (e){
                 e.preventDefault();
-                $.ajax({
-                    type     : "POST",
-                    cache    : false,
-                    url      : $(this).attr('action'),
-                    data     : "action=general&"+$(this).serialize(),
-                    success  : function(data) {
-                        document.querySelector('.js-username').innerHTML =data;
-                        toast({
-                            title:"Success!",
-                            msg:"Your info has been changed!",
-                            type:'success',
+                /*validation*/
+                let phone = $('.box-input input[name="txtPhone"]').val();
+                let biography = $('.box-input textarea[name="txtBiography"]').val();
+                if(phone.length>0&&!((phone.length==10||phone.length==11)&& phone.startsWith('0'))){
+                    toast({
+                            title:"Warning!",
+                            msg:"Phone number require length 10 or 11 and start with 0!",
+                            type:'warning',
                             duration:5000   
                         });
-                    },error: function(xhr, textStatus, errorThrown) {
-                        toast({
-                            title:"Error!",
-                            msg:"Something seem to went wrong!",
-                            type:'error',
+                }else if(biography.length>0 && biography.length>699){
+                    toast({
+                            title:"Warning!",
+                            msg:"Biography please least than 700 charaters!",
+                            type:'warning',
                             duration:5000   
                         });
-                    }
-                });
+                }else{
+                    $.ajax({
+                        type     : "POST",
+                        cache    : false,
+                        url      : $(this).attr('action'),
+                        data     : "action=general&"+$(this).serialize(),
+                        success  : function(data) {
+                            document.querySelector('.js-username').innerHTML =data;
+                            toast({
+                                title:"Success!",
+                                msg:"Your info has been changed!",
+                                type:'success',
+                                duration:5000   
+                            });
+                        },error: function(xhr, textStatus, errorThrown) {
+                            toast({
+                                title:"Error!",
+                                msg:"Something seem to went wrong!",
+                                type:'error',
+                                duration:5000   
+                            });
+                        }
+                    });
+                }
                 
             });
             $('.avatar-form').on('submit',function (e){
@@ -487,6 +548,13 @@
                 });
                 
             });
+            
+            $('.biography').keyup(function(e){
+                $(this).css('height','42px');
+                let scHeight = e.target.scrollHeight;
+                $(this).css('height',scHeight+'px');
+            });
+            
         </script>
         <%@include file="../Component/toast.jsp" %>
         <%@include file="../Component/footer.jsp" %>

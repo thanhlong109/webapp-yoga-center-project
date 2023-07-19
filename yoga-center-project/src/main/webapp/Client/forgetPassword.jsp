@@ -1,5 +1,6 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="jakarta.tags.core" %>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -13,6 +14,9 @@
         <link rel="stylesheet" href="../Asset/css/clientHeader.css"/>
         <link rel="stylesheet" href="../Asset/css/clientFooter.css"/>
         <link rel="stylesheet" href="../Asset/css/common.css"/>
+        <style>
+            
+        </style>
     </head>
     <body>
         <jsp:include page="../Component/header.jsp"></jsp:include>
@@ -25,7 +29,13 @@
                     <h2>Find your account</h2>               
                     <div>
                         <label>Enter your email address</label>
-                        <input required type="email" name="txtEmail" placeholder="Enter Email">
+                        <c:if test="${sessionScope.account != null}" >
+                            <input required type="email" name="txtEmail" value="${sessionScope.account.email}" readonly>
+                        </c:if>
+                        <c:if test="${sessionScope.account == null}" >
+                            <input required type="email" name="txtEmail" placeholder="Enter Email">
+                        </c:if>    
+                        
                     </div>                             
                     <button class="btn" type="submit"> Get New Password </button> <br>
                     <a href="${pageContext.request.contextPath}/login">← Go back</a>

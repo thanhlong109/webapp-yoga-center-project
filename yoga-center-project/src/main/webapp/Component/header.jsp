@@ -7,6 +7,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="jakarta.tags.core" %>
 <%@taglib prefix="fn" uri="jakarta.tags.functions" %>
+<%@page import="com.yowu.yogacenter.model.Role" %>
 
 <!-- Start Header -->
 <div class="header-wrapper">
@@ -18,33 +19,16 @@
             <ul class="nav">
                 <i class="fa-solid fa-x closebtn"></i>
                 <li class="js-home"><a href="${pageContext.request.contextPath}">Home</a></li>
-                <li class="js-about"><a href="#">About Us</a></li>
+                <li class="js-about"><a href="${pageContext.request.contextPath}/about">About Us</a></li>
                 <li class="js-course">
                     <a href="${pageContext.request.contextPath}/courses">Course</a>
-                    <i class="fa-solid fa-chevron-right subnavbtn pc-hide"></i>
-                    <ul class="subnav">
-                        <i class="fa-solid fa-x closebtn"></i>
-                        <li><a href="#">About1</a></li>
-                        <li><a href="#">About2</a></li>
-                        <li><a href="#">About3</a></li>
-                        <li><a href="#">About4</a></li>
-                        <li><a href="#">About5</a></li>  
-                    </ul>
                 </li>
-                <li><a href="${pageContext.request.contextPath}/Membership">Membership</a></li>
+                <li class="js-membership"><a href="${pageContext.request.contextPath}/Membership">Membership</a></li>
                 <li class="js-blog">
                     <a href="${pageContext.request.contextPath}/blogs">Blog</a>
-                    <i class="fa-solid fa-chevron-right subnavbtn pc-hide"></i>
-                    <ul class="subnav">
-                        <i class="fa-solid fa-x closebtn"></i>
-                        <li class="active"><a href="#">About1</a></li>
-                        <li><a href="#">About2</a></li>
-                        <li><a href="#">About3</a></li>
-                        <li><a href="#">About4</a></li>
-                        <li><a href="#">About5</a></li>  
-                    </ul>
                 </li>
                 <li class="js-schedule"><a href="${pageContext.request.contextPath}/Timetable">Schedule</a></li>
+                
             </ul>
 
             <div class="user-btn">
@@ -55,7 +39,7 @@
                 </c:if>
                 <c:if test="${sessionScope.account != null}">
                     <a class="text-account" href="${pageContext.request.contextPath}/userprofile/course">
-                        <div class="img">
+                        <div class="img img-square-container">
                             <img id="img_account" src="${pageContext.request.contextPath}/Asset/img/avatar/${sessionScope.account.img}" />
                         </div>   
                     </a>
@@ -70,7 +54,7 @@
 <!-- End header -->
 <script src="${pageContext.request.contextPath}/Asset/js/cdnjs.cloudflare.com_ajax_libs_jquery_3.7.0_jquery.min.js"></script>
 
-
+<%@include file="../Component/imgSquare.jsp" %>
 <script defer>
     const menuBtn = document.querySelector(".menu-mobile");
     const nav = document.querySelector(".nav");
@@ -142,6 +126,14 @@
         case '/Timetable':
         {
             $('.js-schedule').addClass('active');
+            break;
+        }
+        case '/Membership':{
+            $('.js-membership').addClass('active');
+            break;
+        }
+        case '/about':{
+            $('.js-about').addClass('active');
             break;
         }
 

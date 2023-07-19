@@ -7,6 +7,7 @@ package com.yowu.yogacenter.controller.admin;
 import com.yowu.yogacenter.model.Account;
 import com.yowu.yogacenter.model.Category;
 import com.yowu.yogacenter.model.Course;
+import com.yowu.yogacenter.model.CourseError;
 import com.yowu.yogacenter.repository.AccountRepository;
 import com.yowu.yogacenter.repository.CategoryRepository;
 import com.yowu.yogacenter.repository.CourseRepository;
@@ -58,46 +59,91 @@ public class UpdateCourseController extends HttpServlet {
         CourseRepository _courseRepository = new CourseRepository();
         CategoryRepository _categoryRepository = new CategoryRepository();
         AccountRepository _accountRepository = new AccountRepository();
+        CourseError courseError = new CourseError();
         Course c = new Course();
+        boolean result = false;
 
-        int id = Integer.parseInt(request.getParameter("txtId"));
-        String uploadDirectory = "/Asset/img/classes/";
-        String imgName = "img-course-id-" + id;
-        String fileName = request.getParameter("originImg");
-        Part part = request.getPart("courseImg");
-        System.out.println("filename: " + fileName);
-        c.setId(id);
-        c.setTitle(request.getParameter("txtTitle"));
-        c.setDetail(request.getParameter("txtDetail"));
-        c.setDuration(Integer.parseInt(request.getParameter("txtDuration")));
-        if (part.getSize() != 0) {
-            fileName = storeImgWithName(imgName, uploadDirectory, part);
-        }
-        System.out.println("originImg - " + fileName + " part size: " + part.getSize());
-        System.out.println("filename: " + fileName);
-        c.setImg(fileName);
-        Category category
-                = _categoryRepository.detail(
-                        Integer.parseInt(request.getParameter("categoyList"))
-                );
-        c.setCategory(category);
+        try {
+            boolean checkValidation = true;
+            int id = Integer.parseInt(request.getParameter("txtId"));
+            String duration = request.getParameter("txtDuration");
+            String price = request.getParameter("txtPrice");
 
-        Account account
-                = _accountRepository.detail(
-                        Integer.parseInt(request.getParameter("accountList"))
-                );
-        c.setAccount(account);
-        c.setPrice(Float.parseFloat(request.getParameter("txtPrice")));
-        c.setIsActive(true);
-        boolean update = _courseRepository.update(c);
-        if (update) {
-            response.sendRedirect(VIEW_COURSE_LIST_CONTROLLER);
-        } else {
-            c = _courseRepository.detail(id);
-            request.setAttribute("COURSE", c);
-            request.setAttribute("UPDATE_STATUS", "Update Fail !!!!");
-            request.getRequestDispatcher(EDIT_PAGE).forward(request, response);
+            String title = request.getParameter("txtTitle");
+            String detail = request.getParameter("txtDetail");
+
+            String uploadDirectory = "/Asset/img/classes/";
+            String imgName = "img-course-id-" + id;
+            String fileName = request.getParameter("originImg");
+            Part part = request.getPart("courseImg");
+
+            if (title.length() < 6 || title.length() > 50) {
+                courseError.setCourseTitleLengthError("Title must be 6 - 50 characters!!!");
+                checkValidation = false;
+            }
+            if (_courseRepository.checkDuplicateUpdate(title)) {
+                courseError.setCourseTitleDuplicateError("Title already existed!!!");
+                checkValidation = false;
+            }
+            if (detail.length()< 10 ) {
+                courseError.setCourseDetailLengthError("Detail must be 10 or more characters!!!");
+                checkValidation = false;
+            }
+            if (!duration.matches("[0-9]+")) {
+                courseError.setCourseDurationError("Duration only contains numbers");
+                checkValidation = false;
+            }
+            if (!price.matches("[0-9]+")) {
+                courseError.setCoursePriceError("Price only contains numbers and not negative!!!");
+                checkValidation = false;
+            }
+
+            if (checkValidation) {
+                int courseDuration = Integer.parseInt(duration);
+                float coursePrice = Float.parseFloat(price);
+                c.setId(id);
+                c.setTitle(title);
+                c.setDetail(detail);
+                c.setDuration(courseDuration);
+                if (part.getSize() != 0) {
+                    fileName = storeImgWithName(imgName, uploadDirectory, part);
+                }
+                c.setImg(fileName);
+                Category category
+                        = _categoryRepository.detail(
+                                Integer.parseInt(request.getParameter("categoyList"))
+                        );
+                c.setCategory(category);
+
+                Account account
+                        = _accountRepository.detail(
+                                Integer.parseInt(request.getParameter("accountList"))
+                        );
+                c.setAccount(account);
+                c.setPrice(coursePrice);
+                c.setIsActive(true);
+                result = _courseRepository.update(c);
+                if (!result) {
+                    courseError.setError("Unknow error!");
+                    c = _courseRepository.detail(id);
+                    request.setAttribute("COURSE", c);
+                    request.setAttribute("UPDATE_COURSE_ERROR", courseError);
+                }
+            } else {
+                c = _courseRepository.detail(id);
+                request.setAttribute("COURSE", c);
+                request.setAttribute("UPDATE_COURSE_ERROR", courseError);
+            }
+        } catch (Exception e) {
+            log("Error at UpdateCourseController" + e.toString());
+        } finally {
+            if (result) {
+                response.sendRedirect(VIEW_COURSE_LIST_CONTROLLER);
+            } else {
+                request.getRequestDispatcher(EDIT_PAGE).forward(request, response);
+            }
         }
+
     }
 
     /**

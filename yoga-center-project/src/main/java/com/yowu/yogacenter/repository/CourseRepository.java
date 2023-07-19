@@ -202,7 +202,7 @@ public class CourseRepository implements Serializable{
         return list;
     }
     public List<Course> getPopularCourse(int offset, int next){
-        String sql = "select * from (select count(*) as num, rc.course_id from tblRegistrationCourse rc group by rc.course_id) rc join tblCourse c on ( rc.course_id = c.course_id and c.course_is_active=1 ) order by num desc OFFSET ? ROWS FETCH NEXT ? ROWS ONLY ";
+        String sql = "select * from  tblCourse c  left join (select count(course_id) as num, rc.course_id from tblRegistrationCourse rc group by rc.course_id) rc on ( rc.course_id = c.course_id and c.course_is_active=1 ) order by num desc OFFSET ? ROWS FETCH NEXT ? ROWS ONLY ";
         List<Course> list = new ArrayList<>();
         try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
             stmt.setInt(1, offset);
@@ -343,7 +343,7 @@ public class CourseRepository implements Serializable{
 
     public List<Course> getLastAddCourse() {
         List<Course> list = new ArrayList<>();
-        
+
         String sql = "select * from tblCourse order by course_id desc ";
         try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
             try ( ResultSet rs = stmt.executeQuery()) {
@@ -396,6 +396,83 @@ public class CourseRepository implements Serializable{
             System.out.println(e);
         }
         return list;
+    }
+
+    public boolean checkDuplicate(String title) {
+        String sql = "select course_title from tblCourse where course_title Like ? ";
+        boolean status = false;
+        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
+            stmt.setString(1, title);
+            try ( ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    status = true;
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return status;
+    }
+
+    public List<Course> getAllFollowPagination(int offset, int next) {
+        String sql = "select * from tblCourse order by course_id desc OFFSET ? ROWS FETCH NEXT ? ROWS ONLY ";
+        List<Course> list = new ArrayList<>();
+        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
+            stmt.setInt(1, offset);
+            stmt.setInt(2, next);
+            try ( ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    CategoryRepository cr = new CategoryRepository();
+                    Course c = new Course();
+                    c.setId(rs.getInt("course_id"));
+                    c.setCategory(cr.detail(rs.getInt("category_id")));
+                    c.setDetail(rs.getString("course_detail"));
+                    c.setDuration(rs.getInt("course_duration"));
+                    c.setImg(rs.getString("course_img"));
+                    c.setIsActive(rs.getBoolean("course_is_active"));
+                    c.setPrice(rs.getFloat("course_price"));
+                    c.setTitle(rs.getString("course_title"));
+                    AccountRepository ar = new AccountRepository();
+                    c.setAccount(ar.detail(rs.getInt("account_id")));
+                    list.add(c);
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return list;
+    }
+
+    public int count() {
+        String sql = "select count(*) as num from tblCourse ";
+        int count = 0;
+        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
+            try ( ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    count = rs.getInt("num");
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return count;
+    }
+
+    public boolean checkDuplicateUpdate(String title) {
+        String sql = "SELECT a.course_title FROM (select course_title from tblCourse where course_is_active = 1 and course_title not Like ? ) a  where a.course_title Like ? ";
+        boolean status = false;
+        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
+            stmt.setString(1, title);
+            stmt.setString(2, title);
+            try ( ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    status = true;
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return status;
     }
     
     public static void main(String[] args) {

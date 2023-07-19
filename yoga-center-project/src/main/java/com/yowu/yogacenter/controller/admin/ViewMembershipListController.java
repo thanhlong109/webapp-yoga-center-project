@@ -4,12 +4,14 @@
  */
 package com.yowu.yogacenter.controller.admin;
 
+import com.yowu.yogacenter.model.Membership;
 import com.yowu.yogacenter.repository.MembershipRepository;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  *
@@ -23,7 +25,22 @@ public class ViewMembershipListController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         MembershipRepository _membershipRepository = new MembershipRepository();
-        request.setAttribute("MEMBERSHIP_LIST", _membershipRepository.getAll());
+
+        //Phan trang
+        String xpage = request.getParameter("page");
+        int itemPerPage = 3; // number item each page
+        int size = _membershipRepository.count();
+        int numPage = (int) Math.ceil(size / (double) itemPerPage);// this will print how many page number
+        int page = 1;
+        if (xpage != null) {
+            page = Integer.parseInt(xpage);
+        }
+        int start = (page - 1) * itemPerPage;
+        List<Membership> list = _membershipRepository.getAllFollowPagination(start, itemPerPage);
+        request.setAttribute("MEMBERSHIP_LIST", list);
+        request.setAttribute("PAGE", page);
+        request.setAttribute("NUMPAGE", numPage);
+        //end phan trang
         request.getRequestDispatcher(MEMBERSHIP_LIST_PAGE).forward(request, response);
     }
 

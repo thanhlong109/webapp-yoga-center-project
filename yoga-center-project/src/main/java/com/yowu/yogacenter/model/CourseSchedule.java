@@ -103,5 +103,10 @@ public class CourseSchedule {
         }
         return null;
     }
+
+    @Override
+    public String toString() {
+        return "CourseSchedule{" + "id=" + id + ", dateOfWeek=" + dateOfWeek + ", isActive=" + isActive + ", startTime=" + startTime + ", endTime=" + endTime + ", course=" + course + '}';
+    }
     
 }

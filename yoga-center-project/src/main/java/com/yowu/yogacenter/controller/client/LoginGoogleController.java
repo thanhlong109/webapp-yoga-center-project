@@ -26,9 +26,9 @@ import jakarta.servlet.http.HttpSession;
 public class LoginGoogleController extends HttpServlet {
 
     private final String LOGIN_PAGE = "Client/login_register.jsp";
-    private final String HOME_PAGE = "Client/Home.jsp";
-    private final String ADMIN_PAGE = "";
-
+    private final String HOME_PAGE = "home";
+    private final String ADMIN_PAGE = "admin/dashboard";
+    private final String CASHIER_PAGE = "Cashier/ViewBill.jsp";
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -47,9 +47,10 @@ public class LoginGoogleController extends HttpServlet {
             GoogleLogin userGG = getUserInfo(accessToken);
             String googleID = userGG.getId();
             String emailGG = userGG.getEmail();
+            HttpSession session = request.getSession();
+            String current = (String) session.getAttribute("currentPage");
 
             Account loginUser = dao.checkLoginGoogle(emailGG, googleID);
-
             if (loginUser == null) {
                 String username = userGG.getName();
                 RoleRepository rr = new RoleRepository();
@@ -57,25 +58,43 @@ public class LoginGoogleController extends HttpServlet {
                 //Account( String name, String password, String email, String phone, Role role, String socialID)
                 boolean checkInsert = dao.createAccount(user);
                 if (checkInsert) {
-                    HttpSession session = request.getSession();
-                    session.setAttribute("account", userGG);
+                    Account user2 = dao.checkLoginGoogle(emailGG, googleID);
+                    session.setAttribute("account", user2);
                     url = HOME_PAGE;
+                    //request.getRequestDispatcher(url).forward(request, response);
+                    response.sendRedirect(HOME_PAGE);
                 }
             } else {
-                HttpSession session = request.getSession();
                 session.setAttribute("account", loginUser);
                 Role role = loginUser.getRole();
                 if (Role.RoleList.ADMIN.ordinal() == role.getId()) {
-                    url = ADMIN_PAGE;
+                    if (current != null && !current.isEmpty()) {
+                        url = current; // Quay lại trang trước đó
+                        session.removeAttribute("currentPage"); // Xóa thuộc tính currentPage khỏi session
+                        response.sendRedirect(request.getContextPath() + url);
+                    }else{
+                        response.sendRedirect(ADMIN_PAGE);
+                    }
+                    
                 } else if (Role.RoleList.TRAINEE.ordinal() == role.getId() || Role.RoleList.TRAINER.ordinal() == role.getId()) {
-                    url = HOME_PAGE;
+                    if (current != null && !current.isEmpty()) {
+                        url = current; // Quay lại trang trước đó
+                        session.removeAttribute("currentPage"); // Xóa thuộc tính currentPage khỏi session
+                        response.sendRedirect(request.getContextPath() + url);
+                    }else{
+                        response.sendRedirect(HOME_PAGE);
+                    }
+                }else if (Role.RoleList.CASHER.ordinal() == role.getId()) {
+                    url = CASHIER_PAGE;
+                    System.out.println("1111");
+                    response.sendRedirect(CASHIER_PAGE);
                 }
             }
 
         } catch (IOException e) {
             log("Error at CreateController: " + e.toString());
         } finally {
-            request.getRequestDispatcher(url).forward(request, response);
+            
         }
     }
 

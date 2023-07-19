@@ -43,34 +43,29 @@
                             <h4>Payment Pending</h4>
                         </div>
                         <div class="col-md-12 payment-in4">
-                        <c:if test="${sessionScope.bill == null}">
-                            <h2>Opps.</h2>
-                            <p>We'are sorry, but somthing went wrong.</p>
-                            <a href="${pageContext.request.contextPath}/">Go back to home page.</a>    
-                        </c:if>
-                            <table>
-                                <tbody>
-                                    <tr>
-                                        <th>Customer:</th>
-                                        <td>${sessionScope.account.name}</td>
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <th>Customer:</th>
+                                    <td>${sessionScope.account.name}</td>
                                 </tr>
                                 <tr>
                                     <th>Email:</th>
                                     <td>${sessionScope.account.email}</td>
                                 </tr>
                                 <tr>
-                                    <th>Order code:</th>
-                                    <td>${bill.ordercode}</td>
+                                    <th>Payment method:</td>
+                                        <td>${bill.paymentMethod}</td>                                  
                                 </tr>
                                 <tr>
-                                    <th>Discount:</td>
-                                    <td>${bill.discount}%</td>
+                                    <th>Order code:</th>
+                                    <td>${bill.orderCode}</td>
                                 </tr>
                                 <tr>
                                     <th>Amount paid:</th>
                                     <td class="amout">$${bill.value}</td>
                                 </tr>
-
+                                
                             </tbody>
                         </table>
                     </div>
@@ -83,15 +78,10 @@
                         <table>
                             <tbody>
                                 <tr>
-                                    <th>Payment product:</td>
-                                    <td>${bill.course.title}</td>
+                                    <th>Payment product:</th>
+                                        <td>${bill.course.title}</td>
                                 </tr>
-                                <tr>
-                                    <th>Payment type:</td>
-                                    <td>In Studio</td>
-                                </tr>
-                                <tr>
-                                    <th>Payment date:</th>
+                                    <th>Payment date:</td>
                                     <td>${bill.date}</td>
                                 </tr>
                             </tbody>
@@ -102,15 +92,30 @@
                             <p>See you again!</p>
                         </div>
                         <div class="payment-footer">
-                            <p><a href="${pageContext.request.contextPath}/">Back to home page</a></p>
+                            <div>Go to Home page after <span id="counter">30</span>s</div>
                             <p>Powered by <a href="#">VNPAY</a></p>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
+        <% 
+            session.removeAttribute("billCourse");
+            session.removeAttribute("PAYMENT");
+            session.removeAttribute("RegistrationMembership");
+            session.removeAttribute("bill");
+        %>
         <jsp:include page="../Component/footer.jsp"></jsp:include>
+            <script>
+                setInterval(function () {
+                    var div = document.querySelector("#counter");
+                    var count = div.textContent * 1 - 1;
+                    div.textContent = count;
+                    if (count <= 0) {
+                        window.location.replace("${pageContext.request.contextPath}/");
+                    }
+                }, 1000);
+        </script>
     </body>
 
 </html>

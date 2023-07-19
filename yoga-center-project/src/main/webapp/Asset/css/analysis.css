@@ -1,0 +1,148 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : Jul 18, 2023, 9:32:21 AM
+    Author     : DungVNT
+*/
+main .top{
+    padding: 20px 20px 20px 0px;
+    margin-top: 16px;
+}
+
+.h-320{
+    height: 320px;
+}
+.h-380{
+    height: 380px;
+}
+.row{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    margin-bottom: 3rem;
+}
+.w-34{
+    width: 34%;
+}
+
+#sell-chart{
+    position: relative;
+    width: 60%;
+    padding: 1rem;
+    border-radius: 2rem;
+}
+#chart-bar {
+    position: relative;
+    margin-top: -38px;
+}
+
+.link {
+    position: absolute;
+    bottom: 7px;
+    right: 13px;
+    z-index: 10;
+    color: #ccc;
+    font-size: 12px;
+    text-decoration: none;
+    font-family: Helvetica, Arial;
+}
+.chart-border{
+    padding: 1rem;
+    box-shadow: 0 1rem 3rem rgba(132, 139, 200, 0.48);
+}
+#chart-2{
+    height: 100%;
+}
+#chart-1{
+    height: 100%;
+}
+.chart-1{
+    width: 60%;
+    position: relative;
+}
+
+#chart1-year{
+    position: absolute;
+    top: calc(1rem + 4px);
+    right: 200px;
+    z-index: 10;
+
+}
+#chart1-year select{
+    padding: 4px 8px;
+    border-bottom: 2px solid #7d8da1;
+    background: #f6f6f9;
+    cursor: pointer;
+}
+/*report*/
+.report-wrapper{
+    width: 100%;
+    margin-bottom: 3rem;
+    display: flex;
+    gap: 24px;
+    background-color: #fff;
+    padding: 24px;
+    border-radius: 4px;
+}
+.report-item{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    min-width: 200px;
+    width: calc(100% / 4);
+    background: #f3f4f6;
+    border:1px solid #e5e7eb;
+    padding: 5px 10px;
+    border-radius: 4px;
+}
+.report-item-title{
+    font-size: 15px;
+    color: #838383;
+    font-weight: 500;
+}
+.report-item-statis-wrapper{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 12px;
+}
+.report-item-number{
+    font-size: 30px;
+    color: #545454;
+    font-weight: 600;
+
+}
+.report-item-percent{
+    display: flex;
+    align-items: end;
+    font-size: 14px;
+}
+.report-item-percent i{
+    margin-right: 4px;
+    font-size: 12px;
+}
+.report-item-percent p{
+    padding-bottom: 4px;
+}
+
+.item-status-up .report-item-status:before{
+    content: "+";
+    display: inline-block;
+    font-size: 16px;
+    color: #05bd70;
+}
+.item-status-up .report-item-percent p{
+    color: #05bd70;
+}
+.item-status-down .report-item-percent p{
+    color: #ff0000;
+}
+.report-item-compare{
+    margin-top: 8px;
+    color: #9d9d9d;
+    text-align: center;
+    line-height: 20px;
+}
+
+

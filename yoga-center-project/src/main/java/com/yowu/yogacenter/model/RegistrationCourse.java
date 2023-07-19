@@ -117,6 +117,11 @@ public class RegistrationCourse {
         this.registrationtatus = registrationtatus;
     }
 
+    @Override
+    public String toString() {
+        return "RegistrationCourse{" + "id=" + id + ", registrationDate=" + registrationDate + ", endDate=" + endDate + ", courseStatus=" + courseStatus + ", course=" + course + ", courseSchedule=" + courseSchedule + ", account=" + account + ", registrationtatus=" + registrationtatus + '}';
+    }
+
     /**
      * @return the registration_status
      */

@@ -6,6 +6,7 @@ package com.yowu.yogacenter.controller.client;
 
 import com.yowu.yogacenter.model.Account;
 import com.yowu.yogacenter.repository.AccountRepository;
+import jakarta.mail.Session;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -13,6 +14,7 @@ import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.Part;
 import java.io.File;
 import java.nio.file.Path;
@@ -27,7 +29,15 @@ public class UserProfileSetting extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        Account account = (Account)session.getAttribute("account");
+        if (account.getSocialID() == null) {
+            request.setAttribute("notloginwithGg", true);
+        }
+        
+        System.out.println("login GG ");
         request.getRequestDispatcher(USER_PROFILE_SETTING_PAGE).forward(request, response);
+        
     }
 
     
@@ -44,9 +54,11 @@ public class UserProfileSetting extends HttpServlet {
                 String username = request.getParameter("txtUsername");
                 String email = request.getParameter("txtEmail");
                 String phone = request.getParameter("txtPhone");
+                String biography = request.getParameter("txtBiography");
                 account.setName(username);
                 account.setEmail(email);
                 account.setPhone(phone);
+                account.setBiography(biography);
                 if(ar.updateGeneral(account)){
                     out.print(username);
                 }

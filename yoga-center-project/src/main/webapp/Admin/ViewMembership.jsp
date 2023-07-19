@@ -21,10 +21,12 @@
               href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
         <!--        <link rel="stylesheet" href="../Asset/css/dashboard.css">-->
         <!--        <link rel="stylesheet" href="../Asset/css/adminCommon.css">-->
-        <link rel="stylesheet" href="../Asset/css/dashboard_2.css">
-        <link rel="stylesheet" href="../Asset/css/adminEditCategory_2.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/Asset/css/dashboard_2.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/Asset/css/adminEditCategory_2.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/Asset/css/paginationAdmin.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/Asset/css/alertBoxAdmin.css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
-        <script src="../js/cdnjs.cloudflare.com_ajax_libs_Chart.js_2.4.0_Chart.min.js"></script>
+        <script src="${pageContext.request.contextPath}/js/cdnjs.cloudflare.com_ajax_libs_Chart.js_2.4.0_Chart.min.js"></script>
     </head>
     <body>
         <div class="container">
@@ -40,26 +42,33 @@
                         </form>
                         <div class="profile">
                             <div class="info">
-                                <p>Hey, <b>Admin</b></p>
-                                <small class="text-muted">Admin</small>
-                            </div>
-                            <div class="profile-photo">
-                                <img src="../Asset/img/avatar/hinh-avatar-1.png" alt="">
-                            </div>
+                                <p>Hey, <b>${sessionScope.account.name}</b></p>
+                            <small class="text-muted">Admin</small>
+                        </div>
+                        <div class="profile-photo">
+                            <img src="../Asset/img/avatar/${sessionScope.account.img}" alt="">
                         </div>
                     </div>
-                    <div class="container__wrapper-box">
-                        <div class="wrapper-box">
-                            <table class="table-style-1">
-                                <tr>
-                                    <th>Membership ID</th>
-                                    <th>Name</th>
-                                    <th>Duration</th>
-                                    <th>Price(VND)</th>
-                                    <th>Description</th>
-                                    <th>Discount (%)</th>
-                                    <th>Actions</th>
-                                </tr>
+                </div>
+                <c:if test="${SEARCH_ERROR != null}">
+                    <div class="alert">
+                        <span class="closebtn" onclick="this.parentElement.style.display = 'none';">&times;</span> 
+                        <strong>Warning!</strong> ${SEARCH_ERROR.searchError}
+                    </div>
+                </c:if>
+                <h1>Membership List</h1>
+                <div class="container__wrapper-box">
+                    <div class="wrapper-box">
+                        <table class="table-style-1">
+                            <tr>
+                                <th>Membership ID</th>
+                                <th>Name</th>
+                                <th>Duration</th>
+                                <th>Price</th>
+                                <th>Description</th>
+                                <th>Discount (%)</th>
+                                <th>Actions</th>
+                            </tr>
                             <c:forEach items="${MEMBERSHIP_LIST}" var="membership">
                                 <c:if test="${membership.isActive == true}"> 
                                     <tr>
@@ -81,7 +90,7 @@
                                         <td>
                                             ${membership.discount}
                                         </td>
-                                        <td>
+                                        <td style="width: 200px">
                                             <a class="btn btn-red" href="deleteMembershipController?id=${membership.id}">
                                                 Delete</a> 
                                             <a class="btn btn-green" href="updateMembershipController?id=${membership.id}">
@@ -90,10 +99,22 @@
                                     </tr>
                                 </c:if>
                             </c:forEach>
-
                         </table>
                     </div>
                 </div>
+                <div class="pagination">
+                    <c:if test="${NUMPAGE>1}">
+                        <c:if test="${PAGE>1}">
+                            <a href="viewMembershipListController?page=${PAGE-1}"><i class="fa-solid fa-chevron-left"></i></a>
+                            </c:if>
+                            <c:forEach begin="${1}" var="i" end="${NUMPAGE}">
+                            <a href="viewMembershipListController?page=${i}" <c:if test="${i==PAGE}">class="p-active"</c:if> >${i}</a>
+                        </c:forEach>
+                        <c:if test="${PAGE<NUMPAGE}">
+                            <a href="viewMembershipListController?page=${PAGE<NUMPAGE?(PAGE+1):NUMPAGE}"><i class="fa-solid fa-chevron-right"></i></a>
+                            </c:if>
+                        </c:if>
+                </div>  
             </main>
         </div>
     </body>

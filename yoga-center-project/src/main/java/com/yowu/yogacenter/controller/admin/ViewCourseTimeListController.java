@@ -1,21 +1,14 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
 package com.yowu.yogacenter.controller.admin;
 
+import com.yowu.yogacenter.model.CourseSchedule;
 import com.yowu.yogacenter.repository.CourseScheduleRepository;
 import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.List;
 
-/**
- *
- * @author DungVNT
- */
 public class ViewCourseTimeListController extends HttpServlet {
 
     private final String COURSE_TIME_LIST_PAGE = "../Admin/ViewCourseTime.jsp";
@@ -23,8 +16,22 @@ public class ViewCourseTimeListController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        CourseScheduleRepository _courseScheduleRepository = new CourseScheduleRepository();
-        request.setAttribute("COURSE_TIME_LIST", _courseScheduleRepository.getAll());
+        CourseScheduleRepository csr = new CourseScheduleRepository();
+
+        String xPage = request.getParameter("page");
+        int itemPerPage = 8;
+        int size = csr.count();
+        int numPage = (int) Math.ceil(size / (double) itemPerPage);
+        int page = 1;
+        if (xPage != null) {
+            page = Integer.parseInt(xPage);
+        }
+        int start = (page - 1) * itemPerPage;
+        List<CourseSchedule> list = csr.pagingCourseSchedule(start, itemPerPage);
+        request.setAttribute("COURSE_TIME_LIST", list);
+        request.setAttribute("PAGE", page);
+        request.setAttribute("NUMPAGE", numPage);
+        
         request.getRequestDispatcher(COURSE_TIME_LIST_PAGE).forward(request, response);
     }
 
@@ -34,11 +41,6 @@ public class ViewCourseTimeListController extends HttpServlet {
 
     }
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
     @Override
     public String getServletInfo() {
         return "Short description";

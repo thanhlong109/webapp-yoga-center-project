@@ -4,11 +4,13 @@
  */
 package com.yowu.yogacenter.repository;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.yowu.yogacenter.model.Category;
 import com.yowu.yogacenter.util.DBHelpler;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -53,7 +55,29 @@ public class CategoryRepository {
         }
         return list;
     }
-    
+    public String getCategoryJson(){
+        String sql = "select ct.category_name,COUNT(cs.category_id) as num from (select * from tblCourse  where course_is_active=1 ) cs join (select * from tblCategory where category_is_active=1) ct on cs.category_id=ct.category_id group by ct.category_name";
+        String data="";
+        try(PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)){
+            try(ResultSet rs = stmt.executeQuery()){
+                List<String> lst1 = new ArrayList<>();
+                List<Integer> lst2 = new ArrayList<>();
+                while(rs.next()){
+                    lst1.add(rs.getString("category_name"));
+                    lst2.add(rs.getInt("num"));
+                }
+                HashMap<String,Object> dataMap = new HashMap<>();
+                ObjectMapper mapper = new ObjectMapper();
+                dataMap.put("categoryName", lst1);
+                dataMap.put("categoryNum", lst2);
+                data=mapper.writeValueAsString(dataMap);
+            }
+        }catch(Exception e){
+            System.out.println(e);
+        }
+        return data;
+    }
+            
     public Category detail(int id) {
 
         String sql = "select * from tblCategory where category_id=? ";
@@ -144,6 +168,58 @@ public class CategoryRepository {
             System.out.println(e);
         }
         return list;
+    }
+
+    public boolean checkDuplicate(String name) {
+        String sql = "select category_name from tblCategory where category_is_active = 1 and category_name Like ? ";
+        boolean status = false;
+        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
+            stmt.setString(1, name);
+            try ( ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    status = true;
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return status;
+    }
+    
+     public List<Category> getAllFollowPagination(int offset, int next) {
+        String sql = "select * from tblCategory order by category_id desc OFFSET ? ROWS FETCH NEXT ? ROWS ONLY ";
+        List<Category> list = new ArrayList<>();
+        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
+            stmt.setInt(1, offset);
+            stmt.setInt(2, next);
+            try ( ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                     Category c = new Category();
+                    c.setId(rs.getInt("category_id"));
+                    c.setName(rs.getString("category_name"));
+                    c.setIsActive(rs.getBoolean("category_is_active"));
+                    list.add(c);
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return list;
+    }
+
+    public int count() {
+        String sql = "select count(*) as num from tblCategory ";
+        int count = 0;
+        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
+            try ( ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    count = rs.getInt("num");
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return count;
     }
 
     public static void main(String[] args) {

@@ -3,8 +3,10 @@
     Created on : Jun 8, 2023, 10:08:11 PM
     Author     : localboss
 --%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="com.yowu.yogacenter.repository.RatingCourseRepository" %>
+<%@page import="com.yowu.yogacenter.repository.RegistrationCourseRepository" %>
+<%@taglib prefix="c" uri="jakarta.tags.core" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -21,18 +23,93 @@
     <body>
         <jsp:include page="../Component/header.jsp"></jsp:include>
         <div class="banner">
-        <h2>Instructor profile</h2>
-    </div>
-    <div class="container">
-        <div class="image-instructor-profile">
-            <img src="../img/avatar/hinh-avatar-1.png" alt="image for profile">
         </div>
-        <div class="bio-instructor-profile">
-            <h3>Jane Smith</h3>
-            <p>Modern postural yoga consists largely but not exclusively of the practice of asanas. There were very few
-                standing asanas before 1900.</p>
+        <div class="container">
+            <div class="left-container">
+                <div class="image-instructor-profile-wrapper">
+                    <div class="image-instructor-profile img-square-container">
+                        <img src="Asset/img/avatar/${instructor.img}" alt="image for profile">
+                    </div>
+                </div>
+            </div>
+            <div class="right-container">
+                <div class="row">
+                    <h3 class="instructor-name">${instructor.name}</h3>
+                    <div class="instructor-contact" >
+                        <p><i class="fa-regular fa-envelope"></i> ${instructor.email}</p>
+                        <p><i class="fas fa-phone"></i> ${instructor.phone}</p>
+                        <p class="instructor-join"><i class="fa-solid fa-feather-pointed"></i> Joined on ${instructor.createDate}</p>
+                    </div>
+                </div>
+                <c:if test="${instructor.biography!=null}">
+                    <div class="row">
+                        <h3>Biography</h3>
+                        <p class="instructor-biography">
+                            ${instructor.biography}
+                        </p>
+                    </div>
+                </c:if>
+                
+                    
+                <c:set var="ratingRepo" value="<%= new RatingCourseRepository()%>"/> 
+                <c:set var="rcRepo" value="<%= new RegistrationCourseRepository()%>"/> 
+                <div class="row">
+                    <h3>Courses (${CourseList.size()})</h3>
+                    <div class="surgest-list"> <!-- list surgest course here -->
+                        <c:forEach items="${CourseList}" var="c">
+                            <div onclick="goto('course-detail?id=${c.id}')" class="surgest-course-card">
+                                <div class="surgest-card-img">
+                                    <img src="${pageContext.request.contextPath}/Asset/img/classes/${c.img}" alt="">
+                                </div>
+                                <div class="surgest-card-body">
+                                    <div>
+                                        <p>${c.category.name}</p> <!--replace category for surgest card -->
+                                        <div data-avg="${ratingRepo.getAvgCourseRating(c.id)}" class="green-stars stars">
+                                            <i class=""></i>
+                                            <i class=""></i>
+                                            <i class=""></i>
+                                            <i class=""></i>
+                                            <i class=""></i>
+                                        </div>
+                                    </div>
+                                        <a class="text-ellipsis">${c.title}</a><!--replace title for surgest card-->
+                                </div>
+                                <div class="surgest-card-footer">
+                                    <p class="surgest-card-price"><c:if test="${c.price>0}">$${c.price}</c:if><c:if test="${c.price<=0}">Free</c:if></p>
+                                    <p class="surgest-card-student"><i class="fa fa-users" aria-hidden="true"></i> ${rcRepo.getStudentEnrolled(c.id)} Student Enrolled </p>
+                                </div>
+                            </div>
+                        </c:forEach>
+
+                    </div>
+                </div>  
+            </div>
         </div>
-    </div>
+        <script>
+            /*display star*/
+            const starsParents = document.querySelectorAll(".stars");
+            starsParents.forEach(sp => {
+                let stars = sp.querySelectorAll(".stars i");
+                var avg = $(sp).data('avg');
+                stars.forEach(star => {
+                    if (avg > 0) {
+                        star.classList.add("fa-solid");
+                        if (avg < 1) {
+                            star.classList.add("fa-star-half-stroke");
+                        } else {
+                            star.classList.add("fa-star");
+                        }
+                    } else {
+                        star.classList.add("fa-regular");
+                        star.classList.add("fa-star");
+                    }
+                    avg -= 1;
+                });
+            });
+            function goto(url) {
+                window.location.href = "${pageContext.request.contextPath}/" + url;
+            }
+        </script>
         <jsp:include page="../Component/footer.jsp"></jsp:include>
     </body>
 </html>

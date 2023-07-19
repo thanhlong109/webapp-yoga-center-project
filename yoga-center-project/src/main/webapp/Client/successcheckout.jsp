@@ -11,7 +11,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        
+
         <title>Payment | YowuYoga</title>
         <!-- Google font -->
         <!-- <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'> -->
@@ -33,23 +33,23 @@
         <jsp:include page="../Component/header.jsp"></jsp:include>
 
 
-        <div class="outline">
-            <div class="container payment-body">
-                <div class="row payment-container">
-                    <div class="col-md-12 pay-header">
-                        <h5>PAYMENT INFORMATION</h5>
-                    </div>
+            <div class="outline">
+                <div class="container payment-body">
+                    <div class="row payment-container">
+                        <div class="col-md-12 pay-header">
+                            <h5>PAYMENT INFORMATION</h5>
+                        </div>
 
-                    <div class="col-md-12 pay-img">
-                        <img src="Asset/img/checkout/success-icon.png" alt="" width="100px">
-                        <h4>Payment success</h4>
-                    </div>
-                    <div class="col-md-12 payment-in4">
-                        <table>
-                            <tbody>
-                                <tr>
-                                    <th>Customer:</th>
-                                    <td>${sessionScope.account.name}</td>
+                        <div class="col-md-12 pay-img">
+                            <img src="Asset/img/checkout/success-icon.png" alt="" width="100px">
+                            <h4>Payment success</h4>
+                        </div>
+                        <div class="col-md-12 payment-in4">
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <th>Customer:</th>
+                                        <td>${sessionScope.account.name}</td>
                                 </tr>
                                 <tr>
                                     <th>Email:</th>
@@ -57,17 +57,33 @@
                                 </tr>
                                 <tr>
                                     <th>Payment method:</td>
-                                    <td>${sessionScope.billCourse.method}</td>
+                                        <c:if test="${sessionScope.billCourseC != null}">
+                                            <td>${sessionScope.billCourseC.paymentMethod}</td>
+                                        </c:if>
+                                        <c:if test="${sessionScope.bill != null}">
+                                            <td>${sessionScope.bill.paymentMethod}</td>
+                                        </c:if>
                                 </tr>
                                 <tr>
                                     <th>Order code:</th>
-                                    <td>${PAYMENT.vnp_TxnRef}</td>
+                                        <c:if test="${sessionScope.billCourseC != null}">
+                                            <td>${PAYMENT.vnp_TxnRef}</td>
+                                        </c:if>
+                                        <c:if test="${sessionScope.bill != null}">
+                                            <td>${sessionScope.bill.orderCode}</td>
+                                        </c:if>
                                 </tr>
                                 <tr>
                                     <th>Amount paid:</th>
-                                    <td class="amout">$${sessionScope.billCourse.value}</td>
+                                    <c:if test="${sessionScope.billCourseC != null}">
+                                            <td class="amout">$${sessionScope.billCourseC.value}</td>
+                                        </c:if>
+                                        <c:if test="${sessionScope.bill != null}">
+                                            <td class="amout">${sessionScope.bill.value}</td>
+                                        </c:if>
+                                    
                                 </tr>
-                                
+
                             </tbody>
                         </table>
                     </div>
@@ -79,27 +95,37 @@
                     <div class="col-md-12 payment-details">
                         <table>
                             <tbody>
-                                
                                 <tr>
                                     <th>Payment product:</th>
-                                    <td>${sessionScope.billCourse.course.title}</td>
-                                </tr>
-                                <tr>
-                                    <th>Bank Transaction Number:</td>
-                                    <td>${PAYMENT.vnp_BankTranNo}</td>
-                                </tr>
-                                <tr>
-                                    <th>Bank code:</td>
-                                    <td>${PAYMENT.vnp_BankCode}</td>
-                                </tr>
-                                <tr>
-                                    <th>Payment type:</td>
-                                    <td>${PAYMENT.vnp_CardType}</td>
-                                </tr>
-                                <tr>
-                                    <th>Payment date:</td>
-                                    <td>${sessionScope.billCourse.paymentDate}</td>
-                                </tr>
+                                        <c:if test="${sessionScope.billCourseC.course != null}">
+                                            <td>${sessionScope.billCourseC.course.title}</td>
+                                        </c:if>
+                                        <c:if test="${sessionScope.bill != null}">
+                                            <td class="amout">${sessionScope.bill.course.title}</td>
+                                        </c:if>
+                                    </tr>
+                                    <tr>
+                                        <th>Bank Transaction Number:</td>
+                                        <td>${PAYMENT.vnp_BankTranNo}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Bank code:</td>
+                                        <td>${PAYMENT.vnp_BankCode}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Payment type:</td>
+                                        <td>${PAYMENT.vnp_CardType}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Payment date:</td>
+                                        
+                                        <c:if test="${sessionScope.billCourseC.course != null}">
+                                            <td>${sessionScope.billCourseC.paymentDate}</td>
+                                        </c:if>
+                                        <c:if test="${sessionScope.bill != null}">
+                                            <td class="amout">${sessionScope.bill.paymentDate}</td>
+                                        </c:if>
+                                    </tr>
                             </tbody>
                         </table>
                         <div class="thanks">
@@ -107,15 +133,30 @@
                             <p>See you again!</p>
                         </div>
                         <div class="payment-footer">
-                            <p><a href="${pageContext.request.contextPath}/">Back to home page</a></p>
+                            <div>Go to Home page after <span id="counter">30</span>s</div>
                             <p>Powered by <a href="#">VNPAY</a></p>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
+        <% 
+            session.removeAttribute("billCourse");
+            session.removeAttribute("PAYMENT");
+            session.removeAttribute("RegistrationMembership");
+            session.removeAttribute("bill");
+        %>
         <jsp:include page="../Component/footer.jsp"></jsp:include>
+            <script>
+                setInterval(function () {
+                    var div = document.querySelector("#counter");
+                    var count = div.textContent * 1 - 1;
+                    div.textContent = count;
+                    if (count <= 0) {
+                        window.location.replace("${pageContext.request.contextPath}/");
+                    }
+                }, 1000);
+        </script>
     </body>
 
 </html>

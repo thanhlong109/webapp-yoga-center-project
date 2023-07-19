@@ -4,6 +4,9 @@
     Author     : Chien Thang
 --%>
 
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@taglib prefix="ftm" uri="jakarta.tags.fmt" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <head>
@@ -23,7 +26,7 @@
             color: #3dbca8;
             font-style: italic;
         }
-        
+
         .element__checkout-method img{
             height: 4vh;
             width: 4vh;
@@ -32,6 +35,17 @@
             margin-left: 15px;
             margin-top: 2px;
         }
+
+        .custom-alert {
+            color: #dc3545;
+
+        }
+
+        .discript{
+            color: #a2a2a2;
+            text-align: left
+        }
+
     </style>
 </head>
 
@@ -48,6 +62,9 @@
                         <form action="CheckoutSendController">
                             <input type="hidden" id="course_id" name="id" value="" >
                             <input type="hidden" id="course_scheduleId" name="course_scheduleId" value="">
+                            <input type="hidden" id="memId" name="memId" value="">
+                            <input type="hidden" id="durationMem" name="durationMem" value="">
+
                             <!-- form-left -->
                             <div class="container__element-left">
                                 <div class="element__checkout-account-login ">
@@ -61,77 +78,161 @@
                                 <textarea name="order__comment" id="order__comment" rows="3"
                                           placeholder="Note to administrator" spellcheck="false"></textarea>
                             </div>
-                            <div class="element__checkout-payment">
-                                <div class="checkout__payment-title">
-                                    <h4>Payment</h4>
-                                    <span>
-                                        <!-- Nhúng icon ổ khóa -->
-                                        <i class="fas fa-lock"></i>
-                                        Secure Connection
-                                    </span>
+                            <c:if test="${course.price != 0}">
+                                <input name="coursePrice" id="coursePrice" value="${course.price}" type="hidden">
+                                <div class="element__checkout-payment">
+                                    <div class="checkout__payment-title">
+                                        <h4>Payment</h4>
+                                        <span>
+                                            <!-- Nhúng icon ổ khóa -->
+                                            <i class="fas fa-lock"></i>
+                                            Secure Connection
+                                        </span>
+                                    </div>
+                                    <ul class="element__checkout-method">
+                                        <li class="element__checkout-method-paypal">
+                                            <input type="radio" name="payment-method" value="VNPAY">
+                                            <img src="Asset/img/checkout/vnpay.png" alt="">
+                                            <span class="checkout-method">VNPAY</span>
+                                        </li>
+                                        <li class="element__checkout-method-offline__payment">
+                                            <input type="radio" name="payment-method" value="STUDIO">
+                                            <img src="Asset/img/checkout/pngwing.com.png" alt="">
+                                            <span class="checkout-method">Payment in Studio</span>
+                                        </li>
+                                    </ul>
+
+                                    <input id="duration" name="duration" value="" type="hidden">
+                                    <input id="startTime" name="startTime" value="" type="hidden">
+
+                                    <div class="element__checkout-button">
+                                        <button type="submit" name="btnPlaceOrder">Place Order</button>
+                                    </div>
                                 </div>
-                                <ul class="element__checkout-method">
-                                    <li class="element__checkout-method-paypal">
-                                        <input type="radio" name="payment-method" value="VNPAY">
-                                        <img src="Asset/img/checkout/vnpay.png" alt="">
-                                        <span class="checkout-method">VnPay</span>
-                                    </li>
-                                    <li class="element__checkout-method-offline__payment">
-                                        <input type="radio" name="payment-method" value="STUDIO">
-                                        <img src="Asset/img/checkout/pngwing.com.png" alt="">
-                                        <span class="checkout-method">Studio</span>
-                                    </li>
-                                </ul>
-                                
-                                <input id="duration" name="duration" value="" type="hidden">
-                                <input id="startTime" name="startTime" value="" type="hidden">
-                                
-                                <div class="element__checkout-button">
-                                    <button type="submit" name="btnPlaceOrder">Place Order</button>
+                            </c:if>
+
+                            <c:if test="${course.price == 0}">
+                                <div class="element__checkout-payment">
+                                    <div class="checkout__payment-title">
+                                        <h4>Welcome to yowu</h4>
+                                        <span>
+                                            <!-- Nhúng icon ổ khóa -->
+                                            <i class="fas fa-lock"></i>
+                                            Secure Connection
+                                        </span>
+                                    </div>
+
+                                    <input id="duration" name="duration" value="" type="hidden">
+                                    <input id="startTime" name="startTime" value="" type="hidden">
+
+                                    <div class="element__checkout-button">
+                                        <button type="submit" name="btnPlaceOrder">Enroll course</button>
+                                        <input type="hidden" name="payment-method" value="Free">
+                                    </div>
                                 </div>
-                            </div>
+                            </c:if>
+
                             <p class="checkout__element-condition">
 
                                 By completing your purchase you agree to those
                                 <a href="">Term Conditions</a>
                             </p>
                         </div>
-                        <!-- form-right -->
-                        <div class="container__element-right">
-                            <h4>Your Order</h4>
-                            <div class="element__right-table">
-                                <table>
-                                    <thead>
-                                        <tr class="table-title">
-                                            <th class="title-content">${course.title}</th>
-                                            <th class="title-price">$${course.price}</th>
+                        <c:if test="${course != null }" >
+                            <!-- form-checkout with course -->
+                            <div class="container__element-right">
+                                <h4>Your Order</h4>
+                                <div class="element__right-table">
+                                    <table>
+                                        <thead>
+                                            <tr class="table-title">
+                                                <th class="title-content">${course.title}</th>
+                                                <th class="title-price">$${course.price}</th>
+                                            </tr>
+                                            <tr class="table-title">
+                                                <th class="title-content">Membership card</th>
+                                                    <c:if test="${discount.discount == null}">
+                                                    <th class="title-price" >Voucher 0%</th>
+                                                    </c:if>
+                                                    <c:if test="${discount.discount != null}">
+                                                    <th class="title-price" >Voucher ${discount.discount}%</th>
+                                                <tr class="table-title">
+                                                    <th class="title-content discript">${discount.description}</th>
+                                                </tr>
+                                            </c:if>
+                                        <input type="hidden" id="discount" name="discountTotal" value="${discount.discount}">
                                         </tr>
-                                        <tr class="table-title">
-                                            <th class="title-content">Membership card</th>
-                                            <th class="title-price" >Voucher ${discount.discount}%</th>
-                                    <input type="hidden" id="discount" name="discountTotal" value="${discount.discount}">
-                                        </tr>
-                                        <tr class="table-title">
-                                            <th class="title-content">${discount.description}</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr class="table-detail">
-                                            <td class="detail-content">Subtotal</td>
-                                    
-                                            <td class="detail-price">$${course.price - (course.price * (discount.discount) / 100)}</td>
-                                    <input type="hidden" id="subtotal" name="subtotal" value="${course.price - (course.price * (discount.discount) / 100)}">
-                                    </tr>
-                                    <tr class="table-total">
-                                        <td class="total-title">Total</td>
-                                        <td class="total-price">$${course.price - (course.price * (discount.discount) / 100)}</td>
-                                    <input type="hidden" id="total" name="total" value="${course.price - (course.price * (discount.discount) / 100)}">
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
 
-                        </div>
+                                        <tr class="table-title">
+                                            <th class="title-content">Course start date</th>
+                                            <th class="title-price" >${startDate}</th>
+                                        </tr>
+                                        <tr class="table-title">
+                                            <th class="title-content">Course end date</th>
+                                            <th class="title-price" >${dateEnd}</th>
+                                        </tr>
+                                        <tbody>
+                                            <tr class="table-detail">
+                                                <td class="detail-content">Subtotal</td>
+
+                                                <td class="detail-price">$<fmt:formatNumber value="${course.price - (course.price * (discount.discount) / 100)}" pattern="##.##"></fmt:formatNumber> </td>
+                                        <input type="hidden" id="subtotal" name="subtotal" value="${course.price - (course.price * (discount.discount) / 100)}">
+                                        </tr>
+                                        <tr class="table-total">
+                                            <td class="total-title">Total</td>
+                                            <td class="total-price">$<fmt:formatNumber value="${course.price - (course.price * (discount.discount) / 100)}" pattern="##.##"></fmt:formatNumber></td>
+                                        <input type="hidden" id="total" name="total" value="${course.price - (course.price * (discount.discount) / 100)}">
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </c:if>
+
+                        <c:if test="${member != null}">
+                            <!-- form-checkout with membership -->
+                            <div class="container__element-right">
+                                <h4>Your Order</h4>
+                                <div class="element__right-table">
+                                    <table>
+                                        <thead>
+                                            <tr class="table-title">
+                                                <th class="title-content">Yowu Member level: ${member.name}</th>
+                                                <th class="title-price">$${member.price}</th>
+                                            </tr>
+                                            </tr>
+
+                                            <tr class="table-title">
+                                                <th class="title-content">Start date</th>
+                                                <th class="title-price" >${startdate} </th>
+                                            </tr>
+
+                                            <tr class="table-title">
+                                                <th class="title-content">End date</th>
+                                                <th class="title-price" >${enddate}</th>
+                                            </tr>
+                                        <input type="hidden" value="${enddate}" name="endDate" id="endDate">
+                                        <input type="hidden" value="${startdate}" name="startDate" id="startDate">
+                                        <tr class="table-title">
+                                            <th class="title-price" style="color: #a2a2a2">${member.description}</th>
+                                        </tr>
+                                        <tbody>
+                                            <tr class="table-detail">
+                                                <td class="detail-content">Subtotal</td>
+                                                <td class="detail-price">$${member.price}</td>
+                                        <input type="hidden" id="subtotal" name="subtotal" value="${member.price}">
+                                        </tr>
+                                        <tr class="table-total">
+                                            <td class="total-title">Total</td>
+                                            <td class="total-price">$${member.price}</td>
+                                        <input type="hidden" id="total" name="total" value="${member.price}">
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </c:if>
+
                     </form>
                 </div>
             </div>
@@ -146,15 +247,84 @@
         var scheduleId = params.get('course_scheduleId');
         var duration = params.get('duration');
         var startTime = params.get('start_time');
-        
+
+        var coursePrice = params.get('coursePrice');
+        var memId = params.get('memId');
+        var durationMem = params.get('durationMem');
+
         console.log(id);
-        console.log(scheduleId);
-        
-        
+        console.log(coursePrice);
+        console.log(memId);
+        console.log(durationMem);
+
+
         document.getElementById('course_id').value = id;
         document.getElementById('course_scheduleId').value = scheduleId;
         document.getElementById('duration').value = duration;
         document.getElementById('startTime').value = startTime;
+
+        document.getElementById('memId').value = memId;
+        document.getElementById('durationMem').value = durationMem;
+
+        if (coursePrice != null) {
+            document.addEventListener("DOMContentLoaded", function () {
+                // Lấy ra các radio button
+                var paymentMethods = document.getElementsByName("payment-method");
+
+                // Gắn sự kiện cho nút "Place Order"
+                var placeOrderButton = document.querySelector('button[name="btnPlaceOrder"]');
+                placeOrderButton.addEventListener("click", function (event) {
+                    // Kiểm tra nếu không có radio button được chọn
+                    var isSelected = false;
+                    for (var i = 0; i < paymentMethods.length; i++) {
+                        if (paymentMethods[i].checked) {
+                            isSelected = true;
+                            break;
+                        }
+                    }
+
+                    // Nếu không có radio button nào được chọn, hiển thị thông báo
+                    if (!isSelected) {
+                        event.preventDefault(); // Ngăn chặn gửi biểu mẫu
+
+
+                        var alertDiv = document.createElement("div");
+                        alertDiv.classList.add("alert", "alert-danger", "custom-alert");
+                        alertDiv.innerHTML = "Please choose a payment method!!!";
+
+
+                        var countdownSpan = document.createElement("span");
+                        countdownSpan.id = "countdownSpan";
+                        countdownSpan.style.marginLeft = "10px";
+                        countdownSpan.style.color = "red";
+                        countdownSpan.innerText = "5"; // Số giây đếm ngược ban đầu
+
+
+                        alertDiv.appendChild(countdownSpan);
+
+
+
+                        var checkoutButton = document.querySelector(".element__checkout-button");
+                        checkoutButton.parentNode.insertBefore(alertDiv, checkoutButton);
+
+
+                        var countdownValue = 5;
+                        var countdownInterval = setInterval(function () {
+                            countdownValue--;
+                            countdownSpan.innerText = countdownValue.toString();
+
+                            if (countdownValue === 0) {
+                                alertDiv.remove(); // Xóa thông báo
+                                clearInterval(countdownInterval); // Dừng đếm ngược
+                            }
+                        }, 1000);
+                    }
+                });
+            });
+        }
+
+
+
     </script>
 
 </body>
