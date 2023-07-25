@@ -190,7 +190,7 @@
         </style>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/@tinymce/tinymce-jquery@1/dist/tinymce-jquery.min.js"></script>
-        <script src="https://cdn.tiny.cloud/1/g9biibw87x3wdbf63v8imq9u08nzao11ff9a24bmpxsureo3/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+        <script src="https://cdn.tiny.cloud/1/d0pdth25h6ucisyj1a2xqwiqamcmwz0so59g11ehrng09e2y/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
     </head>
     <body>
         <div class="post-blog">

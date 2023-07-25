@@ -2,7 +2,7 @@
 /*banner*/
 .banner{
     display: flex;
-    background: url(../img/banner/home-banner.png) top center / cover no-repeat;
+    background: url(../img/banner/Banner_home_color.png) top center / cover no-repeat;
 }
 .banner-content{
     padding: 20% 10%;

@@ -85,10 +85,10 @@ public class UserProfileBooking extends HttpServlet {
                 + "</span>\n" +
 "                                </div>\n" +
 "                                <div>\n" +
-"                                    <label>Total Price:</label><span> $"+b.getValue()
+"                                    <label>Total Price:</label><span> $"+(b.getValue()- b.getValue()*b.getDiscount()/100)
                 + "</span>\n" +
 "                                </div>\n" +"<div>\n" +
-"                                    <label>Discount:</label><span>$"+b.getDiscount()
+"                                    <label>Discount: "+b.getDiscount()+"%</label><span>"
                 + "</span>\n" +
 "                                </div>"+"<div>\n" +
 "                                    <label>Payment Method:</label><span> "+b.getPaymentMethod()
