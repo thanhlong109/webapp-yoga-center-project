@@ -45,6 +45,9 @@
     aside h3 {
         font-weight: 500;
     }
+    .sidebar-elements{
+        cursor: pointer;
+    }
 
     aside .sidebar .sidebar-elements a{
         display: flex;
@@ -155,6 +158,8 @@
             <ul class="sub-item" id="subItem">
                 <li><a href="<c:url value="/admin/blogAnalysisController"/>">
                         Blog Analysis</a></li>
+                <li><a href="<c:url value="/admin/blog-approval"/>">
+                        Blog Approval</a></li>
             </ul>
         </div>
         <div class="sidebar-elements">
@@ -206,6 +211,7 @@
     sidebarElements.forEach(btn => {
         $(btn).click(function () {
             $(this).children(".sub-item").slideToggle(300);
+            $(this).siblings().change(".sub-item").slideUp();
         });
     });
     let currentPath = window.location.pathname;

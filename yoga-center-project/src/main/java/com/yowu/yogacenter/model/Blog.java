@@ -20,9 +20,12 @@ public class Blog implements Serializable{
     private Account account;
     private Timestamp date;
     private String img;
+    private boolean active;
 
     public Blog() {
+        active = false;
     }
+    
 
     public Blog(int id, String title, String detail, Account account, Timestamp date, String img) {
         this.id = id;
@@ -31,6 +34,7 @@ public class Blog implements Serializable{
         this.account = account;
         this.date = date;
         this.img = img;
+        active = false;
     }
 
     public String getImg() {
@@ -83,5 +87,15 @@ public class Blog implements Serializable{
     public void setAccount(Account account) {
         this.account = account;
     }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+    
+    
 
 }

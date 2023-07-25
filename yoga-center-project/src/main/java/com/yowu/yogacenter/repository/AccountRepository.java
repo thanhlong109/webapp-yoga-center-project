@@ -402,6 +402,7 @@ public List<Integer> getYearList(){
         accountRepository.updateGeneral(c);
         c = accountRepository.detail(2);
         System.out.println(c.getBiography());
+        System.out.println(accountRepository.checkDuplicate("daniel.wilson@example.com"));
 
     }
 

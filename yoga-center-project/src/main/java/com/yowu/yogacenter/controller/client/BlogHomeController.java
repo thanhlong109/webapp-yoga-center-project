@@ -66,7 +66,7 @@ public class BlogHomeController extends HttpServlet {
                 page = Integer.parseInt(xpage);
             }
             int start = (page - 1) * itemPerPage;
-            List<Blog> lst = br.getAll(start, itemPerPage);
+            List<Blog> lst = br.getActive(start, itemPerPage);
             request.setAttribute("blogList",lst );
             request.setAttribute("page", page);
             request.setAttribute("numpage", numPage);
