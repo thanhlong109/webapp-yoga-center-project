@@ -34,6 +34,9 @@ public class UserProfileSetting extends HttpServlet {
         if (account.getSocialID() == null) {
             request.setAttribute("notloginwithGg", true);
         }
+        if (account.getPassword() != null) {
+            request.setAttribute("loginwithGg", true);
+        }
         
         System.out.println("login GG ");
         request.getRequestDispatcher(USER_PROFILE_SETTING_PAGE).forward(request, response);

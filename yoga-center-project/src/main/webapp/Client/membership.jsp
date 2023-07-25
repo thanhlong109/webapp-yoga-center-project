@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -36,8 +37,18 @@
             <c:forEach items="${membershipList}" var="memList">
                 <c:if test="${sessionScope.account == null}">
                     <div class="box">
-                        <h3>${memList.name} Yowu Member</h3>
-                        <p class="price">$${memList.price} <small class="text-mute">/Month</small></p>
+                        <h3>${memList.name} Yowu Member</h3>    
+                        <p class="price">Only $<fmt:formatNumber value="${memList.price / memList.duration * 30}" pattern="##.##"></fmt:formatNumber><small class="text-mute">/Month</small></p>
+
+                            <div class="box__content">
+                                <span class="material-symbols-sharp">verified</span>
+                                <p>Membership  ${memList.price} days</p>
+                        </div>
+                        <div class="box__content">
+                            <span class="material-symbols-sharp">verified</span>
+                            <p>Membership period lasts up to ${memList.duration} days</p>
+                            <input id="durationMem" value="${memList.duration}" type="hidden">
+                        </div>
                         <div class="box__content">
                             <span class="material-symbols-sharp">verified</span>
                             <p>Membership period lasts up to ${memList.duration} days</p>
@@ -55,7 +66,11 @@
                     <c:if test="${ExistMem == null}">
                         <div class="box">
                             <h3>${memList.name} Yowu Member</h3>
-                            <p class="price">$${memList.price} <small class="text-mute">/Month</small></p>
+                            <p class="price">Only $<fmt:formatNumber value="${memList.price / memList.duration * 30}" pattern="##.##"></fmt:formatNumber><small class="text-mute">/Month</small></p>
+                                <div class="box__content">
+                                    <span class="material-symbols-sharp">verified</span>
+                                    <p>Membership  ${memList.price} days</p>
+                            </div>
                             <div class="box__content">
                                 <span class="material-symbols-sharp">verified</span>
                                 <p>Membership period lasts up to ${memList.duration} days</p>
@@ -72,7 +87,11 @@
                     <c:if test="${ExistMem != null}">
                         <div class="box">
                             <h3>${memList.name} Yowu Member</h3>
-                            <p class="price">$${memList.price} <small class="text-mute">/Month</small></p>
+                            <p class="price">Only $<fmt:formatNumber value="${memList.price / memList.duration * 30}" pattern="##.##"></fmt:formatNumber><small class="text-mute">/Month</small></p>
+                                <div class="box__content">
+                                    <span class="material-symbols-sharp">verified</span>
+                                    <p>Membership card $${memList.price}</p>
+                            </div>
                             <div class="box__content">
                                 <span class="material-symbols-sharp">verified</span>
                                 <p>Membership period lasts up to ${memList.duration} days</p>
@@ -86,7 +105,7 @@
                                 <a> <button class="btn-silver">You already here</button></a>
                             </c:if>
                             <c:if test="${ExistMem != null &&  memList.id != ExistMem.membership.id && ExistMem.membership.price < memList.price}">
-                                <a onclick="gotoCheckoutForMem('Checkout?memId=${memList.id}&action=membership', ${memList.duration})"><button class="btn-silver">Update now</button></a>
+                                <a onclick="gotoUpdateForMem('Checkout?memId=${memList.id}&action=membership', ${memList.duration})"><button class="btn-silver">Update now</button></a>
                             </c:if>
                             <c:if test="${ExistMem != null &&  memList.id != ExistMem.membership.id && ExistMem.membership.price > memList.price}">
                                 <a><button class="btn-silver">You can't update membership</button></a>
@@ -105,7 +124,10 @@
     function gotoCheckoutForMem(url, durationMem) {
         window.location.href = "${pageContext.request.contextPath}/" + url + "&durationMem=" + durationMem;
     }
-
+    
+    function gotoUpdateForMem(url, durationMem) {
+        window.location.href = "${pageContext.request.contextPath}/" + url + "&durationMem=" + durationMem;
+    }
 </script>
 
 <%@include file="../Component/footer.jsp" %> 

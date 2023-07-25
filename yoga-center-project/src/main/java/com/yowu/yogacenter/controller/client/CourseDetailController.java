@@ -61,29 +61,6 @@ public class CourseDetailController extends HttpServlet {
             boolean allowBook = true;
             RegistrationCourse regisStatus = null;
             if (account != null) {
-                // add
-//                List<CourseSchedule> list_dow = sc.getScheduleByCourse(c.getId());
-//                List<RegistrationCourse> rc3List = rcr.getAllByAccountID(account.getId());
-//                for (RegistrationCourse rs : rc3List) {
-//                    System.out.println(rs.getCourseSchedule().getDateOfWeek());
-//                }
-//                
-//                if (rc3List != null) {
-//                    for (RegistrationCourse rc3 : rc3List) {
-//                        if (rc3.getCourseSchedule() != null) {
-//                            String dow = rc3.getCourseSchedule().getDateOfWeek();
-//                            Iterator<CourseSchedule> iterator = list_dow.iterator();
-//                            while (iterator.hasNext()) {
-//                                CourseSchedule cs = iterator.next();
-//                                if (cs.getDateOfWeek().contains(dow)) {
-//                                    iterator.remove();
-//                                }
-//                            }
-//                        }
-//                    }
-//                }
-
-                //---
                 request.getParameter("");
                 
                 isInWishList = cwr.isExist(id, account.getId());
