@@ -29,7 +29,6 @@
         <link rel="stylesheet" href="${pageContext.request.contextPath}/Asset/css/dashboard.css">
         <!-- Library JS -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
-        <script src="${pageContext.request.contextPath}/Asset/js/cdnjs.cloudflare.com_ajax_libs_Chart.js_2.4.0_Chart.min.js"></script>
         <style>
             main .top{
                 padding: 20px 20px 20px 0px;  
@@ -129,8 +128,10 @@
               }
               .report-item-statis-wrapper{
                   display: flex;
+                  flex-direction: column;
                   justify-content: space-between;
                   margin-top: 12px;
+                  text-align: center;
               }
               .report-item-number{
                   font-size: 30px;
@@ -140,7 +141,7 @@
               }
               .report-item-percent{
                   display: flex;
-                  align-items: end;
+                  justify-content: center;
                   font-size: 14px;
               }
               .report-item-percent i{

@@ -144,7 +144,7 @@ public class BlogRepository {
         return count;
     }
     public int count(Date to) {
-        String sql = "select count(*) as num from tblBlog where blog_date<=? and where is_active=1";
+        String sql = "select count(*) as num from tblBlog where blog_date<=? and is_active=1";
         int count = 0;
         try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
             stmt.setDate(1, to);

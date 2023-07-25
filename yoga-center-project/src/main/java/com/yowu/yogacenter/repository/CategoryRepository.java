@@ -73,7 +73,7 @@ public class CategoryRepository {
                 data=mapper.writeValueAsString(dataMap);
             }
         }catch(Exception e){
-            System.out.println(e);
+            System.out.println("getCategoryJson:"+e);
         }
         return data;
     }

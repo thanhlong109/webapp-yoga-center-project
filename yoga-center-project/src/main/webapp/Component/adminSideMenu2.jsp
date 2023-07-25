@@ -94,8 +94,12 @@
         padding-left: 2.7rem;
         display: none;
         transition: max-height 300ms ease;
+        background: #848bc80d;
+        border-left: 3px solid #7380ec5c;
         overflow: hidden;
     }
+
+    
 
 </style>
 <aside>
@@ -211,8 +215,11 @@
     sidebarElements.forEach(btn => {
         $(btn).click(function () {
             $(this).children(".sub-item").slideToggle(300);
-            $(this).siblings().change(".sub-item").slideUp();
+            $(this).siblings().children(".sub-item").slideUp(300);
         });
+    });
+    $('.sub-item').click((e)=>{
+        e.stopPropagation();
     });
     let currentPath = window.location.pathname;
     let currentPathName = currentPath.replace('${pageContext.request.contextPath}', "");
@@ -222,6 +229,8 @@
         case '/admin/viewCourseTimeListController':
         case '/admin/viewCourseListController':
         case '/admin/addCourseController':
+        case '/admin/addCategoryController':
+        case '/admin/updateCourseController':
         {
             $('.js-course').addClass('active');
             break;
@@ -232,11 +241,14 @@
             break;
         }
         case '/admin/viewBillListController':
+        case '/admin/billAnalysisController':
+        case '/admin/viewBillMembershipListController':
         {
             $('.js-bill').addClass('active');
             break;
         }
         case '/admin/viewMembershipListController':
+        case '/admin/addMembershipController':
         {
             $('.js-membership').addClass('active');
             break;
@@ -248,10 +260,19 @@
             break;
         }
         case '/admin/viewAccountListController':
+        case '/admin/addAccountController':
         {
             $('.js-account').addClass('active');
             break;
         }
-
+        case '/admin/blogAnalysisController':
+        case '/admin/blog-approval':
+        {
+            $('.js-blog').addClass('active');
+            break;    
+        }
     }
+    var subTab = $('.sidebar-elements a[href="/yoga-center-project'+currentPathName+'"]');
+    subTab.css({'fontWeight':'600','color':'#7380ec'});
+    subTab.parents('.sub-item').show();
 </script>
