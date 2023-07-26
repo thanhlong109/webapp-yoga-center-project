@@ -176,6 +176,7 @@ body.modal-open{
         transition: all ease-in-out .3s;
     }
     .nav.show{
+        padding: 30px;
         transform: translateX(0);
     }
     .nav  .closebtn{

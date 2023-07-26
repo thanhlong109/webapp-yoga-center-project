@@ -145,7 +145,6 @@
                 
             }
             .blog-view-img{
-                max-height: 400px;
                 overflow:hidden;
                 display: flex;
                 justify-content: center;
@@ -357,7 +356,7 @@
                             var blog = JSON.parse(data);
                             console.log(blog);
                             $('.blog-view-content').html(blog.detail);
-                            $('.blog-view-title').html(blog.name);
+                            $('.blog-view-title').html(blog.title);
                             $('.blog-view-img img').attr("src",'../Asset/img/blog/'+blog.img);
                             $('.blog-view-container .btn-delete').click(function(){
                                 deleteBlog(id);

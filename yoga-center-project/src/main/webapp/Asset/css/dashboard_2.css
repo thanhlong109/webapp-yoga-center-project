@@ -234,6 +234,7 @@ aside .sidebar .sidebar-elements .sub-item{
 main{
     margin-top: 1.4rem;
     margin-bottom: 2.5rem;
+    height: 100%;
 }
 main .top{
     display: flex;

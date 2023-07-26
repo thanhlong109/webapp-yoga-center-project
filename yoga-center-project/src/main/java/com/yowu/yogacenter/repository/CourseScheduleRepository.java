@@ -44,7 +44,7 @@ public class CourseScheduleRepository {
         }
         return list;
     }
-
+    
     public List<CourseSchedule> getScheduleByCourse(int courseId) {
         String sql = "select * from tblCourseSchedule where (course_id=? and is_active=1)";
 

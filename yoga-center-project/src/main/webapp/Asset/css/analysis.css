@@ -104,6 +104,8 @@ main .top{
 }
 .report-item-statis-wrapper{
     display: flex;
+    flex-direction: column;
+    text-align: center;
     justify-content: space-between;
     margin-top: 12px;
 }
@@ -115,7 +117,7 @@ main .top{
 }
 .report-item-percent{
     display: flex;
-    align-items: end;
+    justify-content: center;
     font-size: 14px;
 }
 .report-item-percent i{
