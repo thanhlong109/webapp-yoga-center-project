@@ -58,9 +58,10 @@ public class CheckoutController extends HttpServlet {
         if (action.equals("course")) {
             String coursePrice = request.getParameter("coursePrice");
             int courseScheduleID = Integer.parseInt(request.getParameter("course_scheduleId"));
-            if (courseScheduleID != 0 && !csr.isSameSchedule(courseScheduleID, acc.getId())) { // -1
+            if (!csr.isSameSchedule(courseScheduleID, acc.getId())) {
+
                 int id = Integer.parseInt(request.getParameter("id"));
-                Course cs = cr.detail(id); // -1
+                Course cs = cr.detail(id);
                 RegistrationCourseRepository regis = new RegistrationCourseRepository();
                 RegistrationCourse rc = regis.getRegisByCourseIdAndAccountID(acc.getId(), id);
                 System.out.println(acc.getId() + "," + id);
@@ -110,9 +111,9 @@ public class CheckoutController extends HttpServlet {
                                 }
                             }
                         }
-//                startDate = startDate.plusDays(1);
-//                lastDate = startDate; // Cập nhật ngày cuối cùng trong vòng lặp
-//                startDate = startDate.plusDays(1);
+                        //                startDate = startDate.plusDays(1);
+                        //                lastDate = startDate; // Cập nhật ngày cuối cùng trong vòng lặp
+                        //                startDate = startDate.plusDays(1);
                         lastDate = startDate; // Cập nhật ngày cuối cùng trong vòng lặp
                         startDate = startDate.plusDays(1);
                     }
@@ -134,11 +135,10 @@ public class CheckoutController extends HttpServlet {
             } else {
                 int id = Integer.parseInt(request.getParameter("id"));
                 Course cs = cr.detail(id);
-                request.setAttribute("checkDup", "Sorry, But there seems to be a scheduling overlap with the " + cs.getTitle() + "course!");
+                request.setAttribute("checkDup", "Sorry, But there seems to be a scheduling overlap with the " + cs.getTitle() + " course!");
                 request.getRequestDispatcher(COURSE_DETAIL + id).forward(request, response);
             }
         }
-
         if (action.equals("membership")) {
             int memberId = Integer.parseInt(request.getParameter("memId"));
             RegistrationMembershipRepository rmsr = new RegistrationMembershipRepository();
@@ -160,7 +160,7 @@ public class CheckoutController extends HttpServlet {
                 request.setAttribute("startdate", current);
                 request.setAttribute("enddate", enddate);
                 session.setAttribute("RegistrationMembership", new RegistrationMembership(mb, account, Date.valueOf(current), Date.valueOf(enddate)));
-                
+                request.getRequestDispatcher(CHECKOUT_PAGE).forward(request, response);
             }
 
         }

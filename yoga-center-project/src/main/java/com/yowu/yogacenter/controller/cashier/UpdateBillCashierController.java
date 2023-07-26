@@ -46,12 +46,14 @@ public class UpdateBillCashierController extends HttpServlet {
         BillRepository _billRepository = new BillRepository();
         Bill bill = new Bill();
         RegistrationCourseRepository _regisCourseRepository = new RegistrationCourseRepository();
-        String orderCode = request.getParameter("txtOrderCode");
         int status = Integer.parseInt(request.getParameter("txtStatus"));
+        String orderCode = request.getParameter("txtOrderCode");
+        System.out.println(orderCode);
           try {
 
             boolean update = _billRepository.updateStatus(orderCode, LocalDate.now(), status);
-
+              System.out.println(orderCode + ", " + status);
+            System.out.println(update);
             if (update) {
                 bill = _billRepository.getCourseIdByOrdercode(orderCode);
                 
