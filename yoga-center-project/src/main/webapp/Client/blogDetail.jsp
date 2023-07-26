@@ -1,8 +1,4 @@
-f<%-- 
-    Document   : blogHomeDetail
-    Created on : Jun 17, 2023, 12:17:06 PM
-    Author     : DatTGT
---%>
+
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="jakarta.tags.core" %>
@@ -77,7 +73,7 @@ f<%--
                 
             </div>
             <%@include file="../Component/rightBarBlog.jsp" %>
-            <jsp:include page="../Component/postBlog.jsp"></jsp:include>
+            <%@include file="../Component/postBlog.jsp" %>
         </div>
         
         <%@include file="../Component/toast.jsp" %>
