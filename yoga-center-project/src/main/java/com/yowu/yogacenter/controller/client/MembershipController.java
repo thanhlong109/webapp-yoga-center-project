@@ -36,13 +36,11 @@ public class MembershipController extends HttpServlet {
         if (account != null) {
             RegistrationMembership regisMem = regisMemRepo.detail(account.getId());
             if (regisMem != null) {
-                if (regisMem.getRegistrationtatus()) {
-                    request.setAttribute("ExistMem", regisMem);
-                }
+                request.setAttribute("ExistMem", regisMem);
             }
             System.out.println(regisMem);
         }
-        
+
         request.setAttribute("membershipList", memRepo.getAllMembershipIsActive());
         request.getRequestDispatcher(MEMBERSHIP_PAGE).forward(request, response);
     }

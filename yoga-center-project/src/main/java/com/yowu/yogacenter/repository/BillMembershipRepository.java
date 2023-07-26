@@ -42,8 +42,8 @@ public class BillMembershipRepository {
                     c.setValue(rs.getFloat("bill_value"));
                     c.setDiscount(rs.getInt("bill_discount"));
                     c.setDate(rs.getDate("bill_date"));
-                    c.setOrdercode(rs.getString("order_code"));
-                    c.setMethod(rs.getString("payment_method"));
+                    c.setOrderCode(rs.getString("order_code"));
+                    c.setPaymentMethod(rs.getString("payment_method"));
                     c.setPaymentDate(rs.getDate("payment_date"));
                     list.add(c);
                 }
@@ -72,8 +72,8 @@ public class BillMembershipRepository {
                     c.setValue(rs.getFloat("bill_value"));
                     c.setDiscount(rs.getInt("bill_discount"));
                     c.setDate(rs.getDate("bill_date"));
-                    c.setOrdercode(rs.getString("order_code"));
-                    c.setMethod(rs.getString("payment_method"));
+                    c.setOrderCode(rs.getString("order_code"));
+                    c.setPaymentMethod(rs.getString("payment_method"));
                     c.setPaymentDate(rs.getDate("payment_date"));
                     list.add(c);
                 }
@@ -101,8 +101,8 @@ public class BillMembershipRepository {
                     c.setValue(rs.getFloat("bill_value"));
                     c.setDiscount(rs.getInt("bill_discount"));
                     c.setDate(rs.getDate("bill_date"));
-                    c.setOrdercode(rs.getString("order_code"));
-                    c.setMethod(rs.getString("payment_method"));
+                    c.setOrderCode(rs.getString("order_code"));
+                    c.setPaymentMethod(rs.getString("payment_method"));
                     c.setPaymentDate(rs.getDate("payment_date"));
                     return c;
                 }
@@ -130,8 +130,8 @@ public class BillMembershipRepository {
                     c.setValue(rs.getFloat("bill_value"));
                     c.setDiscount(rs.getInt("bill_discount"));
                     c.setDate(rs.getDate("bill_date"));
-                    c.setOrdercode(rs.getString("order_code"));
-                    c.setMethod(rs.getString("payment_method"));
+                    c.setOrderCode(rs.getString("order_code"));
+                    c.setPaymentMethod(rs.getString("payment_method"));
                     c.setPaymentDate(rs.getDate("payment_date"));
                     return c;
                 }
@@ -160,8 +160,8 @@ public class BillMembershipRepository {
                     c.setValue(rs.getFloat("bill_value"));
                     c.setDiscount(rs.getInt("bill_discount"));
                     c.setDate(rs.getDate("bill_date"));
-                    c.setOrdercode(rs.getString("order_code"));
-                    c.setMethod(rs.getString("payment_method"));
+                    c.setOrderCode(rs.getString("order_code"));
+                    c.setPaymentMethod(rs.getString("payment_method"));
                     c.setPaymentDate(rs.getDate("payment_date"));
                     return c;
                 }
@@ -190,8 +190,8 @@ public class BillMembershipRepository {
                     c.setValue(rs.getFloat("bill_value"));
                     c.setDiscount(rs.getInt("bill_discount"));
                     c.setDate(rs.getDate("bill_date"));
-                    c.setOrdercode(rs.getString("order_code"));
-                    c.setMethod(rs.getString("payment_method"));
+                    c.setOrderCode(rs.getString("order_code"));
+                    c.setPaymentMethod(rs.getString("payment_method"));
                     c.setPaymentDate(rs.getDate("payment_date"));
                     return c;
                 }
@@ -273,8 +273,8 @@ public class BillMembershipRepository {
                     c.setValue(rs.getFloat("bill_value"));
                     c.setDiscount(rs.getInt("bill_discount"));
                     c.setDate(rs.getDate("bill_date"));
-                    c.setOrdercode(rs.getString("order_code"));
-                    c.setMethod(rs.getString("payment_method"));
+                    c.setOrderCode(rs.getString("order_code"));
+                    c.setPaymentMethod(rs.getString("payment_method"));
                     c.setPaymentDate(rs.getDate("payment_date"));
                     return c;
                 }
@@ -300,8 +300,8 @@ public class BillMembershipRepository {
             stmt.setFloat(5, c.getValue());
             stmt.setInt(6, c.getDiscount());
             stmt.setDate(7, c.getDate());
-            stmt.setString(8, c.getOrdercode());
-            stmt.setString(9, c.getMethod());
+            stmt.setString(8, c.getOrderCode());
+            stmt.setString(9, c.getPaymentMethod());
 
             status = stmt.executeUpdate();
         } catch (Exception e) {
@@ -327,8 +327,8 @@ public class BillMembershipRepository {
             stmt.setInt(6, c.getDiscount());
             stmt.setDate(7, c.getDate());
             stmt.setInt(8, c.getId());
-            stmt.setString(9, c.getOrdercode());
-            stmt.setString(10, c.getMethod());
+            stmt.setString(9, c.getOrderCode());
+            stmt.setString(10, c.getPaymentMethod());
             stmt.setDate(11, c.getPaymentDate());
             status = stmt.executeUpdate();
         } catch (Exception e) {
@@ -509,8 +509,8 @@ public class BillMembershipRepository {
                     c.setValue(rs.getFloat("bill_value"));
                     c.setDiscount(rs.getInt("bill_discount"));
                     c.setDate(rs.getDate("bill_date"));
-                    c.setOrdercode(rs.getString("order_code"));
-                    c.setMethod(rs.getString("payment_method"));
+                    c.setOrderCode(rs.getString("order_code"));
+                    c.setPaymentMethod(rs.getString("payment_method"));
                     c.setPaymentDate(rs.getDate("payment_date"));
                     list.add(c);
                 }
@@ -540,8 +540,8 @@ public class BillMembershipRepository {
                     c.setValue(rs.getFloat("bill_value"));
                     c.setDiscount(rs.getInt("bill_discount"));
                     c.setDate(rs.getDate("bill_date"));
-                     c.setOrdercode(rs.getString("order_code"));
-                    c.setMethod(rs.getString("payment_method"));
+                     c.setOrderCode(rs.getString("order_code"));
+                    c.setPaymentMethod(rs.getString("payment_method"));
                     c.setPaymentDate(rs.getDate("payment_date"));
                     list.add(c);
                 }
@@ -585,8 +585,8 @@ public class BillMembershipRepository {
                     c.setValue(rs.getFloat("bill_value"));
                     c.setDiscount(rs.getInt("bill_discount"));
                     c.setDate(rs.getDate("bill_date"));
-                    c.setOrdercode(rs.getString("order_code"));
-                    c.setMethod(rs.getString("payment_method"));
+                    c.setOrderCode(rs.getString("order_code"));
+                    c.setPaymentMethod(rs.getString("payment_method"));
                     c.setPaymentDate(rs.getDate("payment_date"));
                     list.add(c);
                 }

@@ -62,8 +62,8 @@
                             <h3>Update Bill </h3>
                             <div class="input__group">
                                 <input type="hidden" name="txtId" value="${MEMBERSHIP.id}">
-                                <input type="text" name="txtOrderCode" value="${MEMBERSHIP.ordercode}" disabled/>
-                                <input type="hidden" name="txtOrderCode" value="${MEMBERSHIP.ordercode}">
+                                <input type="text" name="txtOrderCode" value="${MEMBERSHIP.orderCode}" disabled/>
+                                <input type="hidden" name="txtOrderCode" value="${MEMBERSHIP.orderCode}">
                                 <label class="input__group-disable" for="">Order Code</label>
                              </div>
                             <div class="input__group filter">

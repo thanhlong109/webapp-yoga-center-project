@@ -68,6 +68,27 @@ public class RegistrationMembershipRepository {
     }
 
     public RegistrationMembership detail(int id) {
+        String sql = "select * from tblRegistrationMembership where account_id=? and registration_status = 1";
+        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
+            stmt.setInt(1, id);
+            try ( ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    AccountRepository acc = new AccountRepository();
+                    MembershipRepository mb = new MembershipRepository();
+                    RegistrationMembership c = new RegistrationMembership();
+                    c.setMembership(mb.detail(rs.getInt("membership_id")));
+                    c.setAccount(acc.detail(rs.getInt("account_id")));
+                    c.setRegistrationDate(rs.getDate("registration_date"));
+                    c.setExpirationDate(rs.getDate("expriration_date"));
+                    return c;
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return null;
+    }
+    public RegistrationMembership detailAndStatus(int id) {
         String sql = "select * from tblRegistrationMembership where account_id=? ";
         try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
             stmt.setInt(1, id);
@@ -80,7 +101,6 @@ public class RegistrationMembershipRepository {
                     c.setAccount(acc.detail(rs.getInt("account_id")));
                     c.setRegistrationDate(rs.getDate("registration_date"));
                     c.setExpirationDate(rs.getDate("expriration_date"));
-                    c.setRegistrationtatus(rs.getBoolean("registration_status"));
                     return c;
                 }
             }
@@ -163,6 +183,28 @@ public class RegistrationMembershipRepository {
 
         return status == 1;
     }
+    
+    public boolean updateByAccoutID(RegistrationMembership registrationMembership) {
+        String sql = "UPDATE tblRegistrationMembership SET membership_id = ?, "
+                + "registration_date = ?, expriration_date = ?, registration_status = ? "
+                + "WHERE account_id = ?";
+        int status = 0;
+
+        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
+            stmt.setInt(5, registrationMembership.getAccount().getId());
+            stmt.setDate(2, registrationMembership.getRegistrationDate());
+            stmt.setDate(3, registrationMembership.getExpirationDate());
+            stmt.setBoolean(4, registrationMembership.getRegistrationtatus());
+            stmt.setInt(1, registrationMembership.getMembership().getId());
+
+            status = stmt.executeUpdate();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+        return status == 1;
+    }
+    
     public static void main(String[] args) {
     RegistrationMembershipRepository repository = new RegistrationMembershipRepository();
     int account = 2;

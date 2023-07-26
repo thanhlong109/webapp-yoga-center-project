@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
 package com.yowu.yogacenter.checkout;
 
 import com.yowu.yogacenter.model.Account;
@@ -72,39 +68,52 @@ public class CheckoutSendController extends HttpServlet {
         long millis = System.currentTimeMillis();
         java.sql.Date date = new java.sql.Date(millis);
         Account acc = (Account) request.getSession().getAttribute("account");
-                        RegistrationMembership rm = new RegistrationMembership();
+        RegistrationMembership rm = new RegistrationMembership();
 
         try {
             RegistrationMembership regisMember = (RegistrationMembership) request.getSession().getAttribute("RegistrationMembership");
-
+            System.out.println(regisMember + " regismember");
+            MembershipRepository msr = new MembershipRepository();
+            RegistrationMembershipRepository regis1 = new RegistrationMembershipRepository();
+            RegistrationMembership memregis = regis1.detail(acc.getId());
             if (regisMember != null) {
-                int memId = Integer.parseInt(request.getParameter("memId"));
-                
-                MembershipRepository msr = new MembershipRepository();
-                RegistrationMembershipRepository regis = new RegistrationMembershipRepository();
-                
-                Membership mb = msr.detail(memId);
-                int status = 2;
-                boolean isActive = true;
-                total = Float.parseFloat(request.getParameter("total"));
-                int discount = 0;
-                boolean regisStatus = false;
-                String dateStart = request.getParameter("startDate")+ " 00:00:00";
-                String dateEnd = request.getParameter("endDate")+ " 00:00:00";
-                
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd' 'HH:mm:ss");
-                
-                LocalDateTime dateStartS = LocalDateTime.parse(dateStart, formatter);
-                LocalDateTime  dateEndS = LocalDateTime.parse(dateEnd, formatter);
-                System.out.println("dateS"+dateStartS);
-                System.out.println("dateE"+dateEndS);
-                //(Membership membership, Account account, int status, boolean isActive, float value, int discount, Date date, String ordercode, String method, Date paymentDate)
-                orderMem = new BillMembership(mb, acc, status, isActive, total, discount, date, orderCode, method);
-                //(Membership membership, Account account, Date registrationDate, Date expirationDate, boolean registrationtatus)
-                rm = new RegistrationMembership(mb, acc, regisStatus, dateStartS, dateEndS);
-                BillMembershipRepository billMemRepo = new BillMembershipRepository();
-                billMemRepo.add(orderMem);
-                regis.add(rm);
+                if (memregis != null) {
+                    //UPDATE tblRegistrationMembership SET membership_id = ?, "
+                    //+ "registration_date = ?, expriration_date = ?, registration_status = ? "
+                    //+ "WHERE account_id = ?
+                    total = regisMember.getMembership().getPrice();
+                    regis1.updateByAccoutID(regisMember);
+                    int status = 2;
+                    boolean isActive = true;
+                    int discount = 0;
+                    orderMem = new BillMembership(regisMember.getMembership(), acc, status, isActive, total, discount, date, orderCode, method);
+                    BillMembershipRepository billMemRepo = new BillMembershipRepository();
+                    billMemRepo.add(orderMem);
+                    regis1.add(rm);
+                } else {
+                    int memId = Integer.parseInt(request.getParameter("memId"));
+                    Membership mb = msr.detail(memId);
+                    int status = 2;
+                    boolean isActive = true;
+                    total = Float.parseFloat(request.getParameter("total"));
+                    System.out.println(total + " mem");
+                    int discount = 0;
+                    boolean regisStatus = false;
+                    String dateStart = request.getParameter("startDate") + " 00:00:00";
+                    String dateEnd = request.getParameter("endDate") + " 00:00:00";
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd' 'HH:mm:ss");
+                    LocalDateTime dateStartS = LocalDateTime.parse(dateStart, formatter);
+                    LocalDateTime dateEndS = LocalDateTime.parse(dateEnd, formatter);
+                    System.out.println("dateS" + dateStartS);
+                    System.out.println("dateE" + dateEndS);
+                    //(Membership membership, Account account, int status, boolean isActive, float value, int discount, Date date, String ordercode, String method, Date paymentDate)
+                    orderMem = new BillMembership(mb, acc, status, isActive, total, discount, date, orderCode, method);
+                    //(Membership membership, Account account, Date registrationDate, Date expirationDate, boolean registrationtatus)
+                    rm = new RegistrationMembership(mb, acc, regisStatus, dateStartS, dateEndS);
+                    BillMembershipRepository billMemRepo = new BillMembershipRepository();
+                    billMemRepo.add(orderMem);
+                    regis1.add(rm);
+                }
             } else {
                 int courseId = Integer.parseInt(request.getParameter("id"));
                 CourseRepository cr = new CourseRepository();
@@ -213,30 +222,43 @@ public class CheckoutSendController extends HttpServlet {
 
 //            url = SUCCESS;
             if (method.equals("STUDIO")) {
-                regisMember = (RegistrationMembership) request.getSession().getAttribute("RegistrationMembership");
-
-                if (regisMember != null) {
-                    int memId = Integer.parseInt(request.getParameter("memId"));
-                    
-                }
                 url = PENDING_CHECKOUT;
-                int courseId = Integer.parseInt(request.getParameter("id"));
-                CourseRepository cr = new CourseRepository();
-                Course c = cr.detail(courseId);
-                int status = 2;
-                boolean isActive = true;
-                total = Float.parseFloat(request.getParameter("total"));
-                int discount = 0;
-                String sDiscount = request.getParameter("discountTotal");
-                if (!sDiscount.isEmpty()) {
-                    discount = Integer.parseInt(sDiscount);
+                if (regisMember != null) {
+                    int status = 2;
+                    boolean isActive = true;
+                    orderMem = new BillMembership();
+                    orderMem.setAccount(acc);
+                    orderMem.setMembership(regisMember.getMembership());
+                    orderMem.setStatus(status);
+                    orderMem.setValue(regisMember.getMembership().getPrice());
+                    orderMem.setDiscount(regisMember.getMembership().getDiscount());
+                    orderMem.setOrderCode(orderCode);
+                    orderMem.setPaymentMethod(method);
+                    orderMem.setDate(date);
+                    orderMem.setIsActive(isActive);
+                    HttpSession session = request.getSession();
+                    session.setAttribute("bill", orderMem);
+                    request.getRequestDispatcher(url).forward(request, response);
+                    System.out.println(orderMem);
+                } else {
+                    int courseId = Integer.parseInt(request.getParameter("id"));
+                    CourseRepository cr = new CourseRepository();
+                    Course c = cr.detail(courseId);
+                    int status = 2;
+                    boolean isActive = true;
+                    total = Float.parseFloat(request.getParameter("total"));
+                    int discount = 0;
+                    String sDiscount = request.getParameter("discountTotal");
+                    if (!sDiscount.isEmpty()) {
+                        discount = Integer.parseInt(sDiscount);
+                    }
+                    order = new Bill(c, acc, status, isActive, total, discount, date, orderCode, method);
+                    HttpSession session = request.getSession();
+                    session.setAttribute("bill", order);
+                    request.getRequestDispatcher(url).forward(request, response);
                 }
-                order = new Bill(c, acc, status, isActive, total, discount, date, orderCode, method);
-                HttpSession session = request.getSession();
-                session.setAttribute("bill", order);
-                request.getRequestDispatcher(url).forward(request, response);
-                System.out.println(url);
-            } else if(method.equals("Free")){
+
+            } else if (method.equals("Free")) {
                 url = SUCCESS_CHECKOUT;
                 int courseId = Integer.parseInt(request.getParameter("id"));
                 CourseRepository cr = new CourseRepository();
@@ -253,7 +275,7 @@ public class CheckoutSendController extends HttpServlet {
                 regisRepo.updateCourseStatus(isActive, acc.getId(), courseId);
                 order = new Bill(c, acc, status, isActive, total, discount, date, orderCode, method);
                 HttpSession session = request.getSession();
-                BillRepository billRepo  = new BillRepository();
+                BillRepository billRepo = new BillRepository();
                 billRepo.updateStatus(orderCode, status);
                 session.setAttribute("bill", order);
                 request.getRequestDispatcher(url).forward(request, response);

@@ -67,10 +67,9 @@ body {
 }
 
 .box button {
-    width: 140px;
+    width: 160px;
     height: 40px;
-    background: #333;
-    color: #fff;
+    
     border-radius: 15px;
     outline: none;
     border: none;
@@ -79,8 +78,10 @@ body {
     margin-top: 20px;
     position: absolute;
     bottom: 5%;
-    transform: translateX(40%);
+    left: 50%;
+    transform: translateX(-50%);
 }
+
 
 .box button:hover {
     opacity: 0.5;
@@ -114,6 +115,10 @@ body {
 .box:nth-child(2)::after {
     background: rgb(242, 243, 244);
     background: linear-gradient(160deg, rgba(242, 243, 244, 1) 0%, rgba(247, 220, 111, 1) 67%, rgba(244, 208, 63, 1) 100%);
+}
+.box:nth-child(2) .btn-silver{
+        color: rgba(244, 208, 63, 1);
+        background: #FFFFE0;
 }
 
 .box:nth-child(3)::after {

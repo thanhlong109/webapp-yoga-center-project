@@ -45,12 +45,12 @@
                 </div>
             </div>
             <div class="sidebar">
-                <div class="sidebar-elements">
+<!--                <div class="sidebar-elements">
                     <a href="#">
                         <span class="material-symbols-sharp"> home</span>
                         <h3>Home</h3>
                     </a>
-                </div>
+                </div>-->
 <!--                <div class="sidebar-elements">
                     <a href="#" class="active">
                         <span class="material-symbols-sharp">receipt_long</span>

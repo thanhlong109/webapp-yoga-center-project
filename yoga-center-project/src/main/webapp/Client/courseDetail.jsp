@@ -742,6 +742,9 @@
                 duration: 7000
             });
             </c:if>
+            <% 
+            request.removeAttribute("checkDup");
+            %>
             /*rating stars*/
             const ratingStarList = $('.rating-star i');
             const ratingFeedback = document.querySelector('.rating-feedback');

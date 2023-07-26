@@ -87,10 +87,10 @@
                                             ${membership.date}
                                         </td>
                                         <td>
-                                            ${membership.ordercode}
+                                            ${membership.orderCode}
                                         </td>
                                         <td>
-                                            ${membership.method}
+                                            ${membership.paymentMethod}
                                         </td>
                                         <td>
                                             ${membership.paymentDate}

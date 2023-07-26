@@ -77,13 +77,24 @@
                     <div class="col-md-12 payment-details">
                         <table>
                             <tbody>
-                                <tr>
-                                    <th>Payment product:</th>
+                                <c:if test="${bill.getClass().getName() eq 'com.yowu.yogacenter.model.Bill'}">
+                                    <tr>
+                                        <th>Payment product:</th>
                                         <td>${bill.course.title}</td>
-                                </tr>
-                                    <th>Payment date:</td>
-                                    <td>${bill.date}</td>
-                                </tr>
+                                    </tr>
+                                        <th>Payment date:</td>
+                                        <td>${bill.date}</td>
+                                    </tr>
+                                </c:if>
+                                <c:if test="${bill.getClass().getName() eq 'com.yowu.yogacenter.model.BillMembership'}">
+                                    <tr>
+                                        <th>Payment product:</th>
+                                        <td>Yowu Member level: ${bill.membership.name}</td>
+                                    </tr>
+                                        <th>Payment date:</td>
+                                        <td>${bill.date}</td>
+                                    </tr>
+                                </c:if>
                             </tbody>
                         </table>
                         <div class="thanks">

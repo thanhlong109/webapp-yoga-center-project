@@ -141,18 +141,10 @@ public class CheckoutController extends HttpServlet {
         }
         if (action.equals("membership")) {
             int memberId = Integer.parseInt(request.getParameter("memId"));
-            RegistrationMembershipRepository rmsr = new RegistrationMembershipRepository();
+//            RegistrationMembershipRepository rmsr = new RegistrationMembershipRepository();
             MembershipRepository mbr = new MembershipRepository();
             Account account = (Account) session.getAttribute("account");
-            if (rmsr.detail(account.getId()) != null) {
-                Membership mb = mbr.detail(memberId);
-                request.setAttribute("member", mb);
-                LocalDate current = LocalDate.now();
-                LocalDate enddate = current.plusDays(mb.getDuration());
-                request.setAttribute("startdate", current);
-                request.setAttribute("enddate", enddate);
-                request.getRequestDispatcher(CHECKOUT_PAGE).forward(request, response);
-            } else {
+//            if (rmsr.detail(account.getId()) != null) {
                 Membership mb = mbr.detail(memberId);
                 request.setAttribute("member", mb);
                 LocalDate current = LocalDate.now();
@@ -161,7 +153,7 @@ public class CheckoutController extends HttpServlet {
                 request.setAttribute("enddate", enddate);
                 session.setAttribute("RegistrationMembership", new RegistrationMembership(mb, account, Date.valueOf(current), Date.valueOf(enddate)));
                 request.getRequestDispatcher(CHECKOUT_PAGE).forward(request, response);
-            }
+            //}
 
         }
 

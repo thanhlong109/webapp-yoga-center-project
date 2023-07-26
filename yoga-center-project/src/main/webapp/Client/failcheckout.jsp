@@ -95,7 +95,7 @@
                                 </tr>
                                 <tr>
                                     <th>Payment date:</td>
-                                    <td>${sessionScope.billCourseC.paymentDate}</td>
+                                    <td>${sessionScope.billCourseC.date}</td>
                                 </tr>
                             </tbody>
                         </table>

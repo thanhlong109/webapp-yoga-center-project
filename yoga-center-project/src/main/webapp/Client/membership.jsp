@@ -105,10 +105,10 @@
                                 <a> <button class="btn-silver">You already here</button></a>
                             </c:if>
                             <c:if test="${ExistMem != null &&  memList.id != ExistMem.membership.id && ExistMem.membership.price < memList.price}">
-                                <a onclick="gotoUpdateForMem('Checkout?memId=${memList.id}&action=membership', ${memList.duration})"><button class="btn-silver">Update now</button></a>
+                                <a onclick="gotoUpdateForMem('Checkout?memId=${memList.id}&action=membership', ${memList.duration})"><button class="btn-silver">Update membership card now</button></a>
                             </c:if>
                             <c:if test="${ExistMem != null &&  memList.id != ExistMem.membership.id && ExistMem.membership.price > memList.price}">
-                                <a><button class="btn-silver">You can't update membership</button></a>
+                                <a><button class="btn-silver">You can't update membership card</button></a>
                             </c:if>
                             <span class="type">${memList.name}</span>
                         </div> 
