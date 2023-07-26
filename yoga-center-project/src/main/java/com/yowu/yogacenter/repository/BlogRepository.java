@@ -240,32 +240,32 @@ public class BlogRepository {
 
         return list;
     }
-public String getBlogDateJson(int year){
-    String sql = "SELECT DATEPART(MONTH, blog_date) AS [Month], COUNT(blog_id) AS [total] FROM tblBlog where YEAR(blog_date)=? GROUP BY DATEPART(MONTH, [blog_date]) ORDER BY [Month] ";
-    String data="";
-    try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
+
+    public String getBlogDateJson(int year) {
+        String sql = "SELECT DATEPART(MONTH, blog_date) AS [Month], COUNT(blog_id) AS [total] FROM tblBlog where YEAR(blog_date)=? GROUP BY DATEPART(MONTH, [blog_date]) ORDER BY [Month] ";
+        String data = "";
+        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
             stmt.setInt(1, year);
-             try ( ResultSet rs = stmt.executeQuery()) {
-                 int[] array;// at index 0 defind maximum month to display
-                 LocalDate now = LocalDate.now();
-                 if(now.getYear()==year){
-                     int month = now.getMonthValue();
-                     array = new int[month];
-                 }else{
-                     array = new int[12];
-                 }
-                 while(rs.next()){
-                     int i = rs.getInt("Month")-1;
-                     array[i]=rs.getInt("total");                    
-                 }
-                 ObjectMapper objMapper = new ObjectMapper();
-                 data = objMapper.writeValueAsString(array);
-             }
-     }catch (Exception e) {
-        System.out.println("getBlogDateJson: " +e);
+            try ( ResultSet rs = stmt.executeQuery()) {
+                int[] array;// at index 0 defind maximum month to display
+                LocalDate now = LocalDate.now();
+                if (now.getYear() == year) {
+                    int month = now.getMonthValue();
+                    array = new int[month];
+                } else {
+                    array = new int[12];
+                }
+                while (rs.next()) {
+                    array[rs.getInt("Month") - 1] = rs.getInt("total");
+                }
+                ObjectMapper objMapper = new ObjectMapper();
+                data = objMapper.writeValueAsString(array);
+            }
+        } catch (Exception e) {
+            System.out.println("getBlogDateJson: " + e);
+        }
+        return data;
     }
-     return data;
-}
 
     public static void main(String[] args) {
         BlogRepository cr = new BlogRepository();
