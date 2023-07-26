@@ -16,6 +16,7 @@ D:\HocTap\Summer 2023\SWP391\PROJECT-SWP\yoga-center-project\src\main\java\com\y
 D:\HocTap\Summer 2023\SWP391\PROJECT-SWP\yoga-center-project\src\main\java\com\yowu\yogacenter\controller\admin\DeleteCourseController.java
 D:\HocTap\Summer 2023\SWP391\PROJECT-SWP\yoga-center-project\src\main\java\com\yowu\yogacenter\model\RegistrationMembership.java
 D:\HocTap\Summer 2023\SWP391\PROJECT-SWP\yoga-center-project\src\main\java\com\yowu\yogacenter\model\Account.java
+D:\HocTap\Summer 2023\SWP391\PROJECT-SWP\yoga-center-project\src\main\java\com\yowu\yogacenter\model\SearchError.java
 D:\HocTap\Summer 2023\SWP391\PROJECT-SWP\yoga-center-project\src\main\java\com\yowu\yogacenter\repository\RatingCourseRepository.java
 D:\HocTap\Summer 2023\SWP391\PROJECT-SWP\yoga-center-project\src\main\java\com\yowu\yogacenter\repository\CategoryRepository.java
 D:\HocTap\Summer 2023\SWP391\PROJECT-SWP\yoga-center-project\src\main\java\com\yowu\yogacenter\controller\client\UserProfileCourse.java

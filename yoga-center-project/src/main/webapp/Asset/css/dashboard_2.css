@@ -8,7 +8,6 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
 */
 
 /* ROOT VARIABLES */
-/* ROOT VARIABLES */
 :root {
     --color-primary: #7380ec;
     --color-danger: #ff7782;
@@ -239,7 +238,7 @@ main{
 main .top{
     display: flex;
     justify-content: end;
-    gap: 2rem;
+    gap: 10rem;
 }
 main .top button#menu-btn{
     display: none;
@@ -254,25 +253,27 @@ main .top .profile{
  #search-box{
     background: var(--color-white);
     border-radius: var(--border-radius-2);
-    
+    position: relative;
 }
 #search-box #search-text{
     border: none;
     outline: none;
     background: none;
     font-size: 1.2rem;
-    padding: 0;
-    width: 0;
+    padding: 10px 0px 10px 15px;
+    width: 700px;
     transition: all 0.25s ease-in-out;
 }
-#search-box:hover #search-text, #search-box #search-text:valid{
+/*#search-box:hover #search-text, #search-box #search-text:valid{
     width: 300px;
     padding: 10px 0 10px 15px;
-}
+}*/
 #search-box #btnSearch{
     background: var(--color-white);
     border: none;
-    
+    position: absolute;
+    top: 0;
+    right: 0;
     cursor: pointer;
     border-radius: 50%;
     font-size: 1.2rem;
@@ -313,86 +314,6 @@ main h1{
 #wrapper .input__group.detail{
     width: 100%;
 }
-
-/*
-#wrapper .input__group.image{
-    width: 100%;
-    background: var(--color-white);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 0.8rem;
-    border-radius: var(--border-radius-1);
-}
-#wrapper .input__group.image .image-area{
-    position: relative;
-    
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width:50%;
-    margin-bottom: 0.8rem;
-    border-radius: var(--border-radius-3);
-    overflow: hidden;
-    background: transparent;
-    border: 2px dashed var(--color-primary);
-    padding: 0.7rem;
-}
-#wrapper .input__group.image .image-area span{
-    font-size: 2.5rem;
-}
-#wrapper .input__group.image .image-area h3{
-    font-size: 1.2rem;
-    font-weight: 500;
-}
-#wrapper .input__group.image .image-area img{
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
-    z-index: 100;
-}
-#wrapper .input__group.image .image-area::before{
-    content: attr(data-img);
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, .5);
-    color: var(--color-white);
-    font-weight: 500;
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    pointer-events: none;
-    opacity: 0;
-    transition: all 300ms ease;
-    z-index: 200;
-}
-#wrapper .input__group.image .image-area.active:hover:before{
-opacity: 1;
-}
-#wrapper .input__group.image .select-image{
-    display: block;
-    cursor: pointer;
-    padding: 1rem 0;
-    background: var(--color-primary);
-    color: var(--color-white);
-    font-weight: 500;
-    border-radius: var(--border-radius-3);
-    border: none;
-    transition: all 300ms ease;
-}
-#wrapper .input__group.image .select-image:hover{
-    background: var(--color-primary-variant);
-}*/
 #wrapper .input__group.image{
     width: 100%;
     height: 25rem;
@@ -515,7 +436,7 @@ khi chữ đc focus sẽ kh còn bị nhảy xuống nếu ta bấm ra ngoài  *
     justify-content: center;
     align-items: center;
 }
-#wrapper button{
+#wrapper button:not(.tox-mbtn):not(.tox-tbtn){
     margin: 0.2rem;
     height: 50px;
     width: 8rem;
