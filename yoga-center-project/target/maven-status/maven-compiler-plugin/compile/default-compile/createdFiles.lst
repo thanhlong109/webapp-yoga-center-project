@@ -19,6 +19,7 @@ com\yowu\yogacenter\model\RegistrationCourse.class
 com\yowu\yogacenter\model\RatingCourse.class
 com\yowu\yogacenter\controller\client\BlogDetailController.class
 com\yowu\yogacenter\repository\BillRepository.class
+com\yowu\yogacenter\controller\admin\BlogApprovalController.class
 com\yowu\yogacenter\controller\client\CourseFilterController.class
 com\yowu\yogacenter\repository\RegistrationCourseRepository.class
 com\yowu\yogacenter\controller\admin\ViewCategoryListController.class

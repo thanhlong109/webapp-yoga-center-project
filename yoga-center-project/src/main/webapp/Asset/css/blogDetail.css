@@ -148,6 +148,10 @@
     color: #555;
     font-weight: 500;
 }
+.blog-status-pending{
+    padding: 0 4px;
+    background-color: rgb(255, 205, 86);
+}
 @media screen and (max-width:739px) {
     .left-container{
         gap: 32px;

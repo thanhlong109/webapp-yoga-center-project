@@ -436,7 +436,7 @@ khi chữ đc focus sẽ kh còn bị nhảy xuống nếu ta bấm ra ngoài  *
     justify-content: center;
     align-items: center;
 }
-#wrapper button{
+#wrapper button:not(.tox-mbtn):not(.tox-tbtn){
     margin: 0.2rem;
     height: 50px;
     width: 8rem;

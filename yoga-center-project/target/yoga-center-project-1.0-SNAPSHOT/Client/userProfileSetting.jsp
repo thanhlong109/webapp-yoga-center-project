@@ -478,13 +478,24 @@
                         url      : $(this).attr('action'),
                         data     : "action=general&"+$(this).serialize(),
                         success  : function(data) {
-                            document.querySelector('.js-username').innerHTML =data;
-                            toast({
-                                title:"Success!",
-                                msg:"Your info has been changed!",
-                                type:'success',
-                                duration:5000   
-                            });
+                            let stringdt = data;
+                            if(stringdt.includes('ERR:')){
+                                stringdt = stringdt.replace('ERR:','');
+                                 toast({
+                                    title:"Error!",
+                                    msg:stringdt,
+                                    type:'error',
+                                    duration:5000   
+                                });
+                            }else{
+                                document.querySelector('.js-username').innerHTML =data;
+                                toast({
+                                    title:"Success!",
+                                    msg:"Your info has been changed!",
+                                    type:'success',
+                                    duration:5000   
+                                });
+                            }
                         },error: function(xhr, textStatus, errorThrown) {
                             toast({
                                 title:"Error!",

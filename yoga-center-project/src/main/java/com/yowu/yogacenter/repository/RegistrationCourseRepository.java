@@ -102,7 +102,7 @@ public class RegistrationCourseRepository {
 
             }
         } catch (Exception e) {
-            System.out.println(e);
+            System.out.println("getRegistrationDateJson:"+e);
         }
         return data;
     }
@@ -117,7 +117,7 @@ public class RegistrationCourseRepository {
                 }
             }
         } catch (Exception e) {
-            System.out.println(e);
+            System.out.println("getTotalEnrollment:"+e);
         }
         return num;
     }

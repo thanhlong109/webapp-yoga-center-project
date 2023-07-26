@@ -92,7 +92,7 @@ public class AccountRepository {
                 }
             }
         }catch(Exception e){
-            System.out.println(e);
+            System.out.println("getTotalAccount: "+e);
         }
         return total;
     }
@@ -371,7 +371,7 @@ public String getAccountDateJson(int year){
                  data = objMapper.writeValueAsString(array);
              }
      }catch (Exception e) {
-        System.out.println(e);
+        System.out.println("getAccountDateJson:"+e);
     }
      return data;
 }
@@ -388,7 +388,7 @@ public List<Integer> getYearList(){
                  }
              }
      }catch (Exception e) {
-        System.out.println(e);
+        System.out.println("getYearList:"+e);
     }
     
      
@@ -402,6 +402,7 @@ public List<Integer> getYearList(){
         accountRepository.updateGeneral(c);
         c = accountRepository.detail(2);
         System.out.println(c.getBiography());
+        System.out.println(accountRepository.checkDuplicate("daniel.wilson@example.com"));
 
     }
 

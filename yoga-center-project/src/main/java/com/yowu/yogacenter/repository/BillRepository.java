@@ -71,7 +71,7 @@ public class BillRepository {
                 data = mapper.writeValueAsString(list);
             }
         } catch (Exception e) {
-            System.out.println(e);
+            System.out.println("getBillJson:"+e);
         }
         return data;
     }
@@ -86,7 +86,7 @@ public class BillRepository {
                 }
             }
         } catch (Exception e) {
-            System.out.println(e);
+            System.out.println("getTotalIncome:"+e);
         }
         return income;
     }

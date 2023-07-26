@@ -9,7 +9,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Edit Category</title>
+        <title>Update Course</title>
         <!-- Fontawesome -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
               integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
@@ -25,7 +25,8 @@
         <link rel="stylesheet" href="${pageContext.request.contextPath}/Asset/css/dashboard_2.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/Asset/css/alertBoxAdmin.css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
-        <script src="${pageContext.request.contextPath}/js/cdnjs.cloudflare.com_ajax_libs_Chart.js_2.4.0_Chart.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@tinymce/tinymce-jquery@1/dist/tinymce-jquery.min.js"></script>
+        <script src="https://cdn.tiny.cloud/1/d0pdth25h6ucisyj1a2xqwiqamcmwz0so59g11ehrng09e2y/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
     </head>
     <body>
         <div class="container">
@@ -66,9 +67,9 @@
                                 <strong>Warning!</strong> ${UPDATE_COURSE_ERROR.courseTitleDuplicateError}
                             </div>
                         </c:if>
+                            <p>Details</p>
                         <div class="input__group detail">
-                            <textarea name="txtDetail" id="detail" rows="5" value="${COURSE.detail}">${COURSE.detail}</textarea>
-                            <label for="">Details</label>
+                            <textarea id="textEditor" name="txtDetail" id="detail" rows="5" value="${COURSE.detail}">${COURSE.detail}</textarea>
                         </div>
                         <c:if test="${UPDATE_COURSE_ERROR.courseDetailLengthError != null}">
                             <div class="alert">
@@ -139,17 +140,22 @@
                         </div>
 
                     </form>
-
-            </main>
+                </main>
         </div>
         <script>
-            var sidebarElements = document.querySelectorAll(".sidebar-elements");
-            sidebarElements.forEach(btn => {
-                $(btn).click(function () {
-                    $(this).children(".sub-item").slideToggle(300);
-                });
+            
+             tinymce.init({
+                selector: '#textEditor',
+                plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed linkchecker a11ychecker tinymcespellchecker permanentpen powerpaste advtable advcode editimage tinycomments tableofcontents footnotes mergetags autocorrect typography inlinecss',
+                toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
+                tinycomments_mode: 'embedded',
+                tinycomments_author: 'Author name',
+                mergetags_list: [
+                    {value: 'First.Name', title: 'First Name'},
+                    {value: 'Email', title: 'Email'},
+                ]
             });
-
+            
             var loadFile = function (event) {
                 let reader = new FileReader();
                 reader.readAsDataURL(event.files[0]);

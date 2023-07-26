@@ -64,6 +64,14 @@
     .btnShowRight{
         display: none;
     }
+    .blog-status-pending{
+        padding: 0 4px;
+        background-color: rgb(255, 205, 86);
+    }
+    .blog-status-approved{
+        padding: 0 4px;
+        background-color: rgb(75, 192, 192);
+    }
     @media screen and (max-width:739px) {
         .right-container{
             position: fixed;
@@ -116,14 +124,20 @@
                             <img src="Asset/img/blog/${blog.img}" alt="">
                         </div>
                         <div>
-                            <a href="blog-detail?blogid=${blog.id}">${blog.title}</a>
+                            <a href="blog-detail?blogid=${blog.id}">${blog.title} <c:if test="${!blog.active}">-
+                                    <span class="blog-status-pending"> Awaiting approval</span>
+                            </c:if><c:if test="${blog.active}">-
+                                    <span class="blog-status-approved"> Awaiting Approved</span>
+                            </c:if></a> 
                             <div class="small-blog-item-info">
                                 <div><i class="fa-regular fa-clock"></i> <fmt:formatDate value="${blog.date}" pattern="MMMM d, yyyy" /></div>
                                 <div class="small-blog-item-action">
                                     <div onclick="editBlog(${blog.id})"><i class="fa-solid fa-pen-to-square"></i> Edit</div>
                                     <div onclick="deleteBlog(${blog.id},this)"><i class="fa-solid fa-trash"></i> Delete</div>
                                 </div>
+                                
                             </div>
+                            
                         </div>
                     </div>
                 </c:forEach>

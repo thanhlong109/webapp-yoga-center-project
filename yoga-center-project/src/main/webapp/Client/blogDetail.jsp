@@ -1,8 +1,4 @@
-f<%-- 
-    Document   : blogHomeDetail
-    Created on : Jun 17, 2023, 12:17:06 PM
-    Author     : DatTGT
---%>
+
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="jakarta.tags.core" %>
@@ -35,45 +31,53 @@ f<%--
                     <div class="blog-img">
                         <img src="Asset/img/blog/${blog.img}" alt="">
                     </div>
+                        <c:if test="${!blog.active}">
+                            <p class="blog-status-pending">This post hasn't been approved yet, so only you can see it</p>
+                        </c:if>
                     <h3 class="blog-sub-title">${blog.title}</h3>
                     <div class="blog-content text">
                         ${blog.detail}
                     </div>
                 </div>
                 <div class="separate"></div>
-                <!-- ------------------------------------- Start Comment -------------------------------------------------- -->
-                <div class="comment-area">
-                    <h2 class="comment-area-title">Comments (<span id="total-cmt">${totalComment}</span>)</h2>
-                    <div class="load-comment">
-                        <c:forEach items="${commentList}" var="comment">
-                            <div class="user-comment-item">
-                                <div class="user-comment-avata img-square-container">
-                                    <img src="Asset/img/avatar/${comment.account.img}" alt="">
-                                </div>
-                                <div class="comment-info">
-                                    <div class="comment-time-wrapper">
-                                        <h4 class="user-comment-name">${comment.account.name}</h4>
-                                        <p class="user-comment-date"><i class="fa-regular fa-clock"></i> <fmt:formatDate value="${comment.date}" pattern="MMMM d, yyyy" /> at <fmt:formatDate value="${comment.date}" pattern="hh:mm:ss a" /></p>
+                <c:if test="${blog.active}">
+                    <!-- ------------------------------------- Start Comment -------------------------------------------------- -->
+                    <div class="comment-area">
+                        <h2 class="comment-area-title">Comments (<span id="total-cmt">${totalComment}</span>)</h2>
+                        <div class="load-comment">
+                            <c:forEach items="${commentList}" var="comment">
+                                <div class="user-comment-item">
+                                    <div class="user-comment-avata img-square-container">
+                                        <img src="Asset/img/avatar/${comment.account.img}" alt="">
                                     </div>
-                                    <p class="user-comment-content text">
-                                        ${comment.content}
-                                    </p>
+                                    <div class="comment-info">
+                                        <div class="comment-time-wrapper">
+                                            <h4 class="user-comment-name">${comment.account.name}</h4>
+                                            <p class="user-comment-date"><i class="fa-regular fa-clock"></i> <fmt:formatDate value="${comment.date}" pattern="MMMM d, yyyy" /> at <fmt:formatDate value="${comment.date}" pattern="hh:mm:ss a" /></p>
+                                        </div>
+                                        <p class="user-comment-content text">
+                                            ${comment.content}
+                                        </p>
+                                    </div>
                                 </div>
-                            </div>
-                        </c:forEach>
+                            </c:forEach>
+                        </div>
+                        <form action="blog-detail" method="post" class="user-comment">
+                            <input style="display: none;" name="blogid" value="${blog.id}" type="text"/>
+                            <textarea name="txtCommentContent" placeholder="Write your comment here..."></textarea>
+                            <button name="action" value="comment" type="submit">Post</button>
+                        </form>
                     </div>
-                    <form action="blog-detail" method="post" class="user-comment">
-                        <input style="display: none;" name="blogid" value="${blog.id}" type="text"/>
-                        <textarea name="txtCommentContent" placeholder="Write your comment here..."></textarea>
-                        <button name="action" value="comment" type="submit">Post</button>
-                    </form>
-                </div>
-                <!-- ------------------------------------- End Comment -------------------------------------------------- -->
+                    <!-- ------------------------------------- End Comment -------------------------------------------------- -->
+                </c:if>
+                
             </div>
             <%@include file="../Component/rightBarBlog.jsp" %>
+            <%@include file="../Component/postBlog.jsp" %>
         </div>
+        
+        <%@include file="../Component/toast.jsp" %>
         <jsp:include page="../Component/footer.jsp"></jsp:include>
-        <jsp:include page="../Component/postBlog.jsp"></jsp:include>
         <script>
             //this is comment progress
             $('.user-comment').on('submit', function (e) {
