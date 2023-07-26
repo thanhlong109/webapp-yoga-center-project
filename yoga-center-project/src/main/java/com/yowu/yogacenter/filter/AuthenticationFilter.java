@@ -107,6 +107,7 @@ public class AuthenticationFilter implements Filter {
                 case "/admin/blogAnalysisController":
                 case "/admin/viewBillMembershipListController":
                 case "/admin/searchBillMembershipController":
+                case "/admin/blog-approval":
                 {
                     if(acc!=null){
                          if (acc.getRole().getId() == TRAINEE) {

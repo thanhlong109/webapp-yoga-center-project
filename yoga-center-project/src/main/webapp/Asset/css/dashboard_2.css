@@ -289,7 +289,7 @@ main h1{
 #wrapper{
     display: flex;
     justify-content: center;
-    align-items: center;
+/*    align-items: center;*/
     min-height: 80vh;
 }
 #wrapper form{

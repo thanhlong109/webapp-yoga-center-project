@@ -50,12 +50,6 @@
                         </div>
                     </div>
                 </div>
-                <c:if test="${SEARCH_ERROR != null}">
-                    <div class="alert">
-                        <span class="closebtn" onclick="this.parentElement.style.display = 'none';">&times;</span> 
-                        <strong>Warning!</strong> ${SEARCH_ERROR.searchError}
-                    </div>
-                </c:if>
                 <h1>Membership List</h1>
                 <div class="container__wrapper-box">
                     <div class="wrapper-box">
@@ -117,5 +111,16 @@
                 </div>  
             </main>
         </div>
+                                <%@include file="../Component/toast.jsp" %> 
+        <script>
+            <c:if test="${SEARCH_ERROR != null}">
+            toast({
+                title: "Opps!",
+                msg: "${SEARCH_ERROR.searchError}",
+                type: 'error',
+                duration: 5000
+            });
+            </c:if>
+        </script>
     </body>
 </html>
