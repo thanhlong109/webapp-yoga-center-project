@@ -4,6 +4,10 @@
  */
 package com.yowu.yogacenter.model;
 
+/**
+ *
+ * @author DungVNT
+ */
 public class SearchError {
     private String searchError;
 
@@ -21,4 +25,5 @@ public class SearchError {
     public void setSearchError(String searchError) {
         this.searchError = searchError;
     }
+
 }

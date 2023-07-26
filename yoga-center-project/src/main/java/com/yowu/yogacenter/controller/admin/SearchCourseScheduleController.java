@@ -22,15 +22,16 @@ import java.util.List;
 public class SearchCourseScheduleController extends HttpServlet {
 
     private final String VIEW_COURSE_SCHEDULE_PAGE = "../Admin/ViewCourseTime.jsp";
-    private final String VIEW_COURSE_SCHEDULE_LIST = "viewClassScheduleListController";
+    private final String VIEW_COURSE_SCHEDULE_LIST = "viewCourseTimeListController";
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        int id = Integer.parseInt(request.getParameter("txtSearch"));
+        //int id = Integer.parseInt(request.getParameter("txtSearch"));
+        String search = request.getParameter("txtSearch");
         CourseScheduleRepository csr = new CourseScheduleRepository();
         SearchError se = new SearchError();
-        List<CourseSchedule> list = csr.searchCourseSchedule(id);
+        List<CourseSchedule> list = csr.searchCourseSchedule(search);
         if (list.isEmpty()) {
             se.setSearchError("The course that you searched for doesn't have here!");
             request.setAttribute("SEARCH_ERROR", se);

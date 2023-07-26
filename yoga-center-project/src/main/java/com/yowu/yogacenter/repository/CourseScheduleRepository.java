@@ -272,12 +272,12 @@ public class CourseScheduleRepository {
         return status == 1;
     }
 
-    public List<CourseSchedule> searchCourseSchedule(int search) {
+    public List<CourseSchedule> searchCourseSchedule(String search) {
         String sql = "SELECT * FROM tblCourseSchedule WHERE course_id Like ? ";
         List<CourseSchedule> list = new ArrayList<>();
 
         try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
-            stmt.setInt(1, search);
+            stmt.setString(1, search);
             try ( ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
                     CourseRepository cr = new CourseRepository();
