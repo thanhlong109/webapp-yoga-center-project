@@ -113,6 +113,7 @@
         </div>
         <% 
             session.removeAttribute("billCourse");
+            session.removeAttribute("billCourseC");
             session.removeAttribute("PAYMENT");
             session.removeAttribute("RegistrationMembership");
             session.removeAttribute("bill");

@@ -3,6 +3,7 @@
             width: 100%;
             text-align: center;
             background: url(../img/bg/page-title-1.png) top center / cover no-repeat;
+            height: 10px;
         }
         .banner h2{
             color: #227179;

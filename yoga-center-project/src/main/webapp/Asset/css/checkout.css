@@ -18,7 +18,7 @@ body {
 
 /* banner */
 .banner {
-    background: url(./Asset/img/Trainer/page-title-1.png) top center / cover no-repeat;
+    background: url(../img/bg/page-title-1.png) top center / cover no-repeat;
     padding: 15% 20px 10% 20px;
     text-align: center;
 

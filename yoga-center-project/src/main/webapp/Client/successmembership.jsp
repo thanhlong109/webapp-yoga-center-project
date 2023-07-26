@@ -107,7 +107,7 @@
                         </div>
                         <div class="payment-footer">
                             <div>Go to Home page after s</div>
-                            <p>Powered by <a href="#">VNPAY</a></p>
+                            <p>Powered by <a href="https://vnpay.vn/">VNPAY</a></p>
                         </div>
                     </div>
                 </div>
@@ -115,6 +115,7 @@
         </div>
         <% 
             session.removeAttribute("billCourse");
+            session.removeAttribute("billCourseC");
             session.removeAttribute("PAYMENT");
             session.removeAttribute("RegistrationMembership");
             session.removeAttribute("bill");

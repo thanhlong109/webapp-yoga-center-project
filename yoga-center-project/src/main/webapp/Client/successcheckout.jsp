@@ -75,7 +75,7 @@
                                 </tr>
                                 <tr>
                                     <th>Amount paid:</th>
-                                    <c:if test="${sessionScope.billCourseC != null}">
+                                        <c:if test="${sessionScope.billCourseC != null}">
                                             <td class="amout">$${sessionScope.billCourseC.value}</td>
                                         </c:if>
                                         <c:if test="${sessionScope.bill != null}">
@@ -95,6 +95,7 @@
                     <div class="col-md-12 payment-details">
                         <table>
                             <tbody>
+                                
                                 <tr>
                                     <th>Payment product:</th>
                                         <c:if test="${sessionScope.billCourseC.course != null}">
@@ -104,28 +105,31 @@
                                             <td class="amout">${sessionScope.bill.course.title}</td>
                                         </c:if>
                                     </tr>
-                                    <tr>
-                                        <th>Bank Transaction Number:</td>
-                                        <td>${PAYMENT.vnp_BankTranNo}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Bank code:</td>
-                                        <td>${PAYMENT.vnp_BankCode}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Payment type:</td>
-                                        <td>${PAYMENT.vnp_CardType}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Payment date:</td>
+                                    <c:if test="${sessionScope.billCourseC != null}">
+                                        <tr>
+                                            <th>Bank Transaction Number:</td>
+                                            <td>${PAYMENT.vnp_BankTranNo}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Bank code:</td>
+                                            <td>${PAYMENT.vnp_BankCode}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Payment type:</td>
+                                            <td>${PAYMENT.vnp_CardType}</td>
+                                        </tr>
                                         
-                                        <c:if test="${sessionScope.billCourseC.course != null}">
-                                            <td>${sessionScope.billCourseC.paymentDate}</td>
                                         </c:if>
-                                        <c:if test="${sessionScope.bill != null}">
-                                            <td class="amout">${sessionScope.bill.paymentDate}</td>
-                                        </c:if>
-                                    </tr>
+                                        <tr>
+                                            <th>Payment date:</td>
+
+                                            <c:if test="${sessionScope.billCourseC.course != null}">
+                                                <td>${sessionScope.billCourseC.paymentDate}</td>
+                                            </c:if>
+                                            <c:if test="${sessionScope.bill != null}">
+                                                <td class="amout">${sessionScope.bill.date}</td>
+                                            </c:if>
+                                        </tr>
                             </tbody>
                         </table>
                         <div class="thanks">
@@ -134,7 +138,7 @@
                         </div>
                         <div class="payment-footer">
                             <div>Go to Home page after <span id="counter">30</span>s</div>
-                            <p>Powered by <a href="#">VNPAY</a></p>
+                            <p>Powered by <a href="https://vnpay.vn/">VNPAY</a></p>
                         </div>
                     </div>
                 </div>
@@ -142,6 +146,7 @@
         </div>
         <% 
             session.removeAttribute("billCourse");
+            session.removeAttribute("billCourseC");
             session.removeAttribute("PAYMENT");
             session.removeAttribute("RegistrationMembership");
             session.removeAttribute("bill");

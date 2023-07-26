@@ -79,7 +79,7 @@
                                           placeholder="Note to administrator" spellcheck="false"></textarea>
                             </div>
                             <c:if test="${course.price != 0}">
-                                <input name="coursePrice" id="coursePrice" value="${course.price}" type="hidden">
+                                <input name="coursePrice" id="coursePrice" value="" type="hidden">
                                 <div class="element__checkout-payment">
                                     <div class="checkout__payment-title">
                                         <h4>Payment</h4>
@@ -102,7 +102,7 @@
                                         </li>
                                     </ul>
 
-                                    <input id="duration" name="duration" value="" type="hidden">
+                                    <input id="duration" name="duration" value="" type="hidden" >
                                     <input id="startTime" name="startTime" value="" type="hidden">
 
                                     <div class="element__checkout-button">
@@ -112,6 +112,7 @@
                             </c:if>
 
                             <c:if test="${course.price == 0}">
+                                <input name="coursePrice" id="coursePrice" value="" type="hidden">
                                 <div class="element__checkout-payment">
                                     <div class="checkout__payment-title">
                                         <h4>Welcome to yowu</h4>
@@ -139,6 +140,7 @@
                             </p>
                         </div>
                         <c:if test="${course != null }" >
+                            <input name="coursePrice" id="coursePrice" value="" type="hidden">
                             <!-- form-checkout with course -->
                             <div class="container__element-right">
                                 <h4>Your Order</h4>
@@ -190,6 +192,7 @@
                         </c:if>
 
                         <c:if test="${member != null}">
+                            <input name="memPrice" id="memPrice" value="${member.price}" type="hidden">
                             <!-- form-checkout with membership -->
                             <div class="container__element-right">
                                 <h4>Your Order</h4>
@@ -251,12 +254,11 @@
         var coursePrice = params.get('coursePrice');
         var memId = params.get('memId');
         var durationMem = params.get('durationMem');
-
+        var memPrice = params.get('memPrice');
+        
         console.log(id);
         console.log(coursePrice);
-        console.log(memId);
-        console.log(durationMem);
-
+        console.log(memPrice);
 
         document.getElementById('course_id').value = id;
         document.getElementById('course_scheduleId').value = scheduleId;
@@ -266,7 +268,7 @@
         document.getElementById('memId').value = memId;
         document.getElementById('durationMem').value = durationMem;
 
-        if (coursePrice != null) {
+    <c:if test="coursePrice != 0 || memPrice != 0">
             document.addEventListener("DOMContentLoaded", function () {
                 // Lấy ra các radio button
                 var paymentMethods = document.getElementsByName("payment-method");
@@ -323,7 +325,7 @@
             });
         }
 
-
+</c:if>
 
     </script>
 
