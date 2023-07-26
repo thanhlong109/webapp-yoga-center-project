@@ -4,12 +4,14 @@
  */
 package com.yowu.yogacenter.controller.cashier;
 
+import com.yowu.yogacenter.model.Bill;
 import com.yowu.yogacenter.repository.BillRepository;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 
 /**
  *
@@ -24,18 +26,24 @@ public class ViewBillCashierController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
          BillRepository _billRepository = new BillRepository();
-        request.setAttribute("BILL_LIST", _billRepository.getAll());
+         String npage = request.getParameter("page");
+         int itemPerPage = 6;
+         int size = _billRepository.count();
+         int numPage = (int) Math.ceil(size/ itemPerPage);
+         int page = 1;
+         if(npage != null){
+             page = Integer.parseInt(npage);
+         }
+         int start = (page - 1) * itemPerPage;
+         List<Bill> list = _billRepository.getAllFollowPagination(start, itemPerPage);
+         request.setAttribute("BILL_LIST", list);
+         request.setAttribute("PAGE", page);
+         request.setAttribute("NUMPAGE", numPage);
+//        request.setAttribute("BILL_LIST", _billRepository.getAll());
         request.getRequestDispatcher(BILL_PAGE).forward(request, response);
     }
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+    
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

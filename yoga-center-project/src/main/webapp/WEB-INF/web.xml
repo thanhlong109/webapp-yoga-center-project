@@ -248,6 +248,10 @@
         <servlet-name>SearchBillCashierController</servlet-name>
         <servlet-class>com.yowu.yogacenter.controller.cashier.SearchBillCashierController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>SearchBillMembershipCashierController</servlet-name>
+        <servlet-class>com.yowu.yogacenter.controller.cashier.SearchBillMembershipCashierController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>UserProfileCourse</servlet-name>
         <url-pattern>/userprofile/course</url-pattern>
@@ -487,6 +491,10 @@
     <servlet-mapping>
         <servlet-name>SearchBillCashierController</servlet-name>
         <url-pattern>/cashier/searchBillCashierController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchBillMembershipCashierController</servlet-name>
+        <url-pattern>/cashier/searchBillMembershipCashierController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

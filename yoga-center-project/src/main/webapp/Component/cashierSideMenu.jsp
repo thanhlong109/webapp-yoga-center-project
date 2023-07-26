@@ -51,12 +51,12 @@
                         <h3>Home</h3>
                     </a>
                 </div>
-                <div class="sidebar-elements">
+<!--                <div class="sidebar-elements">
                     <a href="#" class="active">
                         <span class="material-symbols-sharp">receipt_long</span>
                         <h3>Cashier</h3>
                     </a>
-                </div>
+                </div>-->
 
                 <div class="sidebar-elements">
                     <a href="#"">
@@ -64,7 +64,7 @@
                         <h3>Bill</h3>
                     </a>
                     <ul class="sub-item" id="subItem">
-                        <li><a href="<c:url value="/cashier/updateBillCashierController"/>">Update Bill</a></li>
+                        <li><a href="<c:url value="/cashier/updateBillCashierController"/>" style="display: none">Update Bill</a></li>
                         <li><a href="<c:url value="/cashier/viewBillCashierController"/>"> View Bill Details</a></li>
                     </ul>
                 </div>
@@ -76,7 +76,7 @@
                     </a>
                     <ul class="sub-item" id="subItem">
                         <li><a href="<c:url value="/cashier/viewMembershipCashierController"/>">View Membership</a></li>
-                        <li><a href="<c:url value="/cashier/updateMembershipCashierController"/>">Update Membership</a></li>
+                        <li><a href="<c:url value="/cashier/updateMembershipCashierController"/>" style="display: none">Update Membership</a></li>
                     </ul>
                 </div>
                 <div class="sidebar-elements">

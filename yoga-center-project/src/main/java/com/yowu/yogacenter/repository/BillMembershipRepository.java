@@ -380,6 +380,84 @@ public class BillMembershipRepository {
         return list;
     }
 
+    public List<BillMembership> searchCode(String search) {
+        String sql = "select * from tblBillMembership where order_code like ? ";
+        List<BillMembership> list = new ArrayList<>();
+        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
+            stmt.setString(1, search);
+            try ( ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    AccountRepository acc = new AccountRepository();
+                    CourseRepository cr = new CourseRepository();
+                    BillMembership c = new BillMembership();
+                    MembershipRepository mb = new MembershipRepository();
+                    c.setMembership(mb.detail(rs.getInt("membership_id")));
+                    c.setAccount(acc.detail(rs.getInt("account_id")));
+                    c.setId(rs.getInt("bill_mem_id"));
+                    c.setStatus(rs.getInt("bill_status"));
+                    c.setIsActive(rs.getBoolean("bill_is_active"));
+                    c.setValue(rs.getFloat("bill_value"));
+                    c.setDiscount(rs.getInt("bill_discount"));
+                    c.setDate(rs.getDate("bill_date"));
+                     c.setOrdercode(rs.getString("order_code"));
+                    c.setMethod(rs.getString("payment_method"));
+                    c.setPaymentDate(rs.getDate("payment_date"));
+                    list.add(c);
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return list;
+    }
+    
+    public int count() {
+        String sql = "select count(*) as num from tblBillMembership ";
+        int count = 0;
+        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
+            try ( ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    count = rs.getInt("num");
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return count;
+    }
+    
+     public List<BillMembership> getAllFollowPagination(int offset, int next) {
+        String sql = "select * from tblBillMembership order by membership_id desc OFFSET ? ROWS FETCH NEXT ? ROWS ONLY ";
+        List<BillMembership> list = new ArrayList<>();
+        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
+            stmt.setInt(1, offset);
+            stmt.setInt(2, next);
+            try ( ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    AccountRepository acc = new AccountRepository();
+                    CourseRepository cr = new CourseRepository();
+                    BillMembership c = new BillMembership();
+                     MembershipRepository mb = new MembershipRepository();
+                    c.setMembership(mb.detail(rs.getInt("membership_id")));
+                    c.setAccount(acc.detail(rs.getInt("account_id")));
+                    c.setId(rs.getInt("bill_mem_id"));
+                    c.setStatus(rs.getInt("bill_status"));
+                    c.setIsActive(rs.getBoolean("bill_is_active"));
+                    c.setValue(rs.getFloat("bill_value"));
+                    c.setDiscount(rs.getInt("bill_discount"));
+                    c.setDate(rs.getDate("bill_date"));
+                    c.setOrdercode(rs.getString("order_code"));
+                    c.setMethod(rs.getString("payment_method"));
+                    c.setPaymentDate(rs.getDate("payment_date"));
+                    list.add(c);
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return list;
+    }
+    
     public static void main(String[] args) {
         BillRepository b = new BillRepository();
 

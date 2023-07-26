@@ -15,7 +15,9 @@
 
         <!-- Link CSS -->
         <link rel="stylesheet" href="../Asset/css/cashier.css">
-       
+        <link rel="stylesheet" href="../Asset/css/alertBoxAdmin.css">
+        <link rel="stylesheet" href="../Asset/css/paginationAdmin.css">
+
         <!-- Google font -->
         <link href="https://fonts.googleapis.com/css2?family=Jost:wght@200;300;400;500;600;700;800&display=swap"
               rel="stylesheet">
@@ -48,33 +50,40 @@
                         </form>
                         <div class="profile">
                             <div class="info">
-                                <p>Hey, <b>Cashier</b></p>
-                                <small class="text-muted">Cashier</small>
-                            </div>
-                            <div class="profile-photo">
-                                <img src="../Asset/img/avatar/hinh-avatar-1.png" alt="">
-                            </div>
+                                <p>Hey, <b>${sessionScope.account.name}</b></p>
+                            <small class="text-muted">Cashier</small>
+                        </div>
+                        <div class="profile-photo">
+                            <img src="../Asset/img/avatar/${sessionScope.account.img}" alt="">
                         </div>
                     </div>
-                    <h1>View Bill</h1>
-                    <div id="wrapper">
-                        <div class="container__wrapper-box">
-                            <div class="wrapper-box">
-                                <table class="table-style-1">
-                                    <tr>
-                                        
-                                        <th>Bill ID</th>
-                                        <th>Course</th>
-                                        <th>Account</th>
-                                        <th>Order Code</th>
-                                        <th>Status</th>
-                                        <th>Price</th>
-                                        <th>Discount</th>
-                                        <th>Payment Method</th>
-                                        <th>Bill Date</th>
-                                        <th>Payment Date</th>
-                                        <th>Actions</th>
-                                    </tr>
+                </div>
+                <c:if test="${SEARCH_ERROR != null}">
+                    <div class="alert">
+                        <span class="closebtn" onclick="this.parentElement.style.display = 'none';">&times;</span> 
+                        <strong>Warning!</strong> ${SEARCH_ERROR.searchError}
+                    </div>
+                </c:if>
+
+                <h1>View Bill</h1>
+                <div id="wrapper">
+                    <div class="container__wrapper-box">
+                        <div class="wrapper-box">
+                            <table class="table-style-1">
+                                <tr>
+
+                                    <th>Bill ID</th>
+                                    <th>Course</th>
+                                    <th>Account</th>
+                                    <th>Order Code</th>
+                                    <th>Status</th>
+                                    <th>Price</th>
+                                    <th>Discount</th>
+                                    <th>Payment Method</th>
+                                    <th>Bill Date</th>
+                                    <th>Payment Date</th>
+                                    <th>Actions</th>
+                                </tr>
                                 <c:forEach items="${BILL_LIST}" var="bill">
                                     <c:if test="${bill.isActive == true}"> 
                                         <tr>
@@ -84,7 +93,7 @@
                                             <td>
                                                 ${bill.course.title}
                                             </td>
-                                           
+
                                             <td>
                                                 ${bill.account.name}
                                             </td>
@@ -110,7 +119,7 @@
                                                 ${bill.paymentDate}
                                             </td>
                                             <td>
-                                                 <a class="btn btn-green" href="updateBillCashierController?id=${bill.id}">Edit</a> 
+                                                <a class="btn btn-green" href="updateBillCashierController?id=${bill.id}">Edit</a> 
                                             </td>
                                         </tr>
                                     </c:if>
@@ -119,6 +128,19 @@
 
                         </div>
                     </div>
+                </div>
+                <div class="pagination">
+                    <c:if test="${NUMPAGE>1}">
+                        <c:if test="${PAGE>1}">
+                            <a href="viewBillCashierController?page=${PAGE-1}"><i class="fa-solid fa-chevron-left"></i></a>
+                            </c:if>
+                            <c:forEach begin="${1}" var="i" end="${NUMPAGE}">
+                            <a href="viewBillCashierController?page=${i}" <c:if test="${i==PAGE}">class="p-active"</c:if> >${i}</a>
+                        </c:forEach>
+                        <c:if test="${PAGE<NUMPAGE}">
+                            <a href="viewBillCashierController?page=${PAGE<NUMPAGE?(PAGE+1):NUMPAGE}"><i class="fa-solid fa-chevron-right"></i></a>
+                        </c:if>
+                    </c:if>
                 </div>
             </main>
         </div>

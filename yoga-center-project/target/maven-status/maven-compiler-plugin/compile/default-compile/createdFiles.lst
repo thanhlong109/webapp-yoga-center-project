@@ -55,6 +55,7 @@ com\yowu\yogacenter\controller\admin\AddAccountController.class
 com\yowu\yogacenter\repository\Constants.class
 com\yowu\yogacenter\model\Account.class
 com\yowu\yogacenter\controller\client\UserProfileBooking.class
+com\yowu\yogacenter\controller\cashier\SearchBillMembershipCashierController.class
 com\yowu\yogacenter\model\BillMembership.class
 com\yowu\yogacenter\model\Blog.class
 com\yowu\yogacenter\model\Category.class
@@ -80,6 +81,7 @@ com\yowu\yogacenter\controller\admin\SearchAccountController.class
 com\yowu\yogacenter\controller\admin\UpdateCourseScheduleController.class
 com\yowu\yogacenter\model\Permission.class
 com\yowu\yogacenter\controller\admin\AddClassScheduleController.class
+com\yowu\yogacenter\model\SearchError.class
 com\yowu\yogacenter\controller\client\AboutController.class
 com\yowu\yogacenter\model\Bill.class
 com\yowu\yogacenter\checkout\PaymentDTO.class
@@ -112,3 +114,4 @@ com\yowu\yogacenter\controller\admin\SearchCourseController.class
 com\yowu\yogacenter\model\CourseSchedule$DayOfWeek.class
 com\yowu\yogacenter\repository\PermissionRepository.class
 com\yowu\yogacenter\model\MembershipError.class
+com\yowu\yogacenter\controller\cashier\SearchBillCashierController.class
