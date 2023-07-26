@@ -59,11 +59,10 @@ public class ForgotPassword extends HttpServlet {
                 MimeMessage message = new MimeMessage(session);
                 message.setFrom(new InternetAddress(email));// change accordingly
                 message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
-                message.setSubject("Hello");
-                message.setText("your OTP is: " + otpvalue);
+                message.setSubject("Hello, Yowu send to you the OTP to get new password.");
+                message.setText("Your OTP is: " + otpvalue);
                 // send message
                 Transport.send(message);
-                System.out.println("message sent successfully");
             } catch (MessagingException e) {
                 throw new RuntimeException(e);
             }

@@ -18,21 +18,17 @@
             <div>
                 <h2>Quick Links</h2>
                 <div>
-                    <a href="#">Pricing</a>
-                    <a href="#">Become Instructors</a>
-                    <a href="#">Courses</a>
-                    <a href="#">Contact Us</a>
-                    <a href="#">FAQ</a>
-                    <a href="#">Privacy Policy</a>
-                    <a href="#">Terms of Service</a>
-                    <a href="#">Support Center</a>
+                    <a href="${pageContext.request.contextPath}/courses">Courses</a>
+                    <a href="${pageContext.request.contextPath}/blogs">Blogs</a>
+                    <a href="Component/TermOfService.jsp">Terms of Service</a>
+                    
                 </div>
             </div>
             <div>
                 <h2>Contact Info</h2>
-                <p>1810 Kings Way King Street, 5th Avenue, New York</p>
+                <p>60 Hang Tre, Thu Duc District, Ho Chi Minh City</p>
                 <p><i class="fa-solid fa-phone"></i> 1800-2355-2356</p>
-                <p><i class="fa-solid fa-envelope"></i> contact@yokuyoga.co</p>
+                <p><i class="fa-solid fa-envelope"></i> Yowuyogacenter@yowu.com</p>
             </div>
         </div>
         <div class="copyright">

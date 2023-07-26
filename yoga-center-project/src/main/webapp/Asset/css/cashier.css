@@ -430,3 +430,15 @@ main h1{
     color: var(--color-primary);
     
 }
+#wrapper .input__group-disable{
+     position: absolute;
+    padding: 0px 0.35rem;
+    left: 5%;
+    top: 0;
+    transform: translateY(-50%);
+    background: var(--color-white);
+    pointer-events: none;
+    /* thuộc tính giúp bấm vào label vẫn focus đc */
+    transition: all 0.3s ease-in-out;
+    
+}

@@ -303,6 +303,9 @@
                             <c:if test='${notloginwithGg}'>
                                 <li data-filterid="password">Password </li>
                             </c:if>
+                            <c:if test='${loginwithGg}'>
+                                <li data-filterid="password">Password </li>
+                            </c:if>
                             
                         </ul>
                         <c:if test="${sessionScope.account!=null}">

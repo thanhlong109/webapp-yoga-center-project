@@ -5,6 +5,7 @@
 package com.yowu.yogacenter.controller.cashier;
 
 import com.yowu.yogacenter.model.Bill;
+import com.yowu.yogacenter.model.SearchError;
 import com.yowu.yogacenter.repository.BillRepository;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
@@ -19,17 +20,25 @@ import java.util.List;
  */
 public class SearchBillCashierController extends HttpServlet {
      private final String BILL_PAGE = "../Cashier/ViewBill.jsp";
-   
+     private final String VIEW_BILL_CONTROLLER = "viewBillCashierController";
 
    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
        String search = request.getParameter("txtSearch");
+       SearchError searchError = new SearchError();
         BillRepository _billRepo = new BillRepository();
         List<Bill> billList = _billRepo.searchCode(search);
-        request.setAttribute("BILL_LIST", billList);
+        if(billList.isEmpty()){
+            searchError.setSearchError("Search value doesn't exist");
+            request.setAttribute("SEARCH_ERROR", searchError);
+            request.getRequestDispatcher(VIEW_BILL_CONTROLLER).forward(request, response);
+        }else{
+            request.setAttribute("BILL_LIST", billList);
          request.getRequestDispatcher(BILL_PAGE).forward(request, response);
+        }
+        
     }
 
     

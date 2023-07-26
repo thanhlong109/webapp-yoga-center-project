@@ -49,17 +49,18 @@ public class CheckoutController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String action = request.getParameter("action");
-        String coursePrice = request.getParameter("coursePrice");
+
         CourseRepository cr = new CourseRepository();
-        int id = Integer.parseInt(request.getParameter("id"));
-        Course cs = cr.detail(id);
-        int courseScheduleID = Integer.parseInt(request.getParameter("course_scheduleId"));
         HttpSession session = request.getSession();
         Account acc = (Account) request.getSession().getAttribute("account");
         CourseScheduleRepository csr = new CourseScheduleRepository();
-        if (!csr.isSameSchedule(courseScheduleID, acc.getId())) {
-            System.out.println("coursePrice" + coursePrice);
-            if (action.equals("course")) {
+
+        if (action.equals("course")) {
+            String coursePrice = request.getParameter("coursePrice");
+            int courseScheduleID = Integer.parseInt(request.getParameter("course_scheduleId"));
+            if (courseScheduleID != 0 && !csr.isSameSchedule(courseScheduleID, acc.getId())) { // -1
+                int id = Integer.parseInt(request.getParameter("id"));
+                Course cs = cr.detail(id); // -1
                 RegistrationCourseRepository regis = new RegistrationCourseRepository();
                 RegistrationCourse rc = regis.getRegisByCourseIdAndAccountID(acc.getId(), id);
                 System.out.println(acc.getId() + "," + id);
@@ -130,30 +131,38 @@ public class CheckoutController extends HttpServlet {
                     request.setAttribute("discount", msr.discountByAccountID(acc.getId()));
                     request.getRequestDispatcher(CHECKOUT_PAGE).forward(request, response);
                 }
-
+            } else {
+                int id = Integer.parseInt(request.getParameter("id"));
+                Course cs = cr.detail(id);
+                request.setAttribute("checkDup", "Sorry, But there seems to be a scheduling overlap with the " + cs.getTitle() + "course!");
+                request.getRequestDispatcher(COURSE_DETAIL + id).forward(request, response);
             }
-            if (action.equals("membership")) {
-                int memberId = Integer.parseInt(request.getParameter("memId"));
-                RegistrationMembershipRepository rmsr = new RegistrationMembershipRepository();
-                MembershipRepository mbr = new MembershipRepository();
-                Account account = (Account) session.getAttribute("account");
-                if (rmsr.detail(account.getId()) != null) {
-                    response.sendRedirect(MEMBERSHIP);
-                } else {
-                    Membership mb = mbr.detail(memberId);
-                    request.setAttribute("member", mb);
-                    LocalDate current = LocalDate.now();
-                    LocalDate enddate = current.plusDays(mb.getDuration());
-                    request.setAttribute("startdate", current);
-                    request.setAttribute("enddate", enddate);
-                    session.setAttribute("RegistrationMembership", new RegistrationMembership(mb, account, Date.valueOf(current), Date.valueOf(enddate)));
-                    request.getRequestDispatcher(CHECKOUT_PAGE).forward(request, response);
-                }
+        }
 
+        if (action.equals("membership")) {
+            int memberId = Integer.parseInt(request.getParameter("memId"));
+            RegistrationMembershipRepository rmsr = new RegistrationMembershipRepository();
+            MembershipRepository mbr = new MembershipRepository();
+            Account account = (Account) session.getAttribute("account");
+            if (rmsr.detail(account.getId()) != null) {
+                Membership mb = mbr.detail(memberId);
+                request.setAttribute("member", mb);
+                LocalDate current = LocalDate.now();
+                LocalDate enddate = current.plusDays(mb.getDuration());
+                request.setAttribute("startdate", current);
+                request.setAttribute("enddate", enddate);
+                request.getRequestDispatcher(CHECKOUT_PAGE).forward(request, response);
+            } else {
+                Membership mb = mbr.detail(memberId);
+                request.setAttribute("member", mb);
+                LocalDate current = LocalDate.now();
+                LocalDate enddate = current.plusDays(mb.getDuration());
+                request.setAttribute("startdate", current);
+                request.setAttribute("enddate", enddate);
+                session.setAttribute("RegistrationMembership", new RegistrationMembership(mb, account, Date.valueOf(current), Date.valueOf(enddate)));
+                
             }
-        }else{
-            request.setAttribute("checkDup", "Sorry, But there seems to be a scheduling overlap with the "+cs.getTitle()+" course!");
-            request.getRequestDispatcher(COURSE_DETAIL + id).forward(request, response);
+
         }
 
         //request.getRequestDispatcher(CHECKOUT_PAGE).forward(request, response);

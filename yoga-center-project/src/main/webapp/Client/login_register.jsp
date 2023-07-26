@@ -407,7 +407,7 @@
                 } else {
                     pass1.classList.add("input-wrong");
                     pass2.classList.add("input-wrong");
-                    document.querySelector(".note-signup").innerHTML = "passwords don't match!";
+                    document.querySelector(".note-signup").innerHTML = "Passwords don't match!";
                     btn2.disabled = true;
                 }
 

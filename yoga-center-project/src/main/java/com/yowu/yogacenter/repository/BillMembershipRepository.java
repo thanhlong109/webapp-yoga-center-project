@@ -221,12 +221,11 @@ public class BillMembershipRepository {
         }
         return check;
     }
-    
+
     public boolean updateStatus(String ordercode, LocalDate date, int status) throws ParseException {
         boolean check = false;
         LocalDateTime sqlDate = null;
-        
-        
+
         String sql = "UPDATE tblBillMembership SET bill_status = ? , payment_date =? WHERE order_code = ?";
         try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
             stmt.setInt(1, status);
@@ -238,7 +237,6 @@ public class BillMembershipRepository {
         }
         return check;
     }
-    
 
     public boolean updateStatus(int id, int status) {
 
@@ -512,6 +510,37 @@ public class BillMembershipRepository {
                     c.setDiscount(rs.getInt("bill_discount"));
                     c.setDate(rs.getDate("bill_date"));
                     c.setOrdercode(rs.getString("order_code"));
+                    c.setMethod(rs.getString("payment_method"));
+                    c.setPaymentDate(rs.getDate("payment_date"));
+                    list.add(c);
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return list;
+    }
+
+    public List<BillMembership> searchCode(String search) {
+        String sql = "select * from tblBillMembership where order_code like ? ";
+        List<BillMembership> list = new ArrayList<>();
+        try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
+            stmt.setString(1, search);
+            try ( ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    AccountRepository acc = new AccountRepository();
+                    CourseRepository cr = new CourseRepository();
+                    BillMembership c = new BillMembership();
+                    MembershipRepository mb = new MembershipRepository();
+                    c.setMembership(mb.detail(rs.getInt("membership_id")));
+                    c.setAccount(acc.detail(rs.getInt("account_id")));
+                    c.setId(rs.getInt("bill_mem_id"));
+                    c.setStatus(rs.getInt("bill_status"));
+                    c.setIsActive(rs.getBoolean("bill_is_active"));
+                    c.setValue(rs.getFloat("bill_value"));
+                    c.setDiscount(rs.getInt("bill_discount"));
+                    c.setDate(rs.getDate("bill_date"));
+                     c.setOrdercode(rs.getString("order_code"));
                     c.setMethod(rs.getString("payment_method"));
                     c.setPaymentDate(rs.getDate("payment_date"));
                     list.add(c);

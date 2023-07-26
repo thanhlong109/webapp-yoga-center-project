@@ -46,7 +46,7 @@ public class AuthenticationFilter implements Filter {
         int ADMIN = Role.RoleList.ADMIN.ordinal();
         int TRAINEE = Role.RoleList.TRAINEE.ordinal();
         int CASHIER = Role.RoleList.CASHER.ordinal();
-        if(urlName.endsWith(".jsp")){
+        if(urlName.endsWith(".jsp") && urlName.contains("forgetPassword.jsp") && urlName.contains("TermOfService.jsp")){
             res.sendRedirect(contextPath+"/home");
         }else{
             switch(urlName){
