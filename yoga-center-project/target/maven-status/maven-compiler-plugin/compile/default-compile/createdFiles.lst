@@ -57,6 +57,7 @@ com\yowu\yogacenter\controller\admin\AddAccountController.class
 com\yowu\yogacenter\repository\Constants.class
 com\yowu\yogacenter\model\Account.class
 com\yowu\yogacenter\controller\client\UserProfileBooking.class
+com\yowu\yogacenter\controller\cashier\SearchBillMembershipCashierController.class
 com\yowu\yogacenter\controller\admin\BlogAnalysisController.class
 com\yowu\yogacenter\model\BillMembership.class
 com\yowu\yogacenter\model\Blog.class

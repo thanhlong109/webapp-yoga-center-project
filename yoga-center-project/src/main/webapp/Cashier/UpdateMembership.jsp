@@ -48,11 +48,11 @@
                         </form>-->
                         <div class="profile">
                             <div class="info">
-                                <p>Hey, <b>Cashier</b></p>
+                                <p>Hey, <b>${sessionScope.account.name}</b></p>
                                 <small class="text-muted">Cashier</small>
                             </div>
                             <div class="profile-photo">
-                                <img src="../Asset/img/avatar/hinh-avatar-1.png" alt="">
+                                <img src="../Asset/img/avatar/${sessionScope.account.img}" alt="">
                             </div>
                         </div>
                     </div>
@@ -62,8 +62,8 @@
                             <h3>Update Bill </h3>
                             <div class="input__group">
                                 <input type="hidden" name="txtId" value="${MEMBERSHIP.id}">
-                                <input type="text" name="txtOrderCode" value="${MEMBERSHIP.ordercode}"/>
-                                <label for="">Order Code</label>
+                                <input type="text" name="txtOrderCode" value="${MEMBERSHIP.ordercode}" disabled/>
+                                <label class="input__group-disable" for="">Order Code</label>
                              </div>
                             <div class="input__group filter">
                                  <select class="input-filter" name="txtStatus" >

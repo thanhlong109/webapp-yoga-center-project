@@ -65,6 +65,7 @@ public class UpdateMembershipCashierController extends HttpServlet {
                     
                    _regisMembershipRepo.updateStatusMemById(false, regisMembership.getMembership().getId());
                 }
+                System.out.println("updatess");
                 response.sendRedirect(VIEW_MEMBERSHIP_CONTROLLER);
             }
         } catch (ParseException ex) {
