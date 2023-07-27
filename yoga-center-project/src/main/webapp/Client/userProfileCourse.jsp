@@ -18,157 +18,161 @@
         <link rel="stylesheet" href="../Asset/css/common.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <link href="https://fonts.googleapis.com/css2?family=Jost:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
-        
+
         <style>
             .banner{
-               padding: 12% 20px 10% 20px;
-               width: 100%;
-               text-align: center;
-               background: url(../Asset/img/bg/page-title-1.png) top center / cover no-repeat;
-           }
-           .banner h2{
-               color: #227179;
-               font-size: 3.3vw;
-           }
-           .container{
-               max-width: 1320px;
-               margin: 0 auto;
-               padding: 50px;
-               width: 1220px;
-           }
-           .user2{
-               display: flex;
-               align-items: center;
-           }
-           .user-img{
-               max-width: 120px;
-               max-height: 120px;
-               min-width: 120px;
-               min-height: 120px;
-               overflow: hidden;
-               border-radius: 50%;
-               display: flex;
-               justify-content: center;
-               align-items: center;
-              border: 1px solid #4444;
-              margin-right: 24px;
-           }
+                padding: 12% 20px 4% 20px;
+                width: 100%;
+                text-align: center;
+                background: url(../Asset/img/bg/page-title-1.png) top center / cover no-repeat;
+            }
+            .banner h2{
+                color: #227179;
+                font-size: 3.3vw;
+            }
+            .banner p{
+                color: #547670;
+                font-size: 24px;
+            }
+            .container{
+                max-width: 1320px;
+                margin: 0 auto;
+                padding: 50px;
+                width: 1220px;
+            }
+            .user2{
+                display: flex;
+                align-items: center;
+            }
+            .user-img{
+                max-width: 120px;
+                max-height: 120px;
+                min-width: 120px;
+                min-height: 120px;
+                overflow: hidden;
+                border-radius: 50%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                border: 1px solid #4444;
+                margin-right: 24px;
+            }
 
-           .user-container{
-               margin-top: 64px;
-               display: flex;
-           }
-           .user-nav{
-               list-style: none;
-               display: flex;
-               flex-direction: column;
-               gap: 2px;
-               box-shadow: 0 5px 25px rgba(0,0,0,0.15);
-               width: 250px;
-               height: fit-content;
-           }
-           .user-nav li{
-               background-color: #f5f5f5;
-               cursor: pointer;
-           }
-           .user-nav li.active,.user-nav li:hover{
-               background-color: #fbfbfb;
-           }
-           .user-nav li.active a{
-               color: #3dbca8;
-           }
+            .user-container{
+                margin-top: 64px;
+                display: flex;
+            }
+            .user-nav{
+                list-style: none;
+                display: flex;
+                flex-direction: column;
+                gap: 2px;
+                box-shadow: 0 5px 25px rgba(0,0,0,0.15);
+                width: 250px;
+                height: fit-content;
+            }
+            .user-nav li{
+                background-color: #f5f5f5;
+                cursor: pointer;
+            }
+            .user-nav li.active,.user-nav li:hover{
+                background-color: #fbfbfb;
+            }
+            .user-nav li.active a{
+                color: #3dbca8;
+            }
 
-           .user-nav a{
-               text-decoration: none;
-               color: #6a6a6a;
-               line-height: 50px;
-               margin-left: 16px;
-               display: block;
-           }
-           .user-nav a i{
-               margin-right: 16px;
-           }
-           .user-content{
-               padding: 0 50px;
-               flex: 1;
-           }
-           .filter-course{
-               list-style: none;
-               display: flex;
-               gap:16px;
-               margin-bottom: 32px;
-           }
-           .filter-course>li{
-               padding: 0px 4px;
-               color: #696969;
-               font-weight: 600;
-               cursor: pointer;
-           }
-           .filter-course>li.active{
-               border-bottom: 2px solid #3dbca8;
-           }
-           table{
-               border-collapse: collapse;
-               border: 1px solid #e6e6e6;
-               text-align: center;
-           }
-           th{
-               color: #5e5e5e;
-               background-color: #e6e6e6;
-           }
-           td,th{
-               padding: 12px 24px;
+            .user-nav a{
+                text-decoration: none;
+                color: #6a6a6a;
+                line-height: 50px;
+                margin-left: 16px;
+                display: block;
+            }
+            .user-nav a i{
+                margin-right: 16px;
+            }
+            .user-content{
+                padding: 0 50px;
+                flex: 1;
+            }
+            .filter-course{
+                list-style: none;
+                display: flex;
+                gap:16px;
+                margin-bottom: 32px;
+            }
+            .filter-course>li{
+                padding: 0px 4px;
+                color: #696969;
+                font-weight: 600;
+                cursor: pointer;
+            }
+            .filter-course>li.active{
+                border-bottom: 2px solid #3dbca8;
+            }
+            table{
+                border-collapse: collapse;
+                border: 1px solid #e6e6e6;
+                text-align: center;
+            }
+            th{
+                color: #5e5e5e;
+                background-color: #e6e6e6;
+            }
+            td,th{
+                padding: 12px 24px;
 
-           }
-           .course-table img{
-               max-width: 100px;
-               max-height: 70px;
-           }
-           /**/
-           @media screen and (max-width:740px) {
+            }
+            .course-table img{
+                max-width: 100px;
+                max-height: 70px;
+            }
+            /**/
+            @media screen and (max-width:740px) {
 
 
-               .container{
-                   padding: 50px 20px;
-                   max-width: 100%;
-               }
-               .banner h2{
-                   font-size: 9vw;
-               }
-               .user-container{
-                   flex-direction: column;
-               }
-               .user-nav{
-                   flex-direction: row;
-                   width: fit-content;
-               }
-               .user-nav li{
-                   width: fit-content;
-                   display: flex;
-                   height: fit-content;
-               }
-               .user-nav a{
-                   margin-left: 0; 
-                   text-align: center; 
-               }
-               .user-nav a i{
-                   margin-right: 0;
-               }
+                .container{
+                    padding: 50px 20px;
+                    max-width: 100%;
+                }
+                .banner h2{
+                    font-size: 9vw;
+                }
+                .user-container{
+                    flex-direction: column;
+                }
+                .user-nav{
+                    flex-direction: row;
+                    width: fit-content;
+                }
+                .user-nav li{
+                    width: fit-content;
+                    display: flex;
+                    height: fit-content;
+                }
+                .user-nav a{
+                    margin-left: 0;
+                    text-align: center;
+                }
+                .user-nav a i{
+                    margin-right: 0;
+                }
 
-               .user-content{
-                   padding: 0;
-               }
-               .display-course-content{
-                   overflow-x: scroll;
-                   max-width: 100%;
-               }
-               .filter-course{
-                   margin-top: 64px;
-               }
-               td,th{
-                   padding: 8px 12px;
-               }
-           }
+                .user-content{
+                    padding: 0;
+                }
+                .display-course-content{
+                    overflow-x: scroll;
+                    max-width: 100%;
+                }
+                .filter-course{
+                    margin-top: 64px;
+                }
+                td,th{
+                    padding: 8px 12px;
+                }
+            }
             .noice-empty{
                 display: flex;
                 margin: auto;
@@ -187,13 +191,13 @@
                 background-color: #ccc;
                 cursor: pointer;
             }
-            
-       </style>
-       
-        
+
+        </style>
+
+
     </head>
     <body>
-        
+
         <%@include file="../Component/header.jsp" %> 
         <div class="banner">
             <h2>Your Profile</h2>
@@ -248,13 +252,13 @@
                                 </table>
                             </div>
                         </c:if>
-                         <c:if test="${listRegistrationCourse==null || listRegistrationCourse.size() lt 1}">
-                                <div class="noice-empty" style="margin-top: 20px">
-                                    <img src="../Asset/img/icon/empty.png" alt="">
-                                    <h4>Empty!</h4>
-                                </div>
-                            </c:if>
-                        
+                        <c:if test="${listRegistrationCourse==null || listRegistrationCourse.size() lt 1}">
+                            <div class="noice-empty" style="margin-top: 20px">
+                                <img src="../Asset/img/icon/empty.png" alt="">
+                                <h4>Empty!</h4>
+                            </div>
+                        </c:if>
+
                     </div>
 
                 </div>
@@ -263,31 +267,31 @@
         </div>
         <%@include file="../Component/footer.jsp" %> 
         <script>
-            function goto(url){
-                window.window.location.href = "${pageContext.request.contextPath}/"+url;   
+            function goto(url) {
+                window.window.location.href = "${pageContext.request.contextPath}/" + url;
             }
-            
-            $(document).ready(()=>{
-               document.querySelectorAll(".filter-course li").forEach(f =>{
-                $(f).click(()=>{
-                    $(f).addClass('active');
-                    $(f).siblings().removeClass('active');
-                    $.ajax({
-                        url:"course?status="+$(f).val(),
-                        type:"get",
-                        success:function(data){
-                            $('.display-course-content').html(data);
-                        },
-                        error: function(msg){
 
-                            console.log("ereor");
-                        }   
+            $(document).ready(() => {
+                document.querySelectorAll(".filter-course li").forEach(f => {
+                    $(f).click(() => {
+                        $(f).addClass('active');
+                        $(f).siblings().removeClass('active');
+                        $.ajax({
+                            url: "course?status=" + $(f).val(),
+                            type: "get",
+                            success: function (data) {
+                                $('.display-course-content').html(data);
+                            },
+                            error: function (msg) {
+
+                                console.log("ereor");
+                            }
+                        });
                     });
                 });
-               });
 
             });
-            
+
         </script>
     </body>
 </html>

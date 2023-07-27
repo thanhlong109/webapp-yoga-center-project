@@ -27,7 +27,7 @@ public class ViewBillCashierController extends HttpServlet {
             throws ServletException, IOException {
          BillRepository _billRepository = new BillRepository();
          String npage = request.getParameter("page");
-         int itemPerPage = 6;
+         int itemPerPage = 4;
          int size = _billRepository.count();
          int numPage = (int) Math.ceil(size/ itemPerPage);
          int page = 1;

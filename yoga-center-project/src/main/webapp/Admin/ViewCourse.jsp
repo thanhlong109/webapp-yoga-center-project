@@ -30,7 +30,6 @@
         <link rel="stylesheet" href="${pageContext.request.contextPath}/Asset/css/paginationAdmin.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/Asset/css/alertBoxAdmin.css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
-        <script src="${pageContext.request.contextPath}/js/cdnjs.cloudflare.com_ajax_libs_Chart.js_2.4.0_Chart.min.js"></script>
         <style>
             .image {
                 max-width: 90%;
@@ -43,18 +42,18 @@
     <body>
         <div class="container">       
             <jsp:include page="../Component/adminSideMenu2.jsp"></jsp:include>
-                <main>
-                    <div class="top">
-                        <button id="menu-btn">
-                            <span class="material-symbols-sharp">menu</span>
-                        </button>
-                        <form action="searchCourseController" id="search-box">
-                            <input type="text" name="txtSearch" id="search-text" placeholder="Search anything you want" required>
-                            <button type="submit" id="btnSearch"><i class="fa-solid fa-magnifying-glass"></i></button>
-                        </form>
-                        <div class="profile">
-                            <div class="info">
-                                <p>Hey, <b>${sessionScope.account.name}</b></p>
+            <main>
+                <div class="top">
+                    <button id="menu-btn">
+                        <span class="material-symbols-sharp">menu</span>
+                    </button>
+                    <form action="searchCourseController" id="search-box">
+                        <input type="text" name="txtSearch" id="search-text" placeholder="Search anything you want" required>
+                        <button type="submit" id="btnSearch"><i class="fa-solid fa-magnifying-glass"></i></button>
+                    </form>
+                    <div class="profile">
+                        <div class="info">
+                            <p>Hey, <b>${sessionScope.account.name}</b></p>
                             <small class="text-muted">Admin</small>
                         </div>
                         <div class="profile-photo">
@@ -116,14 +115,14 @@
                     <c:if test="${NUMPAGE>1}">
                         <c:if test="${PAGE>1}">
                             <a href="viewCourseListController?page=${PAGE-1}"><i class="fa-solid fa-chevron-left"></i></a>
-                            </c:if>
-                            <c:forEach begin="${1}" var="i" end="${NUMPAGE}">
+                        </c:if>
+                        <c:forEach begin="${1}" var="i" end="${NUMPAGE}">
                             <a href="viewCourseListController?page=${i}" <c:if test="${i==PAGE}">class="p-active"</c:if> >${i}</a>
                         </c:forEach>
                         <c:if test="${PAGE<NUMPAGE}">
                             <a href="viewCourseListController?page=${PAGE<NUMPAGE?(PAGE+1):NUMPAGE}"><i class="fa-solid fa-chevron-right"></i></a>
-                            </c:if>
                         </c:if>
+                    </c:if>
                 </div>  
             </main>
         </div>

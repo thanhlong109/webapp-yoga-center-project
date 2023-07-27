@@ -20,7 +20,7 @@ public class ViewClassScheduleListController extends HttpServlet {
             throws ServletException, IOException {
         ClassScheduleRepository csr = new ClassScheduleRepository();       
         String xPage = request.getParameter("page");
-        int itemPerPage = 4;
+        int itemPerPage = 8;
         int size = csr.count();
         int numPage = (int) Math.ceil(size / (double) itemPerPage);
         int page = 1;

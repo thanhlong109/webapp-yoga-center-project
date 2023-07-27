@@ -42,22 +42,22 @@
                         <div class="profile">
                             <div class="info">
                                 <p>Hey, <b>${sessionScope.account.name}</b></p>
-                                <small class="text-muted">Admin</small>
-                            </div>
-                            <div class="profile-photo">
-                                <img src="../Asset/img/avatar/${sessionScope.account.img}" alt="">
-                            </div>
+                            <small class="text-muted">Admin</small>
+                        </div>
+                        <div class="profile-photo">
+                            <img src="../Asset/img/avatar/${sessionScope.account.img}" alt="">
                         </div>
                     </div>
-                    <h1>Add Course</h1>
-                    <div id="wrapper">
-                        <form action="../admin/addCourseController" method="post" enctype="multipart/form-data">
-                            <h3>Add Course</h3>
+                </div>
+                <h1>Add Course</h1>
+                <div id="wrapper">
+                    <form id="formA" action="../admin/addCourseController" method="post" enctype="multipart/form-data">
+                        <h3>Add Course</h3>
 
-                            <div class="input__group">
-                                <input type="text" name="txtTitle" required>
-                                <label for="">Title</label>
-                            </div>
+                        <div class="input__group">
+                            <input type="text" name="txtTitle" required>
+                            <label for="">Title</label>
+                        </div>
                         <c:if test="${ADD_COURSE_ERROR.courseTitleLengthError != null}">
                             <div class="alert">
                                 <span class="closebtn" onclick="this.parentElement.style.display = 'none';">&times;</span> 
@@ -70,10 +70,10 @@
                                 <strong>Warning!</strong> ${ADD_COURSE_ERROR.courseTitleDuplicateError}
                             </div>
                         </c:if>
-                            <p>Details</p>
+                        <p>Details</p>
                         <div class="input__group detail">
-                            <textarea id="textEditor" name="txtDetail" id="detail" rows="5" required></textarea>
-                            
+                            <textarea id="textEditor" id="detail" rows="5"></textarea>
+                            <input name="txtDetail" type="hidden" id="detail">
                         </div>
                         <c:if test="${ADD_COURSE_ERROR.courseDetailLengthError != null}">
                             <div class="alert">
@@ -142,6 +142,7 @@
             </main>
         </div>
         <script>
+            
             tinymce.init({
                 selector: '#textEditor',
                 plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed linkchecker a11ychecker tinymcespellchecker permanentpen powerpaste advtable advcode editimage tinycomments tableofcontents footnotes mergetags autocorrect typography inlinecss',
@@ -150,8 +151,11 @@
                 tinycomments_author: 'Author name',
                 mergetags_list: [
                     {value: 'First.Name', title: 'First Name'},
-                    {value: 'Email', title: 'Email'},
+                    {value: 'Email', title: 'Email'}
                 ]
+            });
+            $('#formA').on('submit',function(e){
+                $('#detail').val(tinymce.activeEditor.getContent());
             });
             var loadFile = function (event) {
                 let reader = new FileReader();

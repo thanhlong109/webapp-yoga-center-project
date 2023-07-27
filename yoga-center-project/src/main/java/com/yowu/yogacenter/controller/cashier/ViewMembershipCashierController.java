@@ -28,7 +28,7 @@ public class ViewMembershipCashierController extends HttpServlet {
             throws ServletException, IOException {
         BillMembershipRepository _billMembershipRepository = new BillMembershipRepository();
          String npage = request.getParameter("page");
-         int itemPerPage = 6;
+         int itemPerPage = 4;
          int size = _billMembershipRepository.count();
           int numPage = (int) Math.ceil(size/ itemPerPage);
          int page = 1;

@@ -29,7 +29,7 @@ public class ViewAccountListController extends HttpServlet {
 
          //Phan trang
         String xpage = request.getParameter("page");
-        int itemPerPage = 3; // number item each page
+        int itemPerPage = 6; // number item each page
         int size = _accountRepository.count();
         int numPage = (int) Math.ceil(size / (double) itemPerPage);// this will print how many page number
         int page = 1;

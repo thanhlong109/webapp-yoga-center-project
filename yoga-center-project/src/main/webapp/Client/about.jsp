@@ -17,7 +17,7 @@
          <link rel="stylesheet" href="Asset/css/common.css">
         <style>
             .banner{
-                padding: 12% 20px 10% 20px;
+                padding: 12% 20px 4% 20px;
                 width: 100%;
                 text-align: center;
                 background: url(Asset/img/bg/page-title-1.png) top center / cover no-repeat;
@@ -25,6 +25,10 @@
             .banner h2{
                 color: #227179;
                 font-size: 3.3vw;
+            }
+            .banner p{
+                color: #547670;
+                font-size: 24px;
             }
             .section1{
                 display: grid;
@@ -240,22 +244,22 @@
                             <div class="icon">
                                 <img src="Asset/img/icon/icon1.png" alt="">
                             </div>
-                            <h3>How we become Yowu</h3>
-                            <p>Modern yoga consists of a range of techniques including asanas and meditation derived</p>
+                            <h3>Where are we from</h3>
+                            <p>Modern yoga consists of a range of techniques including asanas (postures) and meditation derived from some of the philosophies, teachings and practices of the Yoga school.</p>
                         </div>
                         <div class="tag">
                             <div class="icon">
                                 <img src="Asset/img/icon/icon1.png" alt="">
                             </div>
-                            <h3>How we become Yowu</h3>
-                            <p>Modern yoga consists of a range of techniques including asanas and meditation derived</p>
+                            <h3>Our Expertises</h3>
+                            <p>A social network is a social structure made up of a set of social actors (such as individuals or organizations), sets of dyadic ties, and other social interactions between actors. </p>
                         </div>
                         <div class="tag">
                             <div class="icon">
                                 <img src="Asset/img/icon/icon1.png" alt="">
                             </div>
-                            <h3>How we become Yowu</h3>
-                            <p>Modern yoga consists of a range of techniques including asanas and meditation derived</p>
+                            <h3>Clear Mind & Body</h3>
+                            <p>Modern yoga consists of a range of techniques including asanas (postures) and meditation derived from some of the philosophies, teachings and practices of the Yoga school.</p>
                         </div>
 
                     </div>
@@ -268,13 +272,8 @@
             <div class="section section6">
                 <div>
                     <img src="Asset/img/icon/mail.png" alt="">
-                    <h2 class="section-title">Subscribe to our newsletter</h2>
-                    <p class="section-des">Get updates for new classes and new products</p>
-                    <form action="#">
-                        <i class="fa-sharp fa-solid fa-paper-plane"></i>
-                        <input type="text" name="mail" placeholder="Your Email Address">
-                        <button type="submit">SUBSCRIBE</button>
-                    </form>
+                    <h2 class="section-title">We wish you a good experience with Yowu.</h2>
+                    
                 </div>
             </div>
         </div>

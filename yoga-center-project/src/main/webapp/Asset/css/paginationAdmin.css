@@ -21,10 +21,11 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
     text-align: center;
     line-height: 45px;
     border-radius: 50%;
+    border: 1px solid #e5e7eb;
     font-weight: 500;
     transition: ease-in-out .3s;
     margin: 0 12px;
-    background-color: #f0f0f0;
+    background-color: white;
 }
 .pagination a:hover, .pagination .p-active{
     background-color: #547670;

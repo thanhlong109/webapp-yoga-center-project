@@ -1,5 +1,5 @@
 .banner{
-    padding: 12% 20px 10% 20px;
+    padding: 12% 20px 4% 20px;
     justify-content: center;
     align-items: center;
     flex-direction: column;
@@ -9,6 +9,11 @@
 }
 .banner h2{
     color: #227179;
+    font-size: 2.2vw;
+}
+.banner p{
+    color: #547670;
+    font-size: 24px;
 }
 .container{
     display: grid;

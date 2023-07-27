@@ -4,6 +4,7 @@
  */
 package com.yowu.yogacenter.controller.client;
 
+import com.yowu.yogacenter.model.Course;
 import com.yowu.yogacenter.repository.AccountRepository;
 import com.yowu.yogacenter.repository.CategoryRepository;
 import com.yowu.yogacenter.repository.CourseRepository;
@@ -13,6 +14,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  *
@@ -25,8 +27,10 @@ public class HomeController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        CategoryRepository categoryRepo = new CategoryRepository();
         CourseRepository cr = new CourseRepository();
+        List<Course> list = cr.getActive();
+        request.setAttribute("courseList", list);
+        CategoryRepository categoryRepo = new CategoryRepository();
         AccountRepository ar = new AccountRepository();
         request.setAttribute("popularList", cr.getPopularCourse(0,8));
         request.setAttribute("instructorList", ar.getIntructorList());

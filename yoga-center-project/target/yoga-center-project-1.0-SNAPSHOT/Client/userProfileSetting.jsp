@@ -10,7 +10,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width,initial-scale=1">
-        <title>user setting</title>
+        <title>User Setting</title>
         <link rel="stylesheet" href="../Asset/css/clientHeader.css">
         <link rel="stylesheet" href="../Asset/css/clientFooter.css">
         <link rel="stylesheet" href="../Asset/css/common.css">

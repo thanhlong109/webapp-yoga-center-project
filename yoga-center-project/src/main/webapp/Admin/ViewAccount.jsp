@@ -78,7 +78,7 @@
                             <c:forEach items="${ACCOUNT_LIST}" var="account">
                                 <tr>
                                     <td>
-                                        <img class="image" src="../Asset/img/account/${account.img}" alt="img">  
+                                        <img class="image" src="../Asset/img/avatar/${account.img}" alt="img">  
                                     </td>
                                     <td>
                                         ${account.name}

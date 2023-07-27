@@ -157,13 +157,14 @@
                 <i id="left" class="fa-solid fa-arrow-left"></i>
                 <ul class="caroursel">
                     <c:forEach items="${instructorList}" var="acc">
+                        
                         <li class="card">
                             <div class="card-img card2">
                                 <img src="Asset/img/avatar/${acc.img}" alt="">
                             </div>
                             <div class="card2-body">
                                 <h2>${acc.name}</h2>
-                                <a href="#">${courseRepo.countNumberCourseByInstructor(acc.id)} Course</a>
+                                <a href="instructor?id=${acc.id}">${courseRepo.countNumberCourseByInstructor(acc.id)} Course</a>
                             </div>
                         </li>
                         
@@ -193,13 +194,8 @@
             <div class="section section6">
                 <div>
                     <img src="Asset/img/icon/mail.png" alt="">
-                    <h2 class="section-title">Subscribe to our newsletter</h2>
-                    <p class="section-des">Get updates for new classes and new products</p>
-                    <form action="#">
-                        <i class="fa-sharp fa-solid fa-paper-plane"></i>
-                        <input type="text" name="mail" placeholder="Your Email Address">
-                        <button type="submit">SUBSCRIBE</button>
-                    </form>
+                    <h2 class="section-title">We wish you a good experience with Yowu.</h2>
+                    
                 </div>
             </div>
         <jsp:include page="../Component/footer.jsp"></jsp:include>

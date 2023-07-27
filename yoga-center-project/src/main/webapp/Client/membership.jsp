@@ -53,7 +53,7 @@
             background: #fff;
             border-radius: 5px;
             width: 60%;
-            max-width: 400px;
+            max-width: 500px;
             padding: 20px;
             position: relative;
             transition: all 1s ease-in-out;
@@ -97,7 +97,7 @@
             margin-top: 20px;
             padding: 8px 15px;
             border: none;
-            background-color: #06d85f;
+            background-color: #1cccb8;
             color: #fff;
             font-size: 16px;
             border-radius: 5px;
@@ -205,7 +205,9 @@
                 <h3>Update Membership Card</h3>
                 <hr class="hr" />
                 <a href="#anchorLink" class="close" onclick="closePopupEdit()">&times;</a>
-                <p>Are you sure you want to update your membership card?</p>
+                <p style="color: #ee4747">Are you sure to upgrade your membership card?</p>
+                   <p style="color: #ee4747">When you click OK, you will cancel the remaining time of the card you currently own.</p>
+                </p>
                 <button class="btn-silver" onclick="handleUpdate(memId)">Update Now</button>
                 <button class="btn-silver" onclick="closePopupEdit()">Cancel</button>
             </div>

@@ -303,7 +303,7 @@
                             <div class="user-box">
                                 <input class="pass" type="password" name="password" required>
                                 <label>Password</label>
-                                <p class="note-login error" >${errLogin}</p>
+                                <p class="note-login error" style="margin:  3px 0 5px 0">${errLogin}</p>
                         </div>
                         <div class="check">
                             <input onchange="show()" type="checkbox" id="passwordShow" class="show">

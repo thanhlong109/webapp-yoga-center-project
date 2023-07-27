@@ -42,10 +42,21 @@ public class CourseSchedule {
     public String dateToString(){
         String[] days = dateOfWeek.split(",");
         String daysTxt = "";
-        for(String day : days){
-            daysTxt+=DayOfWeek.values()[Integer.parseInt(day)].name().toLowerCase()+", ";
+        for(int i=0;i<days.length-1;i++){
+            String dateTxt = DayOfWeek.values()[Integer.parseInt(days[i])].name().toLowerCase();
+            daysTxt+=capitalizeWords(dateTxt) + ", ";
         }
+        String dateTxt = DayOfWeek.values()[Integer.parseInt(days[days.length-1])].name().toLowerCase();
+        daysTxt += capitalizeWords(dateTxt);
         return daysTxt;
+    }
+    private String capitalizeWords(String word){
+        String result="";
+        if (!word.isEmpty()) {
+                char firstLetter = Character.toUpperCase(word.charAt(0));
+                 result+=firstLetter +word.substring(1);
+            }
+        return result;
     }
     
     public int getId() {

@@ -263,7 +263,7 @@
                 } else if ($('#postTile').val().length > maxLengthTitle) {
                     toast({
                         title: "Opps!",
-                        msg: "Post title maximun " + maxLengthTitle + " charactors!",
+                        msg: "Post title maximun " + maxLengthTitle + " characters!",
                         type: 'warning',
                         duration: 3000
                     });
@@ -271,15 +271,15 @@
                 } else if ($('#textEditor').val().length > maxLengthContent) {
                     toast({
                         title: "Opps!",
-                        msg: "Post content maximun " + maxLengthContent + " charactors!",
+                        msg: "Post content maximun " + maxLengthContent + " characters!",
                         type: 'warning',
                         duration: 3000
                     });
                     e.preventDefault();
-                } else if ($('#textEditor').val().length < minLengthContent) {
+                } else if (tinymce.activeEditor.getContent().length < minLengthContent) {
                     toast({
                         title: "Opps!",
-                        msg: "Post content minimum " + minLengthContent + " charactors!",
+                        msg: "Post content minimum " + minLengthContent + " characters!",
                         type: 'warning',
                         duration: 3000
                     });

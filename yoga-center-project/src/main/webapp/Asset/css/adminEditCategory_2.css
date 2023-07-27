@@ -283,7 +283,9 @@ main .top .profile{
     justify-content: center;
 /*    align-items: center;*/
     height: fit-content;
+    align-items: center;
     width: 100%;
+    margin-bottom: 20px;
 }
 .wrapper-box .btn{
     padding: 8px 16px;

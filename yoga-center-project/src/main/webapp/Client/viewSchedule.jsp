@@ -57,7 +57,7 @@
                             <c:forEach items="${row}" var="item">
                                 <td <c:if test="${item!=null}">data-typeid="${item.registrationCourse.course.category.id}" class="event"</c:if>  >
                                     <c:if test="${item!=null}">
-                                        <a class="event-title">${item.registrationCourse.course.category.name}</a>
+                                        <a class="event-title">${item.registrationCourse.course.title}</a>
                                         <input id="dayTime"  value="${dayList}" type="hidden">
                                         <p class="event-slot"><fmt:formatDate value="${item.startTime}" pattern="HH:mm a" /> - <fmt:formatDate value="${item.endTime}" pattern="HH:mm a" /></p>
                                         <p class="event-sub-title">Yowu Studio</p>

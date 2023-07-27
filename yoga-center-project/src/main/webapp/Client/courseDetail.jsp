@@ -33,7 +33,7 @@
                 flex-direction: column;
             }
             .banner{
-                padding: 12% 20px 10% 20px;
+                padding: 12% 20px 4% 20px;
                 width: 100%;
                 text-align: center;
                 background: url(${pageContext.request.contextPath}/Asset/img/bg/page-title-1.png) top center / cover no-repeat;
@@ -41,6 +41,10 @@
             .banner h2{
                 color: #227179;
                 font-size: 3.3vw;
+            }
+            .banner p{
+                color: #547670;
+                font-size: 24px;
             }
             .wrapper-container{
                 max-width: 1320px;
