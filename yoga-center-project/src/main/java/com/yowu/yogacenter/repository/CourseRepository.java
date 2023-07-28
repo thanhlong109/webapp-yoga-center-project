@@ -415,7 +415,7 @@ public class CourseRepository implements Serializable{
     }
 
     public List<Course> getAllFollowPagination(int offset, int next) {
-        String sql = "select * from tblCourse order by course_id desc OFFSET ? ROWS FETCH NEXT ? ROWS ONLY ";
+        String sql = "select * from tblCourse where course_is_active=1 order by course_id desc OFFSET ? ROWS FETCH NEXT ? ROWS ONLY ";
         List<Course> list = new ArrayList<>();
         try ( PreparedStatement stmt = DBHelpler.makeConnection().prepareStatement(sql)) {
             stmt.setInt(1, offset);
